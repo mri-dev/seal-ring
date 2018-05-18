@@ -867,7 +867,8 @@ body.singlepage{
   border-radius: 10px;
 }
 
-.filter-sidebar{
+.filter-sidebar,
+.right-sidebar{
 	.side-group {
 		color: #404040;
 		margin: 0 0 15px 0;
@@ -1128,7 +1129,7 @@ body.singlepage{
 	justify-content: space-between;
 	border-bottom: 0.5px solid #c8cbcc;
 	padding: 0 0 10px 0;
-	margin: 10px;
+	margin: 10px 0;
 
 	h2 {
 		text-transform: uppercase;
@@ -1156,7 +1157,9 @@ body.singlepage{
 }
 
 .home {
-	padding: 20px 0;
+	padding: $pagw-width-padding;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	h1.stitle, h3.stitle {
 		text-transform: uppercase;
 		font-size: 1.6em;
@@ -1164,12 +1167,13 @@ body.singlepage{
 		margin: 10px;
 		color: darken( $color-sec, 40%);
 	}
-	.filter-sidebar {
+	.filter-sidebar,
+	.right-sidebar {
 	  flex-basis: $size-sidebar;
 	}
 	.inside-content{
 		flex: 1;
-		padding: 0 0 0 15px;
+		padding: 0 20px;
 	}
 }
 
@@ -1181,9 +1185,19 @@ body.singlepage{
 
 	ul{
 		li{
-			border-bottom: 0.4px solid #c8cbcc;
 			position: relative;
 			display: none;
+			&:after{
+				content: "";
+				height: 1px;
+				width: 90%;
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				background: #c8cbcc;
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
 			.toggler{
 				position: absolute;
 				right: 0;
@@ -1218,7 +1232,6 @@ body.singlepage{
 				}
 			}
 			a{
-				background: #ffffff;
 				display: block;
 				color: black;
 				text-transform: uppercase;
@@ -1268,7 +1281,9 @@ body.singlepage{
 					}
 				}
 			}
+		
 		}
+
 	}
 }
 
@@ -6272,54 +6287,43 @@ a.cetelem-startrans {
 }
 .news,
 .news-list {
-	background: #f1f1f1;
-	border-top: 3px solid #dbdbdb;
-	padding: 20px 0 50px 0;
 	position: relative;
 
 	.slick-dots{
 		position: absolute;
-		bottom: -33px;
-		left: 50%;
-		z-index: 1;
-		-webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+		right: 70px;
+		top: -42px;
 
-		& > li {
+		li {
+			width: 25px;
+			height: 25px;
+			background: white;
+			border: 0.4px solid #eaeaea;
 			display: inline-block;
 			*display: inline;
 			zoom: 1;
-			vertical-align: middle;
-	 		padding: 0 4px;
+			margin-left: 5px;
 
-			& > button{
-				position: relative;
-				background: transparent;
-				border: none;
-				text-indent: -9999px;
-				&:after{
-					font-family: 'FontAwesome';
-					content:"\f1db";
-					font-size: 14px;
-					width: 16px;
-					height: 16px;
-					line-height: 16px;
-					top: 50%;
-					color:#bfbfbf;
-					left: 50%;
-					text-indent: initial;
-					position: absolute;
-					-webkit-transform: translate(-50%,-50%);
-					transform: translate(-50%,-50%);
+			button {
+				width: 25px;
+				height: 25px;
+				border:none;
+				text-align: center;
+				color: #555555;
+				background: none;
+				font-weight: bold;
+				font-size: 0.9em;
+			}
+			&.slick-active{
+				background: #333333;
+				button {
+					color: white;
 				}
 			}
-
-			&.slick-active{
-				& > button{
-					&:after{
-						content:"\f111";
-						color: lighten($color-grey-dark, 20%);
-					}
+			&:hover{
+				background: #666666;
+				button {
+					color: white;
 				}
 			}
 		}
@@ -6327,24 +6331,24 @@ a.cetelem-startrans {
 
 	.slick-arrow{
 		position: absolute;
-		bottom: -35px;
+		top: -42px;
 		width: 25px;
 		height: 25px;
 		border: none;
 		background: white;
 		text-indent: -9999px;
-		color: $color-blue-light;
+		border: 0.4px solid #eaeaea;
+		color: #555555;
 		z-index: 2;
-    border: 0.4px solid $color-blue-light;
 
 		&:after{
 			font-family: 'FontAwesome';
-			font-size: 20px;
+			font-size: 16px;
 			width: 25px;
 			height: 25px;
 			line-height: 25px;
 			top: 50%;
-			color: $color-blue;
+			color: #555555;
 			left: 50%;
     	text-indent: initial;
 			position: absolute;
@@ -6353,20 +6357,20 @@ a.cetelem-startrans {
 		}
 
 		&.slick-prev{
-			right: 43px;
+			right: 40px;
 			&:after{
 				content: "\f104";
 			}
 		}
 		&.slick-next{
-			right: 15px;
+			right: 10px;
 			&:after{
 				content: "\f105";
 			}
 		}
 
 		&:hover{
-			background: $color-blue-light;
+			background: #333333;
 			color: white;
 
 			&:after{
@@ -6428,7 +6432,7 @@ a.cetelem-startrans {
 				}
 
 				.content{
-					padding: 0 10px;
+					padding: 0 30px;
 					font-size: 0.8em;
 					line-height: 1.2;
 					text-align: justify;
@@ -6482,7 +6486,7 @@ a.cetelem-startrans {
 				& > .wrapper{
 					.more{
 						a{
-							background: $color-blue-light;
+							background: $color-green;
 						}
 					}
 				}

@@ -2,15 +2,16 @@ header {
 	border-bottom: 3px solid #f5f5f5;
 	border-top: 5px solid $color-green;
 	font-weight: 400;
+	padding: $pagw-width-padding;
 
 	& > .pw > .flex{
 		align-items: center;
 		& > .logo {
-			flex-basis: 180px;
-			text-align: center;
+			flex-basis: 150px;
+			text-align: left;
 
 			img {
-				height: 80px;
+				height: 100px;
 			}
 		}
 	}
@@ -27,7 +28,7 @@ header {
 			align-items: center;
 		}
 		.social {
-			padding: 0 0 0 25px;
+			padding: 0 0 0 12px;
 			.flex {
 				align-items: center;
 				justify-content: flex-start;
@@ -38,14 +39,34 @@ header {
 
 				a {
 					padding: 0;
-					width: 18px;
-					line-height: 18px;
+					width: 24px;
+					line-height: 24px;
 					display: block;
 					text-align: center;
 					background-color: $color-green;
 					color: white;
-					font-size: 10px;
-					@include border-radius(10px);
+					font-size: 14px;
+					@include border-radius(24px);
+				}
+			}
+		}
+		.contacts{
+			padding: 0 0 0 25px;
+			font-size: 1.2em;
+
+			.flex > div {
+				padding: 0 10px;
+
+				a{
+					color: $color-green;
+					text-decoration: none;
+				}
+
+				i{
+					margin-right: 10px;
+					font-size: 18px;
+     			vertical-align: text-bottom;
+					color: darken($color-grey, 20%);
 				}
 			}
 		}
@@ -141,7 +162,7 @@ header {
 					&.cart{
 						background: white;
 						border: 0.5px solid $color-green;
-						flex-basis: 200px;
+						flex-basis: $size-sidebar;
 						position: relative;
 
 						.ico {
@@ -264,10 +285,11 @@ header {
 		flex: 1;
 		& > .flex {
 			align-items: center;
+			padding: 10px 0;
 		}
 
 		.nav {
-			padding: 0 25px;
+			padding: 0 25px 0 0;
 			flex: 1;
 			text-align: center;
 
@@ -316,7 +338,7 @@ header {
 
 					&.has-sub {
 						& > a{
-							height: 62px;
+							height: 52px;
 						}
 					}
 
@@ -406,75 +428,61 @@ header {
 							display: block;
 						}
 					}
+				}
+			}
+		}
+		.search{
+			flex-basis: $size-sidebar;
+			.searchform {
+				.wrapper{
+					border: 0.4px solid #d1d6d8;
+					display: -webkit-box;
+					display: -ms-flexbox;
+					display: flex;
+					flex-wrap: nowrap;
+					align-items: center;
+					height: 38px;
 
-					&.searcher:hover{
-						.searchform{
-							display: block !important;
+					input{
+						height: 38px;
+						line-height: 38px;
+						width: 100%;
+						display: block;
+						border: none;
+						color: $color-green;
+						background: transparent;
+						padding: 0 10px;
+					}
+
+					.input{
+						flex: 1;
+					}
+
+					.button {
+						flex-basis: 40px;
+						height: 38px;
+
+						button {
+							height: 38px;
+							display: block;
+							width: 100%;
+							border: none;
+							cursor: pointer;
+							background-color: darken($color-grey, 20%);
+
+							i {
+								color: white;
+							}
+
+							&:hover{
+								background-color: $color-green;
+							}
 						}
 					}
 				}
 			}
 		}
 
-		.searchform {
-			display: none;
-			position: absolute;
-			padding: 0px;
-			background: white;
-			border: 0.4px solid #cacaca;
-			border-top: none;
-			z-index: 100;
-			width: 250px;
-			background: #fafafa;
-			margin-top: -1px;
-			box-shadow: 4px 10px 20px -3px rgba(0, 0, 0, 0.3);
-
-			& > .wrapper{
-				padding: 15px;
-
-				h2{
-					text-transform: uppercase;
-					color: #7e7e7e;
-    			letter-spacing: -1px;
-					font-size: 1.7em;
-    			margin: 0 0 15px 0;
-				}
-
-				.input{
-					border: 0.4px solid #c8cbcc;
-					background: white;
-					margin: 0 0 15px 0;
-				}
-			}
-
-			input[type=text] {
-				background: transparent;
-				border: none;
-				width: 100%;
-				line-height: 36px;
-				color: $color-blue;
-			}
-
-			input[type=text],
-			button {
-				line-height: 36px;
-				padding: 0 12px;
-			}
-
-			button {
-				background: $color-grey-dark;
-				color: white;
-				border: none;
-				padding: 0 12px;
-				width: 100%;
-				vertical-align: middle;
-				cursor: pointer;
-
-				&:hover{
-					background: $color-blue;
-				}
-			}
-		}
 	}
 
 	.bottom {

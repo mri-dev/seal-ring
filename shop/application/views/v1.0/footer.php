@@ -139,7 +139,7 @@
 			</div>
 		</div>
 		<div class="info">
-			<div class="pw">
+			<div class="pwf">
 				<div class="flex">
 					<div class="contact">
 						<div class="phone">
@@ -150,7 +150,7 @@
 				</div>
 			</div>
 			<div class="bottom">
-				<div class="pw">
+				<div class="pwf">
 					<span class="author">&copy; <?=$this->settings['page_author']?></span> 2018. Minden jog fenntartva!
 				</div>
 			</div>

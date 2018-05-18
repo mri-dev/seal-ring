@@ -65,6 +65,16 @@
                 <?php endif; ?>
               </div>
             </div>
+            <div class="contacts">
+              <div class="flex">
+                <div class="phone">
+                  <i class="fa fa-phone"></i> <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
+                </div>
+                <div class="email">
+                  <i class="fa fa-envelope"></i> <a href="mailto:<?=$this->settings['office_email']?>"><?=$this->settings['office_email']?></a>
+                </div>
+              </div>
+            </div>
             <div class="navs">
               <div class="flex">
                 <div class="partner">
@@ -107,12 +117,6 @@
         <div class="flex">
           <div class="nav">
             <ul>
-              <li class="cats">
-                <a href="/termekek"><i class="fa fa-sliders"></i> Összes termék <i class="fa fa-angle-down"></i></a>
-                <div class="list">
-                  <?php $this->render('templates/sidebar_menu'); ?>
-                </div>
-              </li>
               <? foreach ( $this->menu_header->tree as $menu ): ?>
               <li class="<?=($menu['child'])?'has-sub':''?>">
                 <a href="<?=($menu['link']?:'')?>">
@@ -135,23 +139,21 @@
                   <? endif; ?>
               </li>
               <? endforeach; ?>
-              <li class="searcher has-sub">
-                <a href="javascript:void(0);">Keresés <i class="fa fa-search"></i></a>
-                <div class="searchform">
-                  <div class="wrapper">
-                    <form class="" action="/termekek/" method="get">
-                    <h2>Termékek keresése</h2>
-                    <div class="input">
-                      <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">
-                    </div>
-                    <div class="button">
-                      <button type="submit">KERESÉS <i class="fa fa-search"></i></button>
-                    </div>
-                    </form>
+            </ul>
+          </div>
+          <div class="search">
+            <div class="searchform">
+              <form class="" action="/termekek/" method="get">
+                <div class="wrapper">
+                  <div class="input">
+                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">
+                  </div>
+                  <div class="button">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
-              </li>
-            </ul>
+              </form>
+            </div>
           </div>
         </div>
       </div>
