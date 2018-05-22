@@ -77,6 +77,15 @@
     </form>
   <?php endif; // End of product_listing ?>
 
+  <div class="documents side-group">
+    <div class="head">
+      Dokumentumok
+    </div>
+    <div class="wrapper">
+      ......
+    </div>
+  </div>
+
   <? if( $this->live_products_list && false ): ?>
   <div class="liveproducts side-group">
     <div class="head">
@@ -176,5 +185,14 @@
     </div>
   </div>
   <? endif; ?>
+
+  <div class="helpdesk side-group">
+    <div class="head">
+      Tudástár
+    </div>
+    <div class="wrapper">
+      ......
+    </div>
+  </div>
 
 </div>

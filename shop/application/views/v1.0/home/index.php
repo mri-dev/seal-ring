@@ -5,6 +5,7 @@
 				<? $this->render('templates/sidebar_menu'); ?>
 			</div>
 			<div class="grid-row inside-content">
+				<?php $this->render('templates/finder'); ?>
 				<?php if ( false ): ?>
 					<div class="title-header">
 						<div class="">
