@@ -36,7 +36,7 @@
   <div class="pw">
     <div class="flex">
       <div class="logo">
-        <a href="<?=$this->settings['page_url']?>"><img src="<?=IMG?>sealring_logo.png" alt="<?=$this->settings['page_title']?>"></a>
+        <a href="<?=$this->settings['page_url']?>"><img src="<?=IMG?>sealringlogo.svg" alt="<?=$this->settings['page_title']?>"></a>
       </div>
       <div class="main">
         <div class="top">
