@@ -34,7 +34,7 @@ ol, ul {
 }
 
 a, a:link, a:visited {
-  color: $color-blue;
+  color: $color-green;
 }
 
 .left{
@@ -228,6 +228,13 @@ body, html {
 	width: 100%;
 	margin: 0 auto;
 	padding: 25px 25px 0 25px;
+}
+
+body.fixwidth{
+	.website {
+		width: $page-width-footer;
+		padding: 25px 0;
+	}
 }
 
 h4 {

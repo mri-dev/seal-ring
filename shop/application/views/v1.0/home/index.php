@@ -82,9 +82,11 @@
 						});
 
 						trackwidth();
+						fixNewsImgHeight();
 
 						$(window).resize(function(){
 							trackwidth();
+							fixNewsImgHeight();
 						});
 					})
 
@@ -92,6 +94,13 @@
 						var w = $(window).width() - $('.filter-sidebar').width() - $('.right-sidebar').width() - 50 - 40 - 2;
 						$('.trackwidth').css({
 							width: w
+						});
+					}
+					function fixNewsImgHeight(){
+						var w = $('.news .articles article .img').width();
+						var h = w / 1.75;
+						$('.news .articles article .img').css({
+							height: h
 						});
 					}
 				</script>

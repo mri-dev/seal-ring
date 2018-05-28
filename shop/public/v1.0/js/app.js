@@ -1,4 +1,4 @@
-var tc = angular.module('tuzvedelmicentrum', ['ngMaterial', 'ngMessages', 'ngCookies']);
+var tc = angular.module('sealring', ['ngMaterial', 'ngMessages', 'ngCookies']);
 
 tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$location','$cookies', '$cookieStore', function($scope, $sce, $http, $mdToast, $mdDialog, $location, $cookies, $cookieStore)
 {
@@ -269,6 +269,113 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
       }
     });
   }
+
+  /******************************
+  * Finder
+  *******************************/
+  $scope.findernavpos = 'advenced';
+  $scope.finder_result_num = 987;
+  $scope.finder_config = {
+    'felhasznalasi_teruletek': [],
+    'meretek': [],
+    'selects': {
+      'cats': [],
+      'subcats': []
+    }
+  };
+
+  $scope.finder_config_select = {
+    felhasznalasi_terulet: 0,
+    selects: {
+      cat: null,
+      subcat: null
+    }
+  };
+
+  $scope.loadFinder = function(){
+    console.log('loadFindeer');
+
+    $scope.prepareConfigs(function(){});
+  }
+
+  $scope.prepareConfigs = function( callback )
+  {
+    $scope.finder_config.felhasznalasi_teruletek.push({
+      id: 1,
+      name: 'Hidraulika'
+    });
+    $scope.finder_config.felhasznalasi_teruletek.push({
+      id: 2,
+      name: 'Pneumatika'
+    });
+    $scope.finder_config.felhasznalasi_teruletek.push({
+      id: 3,
+      name: 'Autóipar'
+    });
+
+    $scope.finder_config.meretek.push({
+      name: 'Furat átmérő',
+      label: 'd',
+      id: 10,
+      range: {
+        min: null,
+        max: null
+      },
+      value: null
+    });
+
+    $scope.finder_config.meretek.push({
+      name: 'Belső átmérő',
+      label: 'B',
+      id: 10,
+      range: {
+        min: null,
+        max: null
+      },
+      value: null
+    });
+
+    $scope.finder_config.meretek.push({
+      name: 'Külső átmérő',
+      label: 'D',
+      id: 10,
+      range: {
+        min: null,
+        max: null
+      },
+      value: null
+    });
+
+    $scope.finder_config.meretek.push({
+      name: 'Anyag vastagság',
+      label: 'D',
+      id: 10,
+      range: {
+        min: null,
+        max: null
+      },
+      value: null
+    });
+
+    $scope.finder_config.selects.cats.push({
+      label: 'Kategória I.',
+      id: 1
+    });
+
+    if (typeof callback === 'function') {
+      callback();
+    }
+  }
+
+  $scope.goFinder = function(){
+    console.log($scope.finder_config_select);
+  }
+
+  $scope.switchFinderNav = function(tab)
+  {
+    $scope.findernavpos = tab;
+  }
+  /* END: Finder */
 
   $scope.toast = function( text, mode, delay ){
     mode = (typeof mode === 'undefined') ? 'simple' : mode;
@@ -760,7 +867,7 @@ tc.controller('popupReceiver', ['$scope', '$sce', '$cookies', '$http', '$locatio
 		'responsiveBreakpoint' : 960,
 		'domain' : false,
 		'receiverdomain' : '',
-		'imageRoot' : 'https://www.cp.tuzvedelmicentrum.web-pro.hu/'
+		'imageRoot' : 'https://www.cp.sealring.web-pro.hu/'
 	};
 
 	var param 	= function(obj) {
