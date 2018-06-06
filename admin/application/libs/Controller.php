@@ -61,7 +61,7 @@ class Controller {
           'user' => $this->User->get()
         ));
 
-        $this->Portal = new Portal( array( 'db' => $this->db, 'view' => $this->view )  );        
+        $this->Portal = new Portal( array( 'db' => $this->db, 'view' => $this->view )  );
         $this->Helpdesk = new Helpdesk( array( 'db' => $this->db )  );
         $this->captcha = (new Captcha)
         ->init(
@@ -121,12 +121,22 @@ class Controller {
             'user' => $this->User->get()
           ) ))->getLiveviewedList( \Helper::getMachineID(), 5, $arg );
           $this->out( 'live_products_list', $live_products );
+
+          /******
+          * Dokumentumok - Kiemelt
+          *******/
+          $this->out('top_documents', $top_products->getTermDocuments(0, array('kiemelt' => true )));
         }
 
         $templates = new Template( VIEW . 'templates/' );
         $this->out( 'templates', $templates );
         $this->out( 'highlight_text', $this->Portal->getHighlightItems() );
         $this->out( 'slideshow', $this->Portal->getSlideshow() );
+
+        if ( defined('PRODUCTIONSITE') )
+        {
+          $this->out( 'top_helpdesk_articles', $this->Helpdesk->getArticles(false, array('kiemelt'=> true)));
+        }
 
         // Menük
         $tree = null;

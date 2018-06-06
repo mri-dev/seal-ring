@@ -77,14 +77,24 @@
     </form>
   <?php endif; // End of product_listing ?>
 
+  <?php if ($this->top_documents): ?>
   <div class="documents side-group">
     <div class="head">
       Dokumentumok
     </div>
     <div class="wrapper">
-      ......
+      <div class="document-top-list">
+        <div class="wrapper">
+          <ul>
+            <?php foreach ($this->top_documents as $docs ): ?>
+            <li><a title="<?=strtoupper($docs['ext'])?><?=($docs['filesize']) ? ' - '.$docs['filesize']:''?>" href="/app/dcl/<?=$docs['hashname']?>" target="_blank"><img src="<?=IMG?>icons/<?=$docs['icon']?>.svg" alt="<?=$docs['ext']?>"> <?=$docs['cim']?></a></li>  
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <? if( $this->live_products_list && false ): ?>
   <div class="liveproducts side-group">
@@ -185,14 +195,34 @@
     </div>
   </div>
   <? endif; ?>
-
+	<?php
+		$top_tudastar = $this->top_helpdesk_articles;
+    if( $top_tudastar ):
+	?>
   <div class="helpdesk side-group">
     <div class="head">
       Tudástár
     </div>
     <div class="wrapper">
-      ......
+      <div class="helpdesk-top-searcher">
+        <div class="helpdesk-search">
+          <form class="" action="/tudastar" method="get" onsubmit="prepareHelpdeskHeaderSearch(this); return false;">
+            <input type="text" name="tags" value="" placeholder="Keresőszó megadása" autocomplete="off">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+        <div class="picked-articles">
+          <div class="wrapper">
+            <ul>
+              <?php foreach ($top_tudastar as $tud): ?>
+  						<li><a href="/tudastar/#?pick=<?=$tud['ID']?>"><?php echo $tud['cim']; ?></a></li>
+  						<?php endforeach; ?>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <?php  endif; // $top_tudastar ?>
 
 </div>

@@ -1347,6 +1347,10 @@ body.singlepage{
 				font-size: 0.85em;
 			}
 		}
+		&.helpdesk,
+		&.documents{
+			background: white;
+		}
 	}
 	.product-side-items{
 		margin: -5px 0;
@@ -6455,6 +6459,139 @@ a.cetelem-startrans {
 
 			p {
 				margin: 10px 0 5px 0;
+			}
+		}
+	}
+}
+
+.document-top-list{
+	& > .wrapper{
+		overflow-y: auto;
+		max-height: 280px;
+		padding: 0 10px;
+
+		ul {
+			li{
+				border-bottom: 0.5px solid #c8cbcc;
+				padding: 10px 0;
+
+				&:after{
+					content:"";
+					display: block;
+					height: 1px;
+					clear:both;
+					width: 100%;
+				}
+				a{
+					display: block;
+					color: #333333;
+					line-height: 20px;
+					font-size: 0.85em;
+					text-decoration: none;
+
+					img {
+						height: 20px;
+						width: auto !important;
+						float: left;
+						margin: 0 10px 0 0;
+					}
+
+					&:hover{
+						color: darken(#333333, 10%);
+					}
+				}
+				&:last-child{
+					border-bottom: none;
+				}
+			}
+		}
+
+		/* width */
+		&::-webkit-scrollbar {
+			width: 5px;
+		}
+
+		/* Track */
+		&::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: $color-green;
+		}
+
+		/* Handle on hover */
+		&::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+	}
+}
+
+.helpdesk-top-searcher{
+	padding: 5px;
+	.helpdesk-search{
+		position: relative;
+		input[type=text]{
+			width: 100%;
+			display: block;
+			border: 0.5px solid #c8cbcc;
+			line-height: 35px;
+			padding: 0 47px 0 12px;
+			height: 35px;
+			font-size: 0.9em;
+		}
+		button {
+			position: absolute;
+			background: transparent;
+			text-align: center;
+			height: 100%;
+			border: none;
+			color: $color-green;
+			right: 0;
+			width: 35px;
+			top: 0;
+			cursor: pointer;
+		}
+	}
+	.picked-articles{
+		margin-top: 5px;
+		& > .wrapper{
+			overflow-y: auto;
+			max-height: 280px;
+			ul {
+				li{
+					a{
+						display: block;
+						line-height: 1.4;
+						font-size: 0.85em;
+				    text-decoration: underline;
+
+						&:hover{
+							color: darken($color-green, 10%);
+						}
+					}
+				}
+			}
+
+			/* width */
+			&::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			/* Track */
+			&::-webkit-scrollbar-track {
+				background: #f1f1f1;
+			}
+
+			/* Handle */
+			&::-webkit-scrollbar-thumb {
+				background: $color-green;
+			}
+
+			/* Handle on hover */
+			&::-webkit-scrollbar-thumb:hover {
+				background: #555;
 			}
 		}
 	}

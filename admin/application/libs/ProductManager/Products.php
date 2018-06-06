@@ -510,7 +510,7 @@ class Products
 
 		$q = "SELECT
 			v.*,
-			CONCAT(m.neve,' ',t.nev) as product_nev,
+			t.nev as product_nev,
 			t.ID as product_id,
 			t.profil_kep,
 			t.csoport_kategoria,
@@ -1696,7 +1696,7 @@ class Products
 		}
 	}
 
-	public function getTermDocuments( $termid = 0 )
+	public function getTermDocuments( $termid = 0, $arg = array() )
 	{
 		$data = array();
 
@@ -1704,7 +1704,15 @@ class Products
 			d.*
 		FROM shop_documents_termek_xref as dx
 		LEFT OUTER JOIN shop_documents as d ON d.ID = dx.doc_id
-		WHERE 1=1 and d.lathato = 1 and dx.termek_id = {$termid}";
+		WHERE 1=1 and d.lathato = 1";
+
+		if ( $termid != 0 ) {
+			$qry .= " and dx.termek_id = {$termid}";
+		}
+
+		if ( isset($arg['kiemelt']) && $arg['kiemelt'] == true ) {
+			$qry .= " and d.kiemelt = 1";
+		}
 
 		$qry .= " ORDER BY d.sorrend ASC, d.cim ASC";
 		$list = $this->db->query( $qry );
