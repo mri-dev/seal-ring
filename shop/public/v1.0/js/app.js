@@ -1,6 +1,6 @@
 var tc = angular.module('sealring', ['ngMaterial', 'ngMessages', 'ngCookies']);
 
-tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$location','$cookies', '$cookieStore', function($scope, $sce, $http, $mdToast, $mdDialog, $location, $cookies, $cookieStore)
+tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$location', '$window','$cookies', '$cookieStore', function($scope, $sce, $http, $mdToast, $mdDialog, $location, $window, $cookies, $cookieStore)
 {
   $scope.fav_num = 0;
   $scope.fav_ids = [];
@@ -369,6 +369,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.goFinder = function(){
     console.log($scope.finder_config_select);
+    $window.location.href = '/termekek';
   }
 
   $scope.switchFinderNav = function(tab)
