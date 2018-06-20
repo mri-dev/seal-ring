@@ -319,6 +319,8 @@ body.singlepage{
 }
 
 .category-listing{
+	width: $page-width-footer;
+	margin: 0 auto;
 	.list-view{
 		& >.grid-layout {
 			.grid-row.filter-sidebar {
@@ -436,7 +438,7 @@ body.singlepage{
 		margin: -13px;
 
 		.item {
-			flex-basis: calc(100%/3);
+			flex-basis: calc(100% / 3) !important;
 			padding: 10px;
 
 			& > .wrapper {
@@ -639,7 +641,7 @@ body.singlepage{
 					overflow: hidden;
 			    white-space: nowrap;
 			    text-overflow: ellipsis;
-			    width: 240px;
+			    width: 215px;
 				}
 			}
 			.variation{

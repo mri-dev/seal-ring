@@ -42,9 +42,17 @@ class app extends Controller{
 					//$group = $resources->groupCat( $content );
 				break;
 
+				case 'push':
+					// Seal Ring inCash
+					$originid = 1;
+					$resources->pushToTermekek( $originid );
+				break;
+
 				default:
 				break;
 			}
+
+			$resources = null;
 		}
 
 		/**

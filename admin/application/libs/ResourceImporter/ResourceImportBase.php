@@ -625,6 +625,67 @@ class ResourceImportBase
 
     $data = $this->db->query($q);
 
+    if ($data->rowCount() != 0)
+    {
+      $data = $data->fetchAll(\PDO::FETCH_ASSOC);
+
+      $insert_header = array('cikkszam', 'nagyker_kod', 'nev', 'leiras', 'keszletID', 'szallitasID', 'beszerzes_netto', 'netto_ar', 'brutto_ar', 'xml_import_origin', 'xml_import_res_id', 'xml_import_done', 'lathato', 'garancia_honap', 'raktar_keszlet');
+      $this->prePushInsertHeaderModifier($originid, $insert_header);
+      $insert_row = array();
+
+      foreach ( (array)$data as $d )
+      {
+        list($keszlet_id, $szallitas_id) = $this->pushedProductKeszletSzallitasID($originid, (int)$d['termek_keszlet']);
+
+        $irow = array(
+          $d['prod_id'], $d['prod_id'], addslashes($d['termek_nev']), addslashes($d['termek_leiras']), $keszlet_id, $szallitas_id, $d['beszerzes_netto'], 0, 0, $originid, $d['ID'], 0, 0, 0, (int)$d['termek_keszlet']
+        );
+
+        $insert_row[] = $irow;
+      }
+      unset($data);
+      unset($irow);
+      //print_r($insert_header);
+      //print_r($insert_row);
+
+      if (!empty($insert_row)) {
+        /* */
+        $debug = $this->db->multi_insert(
+          'shop_termekek',
+          $insert_header,
+          $insert_row,
+          array(
+            'debug' => false
+          )
+        );
+        unset($insert_header);
+        unset($insert_row);
+        //echo $debug;
+        /* */
+      }
+
+      //return count($insert_row);
+
+    }
+  }
+
+  public function _old__pushToTermekek( $originid )
+  {
+    $q = "SELECT
+      tp.*
+    FROM `xml_temp_products` as tp
+    WHERE 1=1 and
+    tp.origin_id = {$originid}";
+
+    if (true) {
+      $q .= " and
+      (SELECT count(ID) FROM shop_termekek WHERE xml_import_origin = {$originid} and xml_import_res_id = tp.ID ) = 0 and
+      (SELECT count(ID) FROM shop_termekek WHERE nagyker_kod = tp.prod_id and xml_import_origin != {$originid}) = 0 and
+      (SELECT count(ID) FROM shop_termekek WHERE nagyker_kod = tp.prod_id) = 0";
+    }
+
+    $data = $this->db->query($q);
+
     if ($data->rowCount() != 0) {
       $data = $data->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -1013,17 +1074,6 @@ class ResourceImportBase
 
   public function prePushInsertHeaderModifier($originid = 0, &$header )
   {
-    switch ($originid) {
-      // Moss.sk
-      case 3:
-        $header[] = 'egyedi_ar';
-      break;
-      // Energo
-      case 10:
-        $header[] = 'egyedi_ar';
-      break;
-    }
-
     return $header;
   }
 
@@ -1056,36 +1106,13 @@ class ResourceImportBase
 
   public function pushedProductKeszletSzallitasID( $originid = 0, $keszlet = 0 )
   {
-    // készlet - 3: 1-2 munkanap
-    // Szállítás - 3: 1-2 munkanap
-
     switch ($originid) {
-      // Eurostar
-      case 1:
-        if ((int)$keszlet == 0) {
-          return array(1, 11);
-        } else {
-          return array(3, 3);
-        }
-      break;
-      // Moss.sk
-      case 3:
-        if ($keszlet == 'FALSE' || $keszlet == 0) {
-          return array(1, 9);
-        } else {
-          return array(3, 13);
-        }
-      break;
-      // Energo
-      case 10:
-        if ((int)$keszlet == 0) {
-          return array(4, 9);
-        } else {
-          return array(3, 3);
-        }
-      break;
       default:
-        return array(3, 3);
+        if ((int)$keszlet <=0 ) {
+          return array(4, 10);
+        } else {
+          return array(2, 9);
+        }
       break;
     }
 
