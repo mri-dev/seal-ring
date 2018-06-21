@@ -4,7 +4,7 @@
         <div class="list-view webshop-product-top">
           <div class="grid-layout">
             <div class="grid-row filter-sidebar">
-              <? $this->render('templates/sidebar'); ?>
+              <? $this->render('templates/sidebar_menu'); ?>
             </div>
             <div class="grid-row products">
               <div>
@@ -66,11 +66,11 @@
                   <? if( !$this->products->hasItems()): ?>
                   <div class="no-product-items">
                       <?php if ($this->myfavorite): ?>
-                        <div class="icon"><i class="fa fa-fire"></i></div>
+                        <div class="icon"><i class="fa fa-circle-o-notch "></i></div>
                         <strong>Nincsenek kedvencnek jelölt termékei!</strong><br>
                         Kedvencnek jelölhet bármilyen terméket, hogy később gyorsan és könnyedén megtalálja.
                       <?php else: ?>
-                        <div class="icon"><i class="fa fa-fire"></i></div>
+                        <div class="icon"><i class="fa fa-circle-o-notch"></i></div>
                         <strong>Nincsenek termékek ebben a kategóriában!</strong><br>
                         A szűrőfeltételek alapján nincs megfelelő termék, amit ajánlani tudunk. Böngésszen további termékeink között.
                       <?php endif; ?>
@@ -93,14 +93,39 @@
                               } ?>
                           </div>
                       </div>
+                      <script type="text/javascript">
+                        $(function(){
+                          fixTitleWidth();
+
+                          $(window).resize(function(){
+                            fixTitleWidth();
+                          });
+                        });
+
+                        function fixTitleWidth() {
+                          var pw = $(window).width();
+                          if ( pw >= 1550 ) {
+                            var w = $('.category-listing .items').width() / 4 - 55;
+                          } else{
+                            var w = $('.category-listing .items').width() / 3 - 55;
+                          }
+
+                          $('.category-listing .items .item .title a').css({
+                            width: w
+                          });
+
+                        }
+                      </script>
                       <div class="clr"></div>
                       <? echo $this->navigator; ?>
                   <br>
                   <? endif; ?>
               </div>
             </div>
+            <div class="grid-row filter-sidebar">
+              <? $this->render('templates/sidebar'); ?>
+            </div>
           </div>
-
         </div>
     </div>
 <? else: ?>
