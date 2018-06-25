@@ -889,7 +889,6 @@ body.singlepage{
 				text-align: center;
 				border: 0.5px solid #d1d6d8;
 				border-top: 3px solid #d1d6d8;
-				border-right: 0.5px solid white;
 
 				&.active{
 					background: white;
@@ -902,6 +901,20 @@ body.singlepage{
 	.contents{
 		background: #f9f9f9;
 		border: 0.5px solid #d1d6d8;
+
+		.search-wrapper{
+			input[type=text]{
+				height: 57px;
+				line-height: 57px;
+				padding: 0 20px;
+				border: none;
+				color: $color-green;
+				background: #eceeef;
+				width: 100%;
+				font-size: 1.4em;
+				font-weight: bold;
+			}
+		}
 
 		& > div > .wrapper{
 			padding: 15px;
@@ -920,7 +933,10 @@ body.singlepage{
 					flex-basis: 100%;
 				}
 			}
-
+			& > div.src{
+				flex-basis: 100%;
+				margin: 0 0 10px 0;
+			}
 			& > div.left-side,
 			& > div.right-side {
 				flex-basis: 48%;
@@ -946,19 +962,6 @@ body.singlepage{
 			& > .wrapper{
 				& > div.left-side{
 					flex-basis: 62%;
-					.search-wrapper{
-						input[type=text]{
-							height: 57px;
-							line-height: 57px;
-							padding: 0 20px;
-							border: none;
-							color: $color-green;
-							background: #eceeef;
-							width: 100%;
-							font-size: 1.4em;
-							font-weight: bold;
-						}
-					}
 				}
 				& > div.right-side{
 					flex-basis: 36%;
@@ -1139,6 +1142,7 @@ body.singlepage{
 
 	.search-button {
 		width: 100%;
+		margin: 10px 0 0 0;
 		button {
 			color: white;
 			text-align: center;
@@ -1673,11 +1677,11 @@ body.singlepage{
 		}
 		.search-for{
 			font-size: 1.2em;
-			color: #5ec25d;
+			color: $color-red;
 			margin: 0 0 15px 0;
 
 			span {
-				background: $color-blue;
+				background: $color-green;
 		    padding: 3px 10px;
 		    color: #ffffff;
 		    margin-right: 4px;

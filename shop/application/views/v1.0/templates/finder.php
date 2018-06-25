@@ -2,13 +2,20 @@
   <div class="tabs">
     <ul>
       <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
-      <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')">Keresés kifejezésre</li>
-      <li ng-class="(findernavpos=='numbers')?'active':''" ng-click="switchFinderNav('numbers')">Keresés cikkszám alapján</li>
+      <?php if (false): ?>
+        <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')">Keresés kifejezésre</li>
+        <li ng-class="(findernavpos=='numbers')?'active':''" ng-click="switchFinderNav('numbers')">Keresés cikkszám alapján</li>
+      <?php endif; ?>
     </ul>
   </div>
   <div class="contents">
     <div class="cont-advenced" ng-show="(findernavpos=='advenced')">
       <div class="wrapper">
+        <div class="src">
+          <div class="search-wrapper">
+            <input type="text" ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+          </div>
+        </div>
         <div class="left-side">
           <div class="group">
             <div class="selections">
@@ -24,7 +31,9 @@
               </div>
             </div>
           </div>
-          <div class="divider"></div>
+        </div>
+        <div class="div">&nbsp;</div>
+        <div class="right-side">
           <div class="group">
             <h3>Felhasználási terület</h3>
             <div class="holder">
@@ -35,49 +44,49 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="div">&nbsp;</div>
-        <div class="right-side">
-          <div class="group">
-            <h3>Méretek</h3>
-            <div class="size-configs">
-              <div class="size-group" ng-repeat="size in finder_config.meretek">
-                <div class="flex">
-                  <div class="ranges">
-                    <label for="">{{size.name}}</label>
-                    <div class="flex">
-                      <div class="r-min">
-                        <input type="text" ng-value="size.range.min">
-                      </div>
-                      <div class="t-label">
-                        ≤ {{size.label}} ≤
-                      </div>
-                      <div class="r-max">
-                        <input type="text" ng-value="size.range.max">
+          <?php if (false): ?>
+            <div class="group">
+              <h3>Méretek</h3>
+              <div class="size-configs">
+                <div class="size-group" ng-repeat="size in finder_config.meretek">
+                  <div class="flex">
+                    <div class="ranges">
+                      <label for="">{{size.name}}</label>
+                      <div class="flex">
+                        <div class="r-min">
+                          <input type="text" ng-value="size.range.min">
+                        </div>
+                        <div class="t-label">
+                          ≤ {{size.label}} ≤
+                        </div>
+                        <div class="r-max">
+                          <input type="text" ng-value="size.range.max">
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="fvalue">
-                    <label for="">Pontos méret</label>
-                    <div class="flex">
-                      <div class="t-label">
-                        {{size.label}}=
-                      </div>
-                      <div class="v">
-                        <input type="text">
+                    <div class="fvalue">
+                      <label for="">Pontos méret</label>
+                      <div class="flex">
+                        <div class="t-label">
+                          {{size.label}}=
+                        </div>
+                        <div class="v">
+                          <input type="text">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          <?php endif; ?>
           <div class="search-button">
             <button ng-click="goFinder()"><strong>Keresés</strong><br>{{finder_result_num}} db. találat</button>
           </div>
         </div>
       </div>
     </div>
+    <?php if (false): ?>
     <div class="cont-keywords" ng-show="(findernavpos=='keywords')">
       <div class="wrapper">
         <div class="left-side">
@@ -108,5 +117,6 @@
         </div>
       </div>
     </div>
+    <?php endif; ?>
   </div>
 </div>

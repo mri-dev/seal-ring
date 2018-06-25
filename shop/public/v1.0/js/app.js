@@ -369,7 +369,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.goFinder = function(){
     console.log($scope.finder_config_select);
-    $window.location.href = '/termekek';
+    $window.location.href = '/termekek/?src='+$scope.finder_config_select.search_keywords;
   }
 
   $scope.switchFinderNav = function(tab)
