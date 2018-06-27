@@ -1054,7 +1054,9 @@ class Products
 		}
 		$qkey = rtrim($qkey,", ");
 
-		$q = "SELECT ".$qkey." FROM xml_temp_products as t WHERE t.origin_id = {$originid} and t.prod_id = $prodid";
+		$prodid = addslashes($prodid);
+
+		$q = "SELECT ".$qkey." FROM xml_temp_products as t WHERE t.origin_id = {$originid} and t.prod_id = '$prodid'";
 		$prices = $this->db->query($q);
 
 		if ( $prices->rowCount() != 0 ) {
