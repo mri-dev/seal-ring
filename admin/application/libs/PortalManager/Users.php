@@ -61,6 +61,32 @@ class Users
 		}
 	}
 
+	public function getPriceGroupes( $key = false )
+	{
+		$qry = $this->db->query("SELECT pg.* FROM shop_price_groups as pg ORDER BY pg.title ASC");
+
+		if ($qry->rowCount() == 0 ) {
+			return array();
+		}
+
+		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+		$list = array();
+		foreach ($data as $r) {
+			$list[$r['ID']] = $r;
+		}
+
+		unset($data);
+		unset($d);
+
+		if ( !$key ) {
+			return $list;
+		} else {
+			return $list[$key];
+		}
+	}
+
+
 	function get( $arg = array() )
 	{
 		$ret 			= array();
@@ -1374,6 +1400,7 @@ class Users
 		$B = array();
 		foreach($data as $d){
 			$d['user_group_name'] = $this->getUserGroupes( $d['user_group'] );
+			$d['price_group'] = $this->getPriceGroupes( $d['price_group'] );
 			$d[total_data] = $this->get(array( 'user' => $d['email'] ));
 			$B[] = $d;
 		}
