@@ -14,7 +14,7 @@ use PortalManager\Portal;
 use PortalManager\Helpdesk;
 use Applications\Captcha;
 use FileManager\FileLister;
-
+use PortalManager\Installer;
 
 class Controller {
     public $db = null;
@@ -43,6 +43,7 @@ class Controller {
         // $this->model 		= new Model();
         $this->view = new View();
         $this->db = new Database();
+        $this->installer = new Installer(array('db'=> $this->db));
         //////////////////////////////////////////////////////
         $this->view->settings = $this->getAllValtozo();
         $this->gets = Helper::GET();
@@ -72,6 +73,12 @@ class Controller {
         $this->out( 'db',   $this->db );
         $this->out( 'user', $this->User->get( self::$user_opt ) );
 
+        // Only admin
+        if ( !defined('PRODUCTIONSITE') )
+        {
+          $this->out( 'modules', $this->installer->listModules(array('only_active' => true)) );
+        }
+
         // Kategóriák
         if ( defined('PRODUCTIONSITE') )
         {
@@ -91,9 +98,18 @@ class Controller {
           /****
           * TOP TERMÉKEK
           *****/
+          /* * /
+          $topquery = "SELECT sum(me) as mes, termekID FROM `stat_nezettseg_termek` WHERE datediff(now(),datum) < 30 GROUP BY termekID ORDER BY mes DESC LIMIT 0,1";
+          $topids = array();
+          $topqry = $this->db->query($topquery);
+          if ($topqry->rowCount() != 0) {
+            $topdata = $topqry->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($topdata as $tdi) {
+              $topids[] = (int)$tdi['termekID'];
+            }
+          }
           $arg = array(
-            'limit' 	=> 1,
-            'collectby' => 'top'
+            'in_ID' => $topids
           );
           $top_products = (new Products( array(
             'db' => $this->db,
@@ -101,31 +117,39 @@ class Controller {
           ) ))->prepareList( $arg );
           $this->out( 'top_products', $top_products );
           $this->out( 'top_products_list', $top_products->getList() );
+          /* */
+
 
           /****
           * MEGNÉZETT TERMÉKEK
           *****/
+          /* */
           $arg = array();
           $viewed_products = (new Products( array(
             'db' => $this->db,
             'user' => $this->User->get()
-          ) ))->getLastviewedList( \Helper::getMachineID(), 5, $arg );
-          $this->out( 'viewed_products_list', $viewed_products );
+          ) ));
+          $vwdp = $viewed_products->getLastviewedList( \Helper::getMachineID(), 5, $arg );
+          $this->out( 'viewed_products_list', $vwdp );
+          /* */
 
           /****
           * Live TERMÉKEK
           *****/
+          /* * /
           $arg = array();
           $live_products = (new Products( array(
             'db' => $this->db,
             'user' => $this->User->get()
-          ) ))->getLiveviewedList( \Helper::getMachineID(), 5, $arg );
-          $this->out( 'live_products_list', $live_products );
+          ) ));
+          $lvp = $live_products->getLiveviewedList( \Helper::getMachineID(), 5, $arg );
+          $this->out( 'live_products_list', $lvp );
+          /* */
 
           /******
           * Dokumentumok - Kiemelt
           *******/
-          $this->out('top_documents', $top_products->getTermDocuments(0, array('kiemelt' => true )));
+          $this->out('top_documents', $viewed_products->getTermDocuments(0, array('kiemelt' => true )));
         }
 
         $templates = new Template( VIEW . 'templates/' );

@@ -467,6 +467,8 @@ class Products
 	{
 		$data = array();
 
+		$uid = (int)$this->user[data][ID];
+
 		$q = "SELECT
 			v.*,
 			CONCAT(m.neve,' ',t.nev) as product_nev,
@@ -474,10 +476,7 @@ class Products
 			t.profil_kep,
 			t.csoport_kategoria,
 			t.akcios,
-			IF(t.egyedi_ar IS NOT NULL,
-				t.egyedi_ar,
-				getTermekAr(t.marka, IF(t.akcios,t.akcios_brutto_ar,t.brutto_ar))
-			) as ar,
+			getTermekAr(t.ID, ".$uid.") as ar,
 			t.brutto_ar
 		FROM `shop_utoljaraLatottTermek` as v
 		LEFT OUTER JOIN shop_termekek as t ON t.ID = v.termekID
@@ -508,6 +507,8 @@ class Products
 	{
 		$data = array();
 
+		$uid = (int)$this->user[data][ID];
+
 		$q = "SELECT
 			v.*,
 			t.nev as product_nev,
@@ -515,10 +516,7 @@ class Products
 			t.profil_kep,
 			t.csoport_kategoria,
 			t.akcios,
-			IF(t.egyedi_ar IS NOT NULL,
-				t.egyedi_ar,
-				getTermekAr(t.marka, IF(t.akcios,t.akcios_brutto_ar,t.brutto_ar))
-			) as ar,
+			getTermekAr(t.ID, ".$uid.") as ar,
 			t.brutto_ar
 		FROM `shop_utoljaraLatottTermek` as v
 		LEFT OUTER JOIN shop_termekek as t ON t.ID = v.termekID
@@ -559,56 +557,50 @@ class Products
 
 		$admin_listing = ( $arg['admin'] ) ? true : false;
 
+		$uid = (int)$this->user[data][ID];
+
 		/*==========  Lekérdezés  ==========*/
 		$qry = "
 		SELECT SQL_CALC_FOUND_ROWS
-			p.ID as product_id,
-			p.nev as product_nev,
-			p.cikkszam,
-			p.nagyker_kod,
-			p.kulcsszavak,
-			p.pickpackszallitas,
-			p.no_cetelem,
-			p.akcios,
-			p.ujdonsag,
-			p.beszerzes_netto,
-			p.netto_ar,
-			p.marketing_leiras,
-			(p.beszerzes_netto * 1.27) as brutto_ar,
-			p.akcios_netto_ar,
-			p.akcios_brutto_ar,
-			p.egyedi_ar,
-			p.marka as marka_id,
-			p.szallitasID,
-			p.keszletID,
-			p.raktar_keszlet,
-			p.raktar_articleid,
-			p.profil_kep,
-			p.kep_mappa,
-			p.lathato,
-			p.kiemelt,
-			p.without_price,
-			p.szin,
-			p.csoport_kategoria,
-			p.ajanlatunk,
-			p.meret,
-			p.garancia_honap,
-			p.termek_site_url,
-			p.ajandek,
-			p.rovid_leiras,
-			p.xml_import_origin,
-			m.neve as marka_nev,
-			m.colorscheme as marka_szin,
-			m.textcolor as marka_tszin,
-			m.image as marka_img,
-			GROUP_CONCAT(CONCAT('p_',pa.parameterID,':',pa.ertek)) as paramErtek,
-			IF(p.egyedi_ar IS NOT NULL,
-				p.egyedi_ar,
-				(p.beszerzes_netto * 1.27)
-			) as ar,
-			p.fotermek,
-			(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) as in_cat,
-			(SELECT neve FROM shop_termek_kategoriak WHERE ID = p.alapertelmezett_kategoria ) as alap_kategoria";
+		p.ID as product_id,
+		p.nev as product_nev,
+		p.cikkszam,
+		p.nagyker_kod,
+		p.kulcsszavak,
+		p.pickpackszallitas,
+		p.no_cetelem,
+		p.akcios,
+		p.ujdonsag,
+		p.brutto_ar as ar,
+		p.marketing_leiras,
+		p.akcios_netto_ar,
+		p.akcios_brutto_ar,
+		p.netto_ar,
+		p.brutto_ar,
+		p.egyedi_ar,
+		p.marka as marka_id,
+		p.szallitasID,
+		p.keszletID,
+		p.raktar_keszlet,
+		p.raktar_articleid,
+		p.profil_kep,
+		p.kep_mappa,
+		p.lathato,
+		p.kiemelt,
+		p.without_price,
+		p.szin,
+		p.csoport_kategoria,
+		p.ajanlatunk,
+		p.meret,
+		p.garancia_honap,
+		p.termek_site_url,
+		p.ajandek,
+		p.rovid_leiras,
+		p.xml_import_origin,
+		p.fotermek,
+		getTermekAr(p.ID, ".$uid.") as ar,
+		(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) as in_cat,
+		(SELECT neve FROM shop_termek_kategoriak WHERE ID = p.alapertelmezett_kategoria ) as alap_kategoria";
 
 			/* RÉGI ÁR
 			IF(p.egyedi_ar IS NOT NULL,

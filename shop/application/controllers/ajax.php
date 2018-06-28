@@ -21,6 +21,21 @@ class ajax extends Controller{
 			);
 			switch($type)
 			{
+				case 'finder':
+					switch ( $action ) {
+						case 'calcitem':
+							$felhasznalasi_terulet = (int)$datas['felhasznalasi_terulet'];
+							$q = "SELECT
+								count(t.ID)
+							FROM shop_termekek as t
+							WHERE 1=1 and t.lathato = 1 and (t.xml_import_origin IS NULL || (t.xml_import_origin IS NOT NULL && t.xml_import_done IN (0,1)))
+							";
+							$n = $this->db->query($q)->fetchColumn();
+							$ret['nums'] = (int)$n;
+							$this->setSuccess(false, $ret);
+						break;
+					}
+				break;
 				case 'Helpdesk':
 					$helpdesk = $this->Helpdesk;
 					switch ( $action ) {
@@ -332,6 +347,7 @@ class ajax extends Controller{
 
 				break;
 				case 'productFavorite':
+
 					$mid = Helper::getMachineID();
 					$ret['pass'] = $_POST;
 					$err = false;
@@ -456,10 +472,14 @@ class ajax extends Controller{
 					$ret['pass'] = $_POST;
 					echo json_encode($ret);
 				break;
-				
+
 				case 'cartInfo':
 					$mid = Helper::getMachineID();
-					$cart = new Cart($mid, array( 'db' => $this->db, 'user' => $this->User->get(), 'settings' => $this->view->settings ));
+					$cart = new Cart($mid, array(
+						'db' => $this->db,
+						'user' => $this->User->get(),
+						'settings' => $this->view->settings
+					));
 					echo json_encode($cart->get());
 				break;
 

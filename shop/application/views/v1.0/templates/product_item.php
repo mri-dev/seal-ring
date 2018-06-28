@@ -1,7 +1,6 @@
 <div class="item">
   <?php
-    $ar = $brutto_ar;
-    $wo_price = ($without_price == '1') ? true : false;
+    $wo_price = (empty($ar) || $ar == '0') ? true : false;
     if( $akcios == '1' ) $ar = $akcios_fogy_ar;
   ?>
   <div class="wrapper">

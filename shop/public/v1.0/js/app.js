@@ -274,7 +274,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   * Finder
   *******************************/
   $scope.findernavpos = 'advenced';
-  $scope.finder_result_num = 987;
+  $scope.finder_result_num = -1;
   $scope.finder_config = {
     'felhasznalasi_teruletek': [],
     'meretek': [],
@@ -292,10 +292,32 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
     }
   };
 
-  $scope.loadFinder = function(){
-    console.log('loadFindeer');
+  $scope.loadFinder = function()
+  {
+    $scope.prepareConfigs(function(){
+      $scope.bindFinder();
+    });
+  }
 
-    $scope.prepareConfigs(function(){});
+  $scope.bindFinder = function( callback )
+  {
+    $scope.finder_result_num = -1;
+    $http({
+      method: 'POST',
+      url: '/ajax/post',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      data: $.param({
+        type: "finder",
+        action: 'calcitem',
+        datas: $scope.finder_config_select
+      })
+    }).success(function(r)
+    {
+      $scope.finder_result_num = r.nums;
+      if (typeof callback === 'function') {
+        callback(r.nums);
+      }
+    });
   }
 
   $scope.prepareConfigs = function( callback )
@@ -367,9 +389,15 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
     }
   }
 
-  $scope.goFinder = function(){
+  $scope.goFinder = function()
+  {
     console.log($scope.finder_config_select);
-    $window.location.href = '/termekek/?src='+$scope.finder_config_select.search_keywords;
+
+    if ($scope.finder_result_num > 0 )
+    {
+      var src = (typeof $scope.finder_config_select.search_keywords !== 'undefined') ? $scope.finder_config_select.search_keywords : '';
+      $window.location.href = '/termekek/?src='+src;
+    }
   }
 
   $scope.switchFinderNav = function(tab)
