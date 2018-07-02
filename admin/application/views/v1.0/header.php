@@ -181,6 +181,8 @@
                 <li class="<?=($this->gets[0] == 'referrerHierarchy')?'on':''?>"><a href="/referrerHierarchy" title="Ajánló rangsor"><span class="ni">2</span><i class="fa fa-pie-chart"></i> Ajánló rangsor</a></li>
                 <? endif; ?>
                 <li class="<?=($this->gets[0] == 'termekek')?'on':''?>"><a href="/termekek" title="Termékek"><span class="ni">2</span><i class="fa fa-cubes"></i> Termékek</a></li>
+                <li class="<?=($this->gets[0] == 'termektipuspage')?'on':''?>"><a href="/termektipuspage" title="Kategóriák"><span class="ni">6</span><i class="fa fa-bars"></i> Termék típusok</a></li>
+                <li class="<?=($this->gets[0] == 'felhasznalasi_teruletek')?'on':''?>"><a href="/felhasznalasi_teruletek" title="Kategóriák"><span class="ni">6</span><i class="fa fa-bars"></i> Felh. területek</a></li>
                 <li class="<?=($this->gets[0] == 'felhasznalok')?'on':''?>"><a href="/felhasznalok" title="Felhasználók"><span class="ni">2</span><i class="fa fa-group"></i> Felhasználók</a></li>
                 <?php if (false): ?>
                 <? if($this->gets[0] == 'felhasznalok' || ($this->gets[0] == 'felhasznalok' && $this->gets[1] == 'containers') || ($this->gets[0] == 'felhasznalok' && $this->gets[1] == 'container_new')) : ?>
@@ -196,7 +198,7 @@
                 <!-- <li class="<?=($this->gets[0] == 'kedvezmenyek' || $this->gets[0] == 'elorendeles_kedvezmenyek')?'on':''?>"><a href="/kedvezmenyek" title="Törzsvásárlói kedvezmények"><span class="ni">8</span><i class="fa fa-bullhorn"></i> Kedvezmények</a></li>-->
                 <li class="<?=($this->gets[0] == 'stat')?'on':''?>"><a href="/stat" title="Statisztikák"><span class="ni">8</span><i class="fa fa-bar-chart-o"></i> Statisztikák</a></li>
                 <li class="<?=($this->gets[0] == 'tudastar')?'on':''?>"><a href="/tudastar" title="Tudástár"><span class="ni">8</span><i class="fa fa-lightbulb-o"></i> Tudástár</a></li>
-        				<li class="<?=($this->gets[0] == 'emails')?'on':''?>"><a href="/emails" title="Email sablonok"><span class="ni">8</span><i class="fa fa-envelope"></i> Email sablonok</a></li> 
+        				<li class="<?=($this->gets[0] == 'emails')?'on':''?>"><a href="/emails" title="Email sablonok"><span class="ni">8</span><i class="fa fa-envelope"></i> Email sablonok</a></li>
         				<li class="<?=($this->gets[0] == 'popup')?'on':''?>"><a href="/popup" title="Popup"><span class="ni">8</span><i class="fa fa-bullhorn"></i> Popup</a></li>
 
                 <!-- MODULS-->

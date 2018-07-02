@@ -1096,6 +1096,17 @@ body.singlepage{
 				top: 0;
 			}
 		}
+
+		&.disabled{
+			label{
+				color: #8c8c8c;
+			}
+			.select-wrapper{
+				&:after{
+					background: $color-grey;
+				}
+			}
+		}
 	}
 
 	.radioboxes{

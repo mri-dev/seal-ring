@@ -5,6 +5,8 @@ use PortalManager\CasadaShop;
 use PopupManager\Creative;
 use PopupManager\CreativeScreens;
 use ProductManager\Products;
+use ShopManager\TermekTipusok;
+use ShopManager\FelhasznalasiTeruletek;
 
 class ajax extends Controller{
 		function __construct()
@@ -32,6 +34,41 @@ class ajax extends Controller{
 							";
 							$n = $this->db->query($q)->fetchColumn();
 							$ret['nums'] = (int)$n;
+							$this->setSuccess(false, $ret);
+						break;
+						case 'loadTerms':
+							// Termék típus és melléktermék
+							$categories = new TermekTipusok( array( 'db' => $this->db ) );
+							$cat_tree = $categories->getTree();
+							$data = array();
+
+							while ( $cat_tree->walk() ) {
+								$cat = $cat_tree->the_cat();
+								$data[] = array(
+									'id' => (int)$cat['ID'],
+									'label' => $cat['neve'],
+									'parent' => (int)$cat['szulo_id']
+								);
+							}
+
+							$ret['data']['termektipus'] = $data;
+
+							// Felhasználási területek
+							$categories = new FelhasznalasiTeruletek( array( 'db' => $this->db ) );
+							$cat_tree = $categories->getTree();
+							$data = array();
+
+							while ( $cat_tree->walk() ) {
+								$cat = $cat_tree->the_cat();
+								$data[] = array(
+									'id' => (int)$cat['ID'],
+									'label' => $cat['neve'],
+									'parent' => (int)$cat['szulo_id']
+								);
+							}
+
+							$ret['data']['felhasznalasi_teruletek'] = $data;
+
 							$this->setSuccess(false, $ret);
 						break;
 					}

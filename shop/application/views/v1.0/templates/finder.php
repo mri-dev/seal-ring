@@ -21,13 +21,13 @@
             <div class="selections">
               <label for="">Válassza ki a terméktípust</label>
               <div class="select-wrapper">
-                <select ng-options="item as item.label for item in finder_config.selects.cats track by item.id" ng-model="finder_config_select.selects.cat"></select>
+                <select ng-change="bindFinder()" ng-options="item as item.label for item in finder_config.selects.cats track by item.id" ng-model="finder_config_select.selects.cat"></select>
               </div>
             </div>
-            <div class="selections">
+            <div class="selections" ng-class="(!finder_config_select.selects.cat.id)?'disabled':''">
               <label for="">Válassza ki a mellékterméket</label>
               <div class="select-wrapper">
-                <select ng-options="item as item.label for item in finder_config.selects.subcats track by item.id" ng-model="finder_config_select.selects.subcat"></select>
+                <select ng-change="bindFinder()" ng-disabled="(!finder_config_select.selects.cat.id)?true:false" ng-options="item as item.label for item in finder_config.selects.subcats[finder_config_select.selects.cat.id] track by item.id" ng-model="finder_config_select.selects.subcat"></select>
               </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
             <div class="holder">
               <div class="radioboxes">
                 <div class="" ng-repeat="cb in finder_config.felhasznalasi_teruletek">
-                  <input type="radio" ng-click="bindFinder()" ng-value="cb.id" ng-model="$parent.finder_config_select.felhasznalasi_terulet" id="felhasznalasi_teruletek_v{{cb.id}}"> <label for="felhasznalasi_teruletek_v{{cb.id}}">{{cb.name}}</label>
+                  <input type="radio" ng-click="bindFinder()" ng-value="cb.id" ng-model="$parent.finder_config_select.felhasznalasi_terulet" id="felhasznalasi_teruletek_v{{cb.id}}"> <label for="felhasznalasi_teruletek_v{{cb.id}}">{{cb.label}}</label>
                 </div>
               </div>
             </div>

@@ -287,7 +287,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   $scope.finder_config_select = {
     felhasznalasi_terulet: 0,
     selects: {
-      cat: null,
+      cat: {id: 0},
       subcat: null
     }
   };
@@ -322,81 +322,73 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.prepareConfigs = function( callback )
   {
-    $scope.finder_config.felhasznalasi_teruletek.push({
-      id: 1,
-      name: 'Hidraulika'
-    });
-    $scope.finder_config.felhasznalasi_teruletek.push({
-      id: 2,
-      name: 'Pneumatika'
-    });
-    $scope.finder_config.felhasznalasi_teruletek.push({
-      id: 3,
-      name: 'Autóipar'
-    });
+    $http({
+      method: 'POST',
+      url: '/ajax/post',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      data: $.param({
+        type: "finder",
+        action: 'loadTerms'
+      })
+    }).success(function(r)
+    {
+      // Termék típusok
 
-    $scope.finder_config.meretek.push({
-      name: 'Furat átmérő',
-      label: 'd',
-      id: 10,
-      range: {
-        min: null,
-        max: null
-      },
-      value: null
-    });
+      if (r.success == 1 && r.data.termektipus && r.data.termektipus.length !== 0) {
+        $scope.finder_config.selects.cats.push({
+          id: 0,
+          label: 'Összes típus'
+        });
+        angular.forEach(r.data.termektipus, function(e,i){
+          if (e.parent == 0) {
+            $scope.finder_config.selects.cats.push(e);
+          } else {
+            if (typeof $scope.finder_config.selects.subcats[e.parent] === 'undefined') {
+              $scope.finder_config.selects.subcats[e.parent] = [];
+            }
 
-    $scope.finder_config.meretek.push({
-      name: 'Belső átmérő',
-      label: 'B',
-      id: 10,
-      range: {
-        min: null,
-        max: null
-      },
-      value: null
-    });
+            $scope.finder_config.selects.subcats[e.parent].push(e);
+          }
+        });
+      }
 
-    $scope.finder_config.meretek.push({
-      name: 'Külső átmérő',
-      label: 'D',
-      id: 10,
-      range: {
-        min: null,
-        max: null
-      },
-      value: null
-    });
+      // Felhasználási területek
+      if (r.success == 1 && r.data.felhasznalasi_teruletek && r.data.felhasznalasi_teruletek.length !== 0) {
+        angular.forEach(r.data.felhasznalasi_teruletek, function(e,i){
+          $scope.finder_config.felhasznalasi_teruletek.push(e);
+        });
+      }
+      console.log($scope.finder_config);
 
-    $scope.finder_config.meretek.push({
-      name: 'Anyag vastagság',
-      label: 'D',
-      id: 10,
-      range: {
-        min: null,
-        max: null
-      },
-      value: null
+      if (typeof callback === 'function') {
+        callback();
+      }
     });
-
-    $scope.finder_config.selects.cats.push({
-      label: 'Kategória I.',
-      id: 1
-    });
-
-    if (typeof callback === 'function') {
-      callback();
-    }
   }
 
   $scope.goFinder = function()
   {
     console.log($scope.finder_config_select);
+    var url = '/termekek/';
 
     if ($scope.finder_result_num > 0 )
     {
       var src = (typeof $scope.finder_config_select.search_keywords !== 'undefined') ? $scope.finder_config_select.search_keywords : '';
-      $window.location.href = '/termekek/?src='+src;
+      url += '?src='+src;
+
+      if ($scope.finder_config_select.felhasznalasi_terulet != 0) {
+        url += '&ft='+$scope.finder_config_select.felhasznalasi_terulet;
+      }
+
+      if ($scope.finder_config_select.selects.cat && $scope.finder_config_select.selects.cat.id != 0) {
+        url += '&tt='+$scope.finder_config_select.selects.cat.id;
+      }
+
+      if ($scope.finder_config_select.selects.subcat && $scope.finder_config_select.selects.subcat.id != 0) {
+        url += '&tts='+$scope.finder_config_select.selects.subcat.id;
+      }
+
+      $window.location.href = url;
     }
   }
 

@@ -7,6 +7,8 @@
               <? $this->render('templates/sidebar_menu'); ?>
             </div>
             <div class="grid-row products">
+              <?php $this->render('templates/finder'); ?>
+              <br>
               <div>
                   <? if($this->parent_menu&& count($this->parent_menu) > 0): ?>
                   <div class="sub-categories">
