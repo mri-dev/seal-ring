@@ -307,10 +307,18 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   {
     var qry = $scope.parseQuery( query_string );
 
-    $scope.finder_config_select.selects.cat.id = (qry.tt) ? parseInt(qry.tt) : '';
-    $scope.finder_config_select.selects.subcat.id = (qry.tts) ? parseInt(qry.tts) : '';
-    $scope.finder_config_select.felhasznalasi_terulet = (qry.ft) ? parseInt(qry.ft) : '';
-    $scope.finder_config_select.search_keywords = qry.src.replace('+',' ');
+    if (typeof qry.tt !== 'undefined') {    
+      $scope.finder_config_select.selects.cat.id = (qry.tt) ? parseInt(qry.tt) : '';
+    }
+    if (typeof qry.tts !== 'undefined') {
+      $scope.finder_config_select.selects.subcat.id = (qry.tts) ? parseInt(qry.tts) : '';
+    }
+    if (typeof qry.ft !== 'undefined') {
+      $scope.finder_config_select.felhasznalasi_terulet = (qry.ft) ? parseInt(qry.ft) : '';
+    }
+    if (typeof qry.src !== 'undefined') {
+      $scope.finder_config_select.search_keywords = qry.src.replace('+',' ');
+    }
 
     $scope.prepareConfigs(function(){
       $scope.bindFinder();
