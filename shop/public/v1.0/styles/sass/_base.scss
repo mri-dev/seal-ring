@@ -1175,6 +1175,12 @@ body.singlepage{
 				background: darken($color-green, 10%);
 			}
 		}
+
+		&.disabled{
+			button {
+				background: #4c4c4c;
+			}
+		}
 	}
 }
 

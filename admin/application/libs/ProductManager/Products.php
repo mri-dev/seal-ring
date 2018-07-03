@@ -642,6 +642,13 @@ class Products
 		/**
 		* WHERE
 		**/
+		// felhasznalasi_terulet
+		if ( isset($arg['felhasznalasi_terulet']) && $arg['felhasznalasi_terulet'] != 0 ) {
+			$add = " and p.felhasznalasi_terulet = ".$arg['felhasznalasi_terulet']." ";
+			$whr .= $add;
+			$size_whr .= $add;
+		}
+
 		// Favorite
 		if ( isset($arg['favorite']) && $arg['favorite'] === true )
 		{

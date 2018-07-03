@@ -27,13 +27,36 @@ class ajax extends Controller{
 					switch ( $action ) {
 						case 'calcitem':
 							$felhasznalasi_terulet = (int)$datas['felhasznalasi_terulet'];
+							$search_keywords = explode(" ",trim($datas['search_keywords']));
+
+							$products = new Products( array(
+								'db' => $this->db,
+								'user' => $this->User->get()
+							) );
+
+							$arg = array();
+							$arg['felhasznalasi_terulet'] = $felhasznalasi_terulet;
+							$arg['search'] = (array)$search_keywords;
+							$products->prepareList( $arg );
+
+							$n = $products->getItemNumbers();
+
+
+							/*
 							$q = "SELECT
 								count(t.ID)
 							FROM shop_termekek as t
-							WHERE 1=1 and t.lathato = 1 and (t.xml_import_origin IS NULL || (t.xml_import_origin IS NOT NULL && t.xml_import_done IN (0,1)))
-							";
+							WHERE 1=1 and t.lathato = 1 and (t.xml_import_origin IS NULL || (t.xml_import_origin IS NOT NULL && t.xml_import_done IN (0,1)))";
+
+							if ( $felhasznalasi_terulet != 0 ) {
+								$q .= " and t.felhasznalasi_terulet = ".$felhasznalasi_terulet;
+							}
+
 							$n = $this->db->query($q)->fetchColumn();
+							*/
+
 							$ret['nums'] = (int)$n;
+							$ret['pass'] = $datas;
 							$this->setSuccess(false, $ret);
 						break;
 						case 'loadTerms':

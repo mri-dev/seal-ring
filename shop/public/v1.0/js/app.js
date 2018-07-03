@@ -286,14 +286,32 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.finder_config_select = {
     felhasznalasi_terulet: 0,
+    search_keywords: null,
     selects: {
       cat: {id: 0},
-      subcat: null
+      subcat: { id: 0}
     }
   };
 
-  $scope.loadFinder = function()
+  $scope.parseQuery = function(queryString) {
+    var query = {};
+    var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(decodeURI(pair[1]) || '');
+    }
+    return query;
+}
+
+  $scope.loadFinder = function( query_string )
   {
+    var qry = $scope.parseQuery( query_string );
+
+    $scope.finder_config_select.selects.cat.id = (qry.tt) ? parseInt(qry.tt) : '';
+    $scope.finder_config_select.selects.subcat.id = (qry.tts) ? parseInt(qry.tts) : '';
+    $scope.finder_config_select.felhasznalasi_terulet = (qry.ft) ? parseInt(qry.ft) : '';
+    $scope.finder_config_select.search_keywords = qry.src.replace('+',' ');
+
     $scope.prepareConfigs(function(){
       $scope.bindFinder();
     });
@@ -313,6 +331,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
       })
     }).success(function(r)
     {
+      console.log(r);
       $scope.finder_result_num = r.nums;
       if (typeof callback === 'function') {
         callback(r.nums);
@@ -333,7 +352,6 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
     }).success(function(r)
     {
       // Termék típusok
-
       if (r.success == 1 && r.data.termektipus && r.data.termektipus.length !== 0) {
         $scope.finder_config.selects.cats.push({
           id: 0,
@@ -354,12 +372,14 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
       // Felhasználási területek
       if (r.success == 1 && r.data.felhasznalasi_teruletek && r.data.felhasznalasi_teruletek.length !== 0) {
+        $scope.finder_config.felhasznalasi_teruletek.push({
+          id: 0,
+          label: 'Összes terület'
+        });
         angular.forEach(r.data.felhasznalasi_teruletek, function(e,i){
           $scope.finder_config.felhasznalasi_teruletek.push(e);
         });
       }
-      console.log($scope.finder_config);
-
       if (typeof callback === 'function') {
         callback();
       }
@@ -368,7 +388,6 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.goFinder = function()
   {
-    console.log($scope.finder_config_select);
     var url = '/termekek/';
 
     if ($scope.finder_result_num > 0 )

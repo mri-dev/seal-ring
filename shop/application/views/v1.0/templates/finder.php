@@ -1,4 +1,9 @@
-<div class="search-finder" ng-init="loadFinder()">
+<?php
+  $getqry = $_GET;
+  unset($getqry['tag']);
+  $getqrystr = http_build_query($getqry);
+?>
+<div class="search-finder" ng-init="loadFinder('<?=$getqrystr?>')">
   <div class="tabs">
     <ul>
       <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
@@ -80,7 +85,7 @@
               </div>
             </div>
           <?php endif; ?>
-          <div class="search-button">
+          <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
             <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-show="finder_result_num!==-1">{{finder_result_num}} db. találat</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
           </div>
         </div>
