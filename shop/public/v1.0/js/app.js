@@ -301,13 +301,13 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
         query[decodeURIComponent(pair[0])] = decodeURIComponent(decodeURI(pair[1]) || '');
     }
     return query;
-}
+  }
 
   $scope.loadFinder = function( query_string )
   {
     var qry = $scope.parseQuery( query_string );
 
-    if (typeof qry.tt !== 'undefined') {    
+    if (typeof qry.tt !== 'undefined') {
       $scope.finder_config_select.selects.cat.id = (qry.tt) ? parseInt(qry.tt) : '';
     }
     if (typeof qry.tts !== 'undefined') {
