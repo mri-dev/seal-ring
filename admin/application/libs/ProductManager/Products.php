@@ -308,6 +308,7 @@ class Products
 			$tudastar_url 	= (!$product->getVariable('tudastar_url')) ? NULL : $product->getVariable('tudastar_url');
 			$referer_price_discount 	= (!$product->getVariable('referer_price_discount')) ? 0 : $product->getVariable('referer_price_discount');
 			$sorrend 			= (!$product->getVariable('sorrend')) ? 0 : $product->getVariable('sorrend');
+			$felhasznalasi_terulet = ($product->getVariable('felhasznalasi_terulet') == 0) ? NULL : (int)$product->getVariable('felhasznalasi_terulet');
 
 			// Csatolt hivatkozások előkészítése
 			if( $link_list ) {
@@ -337,6 +338,7 @@ class Products
 					'letoltesek' => $letoltesek,
 					'lathato' => $lathato,
 					'pickpackszallitas' => $pickpackszallitas,
+					'felhasznalasi_terulet' => $felhasznalasi_terulet,
 					'no_cetelem' => $no_cetelem,
 					'akcios' => $akcios,
 					'szallitasID' => $szallitasID,
@@ -597,6 +599,7 @@ class Products
 		p.ajandek,
 		p.rovid_leiras,
 		p.xml_import_origin,
+		p.beszerzes_netto,
 		p.fotermek,
 		getTermekAr(p.ID, ".$uid.") as ar,
 		(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) as in_cat,

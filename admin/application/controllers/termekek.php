@@ -7,6 +7,7 @@ use PortalManager\Template;
 use PortalManager\Admin;
 use FileManager\FileLister;
 use Applications\XMLParser;
+use ShopManager\FelhasznalasiTeruletek;
 
 class termekek extends Controller
 {
@@ -262,6 +263,7 @@ class termekek extends Controller
 								'fotermek' => ($_POST['fotermek'] == 'on' ? 1 : 0),
 								'kiemelt' => ($_POST['kiemelt'] == 'on' ? 1 : 0),
 								'ajanlorendszer_kiemelt' =>  ($_POST['ajanlorendszer_kiemelt'] == 'on' ? 1 : 0),
+								'felhasznalasi_terulet' =>  ((int)$_POST['felhasznalasi_terulet']),
 								'lathato' => ($_POST['lathato'] == 'on' ? 1 : 0),
 								'ar_netto' => $_POST['netto_ar'],
 								'ar_brutto' => $_POST['brutto_ar'],
@@ -406,6 +408,11 @@ class termekek extends Controller
 
 						Helper::reload();
 					}
+
+					// Felhasználási területek
+					$felhasznalasi_teruletek = new FelhasznalasiTeruletek( array( 'db' => $this->db ) );
+					$felhasznalasi_teruletek_tree = $felhasznalasi_teruletek->getTree();
+					$this->out( 'felhasznalasi_teruletek', $felhasznalasi_teruletek_tree );
 
 					// Kategóriák
 					$cats = new Categories( array( 'db' => $this->db ) );
