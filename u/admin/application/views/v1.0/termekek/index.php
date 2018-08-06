@@ -47,7 +47,6 @@
       <th width="100">Száll. idő</th>
       <th width="120">Állapot</th>
       <th width="65">Készlet</th>
-      <th width="75" title="A termék állapota, ha meg van szerkesztve és be van állítva minden beállítás.">Kész</th>
       <th width="75">Aktív</th>
       <!-- <th width="20" title="Főtermék">Fő</th>-->
       <th width="20"></th>
@@ -100,12 +99,6 @@
             </select>
         </td>
         <td></td>
-        <td align="center"><select class="form-control" name="xml_import_done" style="max-width:150px;">
-              <option value="" selected="selected">X / ✓</option>
-             <option value="0" <?=('0' == $_COOKIE['filter_xml_import_done'])?'selected':''?>>X</option>
-             <option value="1" <?=('1' == $_COOKIE['filter_xml_import_done'])?'selected':''?>>✓</option>
-          </select>
-        </td>
         <td align="center"><select class="form-control"  name="lathato" style="max-width:150px;">
               <option value="" selected="selected">X / ✓</option>
              <option value="0" <?=('0' == $_COOKIE['filter_lathato'])?'selected':''?>>X</option>
@@ -214,9 +207,8 @@
             <td align="center">
 			          <input type="number" step="any" class="form-control action" mode="raktar_keszlet" tid="<?=$d['product_id']?>" min="-1" value="<?=$d['raktar_keszlet']?>" />
             </td>
-            <td align="center"><? if($d['xml_import_done'] == '1'): ?><i class="fa fa-check ftgl" title="Elkészült termék / Kikapcsolás" tid="<?=$d['product_id']?>"></i><? else: ?><i class="fa fa-times ftgl" title="Elkészült termék / Bekapcsolás" tid="<?=$d['product_id']?>"></i><? endif; ?></td>
             <td align="center"><? if($d['lathato'] == '1'): ?><i class="fa fa-check vtgl" title="Aktív / Kattintson az inaktiváláshoz" tid="<?=$d['product_id']?>"></i><? else: ?><i class="fa fa-times vtgl" title="Inaktív / Kattintson az aktiváláshoz" tid="<?=$d['product_id']?>"></i><? endif; ?></td>
-
+            <!--<td align="center"><? if($d['fotermek'] == '1'): ?><i class="fa fa-check ftgl" title="Főtermék / Kattintson az inaktiváláshoz" tid="<?=$d['product_id']?>"></i><? else: ?><i class="fa fa-times ftgl" title="Nem főtermék / Kattintson az aktiváláshoz" tid="<?=$d['product_id']?>"></i><? endif; ?></td>-->
             <td align="center">
             <div class="dropdown">
             	<i class="fa fa-gears dropdown-toggle" title="Beállítások" id="dm<?=$d['product_id']?>" data-toggle="dropdown"></i>
@@ -506,9 +498,9 @@
 		$('.termeklista i.vtgl').click(function(){
 			visibleToggler($(this));
 		});
-    $('.termeklista i.ftgl').click(function(){
-      xmldoneProductToggler($(this));
-    });
+        $('.termeklista i.ftgl').click(function(){
+            mainProductToggler($(this));
+        });
 		$('.itemInf').click(function(){
 			var id = $(this).attr('itemId');
 			$('.termeklista td.in.i'+id).slideToggle(400);
@@ -558,33 +550,7 @@
         }
     }
 
-    function xmldoneProductToggler(e) {
-      var tid = e.attr('tid');
-      var src =  e.attr('class').indexOf('check');
 
-      if(src >= 0){
-          e.removeClass('fa-check').addClass('fa-spinner fa-spin');
-          doXMLDoneProductChange(e, tid, false);
-      }else{
-          e.removeClass('fa-times').addClass('fa-spinner fa-spin');
-          doXMLDoneProductChange(e, tid, true);
-      }
-    }
-    function doXMLDoneProductChange(e, tid, show) {
-      var v = (show) ? '1' : '0';
-      $.post("<?=AJAX_POST?>",{
-          type : 'termekChangeActions',
-          mode : 'changeXMLDoneProduct',
-          id  : tid,
-          val : v
-      },function(d){
-          if(!show){
-              e.removeClass('fa-spinner fa-spin').addClass('fa-times');
-          }else{
-              e.removeClass('fa-spinner fa-spin').addClass('fa-check');
-          }
-      },"html");
-    }
     function doMainProductChange(e, tid, show){
         var v = (show) ? '1' : '0';
         $.post("<?=AJAX_POST?>",{

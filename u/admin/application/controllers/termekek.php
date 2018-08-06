@@ -108,15 +108,6 @@ class termekek extends Controller
 					setcookie('filter_lathato','',time()-100,'/'.$this->view->gets[0]);
 				}
 
-				if($_POST['xml_import_done'] != ''){
-					setcookie('filter_xml_import_done',$_POST['xml_import_done'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_xml_import_done','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-
-
 				if($_POST['fotermek'] == 'on'){
 					setcookie('filter_fotermek',1,time()+60*24,'/'.$this->view->gets[0]);
 					$filtered = true;
