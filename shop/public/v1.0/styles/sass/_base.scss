@@ -1784,29 +1784,44 @@ body.singlepage{
 }
 
 .product-view {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+
 	.divider {
-		margin: 15px 0;
+		margin: 5px 0;
 	}
+
+	& > .sidebar{
+		flex-basis: $size-sidebar;
+	}
+
+
 	& > .product-data {
-		padding: 25px 0 0 0;
+		padding: 0 0 0 25px;
+		flex: 1;
 		.nav{
 			display: -webkit-box;
 			display: -ms-flexbox;
 			display: flex;
 			flex-wrap: wrap;
 			align-items: flex-start;
-			border-bottom: 1px solid #f1f1f1;
-			margin: 0 0 10px 0;
-			padding: 0 0 10px 0;
+			margin: 10px 0;
+			font-size: 0.8em;
 
 			& > .pagi{
 				flex-basis: 70%;
 				text-align: left;
 
-
 				.cat-nav{
 					margin: 0 !important;
 				}
+			}
+
+			a {
+				color: #acacac;
 			}
 		}
 
@@ -1824,6 +1839,7 @@ body.singlepage{
 			.images{
 				padding-right: 10px;
 				.main-img{
+					padding: 1px;
 					border: .4px solid #e0e0e0;
 					overflow: hidden;
 					position: relative;
@@ -2230,7 +2246,6 @@ body.singlepage{
 			}
 		}
 		.more-datas{
-			background: #fafafa;
 			border-top: 1px solid #949494;
 			margin: 50px 0 0 0;
     	padding: 25px 0;
