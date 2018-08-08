@@ -388,10 +388,7 @@ class ajax extends Controller{
 						case 'changePrimaryProduct':
 							$v = ($val == '1') ? 1 : 0;
 							$this->db->query("UPDATE shop_termekek SET fotermek = $v WHERE ID = $id");
-						break;
-						case 'changeXMLDoneProduct':
-							$v = ($val == '1') ? 1 : 0;
-							$this->db->query("UPDATE shop_termekek SET xml_import_done = $v WHERE ID = $id");
+
 						break;
 						case 'changeTermekKep':
 							$this->db->query("UPDATE shop_termekek SET profil_kep = '$i' WHERE ID = $id");

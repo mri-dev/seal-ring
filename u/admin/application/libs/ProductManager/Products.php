@@ -260,7 +260,7 @@ class Products
 
 		// Kötelező mezők ellenőrzése
 		if( !$product->getName() ) throw new \Exception('Termék nevének megadása kötelező!');
-		// if(	!$product->getManufacturerId() ) throw new \Exception('Márka kiválasztása kötelező!');
+		if(	!$product->getManufacturerId() ) throw new \Exception('Márka kiválasztása kötelező!');
 		if( !$product->getTransportTimeId() ) throw new \Exception('Szállítási időt kötelező kiválasztani!');
 		if( !$product->getStatusId() ) throw new \Exception('Állapotot kötelező kiválasztani!');
 		if( !$product->getCategoryList() ) throw new \Exception('Termék kategória kiválasztása kötelező!');
@@ -599,7 +599,6 @@ class Products
 		p.ajandek,
 		p.rovid_leiras,
 		p.xml_import_origin,
-		p.xml_import_done,
 		p.beszerzes_netto,
 		p.fotermek,
 		getTermekAr(p.ID, ".$uid.") as ar,
@@ -629,7 +628,7 @@ class Products
 		$add = '';
 
 		if (!$admin_listing) {
-			$add = " and ( (p.xml_import_origin != 0 and p.xml_import_done = 1) or p.xml_import_origin = 0) and p.lathato = 1 and p.beszerzes_netto != 0 ";
+			$add = " and p.lathato = 1 and p.beszerzes_netto != 0 ";
 			$whr .= $add;
 			$size_whr .= $add;
 

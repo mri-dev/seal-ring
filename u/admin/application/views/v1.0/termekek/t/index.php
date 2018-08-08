@@ -109,7 +109,6 @@
 					</div>
 				</div>
 
-				<?php if (false): ?>
 				<div class="con">
 					<div class="row">
 						<h3>Termék ár</h3>
@@ -162,9 +161,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<?php endif; ?>
 
+				</div>
 				<div class="con">
 					<h3>Termék adatok</h3>
 					<div class="row">
