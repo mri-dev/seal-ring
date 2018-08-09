@@ -35,202 +35,151 @@
           <?php endif; ?>
         </div>
         <div class="main-data">
-          <?php if ($_GET['d'] == 1): ?>
-          <h1><?=$this->product['nev']?></h1>
-          <div class="csoport">
-            <?=$this->product['csoport_kategoria']?>
+        <h1><?=$this->product['nev']?></h1>
+        <div class="csoport">
+          <?=$this->product['csoport_kategoria']?>
+        </div>
+        <div class="cimkek">
+        <? if($this->product['ujdonsag'] == '1'): ?>
+            <img src="<?=IMG?>new_icon_sq.svg" title="Újdonság!" alt="Újdonság">
+        <? endif; ?>
+        </div>
+        <div class="prices">
+          <div class="lab">
+            Kiskereskedelmi bruttó ár:
           </div>
-          
-          <div class="nav">
-            <div class="pagi">
-              <?php
-                $navh = '/termekek/';
-                $lastcat = end($this->product['nav']);
+          <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
+          <div class="base">
+            <?php if ($kisker_brutto == 0): ?>
+              <div class="current">
+                ÉRDEKLŐDJÖN!
+              </div>
+            <?php else: ?>
+              <?  if( $this->product['akcios'] == '1' && $this->product['akcios_fogy_ar'] > 0):
+                  $ar = $this->product['akcios_fogy_ar'];
               ?>
-              <ul class="cat-nav">
-                <li><a href="/"><i class="fa fa-home"></i></a></li>
-                <li><a href="<?=$navh?>">Webshop</a></li>
-                <?php
-                foreach ( $this->product['nav'] as $nav ): $navh = \Helper::makeSafeUrl($nav['neve'],'_-'.$nav['ID']); ?>
-                <li><a href="/termekek/<?=$navh?>"><?php echo $nav['neve']; ?></a></li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-          </div>
-
-          <div class="prices">
-              <div class="base">
-                <?php if ($this->product['without_price']): ?>
-                  <div class="price-head"><?=__('ÁR')?>:</div>
-                  <div class="current">
-                    ÉRDEKLŐDJÖN!
-                  </div>
-                <?php else: ?>
-                  <div class="price-head"><?=__('ÁR')?>:</div>
-                  <?  if( $this->product['akcios'] == '1' && $this->product['akcios_fogy_ar'] > 0):
-                      $ar = $this->product['akcios_fogy_ar'];
-                  ?>
-                  <div class="old">
-                      <div class="price"><strike><?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?></strike></div>
-                  </div>
-                  <div class="discount_percent">-<? echo 100-round($this->product['akcios_fogy_ar'] / ($this->product['brutto_ar'] / 100)); ?>%</div>
-                  <? endif; ?>
-                  <div class="current">
-                      <?=\PortalManager\Formater::cashFormat($ar)?> <?=$this->valuta?>
-                  </div>
-                <?php endif; ?>
-              </div>
-              <div class="cimkek">
-              <? if($this->product['akcios'] == '1'): ?>
-                  <img src="<?=IMG?>discount_icon.png" title="Akciós!" alt="Akciós">
-              <? endif; ?>
-              <? if($this->product['ujdonsag'] == '1'): ?>
-                  <img src="<?=IMG?>new_icon.png" title="Újdonság!" alt="Újdonság">
-              <? endif; ?>
-              </div>
-          </div>
-          <? if($this->product['show_stock'] == '1' && $this->product['raktar_keszlet'] > 0): ?>
-          <div class="stock">
-            Készleten: <strong><?php echo $this->product['raktar_keszlet']; ?> db</strong>
-          </div>
-          <? endif; ?>
-          <div class="divider"></div>
-          <div class="short-desc">
-            <?=$this->product['rovid_leiras']?>
-          </div>
-
-          <?
-          if( count($this->product['hasonlo_termek_ids']['colors']) > 1 ):
-              $colorset = $this->product['hasonlo_termek_ids']['colors'];
-          ?>
-          <div class="divider"></div>
-          <div class="variation-header">
-            Elérhető variációk:
-          </div>
-          <div class="variation-list">
-          <? foreach ($colorset as $szin => $adat ) : ?>
-            <div class="variation<?=($szin == $this->product['szin'] )?' actual':''?>"><a href="<?=$adat['link']?>"><?=$szin?></a></div>
-          <? endforeach; ?>
-          </div>
-          <? endif; ?>
-          <div class="divider"></div>
-          <div class="cart-info">
-            <div class="group">
-              <div class="variation">
-                <div class="h">
-                  Variáció:
-                </div>
-                <div class="v">
-                  <strong><?=$this->product['szin']?></strong>
-                </div>
-              </div>
-              <div class="rack-status">
-                <div class="h">
-                  Elérhetőség:
-                </div>
-                <div class="v">
-                  <?=$this->product['keszlet_info']?>
-                </div>
-              </div>
-              <div class="transport-status">
-                <div class="h">
-                  Várható kiszállítás:
-                </div>
-                <div class="v">
-                  <?=$this->product['szallitas_info']?>
-                </div>
-              </div>
-            </div>
-            <div id="cart-msg"></div>
-            <? if($this->settings['stock_outselling'] == '0' && $this->product['raktar_keszlet'] <= 0): ?>
-            <div class="out-of-stock">
-              A termék jelenleg nem rendelhető.
-            </div>
-            <? endif; ?>
-
-            <?php if ( $this->product['raktar_keszlet'] > 0 || $this->settings['stock_outselling'] == '1'): ?>
-            <div class="group" style="margin: 10px -10px 0 0;">
-              <?
-              if( count($this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
-                  $colorset = $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'];
-                  //unset($colorset[$this->product['szin']]);
-              ?>
-              <div class="size-selector cart-btn dropdown-list-container">
-                  <div class="dropdown-list-title"><span id=""><?=__('Kiszerelés')?>: <strong><?=$this->product['meret']?></strong></span> <? if( count( $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'] ) > 0): ?> <i class="fa fa-angle-down"></i><? endif; ?></div>
-
-                  <div class="number-select dropdown-list-selecting overflowed">
-                  <? foreach ($colorset as $szin => $adat ) : ?>
-                      <div link="<?=$adat['link']?>"><?=$adat['size']?></div>
-                  <? endforeach; ?>
-                  </div>
+              <div class="old">
+                  <div class="price"><strike><?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?></strike></div>
               </div>
               <? endif; ?>
-              <div class="order <?=($this->product['without_price'])?'requestprice':''?>">
-                <?php if ( !$this->product['without_price'] ): ?>
-                <div class="men">
-                  <input type="number" name="" id="add_cart_num" cart-count="<?=$this->product['ID']?>" value="1" min="1">
-                </div>
-                <?php endif; ?>
-                <?php if ( !$this->product['without_price'] ): ?>
-                  <div class="buttonorder">
-                    <button id="addtocart" cart-data="<?=$this->product['ID']?>" cart-remsg="cart-msg" title="Kosárba" class="tocart cart-btn"><?=__('kosárba')?></i></button>
-                  </div>
-                <?php else: ?>
-                  <div class="requestbutton">
-                    <md-tooltip md-direction="top">
-                      Erre a gombra kattintva árajánlatot kérhet erre a termékre.
-                    </md-tooltip>
-                    <button aria-label="Erre a gombra kattintva árajánlatot kérhet erre a termékre." class="tocart cart-btn" ng-click="requestPrice(<?=$this->product['ID']?>)"><?=__('Ajánlatot kérek')?></i></button>
-                  </div>
-                <?php endif; ?>
+              <div class="current">
+                  <?=\PortalManager\Formater::cashFormat($kisker_brutto)?> <?=$this->valuta?>
               </div>
-            </div>
             <?php endif; ?>
-            <div class="group helpdesk-actions">
-                <div class="tudastar">
-                  <div class="wrapper icoed">
-                    <div class="ico">
-                      <div class="wrap">
-                          <i class="fa fa-lightbulb-o"></i>
-                      </div>
-                    </div>
-                    <div class="text">
-                      <a href="<?=($this->product['tudastar_url'] != '')?$this->product['tudastar_url']:'/tudastar'?>" target="_blank">
-                        TUDÁSTÁR
-                        <div class="t">
-                          Olvassa el!
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="callhelp">
-                  <div class="wrapper icoed">
-                    <div class="ico">
-                      <i class="fa fa-phone"></i>
-                    </div>
-                    <div class="text">
-                      Segíthetünk?
-                      <div class="phone">
-                        <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div aria-label="Hozzáadás a kedvencekhez." class="fav" ng-class="(fav_ids.indexOf(<?=$this->product['ID']?>) !== -1)?'selected':''" ng-click="productAddToFav(<?=$this->product['ID']?>)">
-                  <div class="wrapper" title="Kedvencekhez adás">
-                    <i class="fa fa-heart" ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) !== -1"></i>
-                    <i class="fa fa-heart-o" ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) === -1"></i>
-                  </div>
-                  <md-tooltip md-direction="bottom">
-                    Hozzáadás a kedvencekhez.
-                  </md-tooltip>
-                </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="status-params">
+          <div class="avaibility">
+            <div class="h">Elérhetőség:</div>
+            <div class="v"><?=$this->product['keszlet_info']?></div>
+          </div>
+          <div class="transport">
+            <div class="h">Várható szállítás:</div>
+            <div class="v"><span><?=$this->product['szallitas_info']?></span></div>
+          </div>
+          <?php if ( $ar > $this->settings['FREE_TRANSPORT_ABOVEPRICE']): ?>
+          <div class="free-transport">
+            <div class="free-transport-ele">
+              <i class="fa fa-car"></i> Ingyen szállítjuk
             </div>
           </div>
           <?php endif; ?>
-
         </div>
+        <div class="divider"></div>
+        <div class="short-desc">
+          <?=$this->product['rovid_leiras']?>
+        </div>
+
+        <?
+        if( count($this->product['hasonlo_termek_ids']['colors']) > 1 ):
+            $colorset = $this->product['hasonlo_termek_ids']['colors'];
+        ?>
+        <div class="divider"></div>
+        <div class="variation-header">
+          Elérhető variációk:
+        </div>
+        <div class="variation-list">
+        <? foreach ($colorset as $szin => $adat ) : ?>
+          <div class="variation<?=($szin == $this->product['szin'] )?' actual':''?>"><a href="<?=$adat['link']?>"><?=$szin?></a></div>
+        <? endforeach; ?>
+        </div>
+        <? endif; ?>
+        <div class="divider"></div>
+        <div class="cart-info">
+          <div id="cart-msg"></div>
+          <div class="group" >
+            <?
+            if( count($this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
+                $colorset = $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'];
+                //unset($colorset[$this->product['szin']]);
+            ?>
+            <div class="size-selector cart-btn dropdown-list-container">
+                <div class="dropdown-list-title"><span id=""><?=__('Kiszerelés')?>: <strong><?=$this->product['meret']?></strong></span> <? if( count( $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'] ) > 0): ?> <i class="fa fa-angle-down"></i><? endif; ?></div>
+
+                <div class="number-select dropdown-list-selecting overflowed">
+                <? foreach ($colorset as $szin => $adat ) : ?>
+                    <div link="<?=$adat['link']?>"><?=$adat['size']?></div>
+                <? endforeach; ?>
+                </div>
+            </div>
+            <? endif; ?>
+            <div class="order <?=($this->product['without_price'])?'requestprice':''?>">
+              <?php if ( !$this->product['without_price'] ): ?>
+              <div class="men">
+                <div class="wrapper">
+                  <label for="add_cart_num">Darab:</label>
+                  <input type="number" name="" id="add_cart_num" cart-count="<?=$this->product['ID']?>" value="1" min="1">
+                </div>
+              </div>
+              <?php endif; ?>
+              <?php if ( !$this->product['without_price'] ): ?>
+                <div class="buttonorder">
+                  <button id="addtocart" cart-data="<?=$this->product['ID']?>" cart-remsg="cart-msg" title="Kosárba rakom" class="tocart cart-btn"> <img src="<?=IMG?>icons/cart-button.svg" alt="kosárba rakom"> <?=__('kosárba rakom')?></i></button>
+                </div>
+              <?php else: ?>
+                <div class="requestbutton">
+                  <md-tooltip md-direction="top">
+                    Erre a gombra kattintva árajánlatot kérhet erre a termékre.
+                  </md-tooltip>
+                  <button aria-label="Erre a gombra kattintva árajánlatot kérhet erre a termékre." class="tocart cart-btn" ng-click="requestPrice(<?=$this->product['ID']?>)"><?=__('Ajánlatot kérek')?></i></button>
+                </div>
+              <?php endif; ?>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="group helpdesk-actions">
+            <div class="cats">
+              <div class="h">Kategória:</div>
+              <div class="v">
+
+              </div>
+            </div>
+            <div class="keywords">
+              <div class="h">Címkék:</div>
+              <div class="v">
+
+              </div>
+            </div>
+            <div class="social-shares">
+              <div class="h">Megosztás:</div>
+              <div class="v">
+                <?php echo $this->render('templates/product_share'); ?>
+              </div>
+            </div>
+            <div class="fav" ng-class="(fav_ids.indexOf(<?=$this->product['ID']?>) !== -1)?'selected':''" ng-click="productAddToFav(<?=$this->product['ID']?>)">
+              <div class="wrapper">
+                <div ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) !== -1">
+                  <i class="fa fa-star"></i> Kedvenc termék
+                </div>
+                <div ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) === -1">
+                  <i class="fa fa-star-o"></i> Kedvencekhez
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
     <div class="more-datas">

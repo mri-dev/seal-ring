@@ -1074,7 +1074,7 @@ class Products
 			}
 			$groups['set'][$key] = array(
 				'netto' => $net,
-				'brutto' => ($net * 1.27)
+				'brutto' => ($this->settings['round_price_5'] == '1') ? round(($net * 1.27) / 5) * 5 : ($net * 1.27)
 			);
 		}
 
@@ -1667,10 +1667,13 @@ class Products
 	 *                            string rows vesszővel elválasztva, visszaadja a kívánt rekordokat
 	 * @return array
 	 */
-	public function get( $product_id, array $opt = array() ) {
+	public function get( $product_id, array $opt = array() )
+	{
 		if( $product_id === '' || !isset( $product_id ) ) return false;
 
 		$categories = new Categories( array( 'db' => $this->db ) );
+
+		$uid = (int)$this->user[data][ID];
 
 		$row = "t.*";
 
@@ -1679,41 +1682,45 @@ class Products
 		}
 
 		$q = $this->db->query("
-			SELECT 			$row,
-							k.neve as kategoriaNev,
-							ta.elnevezes as keszletNev,
-							sza.elnevezes as szallitasNev
-			FROM 			shop_termekek as t
+			SELECT
+				$row,
+				getTermekAr(t.ID, ".$uid.") as ar,
+				k.neve as kategoriaNev,
+				ta.elnevezes as keszletNev,
+				sza.elnevezes as szallitasNev
+			FROM shop_termekek as t
 			LEFT OUTER JOIN shop_termek_kategoriak as k ON k.ID = t.alapertelmezett_kategoria
 			LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = t.keszletID
 			LEFT OUTER JOIN shop_szallitasi_ido as sza ON sza.ID = t.szallitasID
-			WHERE 			t.ID = $product_id
+			WHERE t.ID = $product_id
 
 		");
 
 		$data = $q->fetch(\PDO::FETCH_ASSOC);
 
-
-		$brutto_ar 			= $data['brutto_ar'];
-		$akcios_brutto_ar 	= $data['akcios_brutto_ar'];
+		$brutto_ar = $data['ar'];
+		//$akcios_brutto_ar = $data['akcios_brutto_ar'];
 
 		$kep = $data['profil_kep'];
 		$data['profil_kep'] 		=  \PortalManager\Formater::productImage( $kep, false, self::TAG_IMG_NOPRODUCT );
 		$data['profil_kep_small'] 	=  \PortalManager\Formater::productImage( $kep, 150, self::TAG_IMG_NOPRODUCT );
 
-		$arInfo 		= $this->getProductPriceCalculate( $data['marka'], $brutto_ar );
-		$akcios_arInfo 	= $this->getProductPriceCalculate( $data['marka'], $akcios_brutto_ar );
+
+		//$arInfo 		= $this->getProductPriceCalculate( $data['marka'], $brutto_ar );
+		//$akcios_arInfo 	= $this->getProductPriceCalculate( $data['marka'], $akcios_brutto_ar );
 
 		if( $d['akcios'] == '1') {
-			$arInfo['ar'] = $arInfo['ar'];
+			//$arInfo['ar'] = $arInfo['ar'];
 		}
 
-		$arInfo['ar'] 			= ($this->settings['round_price_5'] == '1') ? round($arInfo['ar'] / 5) * 5 : $arInfo['ar'] ;
-		$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
+		// Ár kerekítések
+		//$arInfo['ar'] 			= ($this->settings['round_price_5'] == '1') ? round($arInfo['ar'] / 5) * 5 : $arInfo['ar'] ;
+		//$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
 
-		$data['rovid_leiras'] 		= $this->addLinkToString( $data, $data['rovid_leiras'] );
-		$data['ar'] 				= $arInfo['ar'];
-		$data['akcios_fogy_ar']		= $akcios_arInfo['ar'];
+		$data['rovid_leiras'] = $this->addLinkToString( $data, $data['rovid_leiras'] );
+		//$data['ar'] = $arInfo['ar'];
+		//$data['akcios_fogy_ar']		= $akcios_arInfo['ar'];
+		$data['ar'] = ($this->settings['round_price_5'] == '1') ? round($brutto_ar / 5) * 5 : $brutto_ar;
 		$data['arres_szazalek'] 	= $arInfo['arres'];
 		$data['hasonlo_termek_ids'] = $this->getProductRelatives( $product_id );
 		$in_kat = $this->getProductInCategory( $product_id, true );
@@ -1733,6 +1740,11 @@ class Products
 		$data['documents'] = $this->getTermDocuments( $product_id );
 		// Linkek
 		$data['link_lista']	= $this->getProductLinksFromStr( $data['linkek'] );
+
+		// Ár csoportok
+		$data['price_groups'] 	= $this->priceGroups( $data['xml_import_origin'], $data['nagyker_kod'] );
+		$data['price_default_kisker_brutto'] 	= $data['price_groups']['set']['ar1']['brutto'];
+
 		// Csatolt link hivatkozások
 		$this->getProductLinksFromCategoryHashkeys( $data['in_cat_page_hashkeys'], $data['link_lista'] );
 
@@ -1775,7 +1787,7 @@ class Products
 		$stockdata = $this->db->query("SELECT elnevezes, color FROM shop_termek_allapotok WHERE ID = ".$statkey)->fetch(\PDO::FETCH_ASSOC);
 
 		if ( $formated ) {
-			return '<span style="color:'.$stockdata['color'].';">'.$stockdata['elnevezes'].'</span>';
+			return '<span style="background-color:'.$stockdata['color'].';">'.$stockdata['elnevezes'].'</span>';
 		} else {
 			return $stockdata['elnevezes'];
 		}
