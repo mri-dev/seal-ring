@@ -12,7 +12,7 @@ use \DirectoryIterator;
 */
 class FileLister {
 	const VERSION = '1.0beta';
-	
+
 	private $called_folder 	= null;
 	private $file_iterator	= null;
 
@@ -21,7 +21,7 @@ class FileLister {
 	 * @param string $folder A vizsgálanndó mappa elérési útja
 	 */
 	function __construct($folder) {
-		
+
 		// per jel eltávolítás
 		$folder = ltrim($folder, '/');
 
@@ -56,10 +56,10 @@ class FileLister {
 	 *                         Ezzel szűkíthető a listázás
 	 *                         Használható szűrők:
 	 *                         - string allowedExtension css|txt|xml
-	 *                         - boolean recursive Rekurzív olvasás. Mappák esetén tovább ellenőrzi a mappa tartalmát 
-	 *                         - boolean showOnlyDir false Csak mappákat mutassa 
+	 *                         - boolean recursive Rekurzív olvasás. Mappák esetén tovább ellenőrzi a mappa tartalmát
+	 *                         - boolean showOnlyDir false Csak mappákat mutassa
 	 *                         - boolean hideThumbnailImg false Thumbnail képek rejtése, thb_ kezdőtag
-	 * @return mixed 	
+	 * @return mixed
 	 */
 	public function getFolderItems(array $filters = array()){
 		$items = array();
@@ -70,7 +70,7 @@ class FileLister {
 			$filters['allowedExtension'] = ltrim($filters['allowedExtension'], '|');
 			$allowed_extensions = explode('|', $filters['allowedExtension']);
 		}
-		
+
 		foreach( $this->file_iterator as $file ){
 
 			if( $file->isDot() ) continue;
@@ -94,7 +94,7 @@ class FileLister {
 					'src_path' 	=> $this->called_folder.'/'.$file->getFilename() . ( ($is_dir) ? '/':'' ),
 					'is_dir' 	=> $is_dir,
 					'time' 		=> $file->getMTime()
-				);	
+				);
 
 				if ( $filters['recursive'] && $is_dir ) {
 					$items = $this->moreItem( $items, $file->getFilename(), $filters );

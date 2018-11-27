@@ -42,16 +42,20 @@ class app extends Controller{
 					$desc = $formatter->Format($reader->root);
 				}
 
-				try {
-						$readf = new FileLister('/src/import/adatok/'.$e['mappa'].'/kepek');
-				} catch (\Exception $e) {
-					die($e->getMessage());
-				}
+				$mappa_exists = file_exists('src/import/adatok/'.trim($e['mappa']).'/kepek');
 
-				//$images = $readf->getFolderItems();
+				if ($mappa_exists && false) {
+					try {
+						$readf = new FileLister('src/import/adatok/'.trim($e['mappa']).'/kepek');
+						$images = $readf->getFolderItems();
+					} catch (\Exception $e) {
+						die($e->getMessage());
+					}
+				}
 
 				$pre[] = array(
 					'folder' => ($e['mappa']),
+					'folder_exists' => $mappa_exists,
 					'find_desc_file' => $file,
 					'keywords' => utf8_encode ($e['kulcsszavak']),
 					'desc' => $desc,
@@ -65,6 +69,22 @@ class app extends Controller{
 				unset($reader);
 				unset($rtf);
 			}
+
+			foreach ($pre as $d) {
+				$q = "UPDATE shop_termekek SET ";
+
+				$q .= "kulcsszavak = '".addslashes($d['keywords'])."'";
+				$q .= ", leiras = '".addslashes($d['desc'])."'";
+				$q .= " WHERE cikkszam IN(".implode(",", $d['in_cikkszam']).")";
+
+
+				if ( true ) {
+					//echo $q . "<br><br>";
+				} else {
+					$this->db->query($q);
+				}
+			}
+
 
 			/* */
 			echo '<pre>';
