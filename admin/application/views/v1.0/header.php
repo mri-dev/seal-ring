@@ -192,6 +192,7 @@
                 <li class="<?=($this->gets[0] == 'feliratkozok')?'on':''?>"><a href="/feliratkozok" title="Feliratkozók"><span class="ni">2</span><i class="fa fa-check-square-o"></i> Feliratkozók</a></li>
 		            <li class="<?=($this->gets[0] == 'uzenetek')?'on':''?>"><a href="/uzenetek" title="Üzenetek"><span class="ni">8</span><i class="fa fa-envelope-o"></i> Üzenetek</a></li>
                 <!-- <li class="<?=($this->gets[0] == 'reklamfal')?'on':''?>"><a href="/reklamfal" title="Slideshow"><span class="ni">3</span><i class="fa fa-th-large"></i> Slideshow</a></li>-->
+                <li class="<?=($this->gets[0] == 'menu')?'on':''?>"><a href="/menu" title="Menük"><span class="ni">2</span><i class="fa fa-th"></i> Menük</a></li>
                 <li class="<?=($this->gets[0] == 'oldalak')?'on':''?>"><a href="/oldalak" title="Oldalak"><span class="ni">5</span><i class="fa fa-file-o"></i> Oldalak</a></li>
                 <li class="<?=($this->gets[0] == 'kategoriak')?'on':''?>"><a href="/kategoriak" title="Kategóriák"><span class="ni">6</span><i class="fa fa-bars"></i> Kategóriák</a></li>
                 <li class="<?=($this->gets[0] == 'markak')?'on':''?>"><a href="/markak" title="Márkák"><span class="ni">7</span><i class="fa fa-bookmark"></i> Márkák</a></li>
