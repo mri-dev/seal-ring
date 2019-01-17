@@ -37,6 +37,8 @@ class app extends Controller{
 					$context = $resources->loadResource( $originid );
 					$comparer = $resources->getColumnComparerKeys( $originid );
 					$context = $resources->prepareContext( $context );
+					//echo '<pre>';
+					//print_r($context);
 					$resources->importToTemp( $originid, $context, $comparer );
 					unset($context);
 					//$group = $resources->groupCat( $content );

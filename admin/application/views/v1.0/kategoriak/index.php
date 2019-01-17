@@ -34,28 +34,28 @@
 							<label for="sortnum">Sorrend</label>
 							<input type="number" id="sortnumber" name="sortnumber" value="<?=($this->err ? $_POST['sortnumber']:($this->category ? $this->category->getSortNumber() : '0'))?>" class="form-control">
 						</div>
-					</div>	
-					<? if( false ): ?>
+					</div>
+					<? if( true ): ?>
 					<br>
 					<div class="row np">
 						<div class="col-md-12">
 							<label for="hashkey">Egyedi azonosító kulcs</label>
 							<input type="text" id="hashkey" name="hashkey" value="<?= ( $this->err ? $_POST['hashkey'] : ($this->category ? $this->category->getHashkey():'') ) ?>" class="form-control">
 						</div>
-					</div>	
+					</div>
 					<? endif; ?>
 					<br>
 					<div class="row np">
 						<div class="col-md-12">
 							<label for="img">Kategória kép</label>
-							<div class="input-group"> 								
+							<div class="input-group">
 		                        <input type="text" id="img" class="form-control" name="image" value="<?= ( $this->err ? $_POST['image'] : ($this->category ? $this->category->getImage():'') ) ?>">
 		                        <span class="input-group-addon">
 		                            <a title="Kép kiválasztása galériából" href="/src/js/tinymce/plugins/filemanager/dialog.php?type=1&amp;lang=hu_HU&amp;field_id=img" data-fancybox-type="iframe" class="iframe-btn"><i class="fa fa-th"></i></a>
 		                        </span>
 		                    </div>
 						</div>
-					</div>	
+					</div>
 					<br>
 					<div class="row np">
 						<div class="col-md-12">
@@ -63,8 +63,8 @@
 							<select name="parent_category" id="parent_category" class="form-control">
 								<option value="" selected="selected">&mdash; ne legyen &mdash;</option>
 								<option value="" disabled="disabled"></option>
-								<? 
-									while( $this->categories->walk() ): 
+								<?
+									while( $this->categories->walk() ):
 									$cat = $this->categories->the_cat();
 								?>
 								<option value="<?=$cat['ID']?>_<?=$cat['deep']?>" <?=($this->err && $_POST['parent_category'] == $cat['ID'].'_'.$cat['deep'] ? 'selected="selected"' : ($this->category && $this->category->getParentKey() == $cat['ID'].'_'.$cat['deep'] ? 'selected="selected"' : '' ))?>><? for($s=$cat['deep']; $s>0; $s--){echo '&mdash;';}?><?=$cat['neve']?></option>
@@ -78,8 +78,8 @@
 						<div class="col-md-12">
 							<label for="parent_category">Oldalak kapcsolása a kategóriához</label>
 							<div class="categories-oldal-lista tbl-container overflowed">
-								<? while ( $this->hashkeyed_pages->walk() ): 
-									$page = $this->hashkeyed_pages->the_page(); 
+								<? while ( $this->hashkeyed_pages->walk() ):
+									$page = $this->hashkeyed_pages->the_page();
 									$hashkeys = array();
 									if( $this->category ) {
 										$hashkeys = $this->category->getPageHashkeys();
@@ -100,7 +100,7 @@
 							<button name="<?=($this->category ? 'saveCategory':'addCategory')?>" value="1" class="btn btn-<?=($this->category ? 'success':'primary')?>"><?=($this->category ? 'Változások mentése <i class="fa fa-save">':'Hozzáadás <i class="fa fa-plus">')?></i></button>
 						</div>
 					</div>
-				</form>			
+				</form>
 			</div>
 		</div>
 		<? endif; ?>
@@ -108,9 +108,9 @@
 	<div class="col-md-8">
 		<div class="con">
 			<h2>Kategóriák</h2>
-			<? 
+			<?
 				if( false ):
-				while( $this->categories->walk() ): 
+				while( $this->categories->walk() ):
 				$cat = $this->categories->the_cat();
 			?>
 			<?
@@ -120,20 +120,20 @@
 					echo '&mdash;&mdash;';
 				}	 else if($cat['deep'] == 3) {
 					echo '&mdash;&mdash;&mdash;';
-				}		
+				}
 
 			?>
 			<STRONG style="color:#2c3e50;"><?=$cat['neve']?></STRONG> &nbsp;&mdash;&nbsp; <SPAN STYLE="COLOR:#43a0de;"><?=$cat[hashkey]?></SPAN><BR>
 			<? endwhile; endif;  ?>
-			
+
 			<div class="row np row-head">
 				<div class="col-md-9"><em>Kategória</em></div>
 				<div class="col-md-2 right"><em>Sorrend</em></div>
 				<div class="col-md-1"></div>
 			</div>
 			<div class="categories">
-				<? 
-					while( $this->categories->walk() ): 
+				<?
+					while( $this->categories->walk() ):
 					$cat = $this->categories->the_cat();
 				?>
 				<div class="row np deep<?=$cat['deep']?> <?=($this->category && $this->category->getId() == $cat['ID'] ? 'on-edit' : ( $this->category_d && $this->category_d->getId() == $cat['ID'] ? 'on-del':'') )?>">
@@ -141,7 +141,7 @@
 						<a href="/kategoriak/szerkeszt/<?=$cat['ID']?>" title="Szerkesztés"><strong><?=$cat['neve']?></strong></a>
 						 <? if( $cat['oldal_hashkeys'] ): ?> | <span style="color: black;">Csatolt oldalak: <?=count(explode(",",$cat[oldal_hashkeys]))?> db</span><? endif; ?>
 						<div><? if($cat['hashkey']): ?> <span class="hashkey">#<?=$cat['hashkey']?></span> <? endif; ?></div>
-						
+
 					</div>
 					<div class="col-md-2 right">
 						<?=$cat['sorrend']?>
@@ -157,6 +157,6 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        
+
     })
 </script>

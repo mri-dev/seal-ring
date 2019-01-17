@@ -1149,6 +1149,7 @@ class ResourceImportBase
         $each['termek_keszlet'] = $row[$comparer['termek_keszlet']];
         $each['beszerzes_netto'] = $row[$comparer['beszerzes_netto']];
         $each['ean_code'] = $row[$comparer['ean_code']];
+        $each['kategoria_kulcs'] = $row[$comparer['kategoria_kulcs']];
         $each['ar1'] = $row[$comparer['ar1']];
         $each['ar2'] = $row[$comparer['ar2']];
         $each['ar3'] = $row[$comparer['ar3']];
@@ -1167,6 +1168,7 @@ class ResourceImportBase
         $each['termek_keszlet'] = $this->preparedGetXMlObject($row, $comparer['termek_keszlet']);
         $each['beszerzes_netto'] = $this->preparedGetXMlObject($row, $comparer['beszerzes_netto']);
         $each['ean_code'] = $this->preparedGetXMlObject($row, $comparer['ean_code']);
+        $each['kategoria_kulcs'] = $this->preparedGetXMlObject($row, $comparer['kategoria_kulcs']);
         $each['ar1'] = $this->preparedGetXMlObject($row, $comparer['ar1']);
         $each['ar2'] = $this->preparedGetXMlObject($row, $comparer['ar2']);
         $each['ar3'] = $this->preparedGetXMlObject($row, $comparer['ar3']);
@@ -1187,15 +1189,57 @@ class ResourceImportBase
 
     $insert_row = array();
     $img_row = array();
-    $insert_header = array('hashkey', 'origin_id', 'prod_id', 'last_updated', 'termek_nev', 'termek_leiras', 'termek_leiras2', 'beszerzes_netto', 'nagyker_ar_netto', 'kisker_ar_netto', 'termek_keszlet', 'termek_kep_urls', 'ean_code', 'marka_nev', 'kisker_ar_netto_akcios', 'nagyker_ar_netto_akcios', 'ar1','ar2','ar3','ar4','ar5','ar6','ar7','ar8','ar9','ar10', 'io');
+    $insert_header = array('hashkey', 'origin_id', 'prod_id', 'last_updated', 'termek_nev', 'termek_leiras', 'termek_leiras2', 'beszerzes_netto', 'nagyker_ar_netto', 'kisker_ar_netto', 'termek_keszlet', 'termek_kep_urls', 'ean_code', 'marka_nev', 'kisker_ar_netto_akcios', 'nagyker_ar_netto_akcios', 'kategoria_kulcs', 'ar1','ar2','ar3','ar4','ar5','ar6','ar7','ar8','ar9','ar10', 'io');
     $img_header = array('hashkey', 'nagyker', 'nagyker_id', 'gyarto_id', 'kep');
+
+    /* * /
+    echo '<pre>';
+    print_r($prepare);
+    echo '</pre>';
+    return true;
+    /* */
 
     foreach ( (array)$prepare as $r ) {
       $hashkey = md5($originid.'_'.$r['prod_id']);
       $kepek = NULL;
 
+      // version of multi_insert
+      /*
       $insert_row[] = array(
-        $hashkey, $originid, (string)$r['prod_id'].'', NOW, $r['termek_nev'], addslashes($r['termek_leiras']), addslashes($r['termek_leiras2']), $r['beszerzes_netto'], $r['nagyker_ar_netto'], $r['kisker_ar_netto'], $r['termek_keszlet'], $kepek, (string)$r['ean_code'].'', addslashes($r['marka_nev']),$r['kisker_ar_netto_akcios'], $r['nagyker_ar_netto_akcios'], $r['ar1'],$r['ar2'],$r['ar3'],$r['ar4'],$r['ar5'],$r['ar6'],$r['ar7'],$r['ar8'],$r['ar9'],$r['ar10'], 1
+        $hashkey, $originid, (string)$r['prod_id'].'', NOW, $r['termek_nev'], addslashes($r['termek_leiras']), addslashes($r['termek_leiras2']), $r['beszerzes_netto'], $r['nagyker_ar_netto'], $r['kisker_ar_netto'], $r['termek_keszlet'], $kepek, (string)$r['ean_code'].'', addslashes($r['marka_nev']),$r['kisker_ar_netto_akcios'], $r['nagyker_ar_netto_akcios'], addslashes($r['kategoria_kulcs']), $r['ar1'],$r['ar2'],$r['ar3'],$r['ar4'],$r['ar5'],$r['ar6'],$r['ar7'],$r['ar8'],$r['ar9'],$r['ar10'], 1
+      );
+      */
+
+      // version if multi_insert_v2
+      $insert_row[] = array(
+        'hashkey' => $hashkey,
+        'origin_id' => $originid,
+        'prod_id' => (string)$r['prod_id'].'',
+        'last_updated' => NOW,
+        'termek_nev' => $r['termek_nev'],
+        'termek_leiras' =>  addslashes($r['termek_leiras']),
+        'termek_leiras2' => addslashes($r['termek_leiras2']),
+        'beszerzes_netto' => $r['beszerzes_netto'],
+        'nagyker_ar_netto' => $r['nagyker_ar_netto'],
+        'kisker_ar_netto' => $r['kisker_ar_netto'],
+        'termek_keszlet' => $r['termek_keszlet'],
+        'termek_kep_urls' => $kepek,
+        'ean_code' => (string)$r['ean_code'].'',
+        'marka_nev' => addslashes($r['marka_nev']),
+        'kisker_ar_netto_akcios' => $r['kisker_ar_netto_akcios'],
+        'nagyker_ar_netto_akcios' => $r['nagyker_ar_netto_akcios'],
+        'kategoria_kulcs' => addslashes($r['kategoria_kulcs']),
+        'ar1' => $r['ar1'],
+        'ar2' => $r['ar2'],
+        'ar3' => $r['ar3'],
+        'ar4' => $r['ar4'],
+        'ar5' => $r['ar5'],
+        'ar6' => $r['ar6'],
+        'ar7' => $r['ar7'],
+        'ar8' => $r['ar8'],
+        'ar9' => $r['ar9'],
+        'ar10' => $r['ar10'],
+        'io' => 1
       );
 
       /*if (!is_array($r['kepek'])) {
@@ -1228,15 +1272,19 @@ class ResourceImportBase
 
     /* */
     if (!empty($insert_row)) {
-      $dbx = $this->db->multi_insert(
+      $debug = true;
+      $dbx = $this->db->multi_insert_v2(
         self::DB_TEMP_PRODUCTS,
         $insert_header,
         $insert_row,
         array(
           'debug' => $debug,
-          'duplicate_keys' => array('hashkey', 'prod_id', 'termek_nev', 'last_updated', 'termek_leiras', 'termek_leiras2', 'beszerzes_netto', 'nagyker_ar_netto', 'kisker_ar_netto', 'termek_keszlet', 'termek_kep_urls', 'ean_code', 'marka_nev', 'kisker_ar_netto_akcios', 'nagyker_ar_netto_akcios','ar1','ar2','ar3','ar4','ar5','ar6','ar7','ar8','ar9','ar10', 'io' )
+          'duplicate_keys' => array('hashkey', 'prod_id', 'termek_nev', 'last_updated', 'termek_leiras', 'termek_leiras2', 'beszerzes_netto', 'nagyker_ar_netto', 'kisker_ar_netto', 'termek_keszlet', 'termek_kep_urls', 'ean_code', 'marka_nev', 'kisker_ar_netto_akcios', 'nagyker_ar_netto_akcios','kategoria_kulcs', 'ar1','ar2','ar3','ar4','ar5','ar6','ar7','ar8','ar9','ar10', 'io' )
         )
       );
+      if ($debug) {
+        echo $dbx;
+      }
     }
     //echo '--->'; $this->memo();
     unset($insert_row);
