@@ -50,6 +50,12 @@ class app extends Controller{
 					$resources->pushToTermekek( $originid );
 				break;
 
+				case 'cat':
+					// Seal Ring inCash Cat
+					$originid = 1;
+					$resources->autoCategoryConnecter( $originid );
+				break;
+
 				default:
 				break;
 			}

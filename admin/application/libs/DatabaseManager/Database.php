@@ -286,7 +286,6 @@ class Database
 			$values[] = $v;
 		}
 
-
 		$q = $this->db->prepare($iq = "INSERT INTO $table(".implode($fields,', ').") VALUES(:".implode($fields,', :').")");
 
 		$binds = array();

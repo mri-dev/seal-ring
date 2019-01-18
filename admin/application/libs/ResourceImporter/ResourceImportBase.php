@@ -663,10 +663,14 @@ class ResourceImportBase
         //echo $debug;
         /* */
       }
-
       //return count($insert_row);
-
     }
+
+    // Updater
+    $this->autoUpdater( $originid );
+
+    // Category connecter
+    $this->autoCategoryConnecter( $originid );
   }
 
   public function _old__pushToTermekek( $originid )
@@ -771,21 +775,25 @@ class ResourceImportBase
 
         $current_data = $this->db->query("SELECT
           ID,
+          nev,
           keszletID,
           szallitasID,
-          netto_ar,
-          brutto_ar,
-          egyedi_ar,
           raktar_keszlet,
-          akcios,
-          akcios_netto_ar,
-          akcios_brutto_ar,
-          akcios_egyedi_brutto_ar
+          beszerzes_netto,
+          akcios
         FROM shop_termekek
         WHERE 1=1 and
         xml_import_origin = {$originid} and
         xml_import_res_id = {$d[ID]}")->fetch(\PDO::FETCH_ASSOC);
         //if($current_data['ID'] != 2421) continue;
+
+        /*
+        print_r($d);
+        echo '<br>';
+        print_r($current_data);
+        echo '<br><br>';
+        */
+
 
         $d['will_update'] = $this->whatWantUpdate($originid, $d, $current_data);
         $d['current_data'] = $current_data;
@@ -867,6 +875,49 @@ class ResourceImportBase
   }
 
   public function whatWantUpdate( $originid = 0, $tempdata = array(), $current_data = array() )
+  {
+    $wupdate = array();
+
+    list($keszletID, $szallitasID) = $this->pushedProductKeszletSzallitasID($originid, $tempdata['termek_keszlet']);
+
+    if ($current_data['nev'] != $tempdata['termek_nev']) {
+      $wupdate['what'][] = 'nev';
+      $wupdate['field']['nev'] = array(
+        'new' => $tempdata['termek_nev'],
+        'old' => $current_data['nev']
+      );
+    }
+
+    if ($current_data['beszerzes_netto'] != $tempdata['beszerzes_netto']) {
+      $wupdate['what'][] = 'beszerzes_netto';
+      $wupdate['field']['beszerzes_netto'] = array(
+        'new' => $tempdata['beszerzes_netto'],
+        'old' => $current_data['beszerzes_netto']
+      );
+    }
+
+    if ($keszletID != $current_data['keszletID']) {
+      $wupdate['what'][] = 'keszletID';
+      $wupdate['field']['keszletID'] = array(
+        'new' => $keszletID,
+        'old' => $current_data['keszletID']
+      );
+    }
+
+    if ($szallitasID != $current_data['szallitasID']) {
+      $wupdate['what'][] = 'szallitasID';
+      $wupdate['field']['szallitasID'] = array(
+        'new' => $szallitasID,
+        'old' => $current_data['szallitasID']
+      );
+    }
+
+    //print_r($tempdata);
+    return $wupdate;
+  }
+
+
+  public function _old_whatWantUpdate( $originid = 0, $tempdata = array(), $current_data = array() )
   {
     $wupdate = array();
 
@@ -1149,7 +1200,7 @@ class ResourceImportBase
         $each['termek_keszlet'] = $row[$comparer['termek_keszlet']];
         $each['beszerzes_netto'] = $row[$comparer['beszerzes_netto']];
         $each['ean_code'] = $row[$comparer['ean_code']];
-        $each['kategoria_kulcs'] = $row[$comparer['kategoria_kulcs']];
+        $each['kategoria_kulcs'] = str_replace(',','__',$row[$comparer['kategoria_kulcs']]);
         $each['ar1'] = $row[$comparer['ar1']];
         $each['ar2'] = $row[$comparer['ar2']];
         $each['ar3'] = $row[$comparer['ar3']];
@@ -1168,7 +1219,7 @@ class ResourceImportBase
         $each['termek_keszlet'] = $this->preparedGetXMlObject($row, $comparer['termek_keszlet']);
         $each['beszerzes_netto'] = $this->preparedGetXMlObject($row, $comparer['beszerzes_netto']);
         $each['ean_code'] = $this->preparedGetXMlObject($row, $comparer['ean_code']);
-        $each['kategoria_kulcs'] = $this->preparedGetXMlObject($row, $comparer['kategoria_kulcs']);
+        $each['kategoria_kulcs'] = str_replace(',','__', $this->preparedGetXMlObject($row, $comparer['kategoria_kulcs']));
         $each['ar1'] = $this->preparedGetXMlObject($row, $comparer['ar1']);
         $each['ar2'] = $this->preparedGetXMlObject($row, $comparer['ar2']);
         $each['ar3'] = $this->preparedGetXMlObject($row, $comparer['ar3']);
@@ -1272,7 +1323,7 @@ class ResourceImportBase
 
     /* */
     if (!empty($insert_row)) {
-      $debug = true;
+      $debug = false;
       $dbx = $this->db->multi_insert_v2(
         self::DB_TEMP_PRODUCTS,
         $insert_header,
@@ -1307,6 +1358,9 @@ class ResourceImportBase
     }
     unset($img_row);
     /* */
+
+    // Fix xml_import_res_id if redownloaded temp data
+    $this->db->query("UPDATE shop_termekek as t SET t.xml_import_res_id = (SELECT ID  FROM `xml_temp_products` WHERE `origin_id` = {$originid} AND `prod_id` = t.nagyker_kod) WHERE 1=1 and t.xml_import_res_id != (SELECT ID  FROM `xml_temp_products` WHERE `origin_id` = {$originid} AND `prod_id` = t.nagyker_kod)");
 
     $this->db->update(
       self::DB_SOURCE,
@@ -1589,6 +1643,49 @@ class ResourceImportBase
     }
 
     return $value;
+  }
+
+  public function autoCategoryConnecter( $originid )
+  {
+    $q = "SELECT
+      xt.prod_id,
+      xt.kategoria_kulcs,
+      k.ID as xref_cat_id,
+      k.neve as xref_cat_neve,
+      t.ID as termekID,
+      MD5(CONCAT('{$originid}_', xt.prod_id, '_', k.ID)) as xref_cat_hashkey
+    FROM xml_temp_products as xt
+    LEFT OUTER JOIN shop_termek_kategoriak as k ON FIND_IN_SET(xt.kategoria_kulcs, k.hashkey)
+    LEFT OUTER JOIN shop_termekek as t ON t.xml_import_origin = xt.origin_id and xt.ID = t.xml_import_res_id
+    WHERE 1 = 1 and
+    xt.origin_id = {$originid} and
+    xt.kategoria_kulcs IS NOT NULL and
+    k.ID IS NOT NULL ";
+
+    $qry = $this->db->query( $q );
+
+    if ($qry->rowCount() != 0)
+    {
+      $data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+      foreach ((array)$data as $d) {
+        $c = $this->db->squery("SELECT ID FROM shop_termek_in_kategoria WHERE hashkey = :hash", array('hash' => $d['xref_cat_hashkey']));
+        if ($c->rowCount() == 0)
+        {
+          if ($d['termekID'] != '') {
+            $this->db->insert(
+              'shop_termek_in_kategoria',
+              array(
+                'hashkey' => $d['xref_cat_hashkey'],
+                'kategoria_id' => $d['xref_cat_id'],
+                'termekID' => $d['termekID'],
+                'connected' => 1
+              )
+            );
+          }
+        }
+      }
+    }
   }
 
   function memo() {

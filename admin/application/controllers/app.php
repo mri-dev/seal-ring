@@ -44,7 +44,7 @@ class app extends Controller{
 
 				$mappa_exists = file_exists('src/import/adatok/'.trim($e['mappa']).'/kepek');
 
-				if ($mappa_exists && false) {
+				if ($mappa_exists && true) {
 					try {
 						$readf = new FileLister('src/import/adatok/'.trim($e['mappa']).'/kepek');
 						$images = $readf->getFolderItems();
@@ -76,6 +76,10 @@ class app extends Controller{
 				$q .= "kulcsszavak = '".addslashes($d['keywords'])."'";
 				$q .= ", leiras = '".addslashes($d['desc'])."'";
 				$q .= " WHERE cikkszam IN(".implode(",", $d['in_cikkszam']).")";
+
+				if (!empty($d['images'])) {
+					
+				}
 
 
 				if ( true ) {
