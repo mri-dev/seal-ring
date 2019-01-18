@@ -48,6 +48,11 @@ class app extends Controller{
 					try {
 						$readf = new FileLister('src/import/adatok/'.trim($e['mappa']).'/kepek');
 						$images = $readf->getFolderItems();
+
+						$images = array_map(function($i, $ix){
+							$i['sort'] = $ix;
+							return $i;
+						}, $images, array_keys($images));
 					} catch (\Exception $e) {
 						die($e->getMessage());
 					}
@@ -78,7 +83,7 @@ class app extends Controller{
 				$q .= " WHERE cikkszam IN(".implode(",", $d['in_cikkszam']).")";
 
 				if (!empty($d['images'])) {
-					
+					$this->insertImageByupdateProducts( $d['images'], $d['in_cikkszam']);
 				}
 
 
@@ -94,6 +99,65 @@ class app extends Controller{
 			echo '<pre>';
 			print_r($pre);
 			/* */
+		}
+
+		public function insertImageByupdateProducts( $images, $cikk_ids )
+		{
+			$ids = array();
+			$q = $this->db->query("SELECT ID, cikkszam FROM shop_termekek WHERE cikkszam IN(".implode(",", $cikk_ids).")");
+
+			if ($q->rowCount() != 0)
+			{
+					foreach ( $q->fetchAll(\PDO::FETCH_ASSOC) as $t ) {
+						if(!array_key_exists($t['cikkszam'], $ids)){
+							$ids[$t['cikkszam']] = $t['ID'];
+						}
+					}
+			}
+
+			$insert_img = array();
+
+			foreach ((array)$cikk_ids as $ci) {
+				$id = $ids[$ci];
+				if (empty($id)) {
+					continue;
+				}
+				foreach ((array)$images as $im) {
+					$hashkey = md5($ci.'_'.$id.'_'.$im['name']);
+					$cimg = $this->db->squery("SELECT ID FROM shop_termek_kepek WHERE hashkey = :hashk", array('hashk' => $hashkey));
+
+					if ($im['sort'] == 0) {
+						$profc = $this->db->squery("SELECT profil_kep FROM shop_termekek WHERE ID = :id", array('id' => $id));
+						if ($profc->rowCount() != 0) {
+							$profc = $profc->fetchColumn();
+							if ($profc != $im['src_path']) {
+								$this->db->update("shop_termekek",
+								array(
+									'profil_kep' => $im['src_path']
+								),
+								sprintf("ID = %d", $id));
+							}
+						}
+					}
+
+					if ($cimg->rowCount() == 0) {
+						$insert_img[] = array(
+							'hashkey' => $hashkey,
+							'termekID' => $id,
+							'sorrend' => $im['sort'],
+							'kep' => $im['src_path']
+						);
+					}
+				}
+			}
+
+			if (!empty($insert_img)) {
+				$this->db->multi_insert_v2(
+					'shop_termek_kepek',
+					array('hashkey', 'termekID', 'sorrend', 'kep'),
+					$insert_img
+				);
+			}
 		}
 
 		public function userimport()

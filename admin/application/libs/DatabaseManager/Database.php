@@ -85,7 +85,7 @@ class Database
 			$q .= " WHERE ".stripslashes($whr);
 		}
 		$q .= ';';
-		//echo $q;
+		//echo $q."<br>";
 		$this->query($q);
 		return true;
 	}
