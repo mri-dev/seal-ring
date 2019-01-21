@@ -286,7 +286,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.finder_config_select = {
     felhasznalasi_terulet: 0,
-    search_keywords: null,
+    search_keywords: '',
     selects: {
       cat: {id: 0},
       subcat: { id: 0}
