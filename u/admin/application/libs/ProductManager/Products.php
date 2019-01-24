@@ -437,18 +437,6 @@ class Products
 		return $product;
 	}
 
-	public function makeKeywordsArray( &$keywords )
-	{
-		if ($keywords == '') {
-			return array();
-		}
-
-		$keywords = str_replace(", ", ",", $keywords);
-		$keywords = explode(",", $keywords);
-
-		return $keywords;
-	}
-
 	public function getLoadedIDS()
 	{
 		if ( !$this->products ) {
@@ -709,25 +697,8 @@ class Products
 			$size_whr .= $add;
 		}
 
-		if ( isset($arg['in_cat']) ) {
-			$in_cats = array();
-			$catid = (int)$arg['in_cat'];
-			$in_cats[] = $catid;
-
-			$cat_children = $this->getCategoryChildren($catid);
-			if ($cat_children)
-			{
-				$in_cats = array_merge($in_cats, $cat_children);
-			}
-
-			$in_cat_str = ' and (';
-			foreach ((array)$in_cats as $ic) {
-				$in_cat_str .= "FIND_IN_SET(".$ic.",(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID )) or ";
-			}
-			$in_cat_str = rtrim($in_cat_str, " or ");
-			$in_cat_str .= ')';
-
-			$add = $in_cat_str;
+		if ( $arg['in_cat'] ) {
+			$add = " and FIND_IN_SET(".$arg['in_cat'].",(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID )) ";
 			$whr .= $add;
 			$size_whr .= $add;
 		}
@@ -1019,8 +990,6 @@ class Products
 			$d['profil_kep'] 		=  \PortalManager\Formater::productImage( $kep, false, self::TAG_IMG_NOPRODUCT );
 			$d['profil_kep_mid'] 	=  \PortalManager\Formater::productImage( $kep, 300, self::TAG_IMG_NOPRODUCT );
 			$d['profil_kep_small'] 	=  \PortalManager\Formater::productImage( $kep, 150, self::TAG_IMG_NOPRODUCT );
-
-			$this->makeKeywordsArray($d['kulcsszavak']);
 
 			/*
 			$arInfo	= $this->getProductPriceCalculate( $d['marka_id'], $brutto_ar );
@@ -1464,49 +1433,48 @@ class Products
 	 * @param  int $product_id
 	 * @return array             Kategória ID lista, ahova be lett csatolva a termék
 	 */
-	 public function getProductInCategory( $product_id, $get_names = false )
- 	{
- 		if ( !$product_id ) return false;
+	public function getProductInCategory( $product_id, $get_names = false )
+	{
+		if ( !$product_id ) return false;
 
- 		$cat_ids = array();
+		$cat_ids = array();
 
- 		$qry = $this->db->query( sprintf( "
- 			SELECT 				k.kategoria_id,
- 								IF(kat.szulo_id IS NULL, kat.neve, CONCAT(p.neve, ' / ', kat.neve)) as neve,
- 								kat.hashkey,
- 								kat.oldal_hashkeys
- 			FROM 				shop_termek_in_kategoria as k
- 			LEFT OUTER JOIN 	shop_termek_kategoriak as kat ON kat.ID = k.kategoria_id
- 			LEFT OUTER JOIN 	shop_termek_kategoriak as p ON p.ID = kat.szulo_id
- 			WHERE 				k.termekID = %d
- 			ORDER BY 			p.sorrend ASC, kat.sorrend ASC", $product_id ) );
+		$qry = $this->db->query( sprintf( "
+			SELECT 				k.kategoria_id,
+								IF(kat.szulo_id IS NULL, kat.neve, CONCAT(p.neve, ' / ', kat.neve)) as neve,
+								kat.hashkey,
+								kat.oldal_hashkeys
+			FROM 				shop_termek_in_kategoria as k
+			LEFT OUTER JOIN 	shop_termek_kategoriak as kat ON kat.ID = k.kategoria_id
+			LEFT OUTER JOIN 	shop_termek_kategoriak as p ON p.ID = kat.szulo_id
+			WHERE 				k.termekID = %d
+			ORDER BY 			p.sorrend ASC, kat.sorrend ASC", $product_id ) );
 
- 		if( $qry->rowCount() == 0 ) return $cat_ids;
+		if( $qry->rowCount() == 0 ) return $cat_ids;
 
- 		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
 
- 		$page_hashkeys = '';
- 		foreach ( $data as $v ) {
- 			if ($get_names) {
- 				$cat_ids['id'][] = $v['kategoria_id'];
- 				$cat_ids['name'][] = $v['neve'];
- 				$cat_ids['url'][] = '/termekek/'.\Helper::makeSafeUrl($v['neve'],'_-'.$v['kategoria_id']);
- 				$cat_ids['hashkey'][] = $v['hashkey'];
+		$page_hashkeys = '';
+		foreach ( $data as $v ) {
+			if ($get_names) {
+				$cat_ids['id'][] = $v['kategoria_id'];
+				$cat_ids['name'][] = $v['neve'];
+				$cat_ids['hashkey'][] = $v['hashkey'];
 
- 				if( $v['oldal_hashkeys'] ) {
- 					$page_hashkeys .= ','.$v['oldal_hashkeys'];
- 				}
+				if( $v['oldal_hashkeys'] ) {
+					$page_hashkeys .= ','.$v['oldal_hashkeys'];
+				}
 
- 			} else {
- 				$cat_ids[] = $v['kategoria_id'];
- 			}
+			} else {
+				$cat_ids[] = $v['kategoria_id'];
+			}
 
- 		}
+		}
 
- 		$cat_ids['page_hashkeys'] = ltrim( $page_hashkeys, ',' );
+		$cat_ids['page_hashkeys'] = ltrim( $page_hashkeys, ',' );
 
- 		return $cat_ids;
- 	}
+		return $cat_ids;
+	}
 
 	public function getCategoriesWhereProductIn( $product_id )
 	{
@@ -1756,7 +1724,7 @@ class Products
 		$data['arres_szazalek'] 	= $arInfo['arres'];
 		$data['hasonlo_termek_ids'] = $this->getProductRelatives( $product_id );
 		$in_kat = $this->getProductInCategory( $product_id, true );
-		$data['in_cats'] 				= $in_kat;
+		$data['in_cat_ids'] 		= $in_kat['id'];
 		$data['in_cat_names'] 		= $in_kat['name'];
 		$data['in_cat_hashkey']		= $in_kat['hashkey'];
 		$data['in_cat_page_hashkeys']= $in_kat['page_hashkeys'];
@@ -1764,8 +1732,6 @@ class Products
 		$data['parameters']			= $this->getParameters( $product_id, $data['alapertelmezett_kategoria'] );
 		$data['related_products_ids']	= $this->getRelatedIDS( $product_id );
 		$data['nav'] = array_reverse($categories->getCategoryParentRow((int)$data['alapertelmezett_kategoria'], false));
-
-		$this->makeKeywordsArray($data['kulcsszavak']);
 
 		$data['keszlet_info'] = $this->checkProductStockName( $data['keszletID'], $data['raktar_keszlet'], true );
 		$data['szallitas_info'] = $this->checkProductTransportName( $data['szallitasID'], $data['raktar_keszlet'] );
@@ -2012,29 +1978,6 @@ class Products
 	}
 
 	/**
-	*  Kategóriák ID-jának leszármazottjai
-	**/
-	public function getCategoryChildren( $cat_id )
-	{
-		$set = array();
-		$walk = true;
-
-		$q = $this->db->squery("SELECT ID FROM shop_termek_kategoriak WHERE szulo_id = :cid;", array('cid' => $cat_id));
-
-		if ($q->rowCount() == 0) {
-			return false;
-		}
-
-		$qd = $q->fetchAll(\PDO::FETCH_ASSOC);
-
-		foreach ( (array)$qd as $cid ) {
-			$set[] = (int)$cid['ID'];
-		}
-
-		return $set;
-	}
-
-	/**
 	*  Felmenő kategóriák ID-jának lekérdezése
 	**/
 	public function getCategorySet( $cat_id )
@@ -2064,6 +2007,9 @@ class Products
 				$cat_id = $qd['szulo_id'];
 			}
 		}
+
+
+
 
 		return $set;
 	}

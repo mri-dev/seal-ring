@@ -27,7 +27,7 @@
             <?  foreach ( $this->product['images'] as $img ) { ?>
             <div class="imgslide img-auto-cuberatio__">
               <div class="wrp">
-                <img class="aw" i="<?=\PortalManager\Formater::productImage($img)?>" src="<?=\PortalManager\Formater::productImage($img)?>" alt="<?=$this->product['nev']?>">
+                <img class="aw" i="<?=\PortalManager\Formater::productImage($img)?>" src="<?=\PortalManager\Formater::productImage($img, 150)?>" alt="<?=$this->product['nev']?>">
               </div>
             </div>
             <? } ?>
@@ -71,6 +71,7 @@
         <div class="divider"></div>
         <div class="status-params">
           <div class="avaibility">
+            <div class="h">Elérhetőség:</div>
             <div class="v"><?=$this->product['keszlet_info']?></div>
           </div>
           <div class="transport">
@@ -85,13 +86,12 @@
           </div>
           <?php endif; ?>
         </div>
-        <?php if ($this->product['rovid_leiras'] != ''): ?>
         <div class="divider"></div>
         <div class="short-desc">
           <?=$this->product['rovid_leiras']?>
         </div>
-        <?php endif; ?>
-        <?php
+
+        <?
         if( count($this->product['hasonlo_termek_ids']['colors']) > 1 ):
             $colorset = $this->product['hasonlo_termek_ids']['colors'];
         ?>
@@ -148,70 +148,32 @@
             </div>
           </div>
           <div class="divider"></div>
-          <div class="group-infos">
-            <?php if (!empty($this->product['in_cats']['name'])): ?>
+          <div class="group helpdesk-actions">
             <div class="cats">
-              <div class="flex">
-                <div class="title">
-                  Kategóriák:
-                </div>
-                <div class="val">
-                  <div class="wrapper">
-                    <div class="labels">
-                      <?php
-                      $ci = -1;
-                      foreach ((array)$this->product['in_cats']['name'] as $cat ): $ci++; ?>
-                      <div class="">
-                        <a href="<?=$this->product['in_cats']['url'][$ci]?>"><?=$cat?></a>
-                      </div>
-                      <?php endforeach; unset($ci); ?>
-                    </div>
-                  </div>
-                </div>
+              <div class="h">Kategória:</div>
+              <div class="v">
+
               </div>
             </div>
-            <?php endif; ?>
-            <?php if (!empty($this->product['kulcsszavak'])): ?>
             <div class="keywords">
-              <div class="flex">
-                <div class="title">
-                  Címkék:
-                </div>
-                <div class="val">
-                  <div class="wrapper">
-                    <div class="labels">
-                      <?php foreach ( (array)$this->product['kulcsszavak'] as $kulcsszavak ): ?>
-                      <div>
-                        <a href="/tag/<?=$kulcsszavak?>"><?=$kulcsszavak?></a>
-                      </div>
-                      <?php endforeach; ?>
-                    </div>
-                  </div>
-                </div>
+              <div class="h">Címkék:</div>
+              <div class="v">
+
               </div>
             </div>
-            <?php endif; ?>
-            <div class="shares">
-              <div class="flex">
-                <div class="title">
-                  Megosztás:
+            <div class="social-shares">
+              <div class="h">Megosztás:</div>
+              <div class="v">
+                <?php echo $this->render('templates/product_share'); ?>
+              </div>
+            </div>
+            <div class="fav" ng-class="(fav_ids.indexOf(<?=$this->product['ID']?>) !== -1)?'selected':''" ng-click="productAddToFav(<?=$this->product['ID']?>)">
+              <div class="wrapper">
+                <div ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) !== -1">
+                  <i class="fa fa-star"></i> Kedvenc termék
                 </div>
-                <div class="val">
-                  <div class="wrapper">
-                    <div class="social">
-                      <div class="flex flexmob-exc-resp">
-                        <div class="facebook">
-                          <a  href="#"><i class="fa fa-facebook"></i></a>
-                        </div>
-                        <div class="googleplus">
-                          <a href="#"><i class="fa fa-google-plus"></i></a>
-                        </div>
-                        <div class="email">
-                          <a href="#"><i class="fa fa-envelope"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div ng-show="fav_ids.indexOf(<?=$this->product['ID']?>) === -1">
+                  <i class="fa fa-star-o"></i> Kedvencekhez
                 </div>
               </div>
             </div>
