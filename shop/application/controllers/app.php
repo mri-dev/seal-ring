@@ -28,7 +28,7 @@ class app extends Controller{
 			$mode = $this->view->gets[2];
 
 			$resources = new ResourceImport( array( 'db' => $this->db ) );
-
+			
 			switch ( $mode )
 			{
 				case 'downloads':
