@@ -6,14 +6,32 @@
 <div class="search-finder" ng-init="loadFinder('<?=$getqrystr?>')">
   <div class="tabs">
     <ul>
-      <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
+      <li ng-class="(findernavpos=='simple')?'active':''" ng-click="switchFinderNav('simple')">Termék kereső</li>
       <?php if (false): ?>
+        <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
         <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')">Keresés kifejezésre</li>
         <li ng-class="(findernavpos=='numbers')?'active':''" ng-click="switchFinderNav('numbers')">Keresés cikkszám alapján</li>
       <?php endif; ?>
     </ul>
   </div>
   <div class="contents">
+    <div class="cont-simple" ng-show="(findernavpos=='simple')">
+      <div class="wrapper">
+
+        <div class="left-side">
+          <div class="src">
+            <div class="search-wrapper">
+              <input type="text" ng-change="bindFinder()" ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+            </div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
+            <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-show="finder_result_num!==-1">{{finder_result_num}} db. találat</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="cont-advenced" ng-show="(findernavpos=='advenced')">
       <div class="wrapper">
         <div class="src">

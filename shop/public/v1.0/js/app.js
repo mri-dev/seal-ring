@@ -273,7 +273,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   /******************************
   * Finder
   *******************************/
-  $scope.findernavpos = 'advenced';
+  $scope.findernavpos = 'simple';
   $scope.finder_result_num = -1;
   $scope.finder_config = {
     'felhasznalasi_teruletek': [],
@@ -335,6 +335,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
       data: $.param({
         type: "finder",
         action: 'calcitem',
+        findermode: $scope.findernavpos,
         datas: $scope.finder_config_select
       })
     }).success(function(r)

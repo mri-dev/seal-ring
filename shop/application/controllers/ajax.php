@@ -29,14 +29,21 @@ class ajax extends Controller{
 							$felhasznalasi_terulet = (int)$datas['felhasznalasi_terulet'];
 							$search_keywords = explode(" ",trim($datas['search_keywords']));
 
+
 							$products = new Products( array(
 								'db' => $this->db,
 								'user' => $this->User->get()
 							) );
 
 							$arg = array();
-							$arg['felhasznalasi_terulet'] = $felhasznalasi_terulet;
-							$arg['search'] = (array)$search_keywords;
+							//$arg['felhasznalasi_terulet'] = $felhasznalasi_terulet;
+							if ($findermode == 'simple') {
+								$arg['search'] = (array)$search_keywords;
+							}
+							else if($findermode == 'numbers')
+							{
+								$arg['filters']['cikkszam'] = trim($datas['search_keywords']);
+							}
 							$products->prepareList( $arg );
 
 							$n = $products->getItemNumbers();
