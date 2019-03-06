@@ -87,7 +87,7 @@
         <div class="wrapper">
           <ul>
             <?php foreach ($this->top_documents as $docs ): ?>
-            <li><a title="<?=strtoupper($docs['ext'])?><?=($docs['filesize']) ? ' - '.$docs['filesize']:''?>" href="/app/dcl/<?=$docs['hashname']?>" target="_blank"><img src="<?=IMG?>icons/<?=$docs['icon']?>.svg" alt="<?=$docs['ext']?>"> <?=$docs['cim']?></a></li>  
+            <li><a title="<?=strtoupper($docs['ext'])?><?=($docs['filesize']) ? ' - '.$docs['filesize']:''?>" href="/app/dcl/<?=$docs['hashname']?>" target="_blank"><img src="<?=IMG?>icons/<?=$docs['icon']?>.svg" alt="<?=$docs['ext']?>"> <?=$docs['cim']?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -175,7 +175,7 @@
         <? foreach ( $this->viewed_products_list as $viewed ) { ?>
           <div class="item">
             <div class="img">
-              <a href="<?php echo $viewed['link']; ?>"><img src="<?php echo $viewed['profil_kep_small']; ?>" alt="<?php echo $viewed['product_nev']; ?>"></a>
+              <a href="<?php echo $viewed['link']; ?>"><img src="<?php echo $viewed['profil_kep']; ?>" alt="<?php echo $viewed['product_nev']; ?>"></a>
             </div>
             <div class="data">
               <a href="<?php echo $viewed['link']; ?>">

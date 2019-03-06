@@ -739,8 +739,24 @@ class Products
 		}
 
 		// Keresés
-		if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) ) {
+		if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) )
+		{
+			$srcstr = strtolower(str_replace(" ","",$arg['search_str']));
 			$add = " and (";
+				$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$srcstr."%'";
+				$add .= " or (";
+				foreach ($arg['search'] as $src ) {
+					$src = strtolower(str_replace(" ","",$src));
+					$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$src."%' and ";
+				}
+				$add = rtrim($add," and ");
+				$add .= ")";
+			$add .= ") ";
+
+			$whr .= $add;
+			$size_whr .= $add;
+
+			/*$add = " and (";
 				foreach ($arg['search'] as $src ) {
 					$add .= "(p.nev LIKE '%".$src."%' or p.kulcsszavak LIKE '%".$src."%' or p.rovid_leiras LIKE '%".$src."%') and ";
 				}
@@ -748,7 +764,7 @@ class Products
 			$add .= ") ";
 
 			$whr .= $add;
-			$size_whr .= $add;
+			$size_whr .= $add;*/
 		}
 
 		if ( !empty($arg['meret']) && $arg['meret'][0] != '' ) {

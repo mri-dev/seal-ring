@@ -91,6 +91,7 @@ class termekek extends Controller {
 			);
 
 			if (isset($_GET['src']) && $_GET['src'] != '') {
+				$arg['search_str'] = trim($_GET['src']);
 				$search = explode(" ", trim($_GET['src']));
 				if (!empty($search)) {
 					$this->shop->logSearching($_GET['src']);
