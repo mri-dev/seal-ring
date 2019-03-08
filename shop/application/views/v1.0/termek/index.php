@@ -46,7 +46,13 @@
         </div>
         <div class="prices">
           <div class="lab">
-            Kiskereskedelmi bruttó ár:
+            <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
+              <strong><?php echo $this->user['data']['price_group_data']['title']; ?></strong> bruttó ár:
+            <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
+              Bruttó <strong>beszerzési</strong> ár:
+            <?php else: ?>
+              <strong><?php echo $this->user['data']['price_group_data']['title']; ?></strong> bruttó ár:
+            <?php endif; ?>
           </div>
           <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
           <div class="base">
@@ -63,7 +69,7 @@
               </div>
               <? endif; ?>
               <div class="current">
-                  <?=\PortalManager\Formater::cashFormat($kisker_brutto)?> <?=$this->valuta?>
+                  <?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?>
               </div>
             <?php endif; ?>
           </div>

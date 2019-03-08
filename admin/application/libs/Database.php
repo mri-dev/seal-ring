@@ -60,11 +60,14 @@ class Database{
 							SELECT ar9 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						ELSEIF pricegroup = 'ar10' THEN
 							SELECT ar10 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'beszerzes_netto' THEN
+							SELECT beszerzes_netto INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						END IF;
 
 					END IF;
 
-					SET felh_ar = round(felh_ar * afa);
+					SET felh_ar = felh_ar * afa;
+					SET felh_ar = round(felh_ar / 5) * 5;
 
 				  RETURN felh_ar;
 				END;

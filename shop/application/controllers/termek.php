@@ -37,61 +37,65 @@ class termek extends Controller{
 				}
 			}
 
-			/****
-			* TOP TERMÉKEK
-			*****/
-			$arg = array(
-				'limit' 	=> 5,
-				'collectby' => 'top'
-			);
-			$top_products = (new Products( array(
-				'db' => $this->db,
-				'user' => $this->User->get()
-			) ))->prepareList( $arg );
-			$this->out( 'top_products', $top_products );
-			$this->out( 'top_products_list', $top_products->getList() );
-
-			/****
-			* MEGNÉZETT TERMÉKEK
-			*****/
-			$arg = array();
-			$viewed_products = (new Products( array(
-				'db' => $this->db,
-				'user' => $this->User->get()
-			) ))->getLastviewedList( \Helper::getMachineID(), 5, $arg );
-			$this->out( 'viewed_products_list', $viewed_products );
-
-			/****
-			* Live TERMÉKEK
-			*****/
-			$arg = array();
-			$live_products = (new Products( array(
-				'db' => $this->db,
-				'user' => $this->User->get()
-			) ))->getLiveviewedList( \Helper::getMachineID(), 5, $arg );
-			$this->out( 'live_products_list', $live_products );
-
-
-			// További ajánlott termékek
-			if ( $product['related_products_ids'] )
+			if ( false )
 			{
-				// Template
-				$temp = new Template( VIEW . 'templates/' );
-				$this->out( 'template', $temp );
-
+				/****
+				* TOP TERMÉKEK
+				*****/
 				$arg = array(
-					'except' => array(
-						'ID' => Product::getTermekIDFromUrl()
-					),
-					'limit' => 99999,
-					'in_ID' => $product['related_products_ids']
+					'limit' 	=> 5,
+					'collectby' => 'top'
 				);
+				$top_products = (new Products( array(
+					'db' => $this->db,
+					'user' => $this->User->get()
+				) ))->prepareList( $arg );
+				$this->out( 'top_products', $top_products );
+				$this->out( 'top_products_list', $top_products->getList() );
 
-				$related = $products->prepareList( $arg );
+				/****
+				* MEGNÉZETT TERMÉKEK
+				*****/
+				$arg = array();
+				$viewed_products = (new Products( array(
+					'db' => $this->db,
+					'user' => $this->User->get()
+				) ))->getLastviewedList( \Helper::getMachineID(), 5, $arg );
+				$this->out( 'viewed_products_list', $viewed_products );
 
-				$this->out( 'related', $related );
-				$this->out( 'related_list', $related->getList() );
+				/****
+				* Live TERMÉKEK
+				*****/
+				$arg = array();
+				$live_products = (new Products( array(
+					'db' => $this->db,
+					'user' => $this->User->get()
+				) ))->getLiveviewedList( \Helper::getMachineID(), 5, $arg );
+				$this->out( 'live_products_list', $live_products );
+
+
+				// További ajánlott termékek
+				if ( $product['related_products_ids'] )
+				{
+					// Template
+					$temp = new Template( VIEW . 'templates/' );
+					$this->out( 'template', $temp );
+
+					$arg = array(
+						'except' => array(
+							'ID' => Product::getTermekIDFromUrl()
+						),
+						'limit' => 99999,
+						'in_ID' => $product['related_products_ids']
+					);
+
+					$related = $products->prepareList( $arg );
+
+					$this->out( 'related', $related );
+					$this->out( 'related_list', $related->getList() );
+				}
 			}
+
 
 			$title = $product['nev'].' | '.$product['csoport_kategoria'];
 

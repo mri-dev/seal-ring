@@ -824,6 +824,8 @@ class Users
 
 		$data = array_merge($data, $detailslist);
 
+		$data['price_group_data'] = $this->getPriceGroupes( $data['price_group'] );
+
 		return $data;
 	}
 
