@@ -1,7 +1,7 @@
 <?
 use ShopManager\Cart;
+use ShopManager\Category;
 use Applications\Cetelem;
-use PortalManager\CasadaShop;
 use PopupManager\Creative;
 use PopupManager\CreativeScreens;
 use ProductManager\Products;
@@ -27,6 +27,7 @@ class ajax extends Controller{
 					switch ( $action ) {
 						case 'calcitem':
 							$felhasznalasi_terulet = (int)$datas['felhasznalasi_terulet'];
+							$catid = (int)$datas['catid'];
 							$search_keywords = explode(" ",trim($datas['search_keywords']));
 
 							$products = new Products( array(
@@ -36,7 +37,13 @@ class ajax extends Controller{
 
 							$arg = array();
 							$arg['search_str'] = trim($datas['search_keywords']);
-							//$arg['felhasznalasi_terulet'] = $felhasznalasi_terulet;
+
+							if ($catid  != '') {
+								$cat = new Category($catid, array( 'db' => $this->db ));
+								$ret['baseurl'] = '/termekek/'.\Helper::makeSafeUrl($cat->getName(),'_-'.$catid)."/";								
+								$arg['in_cat'] = $catid;
+							}
+
 							if ($findermode == 'simple')
 							{
 								$arg['search'] = (array)$search_keywords;
@@ -588,13 +595,6 @@ class ajax extends Controller{
 				break;
 				case 'askForTermek':
 					$this->view->t = $this->shop->getTermekAdat($tid);
-				break;
-				case 'map':
-					$shop = new CasadaShop( (int)$tid, array(
-						'db' => $this->db
-					));
-
-					$this->out('shop',$shop);
 				break;
 			}
 

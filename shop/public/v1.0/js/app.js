@@ -275,6 +275,7 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   *******************************/
   $scope.findernavpos = 'simple';
   $scope.finder_result_num = -1;
+  $scope.finder_base_url = '/termekek/';
   $scope.finder_config = {
     'felhasznalasi_teruletek': [],
     'meretek': [],
@@ -285,12 +286,8 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   };
 
   $scope.finder_config_select = {
-    felhasznalasi_terulet: 0,
-    search_keywords: '',
-    selects: {
-      cat: {id: 0},
-      subcat: { id: 0}
-    }
+    catid: 0,
+    search_keywords: ''
   };
 
   $scope.parseQuery = function(queryString) {
@@ -303,30 +300,24 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
     return query;
   }
 
-  $scope.loadFinder = function( query_string )
+  $scope.loadFinder = function( catid, query_string )
   {
     var qry = $scope.parseQuery( query_string );
 
-    if (typeof qry.tt !== 'undefined') {
-      $scope.finder_config_select.selects.cat.id = (qry.tt) ? parseInt(qry.tt) : '';
-    }
-    if (typeof qry.tts !== 'undefined') {
-      $scope.finder_config_select.selects.subcat.id = (qry.tts) ? parseInt(qry.tts) : '';
-    }
-    if (typeof qry.ft !== 'undefined') {
-      $scope.finder_config_select.felhasznalasi_terulet = (qry.ft) ? parseInt(qry.ft) : '';
-    }
     if (typeof qry.src !== 'undefined') {
       $scope.finder_config_select.search_keywords = qry.src.replace(/\+/g,' ');
     }
 
     $scope.prepareConfigs(function(){
-      $scope.bindFinder();
+      $scope.bindFinder(catid);
     });
   }
 
-  $scope.bindFinder = function( callback )
+  $scope.bindFinder = function( catid, callback )
   {
+    if (catid != 0 && catid && catid != '') {
+      $scope.finder_config_select.catid = catid;
+    }
     $scope.finder_result_num = -1;
     $http({
       method: 'POST',
@@ -340,8 +331,10 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
       })
     }).success(function(r)
     {
-      console.log(r);
       $scope.finder_result_num = r.nums;
+      if ( r.baseurl ) {
+        $scope.finder_base_url = r.baseurl;
+      }
       if (typeof callback === 'function') {
         callback(r.nums);
       }
@@ -397,24 +390,12 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 
   $scope.goFinder = function()
   {
-    var url = '/termekek/';
+    var url = $scope.finder_base_url;
 
     if ($scope.finder_result_num > 0 )
     {
       var src = (typeof $scope.finder_config_select.search_keywords !== 'undefined') ? $scope.finder_config_select.search_keywords : '';
       url += '?src='+src;
-
-      if ($scope.finder_config_select.felhasznalasi_terulet != 0) {
-        url += '&ft='+$scope.finder_config_select.felhasznalasi_terulet;
-      }
-
-      if ($scope.finder_config_select.selects.cat && $scope.finder_config_select.selects.cat.id != 0) {
-        url += '&tt='+$scope.finder_config_select.selects.cat.id;
-      }
-
-      if ($scope.finder_config_select.selects.subcat && $scope.finder_config_select.selects.subcat.id != 0) {
-        url += '&tts='+$scope.finder_config_select.selects.subcat.id;
-      }
 
       $window.location.href = url;
     }

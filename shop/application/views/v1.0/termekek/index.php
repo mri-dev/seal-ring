@@ -22,7 +22,9 @@
                         <? foreach( $this->parent_menu as $cat ): ?>
                         <div class="item">
                           <div class="wrapper">
-                            <div class="img"><a href="<?=$cat['link']?>"><img src="<?=rtrim(IMGDOMAIN,"/").$cat['kep']?>" alt="<?=$cat['neve']?>"></a></div>
+                            <?php if (false): ?>
+                              <div class="img"><a href="<?=$cat['link']?>"><img src="<?=rtrim(IMGDOMAIN,"/").$cat['kep']?>" alt="<?=$cat['neve']?>"></a></div>
+                            <?php endif; ?>                            
                             <div class="title"><a href="<?=$cat['link']?>"><?=$cat['neve']?></a></div>
                           </div>
                         </div>

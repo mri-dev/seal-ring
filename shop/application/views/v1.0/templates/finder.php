@@ -3,7 +3,7 @@
   unset($getqry['tag']);
   $getqrystr = http_build_query($getqry);
 ?>
-<div class="search-finder" ng-init="loadFinder('<?=$getqrystr?>')">
+<div class="search-finder" ng-init="loadFinder('<?=$this->catid?>','<?=$getqrystr?>')">
   <div class="tabs">
     <ul>
       <li ng-class="(findernavpos=='simple')?'active':''" ng-click="switchFinderNav('simple')">Termék kereső</li>
@@ -21,7 +21,7 @@
         <div class="left-side">
           <div class="src">
             <div class="search-wrapper">
-              <input type="text" ng-change="bindFinder()" ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+              <input type="text" ng-change="bindFinder(<?=$this->catid?>)" ng-model-options='{ debounce: 1000 }' ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
             </div>
           </div>
         </div>

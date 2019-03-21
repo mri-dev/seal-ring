@@ -1044,7 +1044,7 @@ class Shop
 			t.raktar_articleid,
 			getTermekUrl(t.ID,'".DOMAIN."') as url,
 			ta.elnevezes as allapot,
-			t.profil_kep,			
+			t.profil_kep,
 			getTermekAr(c.termekID, ".$uid.") as ar,
 			(getTermekAr(c.termekID, ".$uid.") * c.me) as sum_ar,
 			t.referer_price_discount,
@@ -2561,10 +2561,11 @@ class Shop
 	}
 
 
-	function logKategoriaView( $cat_id = NULL ){
+	function logKategoriaView( $cat_id ){
 		$date 	= date('Y-m-d');
+		$cat_id = (int)$cat_id;
 
-		if ( !$cat_id ) {
+		if ( $cat_id == 0 ) {
 			return false;
 		}
 
@@ -2580,7 +2581,7 @@ class Shop
 				)
 			);
 		}else{
-			$this->db->query("UPDATE stat_nezettseg_kategoria SET me = me + 1 WHERE datum = '$date' and kategoriaID = $kategoria");
+			$this->db->query("UPDATE stat_nezettseg_kategoria SET me = me + 1 WHERE datum = '$date' and kategoriaID = $cat_id");
 		}
 	}
 

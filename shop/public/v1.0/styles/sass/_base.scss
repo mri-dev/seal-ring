@@ -73,6 +73,10 @@ h1{
 .page-width{
 	width: $page-width;
 	margin: 0 auto;
+
+	&.cart{
+		width: $page-width-footer;
+	}
 }
 
 body.singlepage{
@@ -397,9 +401,12 @@ body.singlepage{
 		padding: 5px;
 
 		& > .wrapper{
-			border: 5px solid #eaeaea;
-	    padding: 10px;
-	    background: white;
+			padding: 0;
+			background: #dbdbdb;
+
+			&:hover{
+				background: $color-pr;
+			}
 		}
 
 		.img {
@@ -416,6 +423,10 @@ body.singlepage{
   		text-align: center;
   		font-size: 1em;
   		color: $color-grey-dark;
+			text-decoration: none;
+			&:hover{
+				color: white;
+			}
 		}
 	}
 }
@@ -2081,7 +2092,7 @@ body.singlepage{
 				align-items: flex-start;
 
 				& > div{
-					flex-basis: 50%;
+					flex-basis: 100%;
 				}
 			}
 
@@ -2227,9 +2238,9 @@ body.singlepage{
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	margin: -5px;
+	margin: -2px;
 	& > div {
-		padding: 5px;
+		padding: 2px;
 		a{
 			display: block;
 	    color: #373737;
@@ -2238,7 +2249,7 @@ body.singlepage{
 	    text-decoration: none;
 	    border-radius: 4px;
 	    padding: 5px;
-	    border: 0.5px solid #f1f1f1;
+	    border: 0.5px solid #d7d7d7;
 
 			&:hover{
 				background: $color-pr;
@@ -2808,6 +2819,7 @@ md-toast{
 			padding: 0;
 			color: #444444;
 			font-size: 20px;
+			z-index: 100;
 		}
 		.sub .ar {
 			color: $color-blue;

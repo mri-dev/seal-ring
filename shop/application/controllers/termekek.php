@@ -26,6 +26,7 @@ class termekek extends Controller {
 			// Kategória adatok
 			$cat = new Category(Product::getTermekIDFromUrl(), array( 'db' => $this->db ));
 			$this->out( 'category', $cat );
+			$this->out( 'catid', $cat->getId());
 
 			// Kategória szülő almenüi
 			$categories = new Categories( array( 'db' => $this->db ) );

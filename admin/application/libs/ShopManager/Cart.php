@@ -82,7 +82,7 @@ class Cart
 			$itemNum 	+= $d[me];
 			$totalPrice += $d[me] * $d[ar];
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
-			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], 150, \ProductManager\Products::TAG_IMG_NOPRODUCT );
+			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
 			$dt[] = $d;
 		}

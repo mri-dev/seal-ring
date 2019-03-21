@@ -62,7 +62,12 @@ class Database
 
 	public function query( $qry )
 	{
-		return $this->db->query( $qry );
+		try {
+			return $this->db->query( $qry );
+		} catch (\PDOException $e) {
+			error_log($e->getMessage(). ' @ '. $e->getFile().':'.$e->getLine() );
+			error_log($qry);
+		}
 	}
 
 	public function lastInsertId()
