@@ -31,7 +31,7 @@
         }
 
         a:link, a:visited {
-            color:#02a0e3;
+            color:#15a98c;
         }
         .width {
             width: 800px;
@@ -41,7 +41,7 @@
             padding: 10px 0;
         }
         .bar {
-            background: #02a0e3;
+            background: #15a98c;
         }
         .bar td {
             text-align: center;
@@ -64,7 +64,7 @@
         }
         .cdiv {
             height: 10px;
-            background: #02a0e3;
+            background: #15a98c;
             display: block;
             position: relative;
         }

@@ -47,11 +47,11 @@
         <div class="prices">
           <div class="lab">
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
-              <strong><?php echo $this->user['data']['price_group_data']['title']; ?></strong> bruttó ár:
+              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
             <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
               Bruttó <strong>beszerzési</strong> ár:
             <?php else: ?>
-              <strong><?php echo $this->user['data']['price_group_data']['title']; ?></strong> bruttó ár:
+              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
             <?php endif; ?>
           </div>
           <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
@@ -114,6 +114,7 @@
         <div class="divider"></div>
         <div class="cart-info">
           <div id="cart-msg"></div>
+          <?php if ($kisker_brutto != 0): ?>
           <div class="group" >
             <?
             if( count($this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
@@ -154,6 +155,7 @@
             </div>
           </div>
           <div class="divider"></div>
+          <?php endif; ?>
           <div class="group-infos">
             <?php if (!empty($this->product['in_cats']['name'])): ?>
             <div class="cats">

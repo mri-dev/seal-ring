@@ -25,9 +25,11 @@
         </div>
       </div>
 			<a href="<?=$link?>"><img title="<?=$product_nev?>" src="<?=$profil_kep?>" alt="<?=$product_nev?>"></a>
+      <?php if ($rovid_leiras): ?>
       <div class="short-desc">
-        Tartalom
+        <?php echo $rovid_leiras; ?>
       </div>
+      <?php endif; ?>
 		</div>
     <div class="title">
       <h3><a title="<?=$product_nev?>" href="<?=$link?>"><?=$product_nev?></a></h3>
@@ -67,10 +69,12 @@
       </div>
     </div>
 
-    <div class="buttons">
+    <div class="buttons<?=($wo_price)?' wo-price':''?>">
+      <?php if (!$wo_price): ?>
       <div class="add">
         <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"><img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"> Kosárba</button>
       </div>
+      <?php endif; ?>
       <div class="link">
         <a href="<?=$link?>"><img src="<?=IMG?>eye-ico.svg" alt="Kosárba"> Megnézem</a>
       </div>

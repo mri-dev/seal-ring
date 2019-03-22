@@ -1127,7 +1127,7 @@ class Shop
 			$totalPrice += $d[ar] * $d[me];
 
 
-			$d['profil_kep'] = \PortalManager\Formater::productImage( $d['profil_kep'] );
+			$d['profil_kep'] = \PortalManager\Formater::productImage( $d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
 			if( $d['prices']['old_each'] != 0 && $d['prices']['old_each'] != $d['prices']['current_each']  )
 			{
@@ -1936,48 +1936,59 @@ class Shop
 				$err 		= false;
 				$inputErr 	= array();
 
+				// Számlázási adatok check
 				if($szam_nev == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Számlázási név hiányzik!';
 					$inputErr[] = 'szam_nev';
 				}
-				if($szam_uhsz == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
-					$inputErr[] = 'szam_uhsz';
+				if($szam_hazszam == ''){
+					$err 		= 'Kötelező adat: Számlázási cím / Házszám hiányzik!';
+					$inputErr[] = 'szam_hazszam';
 				}
 				if($szam_city == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Számlázási cím / Település hiányzik!';
 					$inputErr[] = 'szam_city';
 				}
-				if($szam_state == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
-					$inputErr[] = 'szam_state';
-				}
 				if($szam_irsz == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Számlázási cím / Irányítószám hiányzik!';
 					$inputErr[] = 'szam_irsz';
 				}
+				if($szam_kozterulet_nev == ''){
+					$err 		= 'Kötelező adat: Számlázási cím / Közterület neve hiányzik!';
+					$inputErr[] = 'szam_kozterulet_nev';
+				}
+				if($szam_kozterulet_jelleg == ''){
+					$err 		= 'Kötelező adat: Számlázási cím / Közterület jellege hiányzik!';
+					$inputErr[] = 'szam_kozterulet_jelleg';
+				}
+
+				// Szállítási
 				if($szall_nev == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Szállítási név hiányzik!';
 					$inputErr[] = 'szall_nev';
 				}
-				if($szall_uhsz == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
-					$inputErr[] = 'szall_uhsz';
+				if($szall_hazszam == ''){
+					$err 		= 'Kötelező adat: Számlázási cím / Házszám hiányzik!';
+					$inputErr[] = 'szall_hazszam';
 				}
 				if($szall_city == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Szállítási cím / Település hiányzik!';
 					$inputErr[] = 'szall_city';
 				}
-				if($szall_state == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
-					$inputErr[] = 'szall_state';
-				}
 				if($szall_irsz == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Szállítási cím / Irányítószám hiányzik!';
 					$inputErr[] = 'szall_irsz';
 				}
+				if($szall_kozterulet_nev == ''){
+					$err 		= 'Kötelező adat: Szállítási cím / Közterület neve hiányzik!';
+					$inputErr[] = 'szall_kozterulet_nev';
+				}
+				if($szall_kozterulet_jelleg == ''){
+					$err 		= 'Kötelező adat: Szállítási cím / Közterület jellege hiányzik!';
+					$inputErr[] = 'szall_kozterulet_jelleg';
+				}
 				if($szall_phone == ''){
-					$err 		= 'Alapvető adatok megadása kötelező vagy jelentkezzen be.';
+					$err 		= 'Kötelező adat: Telefonszám hiányzik!';
 					$inputErr[] = 'szall_phone';
 				}
 
@@ -2096,7 +2107,7 @@ class Shop
 							t.szin,
 							t.raktar_articleid,
 							getTermekUrl(t.ID,'".$this->settings['domain']."') as url,
-							IF(t.egyedi_ar IS NOT NULL, t.egyedi_ar, getTermekAr(t.marka, IF(t.akcios,t.akcios_brutto_ar,t.brutto_ar))) as ar,
+							getTermekAr(c.termekID, ".$uid.") as ar,
 							t.referer_price_discount,
 							m.neve as markaNev
 						FROM shop_kosar as c
