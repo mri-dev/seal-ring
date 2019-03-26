@@ -6972,7 +6972,8 @@ body.article{
 	}
 }
 
-body.product-page {
+body.product-page,
+body.user {
 	.website{
 		width: $page-width-footer;
 		margin: 0 auto;

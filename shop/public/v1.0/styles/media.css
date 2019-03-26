@@ -517,8 +517,8 @@ img.aw {
 .form-control:focus {
   border-color: #15a98c;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(245, 100, 140, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(245, 100, 140, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 8px rgba(245, 100, 140, 0);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 8px rgba(245, 100, 140, 0);
 }
 
 /* line 280, sass/_general.scss */
@@ -8840,21 +8840,25 @@ body.article .website {
   margin: 0 auto;
 }
 
-/* line 6976, sass/_base.scss */
-body.product-page .website {
+/* line 6977, sass/_base.scss */
+body.product-page .website,
+body.user .website {
   width: 1050px;
   margin: 0 auto;
 }
-/* line 6981, sass/_base.scss */
-body.product-page footer {
+/* line 6982, sass/_base.scss */
+body.product-page footer,
+body.user footer {
   margin-top: 0;
 }
-/* line 6984, sass/_base.scss */
-body.product-page header .bottom > .pw > .flex {
+/* line 6985, sass/_base.scss */
+body.product-page header .bottom > .pw > .flex,
+body.user header .bottom > .pw > .flex {
   padding-left: 0;
 }
-/* line 6988, sass/_base.scss */
-body.product-page .nav.nav-fix {
+/* line 6989, sass/_base.scss */
+body.product-page .nav.nav-fix,
+body.user .nav.nav-fix {
   flex: 1;
 }
 

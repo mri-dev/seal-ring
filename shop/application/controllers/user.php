@@ -9,6 +9,8 @@ class user extends Controller{
 			parent::__construct( array( 'admin' => false ) );
 			$title = 'Fiókom';
 
+			$this->out('bodyclass', 'user');
+
 			if( !$this->view->user &&
 				$this->view->gets[1] != 'activate' &&
 				$this->view->gets[1] != 'belepes' &&
