@@ -24,7 +24,7 @@ class CSVParser
 				    		$row_heads[] = $data[$c];
 				    	} else {
 								if($data[$c] != ''){
-					    		$rowi[$row_heads[$c]] = $data[$c];
+					    		$rowi[$row_heads[$c]] = ($data[$c]);
 								}
 				    	}
 		        }
