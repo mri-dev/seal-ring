@@ -352,7 +352,15 @@ class AdminUser
 			$d['referer'] 	= false;
 
 			if ( $d['userID'] != '' ) {
-				$d['user'] = $this->db->query(sprintf("SELECT f.nev, f.user_group, f.email FROM felhasznalok as f WHERE ID = %d", (int)$d['userID']))->fetch(\PDO::FETCH_ASSOC);
+				$d['user'] = $this->db->query(sprintf("SELECT
+					f.nev,
+					f.user_group,
+					f.email,
+					pg.groupkey as price_group_key,
+					pg.title as ar_csoport
+				FROM felhasznalok as f
+				LEFT OUTER JOIN shop_price_groups as pg ON pg.ID = f.price_group
+				WHERE f.ID = %d", (int)$d['userID']))->fetch(\PDO::FETCH_ASSOC);
 			} else {
 				$d['user'] = false;
 			}

@@ -174,6 +174,11 @@ class felhasznalok extends Controller{
 			$this->out('container', $this->User->getContainer($this->gets[2]));
 		}
 
+		public function import()
+		{
+			// code...
+		}
+
 		function clearfilters(){
 			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
 			setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);

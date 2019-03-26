@@ -1,13 +1,18 @@
-
-<?
+<?php
 $nevek = array(
 	'nev' => 'Név',
 	'adoszam' => 'Adószám',
-	'uhsz' => 'Utca, házszám',
 	'city' => 'Város',
 	'irsz' => 'Irányítószám',
 	'phone' => 'Telefonszám',
-    'state' => 'Megye'
+	'kerulet' => 'Kerület',
+	'kozterulet_nev' => 'Közterület neve',
+	'kozterulet_jelleg' => 'Közterület jellege',
+	'epulet' => 'Épület',
+	'hazszam' => 'Házszám',
+	'lepcsohaz' => 'Lépcsőház',
+	'ajto' => 'Ajtó',
+	'szint' => 'Szint',
 );
 ?>
 <div style="float:right;">
@@ -108,12 +113,11 @@ Megrendelések
 				<input type="hidden" name="accessKey[<?=$d[ID]?>]" value="<?=$d[accessKey]?>" />
             	<div class="nev"><?=$d[nev]?> (<em style="font-weight:normal;"><?=$d[email]?></em>)</div>
                 <div>
-                    <? if($d['userID']): ?>
-                    <span class="hasRegistered">Regisztrált tag <i class="fa fa-check"></i></span>
-										<?php if ($d['user'] && $d['user']['user_group'] == \PortalManager\Users::USERGROUP_COMPANY ): ?>
-											<span class="hasRegisteredByCompany" title="Cégként regisztrált">Cég</span>
-										<?php endif; ?>
-                    <? endif; ?>
+									<? if($d['userID']): ?>
+									<span class="hasRegistered">Regisztrált tag <i class="fa fa-check"></i></span>
+
+									<span class="hasRegisteredBy<?php if ($d['user'] && $d['user']['user_group'] == \PortalManager\Users::USERGROUP_COMPANY ){ echo 'Company'; }else{ echo 'User'; } ?>"><?php echo $d['user']['ar_csoport']; ?> [<?php echo $d['user']['price_group_key'] ?>]</span>
+									<? endif; ?>
 					<a href="<?=HOMEDOMAIN?>order/<?=$d[accessKey]?>" target="_blank">Publikus adatlap</a>
 					<? if( $d[comment] != '' ): ?>
 						&nbsp;&nbsp;<span style="color:#eb6464;"><i class="fa fa-file-text-o"></i> vásárlói megjegyzés</span>

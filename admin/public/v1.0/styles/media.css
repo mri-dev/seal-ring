@@ -2986,6 +2986,15 @@ fieldset.block {
   border-radius: 3px;
   font-size: 0.85em;
 }
+.hasRegisteredByUser{
+  background: #656565;
+  padding: 2px 4px;
+  color: #ffffff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
 
 .status {
 	padding: 4px;

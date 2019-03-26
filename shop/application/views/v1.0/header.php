@@ -78,7 +78,7 @@
             <div class="navs">
               <div class="flex">
                 <div class="partner">
-                  <a href="/p/partner-program">Partner szeretnék lenni</a>
+                  <a href="/ceg">Partner szeretnék lenni</a>
                 </div>
                 <div class="ugyfelkapu">
                   <a href="/user/belepes"><i class="fa fa-user"></i> Ügyfélkapu</a>

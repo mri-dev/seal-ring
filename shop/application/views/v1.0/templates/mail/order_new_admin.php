@@ -8,7 +8,6 @@
 	<tr>
 		<th align="center">Me.</th>
 		<th align="center">Termék</th>
-		<th align="center">Kiszerelés</th>
 		<th align="center">Bruttó e. ár</th>
 		<th align="center">Bruttó ár</th>
 		<th align="center">Állapot</th>
@@ -30,7 +29,6 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=($d[mertekegyseg_ertek] != 1)?$d[mertekegyseg_ertek]:''?> <?=$d[mertekegyseg]?></td>
 		<td align="center"><?=round($d[ar])?> Ft</td>
 		<td align="center"><?=round($d[ar]*$d[me])?> Ft</td>
 		<td align="center"><strong style="color:#CC0000;">Feldolgozás alatt</strong></td>
