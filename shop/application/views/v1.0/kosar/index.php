@@ -34,7 +34,7 @@
 									<th class="center">Termék</th>
 									<th class="center">Me.</th>
 									<th class="center" width="15%">Egységár</th>
-									<th class="center" width="15%">Ár</th>
+									<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':'Bruttó ár'?></th>
 									<th class="center"></th>
 								</tr>
 							</thead>
@@ -378,7 +378,8 @@
 																<span class="kedvPrice">kedvezményesen <strong><?=Helper::cashFormat($calc_final_total)?> Ft</strong></span>
 																<span class="discountPrice"><span>(-<?=Helper::cashFormat($this->kosar[kedvezmeny])?> Ft)</span></span>
 															<? else: ?>
-																bruttó <strong><?=Helper::cashFormat($calc_final_total)?></strong> Ft
+																<?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':'bruttó'?>
+																 <strong><?=Helper::cashFormat($calc_final_total)?></strong> Ft
 															<? endif;?>
 													</span>
 											</div>
@@ -978,7 +979,7 @@
 											//if($kedvezmeny > 0){	$vegosszeg -= $kedvezmeny; }
 										?>
 	                                	<span class="n">Végösszeg:</span>
-	                                    <span class="a">bruttó <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> Ft</span>
+	                                    <span class="a"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':'bruttó'?> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> Ft</span>
 	                                    <input type="hidden" name="kedvezmeny" value="<?=($this->kosar[kedvezmeny] > 0)?1:0?>" />
 	                                    <input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 	                               	</div>

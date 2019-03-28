@@ -608,6 +608,10 @@ body.singlepage{
 							color: $color-green;
 					    font-size: 1.2em;
 					    line-height: 28px;
+							.text{
+								font-size: 0.7rem;
+								font-weight: normal;
+							}
 						}
 
 						.old {
@@ -1990,6 +1994,10 @@ body.singlepage{
 						.current{
 							color: $color-pr;
 							font-weight: bold;
+							.text{
+								font-size: 0.7rem;
+								font-weight: normal;
+							}
 						}
 					}
 				}

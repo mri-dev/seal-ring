@@ -49,7 +49,7 @@
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
               <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
             <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
-              Bruttó <strong>beszerzési</strong> ár:
+              Nettó <strong>beszerzési</strong> ár:
             <?php else: ?>
               <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
             <?php endif; ?>
@@ -70,6 +70,9 @@
               <? endif; ?>
               <div class="current">
                   <?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?>
+                  <?php if ($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
+                    <span class="text">+ ÁFA</span>
+                  <?php endif; ?>
               </div>
             <?php endif; ?>
           </div>

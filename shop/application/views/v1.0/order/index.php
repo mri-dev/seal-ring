@@ -108,13 +108,13 @@
                                     <td class="center">
                                       <?=$d['me']?>
                                     </td>
-                                    <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span></td>
-                                    <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span></td>
+                                    <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                    <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
                                 </tr>
                                 <? endforeach; ?>
                                 <tr>
                                     <td class="right" colspan="4"><strong>Termékek ára összesen</strong></td>
-                                    <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> Ft</span></td>
+                                    <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
                                 </tr>
                                 <tr>
                                     <td class="right" colspan="4"><div><strong>Szállítási költség</strong></div></td>

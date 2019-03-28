@@ -58,7 +58,7 @@
             </div>
           <?php else: ?>
             <div class="ar">
-              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?></div>
+              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <? if($user['data']['price_group_data']['groupkey'] == 'beszerzes_netto') { echo '<span class="text">+ ÁFA</span>'; } ?></div>
             </div>
           <?php endif; ?>
         <?php endif; ?>

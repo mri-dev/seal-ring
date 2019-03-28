@@ -46,18 +46,18 @@ Megrendelések
 <table class="table termeklista table-bordered">
 	<thead>
     	<tr>
-			<th width="40">#</th>
-            <th width="100">Azonosító</th>
-            <th>Név/E-mail</th>
-            <th width="200">Állapot</th>
-            <th width="150">Átvételi mód</th>
-            <th width="130">Fizetési mód</th>
-            <th width="50">Tétel</th>
-            <th width="100">Végösszeg</th>
-            <th width="50">Kedvezmény</th>
-            <th width="140">Megrendelve</th>
-            <th width="35"></th>
-        </tr>
+				<th width="40">#</th>
+        <th width="100">Azonosító</th>
+        <th>Név/E-mail</th>
+        <th width="200">Állapot</th>
+        <th width="150">Átvételi mód</th>
+        <th width="130">Fizetési mód</th>
+        <th width="50">Tétel</th>
+        <th width="100">Végösszeg</th>
+        <th width="50">Kedvezmény</th>
+        <th width="140">Megrendelve</th>
+        <th width="35"></th>
+      </tr>
 	</thead>
     <tbody>
     	<tr class="search <? if($_COOKIE[filtered] == '1'): ?>filtered<? endif;?>">
@@ -151,7 +151,7 @@ Megrendelések
                 <?=$this->fizetes[$d[fizetesiModID]][nev]?>
             </td>
             <td class="center"><?=$d[items][tetel]?></td>
-            <td class="center"><strong><?=Helper::cashFormat($d[items][total]+$d[szallitasi_koltseg]+($d[kedvezmeny]*-1))?> Ft</strong></td>
+            <td class="center"><strong><?=Helper::cashFormat($d[items][total]+$d[szallitasi_koltseg]+($d[kedvezmeny]*-1))?> Ft</strong> </td>
             <td class="center"><?=Helper::cashFormat($d['kedvezmeny'])?> Ft</td>
             <td class="center"><?=\PortalManager\Formater::dateFormat($d[idopont], $this->settings['date_format'])?></td>
             <td class="center"><button name="filterList" title="Részletek" mid="<?=$d[ID]?>" type="button" class="btn btn-default btn-sm watch"><i class="fa fa-eye"></i></button></td>
@@ -201,7 +201,7 @@ Megrendelések
 																			<input type="number" name="termekAr[<?=$d[ID]?>][<?=$item[ID]?>]" value="<?=$item[egysegAr]?>" min="0" class="form-control" />
                                       <input type="hidden" value="<?=$item[egysegAr]?>" name="prev_termekAr[<?=$d[ID]?>][<?=$item[ID]?>]" />
 									</td>
-                                    <td class="center"><?=Helper::cashFormat($item[subAr])?> Ft</td>
+                                    <td class="center"><?=Helper::cashFormat($item[subAr])?> Ft <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
                                     <td class="center" width="200">
                                     <select class="form-control" name="termekAllapot[<?=$d[ID]?>][<?=$item[ID]?>]" style="max-width:200px;">
 										<? foreach($this->allapotok[termek] as $m):  ?>
@@ -214,7 +214,7 @@ Megrendelések
                                 <? endforeach; ?>
                                 <tr style="background:#f3f3f3;">
                                     <td class="right" colspan="5">Termékek összesített ára:</td>
-                                    <td class="center"><strong><?=Helper::cashFormat($c_total)?> Ft</strong></td>
+                                    <td class="center"><strong><?=Helper::cashFormat($c_total)?> Ft</strong> <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
                                     <td class="right" colspan="2">
                                         <a href="javascript:void(0);" onclick="addNewItem(<?=$d[ID]?>);">termék hozzáadás <i class="fa fa-plus"></i></a>
                                     </td>

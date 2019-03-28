@@ -2122,13 +2122,15 @@ class Shop
 
 					$referer_partner_id =($referer_partner_id) ? "'".$referer_partner_id."'" : 'NULL';
 					$coupon_code 		= ($coupon_code) ? "'".$coupon_code."'" : 'NULL';
+					$nettoar = ($arg['user'] && $arg['user']['data']['price_group_data']['groupkey'] == 'beszerzes_netto') ? 1 : 0;
 
 					// Create new order
 					if($go){
 						$szamlazasi_keys = \Helper::getArrayValueByMatch($post,'szam_');
 						$szallitasi_keys = \Helper::getArrayValueByMatch($post,'szall_');
-						$iq = "INSERT INTO orders(nev,azonosito,email,userID,gepID,szallitasiModID,fizetesiModID,kedvezmeny,szallitasi_koltseg,szamlazasi_keys,szallitasi_keys,pickpackpont_uzlet_kod,comment,postapont,referer_code,coupon_code, used_cash) VALUES(
+						$iq = "INSERT INTO orders(nev,nettoar,azonosito,email,userID,gepID,szallitasiModID,fizetesiModID,kedvezmeny,szallitasi_koltseg,szamlazasi_keys,szallitasi_keys,pickpackpont_uzlet_kod,comment,postapont,referer_code,coupon_code, used_cash) VALUES(
 						'$nev',
+						$nettoar,
 						nextOrderID(),
 						'$email',
 						$uid,
@@ -2287,7 +2289,9 @@ class Shop
 							'ppp_uzlet_str' => $pppkod,
 							'is_pickpackpont' => $is_pickpackpont,
 							'orderID' 		=> $orderID,
-							'megjegyzes' 	=> $comment
+							'megjegyzes' 	=> $comment,
+							'nettoar' => $nettoar,
+							'userdata' => $arg['user']
 						);
 						$mail->setSubject( 'Értesítő: Új megrendelés érkezett' );
 						$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'order_new_admin', $arg ) );
@@ -2323,7 +2327,9 @@ class Shop
 							'orderID' 		=> $orderID,
 							'megjegyzes' 	=> $comment,
 							'is_eloreutalas' => $is_eloreutalas,
-							'accessKey' => $accessKey
+							'accessKey' => $accessKey,
+							'nettoar' => $nettoar,
+							'userdata' => $arg['user']
 						);
 
 						$mail->setSubject( 'Megrendelését fogadtuk: '.$orderData[azonosito] );

@@ -9,16 +9,15 @@
 	<tr>
 		<th align="center">Me.</th>
 		<th align="center">Termék</th>
-		<th align="center">Bruttó e. ár</th>
-		<th align="center">Bruttó ár</th>
+		<th align="center"><?=($nettoar == '1')?'Nettó':'Bruttó'?> e. ár</th>
+		<th align="center"><?=($nettoar == '1')?'Nettó':'Bruttó'?> ár</th>
 		<th align="center">Állapot</th>
 	</tr>
 </thead>
 <tbody style="color:#888;">
-	<?
-	foreach($cart as $d){
+<? foreach($cart as $d){
 	$total += ($d[ar]*$d[me]);
-	?>
+?>
 	<tr>
 		<td align="center"><?=$d[me]?>x</td>
 		<td>
@@ -31,29 +30,32 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=round($d[ar])?> Ft</td>
-		<td align="center"><?=round($d[ar]*$d[me])?> Ft</td>
+		<td align="center"><?=round($d[ar])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=round($d[ar]*$d[me])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center"><strong style="color:#CC0000;">Feldolgozás alatt</strong></td>
 	</tr>
-	<? } ?>
+<? }
+	// Összesítő ár
+?>
 	<tr>
-		<td colspan="5" align="right">Összesen:</td>
-		<td align="center"><?=$total?> Ft</td>
+		<td colspan="4" align="right">Összesen:</td>
+		<td align="center"><?=$total?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
+
 	<tr>
 		<td colspan="5" align="right">Szállítási költség:</td>
 		<td align="center"><?=$szallitasi_koltseg?> Ft</td>
 	</tr>
 	<tr>
 		<td colspan="5" align="right">Kedvezmény:</td>
-		<td align="center"><?=( ( !$kedvezmeny && $kedvezmeny == '') ? '0' : round($kedvezmeny) )?> Ft</td>
+			<td align="center"><?=( ( !$kedvezmeny && $kedvezmeny == '') ? '0' : round($kedvezmeny) )?> Ft</td>
 	</tr>
 	<?
 	if($szallitasi_koltseg > 0) $total += $szallitasi_koltseg;
 	?>
 	<tr>
 		<td colspan="5" align="right"><strong>Végösszeg:</strong></td>
-		<td align="center"><strong><?=round($total-$kedvezmeny)?> Ft</strong></td>
+		<td align="center"><strong><?=round($total-$kedvezmeny)?> Ft</strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 </tbody>
 </table>

@@ -66,7 +66,10 @@ class Database{
 
 					END IF;
 
-					SET felh_ar = felh_ar * afa;
+					IF pricegroup != 'beszerzes_netto' THEN
+						SET felh_ar = felh_ar * afa;
+					END IF;
+
 					SET felh_ar = round(felh_ar / 5) * 5;
 
 				  RETURN felh_ar;
