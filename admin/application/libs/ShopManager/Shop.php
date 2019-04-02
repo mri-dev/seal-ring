@@ -1834,11 +1834,13 @@ class Shop
 				margin-top: 5px;
 			}
 		</style>';
+		$cats = implode(", ", (array)$product['in_cat_names']);
+		$cats = rtrim($cats, ", ");
 		$termek .= '<div class="mail-termek-row" style>
 			<div class="img"><img src="'.$product['profil_kep'].'" alt="'.$product['nev'].'"/></div>
 			<div class="data">
 				<div class="name"><a href="'.$this->settings['page_url'].'/termek/'.\Helper::makeSafeUrl($product['nev'],'_-'.$product['ID']).'">'.$product['nev'].'</a></div>
-				<div class="cat"><strong>'.$product['kategoriaNev'].'</strong> / '.$product['csoport_kategoria'].'</div>
+				<div class="cat"><strong>'.$cats.'</strong></div>
 				<div class="sdesc">'.$product['rovid_leiras'].'</div>
 				<div class="meta">#'.$product['ID'].' &nbsp; Cikkszám:'.$product['cikkszam'].'</div>
 			</div>

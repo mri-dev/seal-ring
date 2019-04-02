@@ -13,12 +13,14 @@
     <md-dialog-content>
       <div class="md-dialog-content" ng-show="!sending">
         <h1>{{requesttermprice.product.nev}}</h1>
-        <div class="csoport">
-          <span class="keszlet-info">
-            Variáció: <span ng-bind-html="requesttermprice.product.szin|unsafe"></span>
-          </span>
-          {{requesttermprice.product.csoport_kategoria}}
-        </div>
+        <?php if (false): ?>
+          <div class="csoport">
+            <span class="keszlet-info">
+              Variáció: <span ng-bind-html="requesttermprice.product.szin|unsafe"></span>
+            </span>
+            {{requesttermprice.product.csoport_kategoria}}
+          </div>
+        <?php endif; ?>
         <div class="dialog-content-wrapper">
           <div class="product-info">
             <div class="img">
@@ -29,7 +31,7 @@
                 <div class="title">
                   Készlet információ:
                 </div>
-                <div ng-bind-html="requesttermprice.product.keszlet_info|unsafe"></div>
+                <div class="status" ng-bind-html="requesttermprice.product.keszlet_info|unsafe"></div>
               </div>
                <div class="szallitas-info">
                  <div class="title">

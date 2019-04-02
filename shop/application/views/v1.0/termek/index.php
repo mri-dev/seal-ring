@@ -117,7 +117,7 @@
         <div class="divider"></div>
         <div class="cart-info">
           <div id="cart-msg"></div>
-          <?php if ($kisker_brutto != 0): ?>
+          <?php if (true): ?>
           <div class="group" >
             <?
             if( count($this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
@@ -135,7 +135,7 @@
             </div>
             <? endif; ?>
             <div class="order <?=($this->product['without_price'])?'requestprice':''?>">
-              <?php if ( !$this->product['without_price'] ): ?>
+              <?php if ( !$this->product['without_price'] && $kisker_brutto != 0  ): ?>
               <div class="men">
                 <div class="wrapper">
                   <label for="add_cart_num">Darab:</label>
@@ -143,7 +143,7 @@
                 </div>
               </div>
               <?php endif; ?>
-              <?php if ( !$this->product['without_price'] ): ?>
+              <?php if ( !$this->product['without_price'] && $kisker_brutto != 0 ): ?>
                 <div class="buttonorder">
                   <button id="addtocart" cart-data="<?=$this->product['ID']?>" cart-remsg="cart-msg" title="Kosárba rakom" class="tocart cart-btn"> <img src="<?=IMG?>icons/cart-button.svg" alt="kosárba rakom"> <?=__('kosárba rakom')?></i></button>
                 </div>

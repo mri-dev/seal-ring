@@ -83,6 +83,7 @@ body.singlepage{
 	.website{
 		width: 100%;
 		margin-top: 0;
+		padding: 0 !important;
 
 		.cover-img{
 			height: 480px;
@@ -97,7 +98,7 @@ body.singlepage{
 		}
 
 		.page.page-width{
-			width: $page-width;
+			width: $page-width-footer;
 			margin: 0 auto;
 		}
 
@@ -2049,6 +2050,23 @@ body.singlepage{
 								}
 							}
 						}
+
+						.requestbutton{
+							flex-basis: 100%;
+
+							button {
+								width: 100%;
+								background: $color-pr;
+								padding: 10px;
+								text-transform: uppercase;
+								color: white;
+								border-radius:5px;
+								font-weight: bold;
+								border:none;
+								cursor: pointer;
+							}
+						}
+
 					}
 				}
 			}
@@ -2626,11 +2644,11 @@ body.singlepage{
 	}
 	&.requestprice{
 		md-toolbar{
-			background: #3c3c3c !important;
+			background: #37b69d !important;
 		}
 		h1 {
 			font-weight: bold !important;
-			color: $color-orange !important;
+			color: #474c4b !important;
 		}
 
 		.csoport {
@@ -2670,6 +2688,12 @@ body.singlepage{
 
 					& > div {
 						flex: 1;
+					}
+
+					.status span {
+						color: white;
+						padding: 2px 4px;
+						border-radius: 3px;
 					}
 				}
 

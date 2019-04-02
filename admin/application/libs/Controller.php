@@ -36,7 +36,6 @@ class Controller {
         Session::init();
         Helper::setMashineID();
         $this->gets = Helper::GET();
-
         //$this->memory_usage();
 
         // CORE
@@ -70,9 +69,8 @@ class Controller {
             $this->view->settings['recaptcha_private_key']
         );
 
-        $this->out( 'db',   $this->db );
-        $this->out( 'user', $this->User->get( self::$user_opt ) );
-
+        if (!$this->view->db) {  $this->out( 'db', $this->db ); }
+        if (!$this->view->user) { $this->out( 'user', $this->User->get( self::$user_opt ) ); }
 
         if ($this->gets[0] != 'ajax')
         {

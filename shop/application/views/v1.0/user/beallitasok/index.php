@@ -115,7 +115,9 @@
                 $val = ($this->user[szallitasi_adat]) ? $this->user[szallitasi_adat][$dk] : '';
             ?>
             <div class="row">
-                <div class="col-md-3 form-text-md"><strong><?=$szallnev[$dk]?></strong><?=(in_array($dk, $req_items))?' *':''?></div>
+                <div class="col-md-3 form-text-md">
+                  <strong><?=$szallnev[$dk]?></strong><?=(in_array($dk, $req_items))?' *':''?>
+                </div>
                 <div class="col-md-9 <?=($dk=='city')?'hint-holder-col':''?>">
                 <?php if ($dk == 'state'): ?>
                 <?php elseif( $dk == 'irsz'): ?>
@@ -135,6 +137,9 @@
                 </select>
                 <?php else: ?>
                     <input name="<?=$dk?>" type="text" class="form-control" id="szall_<?=$dk?>" value="<?=$val?>" />
+                <?php endif; ?>
+                <?php if (in_array('szall_'.$dk, $missed_details)): ?>
+                  <div style="margin: 4px 0;"><span class="label label-danger">Hiányzó kötelező mező!</span></div>
                 <?php endif; ?>
                 </div>
             </div>
@@ -179,6 +184,10 @@
                 </select>
                 <?php else: ?>
                     <input name="<?=$dk?>" type="text" class="form-control" id="szam_<?=$dk?>" value="<?=$val?>" />
+                <?php endif; ?>
+
+                <?php if (in_array('szam_'.$dk, $missed_details)): ?>
+                  <div style="margin: 4px 0;"><span class="label label-danger">Hiányzó kötelező mező!</span></div>
                 <?php endif; ?>
                 </div>
             </div>

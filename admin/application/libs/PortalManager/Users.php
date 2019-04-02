@@ -122,7 +122,41 @@ class Users
 				if( is_null($ret[szallitasi_adat]) ) $miss .= 'szallitasi,';
 				if( is_null($ret[szamlazasi_adat]) ) $miss .= 'szamlazasi,';
 				$miss = rtrim($miss,',');
-				\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );
+				if ($miss != "") {
+					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );					
+				}
+			}
+		}
+
+		// Ha hiányzik a NAV adatok
+		if(!$this->is_cp) {
+			if( $_GET['safe'] !='1' ) {
+				$miss = '';
+				// Szállítás
+				if ( $ret[szallitasi_adat] ) {
+					if( empty($ret[szallitasi_adat][nev]) ) $miss .= 'szall_nev,';
+					if( empty($ret[szallitasi_adat][phone]) ) $miss .= 'szall_phone,';
+					if( empty($ret[szallitasi_adat][irsz]) ) $miss .= 'szall_irsz,';
+					if( empty($ret[szallitasi_adat][city]) ) $miss .= 'szall_city,';
+					if( empty($ret[szallitasi_adat][kozterulet_nev]) ) $miss .= 'szall_kozterulet_nev,';
+					if( empty($ret[szallitasi_adat][kozterulet_jelleg]) ) $miss .= 'szall_kozterulet_jelleg,';
+					if( empty($ret[szallitasi_adat][hazszam]) ) $miss .= 'szall_hazszam,';
+				}
+
+				// Számlázás
+				if ( $ret[szamlazasi_adat] ) {
+					if( empty($ret[szamlazasi_adat][nev]) ) $miss .= 'szam_nev,';
+					if( empty($ret[szamlazasi_adat][irsz]) ) $miss .= 'szam_irsz,';
+					if( empty($ret[szamlazasi_adat][city]) ) $miss .= 'szam_city,';
+					if( empty($ret[szamlazasi_adat][kozterulet_nev]) ) $miss .= 'szam_kozterulet_nev,';
+					if( empty($ret[szamlazasi_adat][kozterulet_jelleg]) ) $miss .= 'szam_kozterulet_jelleg,';
+					if( empty($ret[szamlazasi_adat][hazszam]) ) $miss .= 'szam_hazszam,';
+				}
+
+				$miss = rtrim($miss,',');
+				if ($miss != "") {
+					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );
+				}
 			}
 		}
 
