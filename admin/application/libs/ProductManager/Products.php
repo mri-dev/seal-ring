@@ -830,7 +830,7 @@ class Products
 
 					break;
 					case 'cikkszam':
-						$add = " and p.".$key." LIKE '".$v."%' ";
+						$add = " and p.".$key." = '".$v."' ";
 						$whr .= $add;
 						$size_whr .= $add;
 					break;

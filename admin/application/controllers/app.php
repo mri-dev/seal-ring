@@ -1,5 +1,6 @@
 <?
 use Applications\CSVParser;
+use Applications\CSVGenerator;
 use FileManager\FileLister;
 
 class app extends Controller{
@@ -11,7 +12,7 @@ class app extends Controller{
 
 			$this->authAccess();
 		}
-		
+
 		private function authAccess(){
 			if($_SERVER[PHP_AUTH_USER] !== $this->AUTH_USER && $_SERVER[PHP_AUTH_PW] !== $this->AUTH_PW){
 
@@ -21,6 +22,19 @@ class app extends Controller{
 				echo "Sikertelen azonosítás. Illetéktelenek nem férhetnek hozzá a fájlokhoz!";
 				exit;*/
 			}
+		}
+
+		// https://www.cp.seal-ring.web-pro.hu/app/generateUploadStockCSV
+		public function generateUploadStockCSV()
+		{
+			$csv = new CSVGenerator;
+			$head = array('Cikkszam', 'DARAB');
+			$items = array();
+
+			$items[] = array(17, 99);
+
+			$csv->prepare( $head, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/Webshop_keszlet/arlista_upload' );
+			$csv->run( false );
 		}
 
 		public function updateProducts()
