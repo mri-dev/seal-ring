@@ -42,7 +42,35 @@
 										</li>
 									<? endforeach; ?>
 								</ul>
+								<br>
+								<div class="social">
+									<div class="flex flexmob-exc-resp">
+										<?php if ( !empty($this->settings['social_facebook_link'])) : ?>
+										<div class="facebook">
+											<a target="_blank" title="Facebook oldalunk" href="<?=$this->settings['social_facebook_link']?>"><i class="fa fa-facebook"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_youtube_link'])) : ?>
+										<div class="youtube">
+											<a target="_blank" title="Youtube csatornánk" href="<?=$this->settings['social_youtube_link']?>"><i class="fa fa-youtube"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_googleplus_link'])) : ?>
+										<div class="googleplus">
+											<a target="_blank" title="Google+ oldalunk" href="<?=$this->settings['social_googleplus_link']?>"><i class="fa fa-google-plus"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_twitter_link'])) : ?>
+										<div class="twitter">
+											<a target="_blank" title="Twitter oldalunk" href="<?=$this->settings['social_twitter_link']?>"><i class="fa fa-twitter"></i></a>
+										</div>
+										<?php endif; ?>
+									</div>
+								</div>
 							</div>
+						</div>
+						<div class="contacts">
+
 						</div>
 						<div class="subs">
 							<h3>Feliratkozás</h3>
@@ -81,74 +109,68 @@
 								</div>
 							</div>
 						</div>
-						<div class="contacts">
-							<div class="searcher">
-								<h3>Keresés</h3>
-			          <div class="searchform">
-			            <form class="" action="/termekek/" method="get">
-			            <div class="flex flexmob-exc-resp">
-			              <div class="input">
-			                <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="Keresési kifejezés megadása">
-			              </div>
-			              <div class="button">
-			                <button type="submit"><i class="fa fa-search"></i></button>
-			              </div>
-			            </div>
-			            </form>
-			          </div>
-			        </div>
-							<div class="contact">
-								<h3>Kapcsolat</h3>
-								<div class="">
-									<i class="fa fa-phone"></i> Telefon: <a href="tel:<?php echo $this->settings['page_author_phone']; ?>"><?php echo $this->settings['page_author_phone']; ?></a>
+
+						<?php if (false): ?>
+							<div class="contacts">
+								<div class="searcher">
+									<h3>Keresés</h3>
+				          <div class="searchform">
+				            <form class="" action="/termekek/" method="get">
+				            <div class="flex flexmob-exc-resp">
+				              <div class="input">
+				                <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="Keresési kifejezés megadása">
+				              </div>
+				              <div class="button">
+				                <button type="submit"><i class="fa fa-search"></i></button>
+				              </div>
+				            </div>
+				            </form>
+				          </div>
+				        </div>
+								<div class="contact">
+									<h3>Kapcsolat</h3>
+									<div class="">
+										<i class="fa fa-phone"></i> Telefon: <a href="tel:<?php echo $this->settings['page_author_phone']; ?>"><?php echo $this->settings['page_author_phone']; ?></a>
+									</div>
+									<div class="">
+										<i class="fa fa-envelope"></i> E-mail: <?php echo $this->settings['office_email']; ?>
+									</div>
+									<div class="">
+										<i class="fa fa-map-marker"></i> Cím: <?php echo $this->settings['page_author_address']; ?>
+									</div>
 								</div>
-								<div class="">
-									<i class="fa fa-envelope"></i> E-mail: <?php echo $this->settings['office_email']; ?>
-								</div>
-								<div class="">
-									<i class="fa fa-map-marker"></i> Cím: <?php echo $this->settings['page_author_address']; ?>
+								<div class="social">
+									<div class="flex flexmob-exc-resp">
+										<?php if ( !empty($this->settings['social_facebook_link'])) : ?>
+										<div class="facebook">
+											<a target="_blank" title="Facebook oldalunk" href="<?=$this->settings['social_facebook_link']?>"><i class="fa fa-facebook"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_youtube_link'])) : ?>
+										<div class="youtube">
+											<a target="_blank" title="Youtube csatornánk" href="<?=$this->settings['social_youtube_link']?>"><i class="fa fa-youtube"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_googleplus_link'])) : ?>
+										<div class="googleplus">
+											<a target="_blank" title="Google+ oldalunk" href="<?=$this->settings['social_googleplus_link']?>"><i class="fa fa-google-plus"></i></a>
+										</div>
+										<?php endif; ?>
+										<?php if ( !empty($this->settings['social_twitter_link'])) : ?>
+										<div class="twitter">
+											<a target="_blank" title="Twitter oldalunk" href="<?=$this->settings['social_twitter_link']?>"><i class="fa fa-twitter"></i></a>
+										</div>
+										<?php endif; ?>
+									</div>
 								</div>
 							</div>
-							<div class="social">
-								<div class="flex flexmob-exc-resp">
-									<?php if ( !empty($this->settings['social_facebook_link'])) : ?>
-									<div class="facebook">
-										<a target="_blank" title="Facebook oldalunk" href="<?=$this->settings['social_facebook_link']?>"><i class="fa fa-facebook"></i></a>
-									</div>
-									<?php endif; ?>
-									<?php if ( !empty($this->settings['social_youtube_link'])) : ?>
-									<div class="youtube">
-										<a target="_blank" title="Youtube csatornánk" href="<?=$this->settings['social_youtube_link']?>"><i class="fa fa-youtube"></i></a>
-									</div>
-									<?php endif; ?>
-									<?php if ( !empty($this->settings['social_googleplus_link'])) : ?>
-									<div class="googleplus">
-										<a target="_blank" title="Google+ oldalunk" href="<?=$this->settings['social_googleplus_link']?>"><i class="fa fa-google-plus"></i></a>
-									</div>
-									<?php endif; ?>
-									<?php if ( !empty($this->settings['social_twitter_link'])) : ?>
-									<div class="twitter">
-										<a target="_blank" title="Twitter oldalunk" href="<?=$this->settings['social_twitter_link']?>"><i class="fa fa-twitter"></i></a>
-									</div>
-									<?php endif; ?>
-								</div>
-							</div>
-						</div>
+						<?php endif; ?>
+
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="info">
-			<div class="pwf">
-				<div class="flex">
-					<div class="contact">
-						<div class="phone">
-							Forró vonal: <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
-						</div>
-						Elérhetőség: <?=$this->settings['mobile_number_elerhetoseg']?>
-					</div>
-				</div>
-			</div>
 			<div class="bottom">
 				<div class="pwf">
 					<span class="author">&copy; <?=$this->settings['page_author']?></span> 2018. Minden jog fenntartva!

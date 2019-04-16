@@ -65,23 +65,25 @@
                 <?php endif; ?>
               </div>
             </div>
-            <div class="contacts">
-              <div class="flex">
-                <div class="phone">
-                  <i class="fa fa-phone"></i> <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
-                </div>
-                <div class="email">
-                  <i class="fa fa-envelope"></i> <a href="mailto:<?=$this->settings['office_email']?>"><?=$this->settings['office_email']?></a>
+            <?php if (false): ?>
+              <div class="contacts">
+                <div class="flex">
+                  <div class="phone">
+                    <i class="fa fa-phone"></i> <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
+                  </div>
+                  <div class="email">
+                    <i class="fa fa-envelope"></i> <a href="mailto:<?=$this->settings['office_email']?>"><?=$this->settings['office_email']?></a>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php endif; ?>
             <div class="navs">
               <div class="flex">
                 <div class="partner">
-                  <a href="/ceg">Partner szeretnék lenni</a>
+                  <a href="/user/regisztracio">Regisztráció</a>
                 </div>
                 <div class="ugyfelkapu">
-                  <a href="/user/belepes"><i class="fa fa-user"></i> Ügyfélkapu</a>
+                  <a href="/user/belepes"><i class="fa fa-user"></i> Belépés</a>
                 </div>
                 <div class="div"></div>
                 <div class="kedvencek">

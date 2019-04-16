@@ -121,13 +121,20 @@ class termekek extends Controller {
 
 			$get = $_GET;
 			unset($get['tag']);
+		// '/'.__CLASS__.'/'.$this->view->gets[1].($this->view->gets[2] ? '/'.$this->view->gets[2] : '/-');
 			$get = http_build_query($get);
 			$this->out( 'cget', $get );
+			$root = '/'.__CLASS__;
+			if (isset($this->gets[1])) {
+				$root .= '/'.$this->gets[1];
+			} else {
+				$root .= '/-';
+			}
 			$this->out( 'navigator', (new Pagination(array(
 				'class' => 'pagination pagination-sm center',
 				'current' => $products->getCurrentPage(),
 				'max' => $products->getMaxPage(),
-				'root' => '/'.__CLASS__.'/'.$this->view->gets[1].($this->view->gets[2] ? '/'.$this->view->gets[2] : '/-'),
+				'root' => $root,
 				'after' => ( $get ) ? '?'.$get : '',
 				'item_limit' => 12
 			)))->render() );

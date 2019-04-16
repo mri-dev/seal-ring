@@ -756,7 +756,7 @@ class Products
 			$whr .= $add;
 			$size_whr .= $add;
 
-			/*$add = " and (";
+			$add = " or (";
 				foreach ($arg['search'] as $src ) {
 					$add .= "(p.nev LIKE '%".$src."%' or p.kulcsszavak LIKE '%".$src."%' or p.rovid_leiras LIKE '%".$src."%') and ";
 				}
@@ -764,7 +764,7 @@ class Products
 			$add .= ") ";
 
 			$whr .= $add;
-			$size_whr .= $add;*/
+			$size_whr .= $add;
 		}
 
 		if ( !empty($arg['meret']) && $arg['meret'][0] != '' ) {

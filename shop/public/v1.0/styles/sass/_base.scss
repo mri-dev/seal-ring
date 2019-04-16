@@ -4480,7 +4480,7 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 			}
 
 			a{
-				background: #eceff2;
+				background: $color-pr;
 				width: 100%;
 				display: block;
 				text-align: center;
@@ -4489,13 +4489,13 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 				text-transform: uppercase;
 				font-weight: bold;
 				text-decoration: none;
-		    color: $color-orange;
-				@include border-radius(10px);
+		    color: white;
+				@include border-radius(3px);
 				-webkit-transition: all .4s;
   				transition: all .4s;
 
 				&:hover{
-					background: $color-red;
+					background: $color-grey-dark;
 					color: white;
 				}
 			}
