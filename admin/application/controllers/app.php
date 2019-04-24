@@ -33,7 +33,7 @@ class app extends Controller{
 
 			$items[] = array(17, 99);
 
-			$csv->prepare( $head, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/Webshop_keszlet/arlista_upload' );
+			$csv->prepare( $head, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/arlista' );
 			$csv->run( false );
 		}
 
