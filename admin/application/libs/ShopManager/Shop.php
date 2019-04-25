@@ -2052,7 +2052,7 @@ class Shop
 				{
 					$go 					= true;
 					$orderID 				= 0;
-					$uid 					= ($orderUserID == '') ? 'NULL' : $orderUserID;
+					$uid 					= ($orderUserID == '') ? 0 : $orderUserID;
 					$total 					= 0;
 					$pppkod 				= ($ppp_uzlet_str) ? "'".$ppp_uzlet_str."'" : 'NULL';
 					$pp_pont 				= ($pp_selected_point) ? "'".$pp_selected_point."'": 'NULL';
@@ -2125,6 +2125,8 @@ class Shop
 					$referer_partner_id =($referer_partner_id) ? "'".$referer_partner_id."'" : 'NULL';
 					$coupon_code 		= ($coupon_code) ? "'".$coupon_code."'" : 'NULL';
 					$nettoar = ($arg['user'] && $arg['user']['data']['price_group_data']['groupkey'] == 'beszerzes_netto') ? 1 : 0;
+
+					$uid = ($uid == 0) ? 'NULL' : $uid;
 
 					// Create new order
 					if($go){
@@ -2211,7 +2213,6 @@ class Shop
 									$kedv 			= $coupon->calcPrice( $d['ar'] );
 									$kedvezmeny_ft += $coupon->calcPrice( $d['ar'] ) * $d['me'];
 								}
-
 							}
 
 							$total += ( $d[ar] * $d[me] );

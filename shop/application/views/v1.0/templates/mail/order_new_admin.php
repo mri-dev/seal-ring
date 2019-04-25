@@ -42,18 +42,18 @@
 	</tr>
 
 	<tr>
-		<td colspan="5" align="right">Szállítási költség:</td>
+		<td colspan="4" align="right">Szállítási költség:</td>
 		<td align="center"><?=$szallitasi_koltseg?> Ft</td>
 	</tr>
 	<tr>
-		<td colspan="5" align="right">Kedvezmény:</td>
+		<td colspan="4" align="right">Kedvezmény:</td>
 			<td align="center"><?=( ( !$kedvezmeny && $kedvezmeny == '') ? '0' : round($kedvezmeny) )?> Ft</td>
 	</tr>
 	<?
 	if($szallitasi_koltseg > 0) $total += $szallitasi_koltseg;
 	?>
 	<tr>
-		<td colspan="5" align="right"><strong>Végösszeg:</strong></td>
+		<td colspan="4" align="right"><strong>Végösszeg:</strong></td>
 		<td align="center"><strong><?=round($total-$kedvezmeny)?> Ft</strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 </tbody>

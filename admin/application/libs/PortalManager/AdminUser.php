@@ -275,9 +275,13 @@ class AdminUser
 	{
 		$stat = array();
 		$q = "SELECT
-			o.*
+			o.*,
+			fm.nev as fizetesiModNev,
+			szm.nev as szallitasiModNev
 		FROM orders as o
 		LEFT OUTER JOIN order_allapot as oa ON oa.ID = o.allapot
+		LEFT OUTER JOIN shop_fizetesi_modok as fm ON fm.ID = o.fizetesiModID
+		LEFT OUTER JOIN shop_szallitasi_mod as szm ON szm.ID = o.szallitasiModID
 		WHERE 1=1 ";
 
 		if (isset($arg['archivalt']))
@@ -298,6 +302,11 @@ class AdminUser
 		if (isset($arg['referercode']))
 		{
 			$q .= " and o.referer_code = '".$arg['referercode']."'";
+		}
+
+		if (isset($arg['exc_orderstatus']))
+		{
+			$q .= " and o.allapot NOT IN (".implode(",", (array)$arg['exc_orderstatus']).")";
 		}
 
 		if (isset($arg['couponcode']))
