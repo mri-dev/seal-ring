@@ -314,28 +314,27 @@ class AdminUser
 			$q .= " and o.coupon_code = '".$arg['couponcode']."'";
 		}
 
-		// FILTERS
-		if($arg[filters][ID]){
-			$q .= " and o.ID = '".trim($arg[filters][ID])."'"	;
-		}
-		if($arg[filters][azonosito]){
-			$q .= " and o.azonosito = '".trim($arg[filters][azonosito])."'"	;
-		}
-		if($arg[filters][access]){
-			$q .= " and o.accessKey = '".trim($arg[filters][access])."'"	;
-		}
-		if($arg[filters][fallapot]){
-			$q .= " and o.allapot = '".trim($arg[filters][fallapot])."'"	;
-		}
-		if($arg[filters][fszallitas]){
-			$q .= " and o.szallitasiModID = '".trim($arg[filters][fszallitas])."'"	;
-		}
-		if($arg[filters][ffizetes]){
-			$q .= " and o.fizetesiModID = '".trim($arg[filters][ffizetes])."'"	;
-		}
-		if(isset($arg[filters][csv_export_generated])){
-			$q .= " and o.csv_export_generated IS NOT NULL";
-		}
+			// FILTERS
+			if($arg[filters][ID]){
+				$q .= " and o.ID = '".trim($arg[filters][ID])."'"	;
+			}
+			if($arg[filters][azonosito]){
+				$q .= " and o.azonosito = '".trim($arg[filters][azonosito])."'"	;
+			}
+			if($arg[filters][access]){
+				$q .= " and o.accessKey = '".trim($arg[filters][access])."'"	;
+			}
+			if($arg[filters][fallapot]){
+				$q .= " and o.allapot = '".trim($arg[filters][fallapot])."'"	;
+			}
+			if($arg[filters][fszallitas]){
+				$q .= " and o.szallitasiModID = '".trim($arg[filters][fszallitas])."'"	;
+			}
+			if($arg[filters][ffizetes]){
+				$q .= " and o.fizetesiModID = '".trim($arg[filters][ffizetes])."'"	;
+			}
+
+
 
 		if (isset($arg['order']))
 		{

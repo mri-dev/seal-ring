@@ -1,5 +1,6 @@
 <?
 use Applications\CSVParser;
+use Applications\CSVGenerator;
 use FileManager\FileLister;
 
 class app extends Controller{
@@ -12,7 +13,6 @@ class app extends Controller{
 			$this->authAccess();
 		}
 
-
 		private function authAccess(){
 			if($_SERVER[PHP_AUTH_USER] !== $this->AUTH_USER && $_SERVER[PHP_AUTH_PW] !== $this->AUTH_PW){
 
@@ -22,6 +22,114 @@ class app extends Controller{
 				echo "Sikertelen azonosítás. Illetéktelenek nem férhetnek hozzá a fájlokhoz!";
 				exit;*/
 			}
+		}
+
+		// https://www.cp.seal-ring.web-pro.hu/app/generateOrderCSV
+		public function generateOrderCSV()
+		{
+			$csv = new CSVGenerator;
+
+			$arg = array();
+			$arg[limit] = 999999;
+			$arg['archivalt'] = 0;
+			$arg['exc_orderstatus'] = array(1, 13); // 1 = feldolgozás alatt, 13 = törölve
+			$orders = $this->AdminUser->getMegrendelesek($arg);
+
+			$fiz_mods = array(
+				'Készpénz' => 1,
+				'Átutalás' => 2,
+				'Átutalás2' => 3,
+				'Utánvét' => 4,
+				'Barter' => 6,
+				'Csekk' => 7,
+				'Bannkártya' => 8
+			);
+
+			foreach ((array)$orders['data'] as $o) {
+				$file_check = $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'].'.csv';
+				if (file_exists( $file_check )) {
+					continue;
+				}
+				$items = array();
+				$user_id = (empty($o['userID'])) ? 0 : (int)$o['userID'];
+				$szam = json_decode($o['szamlazasi_keys'], true);
+				$szall = json_decode($o['szallitasi_keys'], true);
+
+				switch ($o['fizetesiModNev']) {
+					case 'Készpénz':
+						$fiz_mod = (int)$fiz_mods['Készpénz'];
+					break;
+					case 'Banki átutalás':
+						$fiz_mod = (int)$fiz_mods['Átutalás'];
+					break;
+					case 'Bankkártya':
+						$fiz_mod = (int)$fiz_mods['Bannkártya'];
+					break;
+					case 'Utánvétel':
+						$fiz_mod = (int)$fiz_mods['Utánvét'];
+					break;
+
+					default:
+						$fiz_mod = (int)$fiz_mods['Átutalás'];
+					break;
+				}
+
+				// default
+				$user_arkat = 1;
+				$adoszam = (!empty($szam['adoszam'])) ? trim($szam['adoszam']) : '';
+
+				// Megrendelés adatok
+				$items[] = array(
+					$user_id, // A - webazon
+					trim($o['nev']), // B - pnev
+					trim($szam['irsz']), // C - irszam
+					trim($szam['city']), // D - helyseg
+					trim($szam['kozterulet_nev']), // E - utca
+					trim($szall['phone']), // F - tel
+					trim($o['email']), // G - email
+					(int)$user_arkat, // H - arkategoria
+
+
+					trim($o['comment']), // I - megjegyzés
+					trim($szall['irsz']), // J - sz_irszam
+					trim($szall['city']), // K - sz_helyseg
+					trim($szall['kozterulet_nev']), // L - sz_utca
+					trim($szall['nev']), // M - sz_nev
+					'', // N - sz_megjegy - szállítási megjegyzés, rajta lesz a számlán
+					'Webshop felhasználó', // O - vevo_statusz
+					$fiz_mod, // P - fizmod
+					(int)$o['szallitasiModID'], // Q - szalltip
+					'Ft', // R - valutanem
+					$adoszam, // S - adoszam
+					$user_id, // T - ugyfelszam
+					trim($o['nev']), // U - kapcsolat
+					trim($szall['phone']), // V - kapcsolat telefonszám
+					'', // W - szállítás dátuma
+					trim($o['azonosito']), // X - orderid
+				);
+
+				// Cikkek / termékek
+				foreach ( (array)$o['items']['data'] as $i ) {
+					$netto = $i['egysegAr'] / 1.27;
+					$items[] = array(
+						(int)$i['cikkszam'], // A - cikkszam
+						(float)$i['me'], // B - mennyiség
+						number_format((float)$netto, 4, ".", ""), // C - nettoar
+						trim($i['termekNev']), // D - cikkmegnev
+						'', // E - cikkazonosító
+						0, // F - garancia hónap,
+						'', // G - üzletág
+						'', // H - termékcsoport
+						''  // I - termékfajta
+					);
+				}
+
+				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
+				$csv->run( false );
+			}
+
+			//echo '<pre>';
+			//print_r($orders);
 		}
 
 		public function updateProducts()

@@ -32,6 +32,7 @@ class app extends Controller{
 			$arg = array();
 			$arg[limit] = 999999;
 			$arg['archivalt'] = 0;
+			$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(1, 13); // 1 = feldolgozás alatt, 13 = törölve
 			$orders = $this->AdminUser->getMegrendelesek($arg);
 
@@ -123,13 +124,12 @@ class app extends Controller{
 						''  // I - termékfajta
 					);
 				}
-
-				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
-				$csv->run( false );
+				//$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
+				//$csv->run( false );
 			}
 
-			//echo '<pre>';
-			//print_r($orders);
+			echo '<pre>';
+			print_r($orders);
 		}
 
 		public function updateProducts()
