@@ -334,7 +334,7 @@ class AdminUser
 			$q .= " and o.fizetesiModID = '".trim($arg[filters][ffizetes])."'"	;
 		}
 		if(isset($arg[filters][csv_export_generated])){
-			$q .= " and o.csv_export_generated IS NOT NULL";
+			$q .= " and o.csv_export_generated IS NULL";
 		}
 
 		if (isset($arg['order']))

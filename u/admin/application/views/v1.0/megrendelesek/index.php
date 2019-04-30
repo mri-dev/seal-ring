@@ -145,11 +145,6 @@ Megrendelések
                    <?=$this->cetelem->getTransactionStatus($d[accessKey], true)?>
                 </div>
                 <? endif;?>
-								<?php if (!is_null($d['csv_export_generated'])): ?>
-									<div class="incash-order-exported" title="inCash megrendelés CSV generálás ideje">
-										<i class="fa fa-check-circle-o"></i> <?php echo $d['csv_export_generated']; ?>
-									</div>
-								<?php endif; ?>
             </td>
             <td class="center"><?=$this->szallitas[$d[szallitasiModID]][nev]?></td>
             <td class="center">
@@ -363,7 +358,8 @@ Megrendelések
 
                             <? if( $d['fizetesiModID'] == $this->settings['flagkey_pay_cetelem'] ): ?>
                             <?
-                              $ipns = $this->cetelem->getIPNList($d['accessKey']);
+                                $ipns = $this->cetelem->getIPNList($d['accessKey']);
+
                             ?>
                             <div class="col-md-12">
                                 <div class="payu-ipn-msgs">
@@ -385,16 +381,10 @@ Megrendelések
                             </div>
                             <? endif; ?>
                         </div>
-												<div class="row">
+						<div class="row">
                         	<div class="col-md-7 selectCol"><strong>Vásárlói megjegyzés:</strong></div>
                             <div class="col-md-5">
-															<em><?=$d[comment]?></em>
-                            </div>
-                        </div>
-												<div class="row">
-                        	<div class="col-md-7 selectCol"><strong>inCash megrendelés CSV generálása:</strong></div>
-                            <div class="col-md-5">
-															<input type="text" value="<?=$d[csv_export_generated]?>" class="form-control" name="csv_export_generated[<?=$d[ID]?>]" />
+								<em><?=$d[comment]?></em>
                             </div>
                         </div>
                         <div class="divider"></div>

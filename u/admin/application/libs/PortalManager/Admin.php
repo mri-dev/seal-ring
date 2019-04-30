@@ -652,9 +652,6 @@ class Admin
 			$changedData[fizetes]			= 1;
 		}
 
-		// csv_export_generated
-		$updateData['csv_export_generated'] = (empty($post[csv_export_generated][$orderID])|| $post[csv_export_generated][$orderID] == '') ? NULl : $post[csv_export_generated][$orderID];
-
 		// Megrendelés megváltoztatása
 		if ( !empty($updateData)) {
 			$this->db->update(

@@ -419,20 +419,6 @@ class Controller {
         return $arr;
     }
 
-    /**
-  * Magyar ékezetes betűk korrigálás/rewrite rendezéshez
-  * */
-  static function Hcmp($a, $b)
-  {
-    static $Hchr = array('á'=>'az', 'é'=>'ez', 'í'=>'iz', 'ó'=>'oz', 'ö'=>'ozz', 'ő'=>'ozz', 'ú'=>'uz', 'ü'=>'uzz', 'ű'=>'uzz', 'cs'=>'cz', 'zs'=>'zz',
-     'ccs'=>'czcz', 'ggy'=>'gzgz', 'lly'=>'lzlz', 'nny'=>'nznz', 'ssz'=>'szsz', 'tty'=>'tztz', 'zzs'=>'zzzz', 'Á'=>'az', 'É'=>'ez', 'Í'=>'iz',
-     'Ó'=>'oz', 'Ö'=>'ozz', 'Ő'=>'ozz', 'Ú'=>'uz', 'Ü'=>'uzz', 'Ű'=>'uzz', 'CS'=>'cz', 'ZZ'=>'zz', 'CCS'=>'czcz', 'GGY'=>'gzgz', 'LLY'=>'lzlz',
-     'NNY'=>'nznz', 'SSZ'=>'szsz', 'TTY'=>'tztz', 'ZZS'=>'zzzz');
-     $a = strtr($a,$Hchr);   $b = strtr($b,$Hchr);
-     $a=strtolower($a); $b=strtolower($b);
-     return strcmp($a, $b);
-  }
-
     function out( $viewKey, $output ){
         $this->view->$viewKey = $output;
     }

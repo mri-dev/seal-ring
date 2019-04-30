@@ -124,12 +124,21 @@ class app extends Controller{
 						''  // I - termékfajta
 					);
 				}
-				//$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
-				//$csv->run( false );
+				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
+				$csv->run( false );
+
+				// Log export
+				$this->db->update(
+					"orders",
+					array(
+						'csv_export_generated' => NOW
+					),
+					sprintf("ID = %d", (int)$o['ID'])
+				);
 			}
 
-			echo '<pre>';
-			print_r($orders);
+			//echo '<pre>';
+			//print_r($orders);
 		}
 
 		public function updateProducts()
