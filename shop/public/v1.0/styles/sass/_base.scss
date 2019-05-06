@@ -6444,6 +6444,11 @@ a.cetelem-startrans {
 		.content{
 			line-height: 1.4;
 
+			img {
+				width: 100%;
+				max-width: 100%;
+			}
+
 			p {
 				margin: 10px 0 5px 0;
 			}
@@ -7024,5 +7029,19 @@ body.orderpage{
 
 	.nav.nav-fix {
 		flex: 1;
+	}
+}
+
+.szechenyi-info{
+	position: fixed;
+	z-index: 100;
+	right: 0;
+	bottom: 0;
+	height: 150px;
+	img{
+		max-height: 100%;
+		height: 100%;
+		width: auto;
+		max-width: initial;
 	}
 }

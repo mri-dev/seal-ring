@@ -28,7 +28,7 @@ class CSVGenerator
 		self::$encode = $charset;
 	}
 
-	private function conv( $str )
+	private static function conv( $str )
 	{
 		return iconv( 'UTF-8', self::$encode, $str);
 	}
@@ -49,6 +49,7 @@ class CSVGenerator
 			$data[] = $i;
 		}
 
+
 		if(self::$download_file){
 			$filename = self::$output_filename;
 
@@ -59,13 +60,15 @@ class CSVGenerator
 			header("Expires: 0");
 		}
 
+
 		if (self::$download_file) {
 			$output = fopen("php://output", "w");
 		} else {
 			$output = fopen(self::$output_filename, "w");
 		}
 
-
+		$file = '';
+		$set = array();
 		foreach ($data as $row) {
 			if( $row && !empty($row) ){
 				$into = array();
@@ -74,16 +77,36 @@ class CSVGenerator
 						$into[] = self::conv($r);
 					}
 				}
-				fputcsv($output, $into, self::$separator, '"');
+				fwrite($output, self::arrayToCsv( $into, self::$separator, '' )."\n");
+				//fputcsv($output, $into, self::$separator,'"');
 			}
-
 		}
 
-		/*echo '<pre>';
-		var_dump($output);
-		echo '</pre>';*/
-
 		fclose($output);
+	}
+
+	static function arrayToCsv( array &$fields, $delimiter = ';', $enclosure = '"', $encloseAll = false, $nullToMysqlNull = false )
+	{
+    $delimiter_esc = preg_quote($delimiter, '/');
+    $enclosure_esc = preg_quote($enclosure, '/');
+
+    $output = array();
+    foreach ( $fields as $field ) {
+        if ($field === null && $nullToMysqlNull) {
+            $output[] = 'NULL';
+            continue;
+        }
+
+        // Enclose fields containing $delimiter, $enclosure or whitespace
+        if ( $encloseAll || preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field ) ) {
+            $output[] = $enclosure . str_replace($enclosure, $enclosure . $enclosure, $field) . $enclosure;
+        }
+        else {
+            $output[] = $field;
+        }
+    }
+
+    return implode( $delimiter, $output );
 	}
 }
 ?>

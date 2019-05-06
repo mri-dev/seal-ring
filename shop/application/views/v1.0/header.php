@@ -32,6 +32,9 @@
   js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<div class="szechenyi-info">
+  <a href="/p/szechenyi-2020"><img src="<?=UPLOADS?>szechenyi2020/szechenyi2020-logo.png" alt="Széchenyi 2020"></a>
+</div>
 <header>
   <div class="pw">
     <div class="flex">
@@ -79,12 +82,20 @@
             <?php endif; ?>
             <div class="navs">
               <div class="flex">
+                <?php if (!$this->user): ?>
                 <div class="partner">
                   <a href="/user/regisztracio">Regisztráció</a>
                 </div>
                 <div class="ugyfelkapu">
                   <a href="/user/belepes"><i class="fa fa-user"></i> Belépés</a>
                 </div>
+                <?php else: ?>
+                  <div class="ugyfelkapu">
+                    <a href="/user/"><i class="fa fa-user"></i> Belépve, mint <strong><?=$this->user['data']['nev']?></strong>.</a>
+                  </div>
+                <?php endif; ?>
+
+
                 <div class="div"></div>
                 <div class="kedvencek">
                   <a href="/kedvencek"><i class="fa fa-star"></i> Kedvencek <span class="badge">{{fav_num}}</span></a>

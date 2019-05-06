@@ -27,7 +27,6 @@ class app extends Controller{
 		// https://www.cp.seal-ring.web-pro.hu/app/generateOrderCSV
 		public function generateOrderCSV()
 		{
-			$csv = new CSVGenerator;
 
 			$arg = array();
 			$arg[limit] = 999999;
@@ -82,7 +81,7 @@ class app extends Controller{
 				// Megrendelés adatok
 				$items[] = array(
 					$user_id, // A - webazon
-					trim($o['nev']), // B - pnev
+					(string)trim($o['nev']), // B - pnev
 					trim($szam['irsz']), // C - irszam
 					trim($szam['city']), // D - helyseg
 					trim($szam['kozterulet_nev']), // E - utca
@@ -124,10 +123,13 @@ class app extends Controller{
 						''  // I - termékfajta
 					);
 				}
+
+				$csv = new CSVGenerator;
 				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
 				$csv->run( false );
 
 				// Log export
+
 				$this->db->update(
 					"orders",
 					array(
