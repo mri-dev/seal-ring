@@ -744,14 +744,14 @@ class Products
 			$size_whr .= $add;
 		}
 
-		if ( $arg['ujdonsag'] ) {
-			$add = " and p.ujdonsag = 1 ";
+		if ( $arg['kiemelt'] === true ) {
+			$add = " and p.kiemelt = 1 ";
 			$whr .= $add;
 			$size_whr .= $add;
 		}
 
 		if ( $arg['akcios'] === true ) {
-			$add = " and p.akcios = 1 ";
+			$add = " and getTermekAr(p.ID, ".$uid.") != getTermekOriginalAr(p.ID, ".$uid.") ";
 			$whr .= $add;
 			$size_whr .= $add;
 		}

@@ -105,6 +105,14 @@ class termekek extends Controller {
 				$arg['felhasznalasi_terulet'] = (int)$_GET['ft'];
 			}
 
+			if ( $this->gets[1] == 'akciok' ) {
+				$arg['akcios'] = true;
+			}
+
+			if ( $this->gets[1] == 'kiemelt' ) {
+				$arg['kiemelt'] = true;
+			}
+
 			$products = (new Products( array(
 				'db' => $this->db,
 				'user' => $this->User->get()

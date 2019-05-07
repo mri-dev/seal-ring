@@ -34,23 +34,29 @@
                   <? endif; ?>
 
                   <div class="category-title head">
-                      <?php if ($this->myfavorite): ?>
-                        <h1>Kedvencnek jelölt termékek</h1>
-                        <div class="push-cart-favorite">
-                          <a href="/kedvencek/?order=1&after=/kosar">Kedvenceket a kosárba teszem <i class="fa fa-cart-plus"></i></a>
-                        </div>
-                      <?php elseif($this->category->getName() != ''): ?>
-                        <h1><?=$this->category->getName()?></h1>
+                    <?php if ($this->myfavorite): ?>
+                      <h1>Kedvencnek jelölt termékek</h1>
+                      <div class="push-cart-favorite">
+                        <a href="/kedvencek/?order=1&after=/kosar">Kedvenceket a kosárba teszem <i class="fa fa-cart-plus"></i></a>
+                      </div>
+                    <?php elseif($this->category->getName() != ''): ?>
+                      <h1><?=$this->category->getName()?></h1>
+                    <?php else: ?>
+                      <?php if ($this->gets[1] == 'akciok'): ?>
+                      <h1>Akciós termékek</h1>
+                    <?php elseif($this->gets[1] == 'kiemelt'): ?>
+                      <h1>Kiemelt termékek</h1>
                       <?php else: ?>
-                        <h1>Termékek</h1>
-                        <?php if (isset($this->searched_by)): ?>
-                          <div class="search-for">
-                           <i class="fa fa-search"></i> Keresés, mint: <?php foreach ($this->searched_by as $s): ?>
-                              <span><?=$s?></span>
-                            <?php endforeach; ?>
-                          </div>
-                        <?php endif; ?>
+                      <h1>Termékek</h1>
                       <?php endif; ?>
+                      <?php if (isset($this->searched_by)): ?>
+                        <div class="search-for">
+                         <i class="fa fa-search"></i> Keresés, mint: <?php foreach ($this->searched_by as $s): ?>
+                            <span><?=$s?></span>
+                          <?php endforeach; ?>
+                        </div>
+                      <?php endif; ?>
+                    <?php endif; ?>
                       <?php $navh = '/termekek/'; ?>
                       <ul class="cat-nav">
                         <li><a href="/"><i class="fa fa-home"></i></a></li>
