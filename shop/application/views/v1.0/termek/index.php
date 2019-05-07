@@ -1,11 +1,7 @@
 <?php
-  $ar = $this->product['brutto_ar'];
-
-  if( $this->product['akcios'] == '1' && $this->product['akcios_fogy_ar'] > 0)
-  {
-     $ar = $this->product['akcios_fogy_ar'];
-  }
+  $ar = $this->product['ar'];
 ?>
+<pre><?php //print_r($this->product); ?></pre>
 <div class="product-view">
   <div class="sidebar">
     <? $this->render('templates/sidebar_menu'); ?>
@@ -40,6 +36,9 @@
           <?=$this->product['csoport_kategoria']?>
         </div>
         <div class="cimkek">
+        <? if($this->product['akcios'] == '1'): ?>
+            <img src="<?=IMG?>discount_small_icon.png" title="Akciós!" alt="Akciós">
+        <? endif; ?>
         <? if($this->product['ujdonsag'] == '1'): ?>
             <img src="<?=IMG?>new_icon_sq.svg" title="Újdonság!" alt="Újdonság">
         <? endif; ?>
@@ -61,11 +60,11 @@
                 ÉRDEKLŐDJÖN!
               </div>
             <?php else: ?>
-              <?  if( $this->product['akcios'] == '1' && $this->product['akcios_fogy_ar'] > 0):
-                  $ar = $this->product['akcios_fogy_ar'];
+              <?  if( $this->product['akcios'] == '1' && $this->product['akcio']['mertek'] > 0):
+                  $ar = $this->product['eredeti_ar'];
               ?>
               <div class="old">
-                  <div class="price"><strike><?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?></strike></div>
+                  <div class="price"><strike><?=\PortalManager\Formater::cashFormat($ar)?> <?=$this->valuta?></strike></div>
               </div>
               <? endif; ?>
               <div class="current">

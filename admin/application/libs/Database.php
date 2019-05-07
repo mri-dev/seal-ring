@@ -28,6 +28,62 @@ class Database{
 				  RETURNS FLOAT
 				BEGIN
 				  DECLARE felh_ar FLOAT DEFAULT 0;
+					DECLARE felh_ar_akcios FLOAT DEFAULT 0;
+					DECLARE resid INT DEFAULT 0;
+					DECLARE afa FLOAT DEFAULT 1.27;
+					DECLARE pricegroup VARCHAR(20) DEFAULT NULL;
+
+					SET @pg = 'ar1';
+
+					SELECT xml_import_res_id INTO resid FROM shop_termekek WHERE ID = tid;
+
+					IF uid = 0 THEN
+						SELECT ar1, ar1_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+					ELSE
+						SELECT sp.groupkey INTO pricegroup FROM felhasznalok as f LEFT OUTER JOIN shop_price_groups as sp ON sp.ID = f.price_group WHERE f.ID = uid;
+						IF pricegroup = 'ar1' THEN
+							SELECT ar1, ar1_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar2' THEN
+							SELECT ar2, ar2_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar3' THEN
+							SELECT ar3, ar3_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar4' THEN
+							SELECT ar4, ar4_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar5' THEN
+							SELECT ar5, ar5_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar6' THEN
+							SELECT ar6, ar6_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar7' THEN
+							SELECT ar7, ar7_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar8' THEN
+							SELECT ar8, ar8_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar9' THEN
+							SELECT ar9, ar9_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'ar10' THEN
+							SELECT ar10, ar10_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						END IF;
+
+					END IF;
+
+					SET felh_ar = round(felh_ar * afa);
+
+					IF felh_ar_akcios != 0 THEN
+						SET felh_ar = round(felh_ar_akcios * afa);
+					END IF;
+
+				  RETURN felh_ar;
+				END;
+				$$
+				DELIMITER ;
+				";
+				// Termék eredeti ár számoló
+				$f .= "
+				DROP FUNCTION IF EXISTS getTermekOriginalAr;
+				DELIMITER $$
+				CREATE FUNCTION getTermekOriginalAr(tid INT, uid INT)
+				  RETURNS FLOAT
+				BEGIN
+				  DECLARE felh_ar FLOAT DEFAULT 0;
 					DECLARE resid INT DEFAULT 0;
 					DECLARE afa FLOAT DEFAULT 1.27;
 					DECLARE pricegroup VARCHAR(20) DEFAULT NULL;
@@ -60,17 +116,11 @@ class Database{
 							SELECT ar9 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						ELSEIF pricegroup = 'ar10' THEN
 							SELECT ar10 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
-						ELSEIF pricegroup = 'beszerzes_netto' THEN
-							SELECT beszerzes_netto INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						END IF;
 
 					END IF;
 
-					IF pricegroup != 'beszerzes_netto' THEN
-						SET felh_ar = felh_ar * afa;
-					END IF;
-
-					SET felh_ar = round(felh_ar / 5) * 5;
+					SET felh_ar = round(felh_ar * afa);
 
 				  RETURN felh_ar;
 				END;

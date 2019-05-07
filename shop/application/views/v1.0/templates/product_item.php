@@ -1,7 +1,6 @@
 <div class="item">
   <?php
     $wo_price = (empty($ar) || $ar == '0') ? true : false;
-    if( $akcios == '1' ) $ar = $akcios_fogy_ar;
   ?>
   <div class="wrapper">
     <div class="image">
@@ -18,7 +17,7 @@
           <div class="discount">
             <?php if ( $akcios == '1' ): ?>
             <div class="discount-label">
-              <div class="p">-<? echo 100-round($akcios_fogy_ar / ($brutto_ar / 100)); ?>%</div>
+              <div class="p">-<? echo $akcio['szazalek']; ?>%</div>
             </div>
             <?php endif; ?>
           </div>
@@ -53,7 +52,7 @@
         <?php else: ?>
           <?php if ( $akcios == '1' ): ?>
             <div class="ar akcios">
-              <div class="old"><?=Helper::cashFormat($brutto_ar)?> <?=$valuta?></div>
+              <div class="old"><?=Helper::cashFormat($eredeti_ar)?> <?=$valuta?></div>
               <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?></div>
             </div>
           <?php else: ?>

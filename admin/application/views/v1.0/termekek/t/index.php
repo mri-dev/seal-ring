@@ -42,8 +42,9 @@
 <? elseif($this->gets[2] == 'edit'): ?>
 <div style="float:right;">
 	<a href="/termekek/-/1" class="btn btn-default btn-2x"><i class="fa fa-arrow-left"></i> mégse</a>
-	<a href="/termekek/uj" class="btn btn-info"><i class="fa fa-plus"></i> új termék</a>
+	<a href="/termekek/uj" style="display: none;" class="btn btn-info"><i class="fa fa-plus"></i> új termék</a>
 </div>
+<pre><?php //print_r($this->termek); ?></pre>
 <h1>Termék szerkesztés</h1>
 <?=$this->bmsg?>
 <div class="clr"></div>
@@ -74,10 +75,10 @@
 						<div class="">
 							 <input type="checkbox" name="ujdonsag" id="ujdonsag"  <?=($this->termek['ujdonsag'] == 1)?'checked':''?>/> <label for="ujdonsag">Újdonság</label>
 						</div>
-						<div class="">
+						<div class="" style="display: none;">
 							<input type="checkbox" name="argep" id="argep" <?=($this->termek['argep'] == 1)?'checked':''?>/> <label for="argep">ÁRGÉP listába</label>
 						</div>
-						<div class="">
+						<div class="" style="display: none;">
 							<input type="checkbox" name="arukereso" id="arukereso" <?=($this->termek['arukereso'] == 1)?'checked':''?>/> <label for="arukereso">ÁRUKERESŐ listába</label>
 						</div>
 						<div class="">
@@ -95,6 +96,7 @@
 					</div>
 				</div>
 
+				<?php if (false): ?>
 				<div class="con">
 					<h3>Termék törzsadatok</h3>
 					<div class="row">
@@ -108,6 +110,52 @@
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
+
+				<?php if (true): ?>
+				<div class="con">
+					<div class="row">
+						<h3>Termék ár beállítások</h3>
+						<input type="hidden" name="crm[prod_id]" value="<?=$this->termek[crm][prod_id]?>">
+						<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-12">
+											<label for="crm_beszerzes_netto">Nettó beszerzés</label>
+											<input type="number" min="0" disabled="disabled" id="crm_beszerzes_netto" value="<?=$this->termek[crm][beszerzes_netto]?>" class="form-control">
+										</div>
+									</div>
+									<br>
+									<?php for ($ap = 1; $ap <= 8; $ap++): ?>
+									<div class="row">
+										<div class="col-md-6">
+											<label for="crm_ar<?=$ap?>">Ár #<?=$ap?> nettó <? if(array_key_exists('ar'.$ap, $this->price_groups)): ?>- <strong style="color:green;"><?=$this->price_groups['ar'.$ap]['title']?></strong><? endif; ?></label>
+
+											<div class="input-group">
+												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm[ar][<?=$ap?>]" id="crm_ar<?=$ap?>" value="<?=$this->termek[crm]['ar'.$ap]?>" class="form-control">
+												<div class="input-group-addon">
+													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek[crm]['ar'.$ap] * 1.27))).' Ft'?>
+												</div>
+											</div>
+											<small><?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'Nincs árcsoporthoz kapcsolva. <a href="/arcsoportok">Beállítás</a>' : ''?></small>
+										</div>
+										<div class="col-md-6">
+											<label for="crm_ar<?=$ap?>">Ár #<?=$ap?> akciós nettó</label>
+											<div class="input-group">
+												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm[ar_akcios][<?=$ap?>]" id="crm_ar<?=$ap?>_akcios" value="<?=$this->termek[crm]['ar'.$ap.'_akcios']?>" class="form-control">
+												<div class="input-group-addon">
+													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek[crm]['ar'.$ap.'_akcios'] * 1.27))).' Ft'?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+									<?php endfor; ?>
+								</div>
+							</div>
+					</div>
+				</div>
+				<?php endif; ?>
 
 				<?php if (false): ?>
 				<div class="con">
@@ -230,7 +278,7 @@
 						</div>
 						<div class="form-group col-md-9">
 							<label for="kulcsszavak">Kulcsszavak <?=\PortalManager\Formater::tooltip('A kulcsszavak meghatározása fontos dolog, mivel ezek alapján tud pontosabb keresési találatot kapni a felhasználó. <br> <strong>A kulcsszavakat szóközzel elválasztva adja meg. Pl.: fekete úszó rövidnadrág</strong>')?></label>
-							<input type="text" class="form-control" name="kulcsszavak" id="kulcsszavak" value="<?=$this->termek['kulcsszavak']?>">
+							<input type="text" class="form-control" name="kulcsszavak" id="kulcsszavak" value="<?=implode($this->termek['kulcsszavak'],',')?>">
 						</div>
 					</div>
 
@@ -375,6 +423,7 @@
 					</div>
 				</div>
 
+				<?php if (false): ?>
 				<div class="con">
 					<h3>Felhasználási terület</h3>
 					<div class="row">
@@ -394,6 +443,7 @@
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
 
 			<? if( $this->termek['alapertelmezett_kategoria'] ): ?>
 	     	<div class="con con-extra">

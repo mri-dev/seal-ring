@@ -7,7 +7,7 @@
   <a href="/termekek/fizetesi_mod" class="btn btn-default"><i class="fa fa-money"></i> fizetési módok</a>
 	<a href="/termekek/szallitasi_mod" class="btn btn-default"><i class="fa fa-truck"></i> szállítási módok</a>
 	<a href="/termekek/szallitasi_ido" class="btn btn-default"><i class="fa fa-clock-o"></i> szállítási idők</a>
-	<a href="/termekek/uj" class="btn btn-info"><i class="fa fa-plus-circle"></i> új termék</a>
+	<a href="/termekek/uj" style="display: none;" class="btn btn-info"><i class="fa fa-plus-circle"></i> új termék</a>
 </div>
 <?php if (isset($_GET['article'])): ?>
   <h1 class="fil-torzs"><strong><?=$_GET['article']?></strong> &mdash; törzstermékek <span><strong><?=Helper::cashFormat($this->products->getItemNumbers())?> db</strong> termék <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt termék listázás <a href="/termekek/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>

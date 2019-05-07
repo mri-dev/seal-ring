@@ -23,11 +23,19 @@ class Products
 	private $selected_sizes = array();
 	public $item_ids = array();
 	public $settings = array();
+	private $crm = null;
 
 	public function __construct( $arg = array() ) {
 		$this->db = $arg[db];
 		$this->user = $arg[user];
 		$this->settings = $arg['settings'];
+
+		return $this;
+	}
+
+	public function setCRMHandler( $crm )
+	{
+		$this->crm = $crm;
 
 		return $this;
 	}
@@ -310,6 +318,9 @@ class Products
 			$sorrend 			= (!$product->getVariable('sorrend')) ? 0 : $product->getVariable('sorrend');
 			$felhasznalasi_terulet = ($product->getVariable('felhasznalasi_terulet') == 0) ? NULL : (int)$product->getVariable('felhasznalasi_terulet');
 
+			// inCash sync
+			$this->syncUpCRMProduct( 1, $product->getVariable('crm') );
+
 			// Csatolt hivatkozások előkészítése
 			if( $link_list ) {
 				foreach( $link_list as $lnev => $url ){
@@ -435,6 +446,41 @@ class Products
 		}
 
 		return $product;
+	}
+
+	public function syncUpCRMProduct( $origin, $torzs )
+	{
+		if ( !$this->crm ) {
+			return false;
+		}
+
+		$save_xml_query = "UPDATE xml_temp_products SET ";
+
+		foreach ($torzs['ar'] as $ai => $ar ) {
+			$save_xml_query .= sprintf("ar".$ai." = %d, ", (float)$ar);
+			// Akciós ár
+			$akcios_ar = (float)$torzs['ar_akcios'][$ai];
+			$save_xml_query .= sprintf("ar".$ai."_akcios = %d, ", (float)$akcios_ar);
+		}
+
+		$save_xml_query = rtrim($save_xml_query, ', ');
+		$save_xml_query .= " WHERE origin_id = ".$origin." and prod_id = ".$torzs['prod_id'];
+
+		//print_r($torzs);
+		//exit;
+
+		$this->db->query( $save_xml_query );
+
+		$this->db->update(
+			'xml_temp_products',
+			array(
+				'last_sync_up' => date('Y-m-d H:i:s'),
+				'last_updated' => date('Y-m-d H:i:s'),
+			),
+			sprintf("origin_id = %d and prod_id = %d", $origin, $torzs['prod_id'])
+		);
+
+		return true;
 	}
 
 	public function makeKeywordsArray( &$keywords )
@@ -615,6 +661,7 @@ class Products
 		p.beszerzes_netto,
 		p.fotermek,
 		getTermekAr(p.ID, ".$uid.") as ar,
+		getTermekOriginalAr(p.ID, ".$uid.") as eredeti_ar,
 		(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) as in_cat,
 		(SELECT neve FROM shop_termek_kategoriak WHERE ID = p.alapertelmezett_kategoria ) as alap_kategoria";
 
@@ -1028,7 +1075,8 @@ class Products
 
 		foreach($data as $d)
 		{
-			//$brutto_ar = $d['brutto_ar'];
+			$brutto_ar = $d['ar'];
+			$eredeti_brutto_ar = $d['eredeti_ar'];
 			//$akcios_brutto_ar = $d['akcios_brutto_ar'];
 
 			$kep = $d['profil_kep'];
@@ -1050,6 +1098,15 @@ class Products
 			$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
 			*/
 
+			// Dinamic akciózás
+			if ( $eredeti_brutto_ar != $brutto_ar ) {
+				$d['akcios'] = 1;
+				$d['akcio'] = array(
+					'szazalek' => (100-round($brutto_ar / ($eredeti_brutto_ar / 100))),
+					'mertek' => $eredeti_brutto_ar - $brutto_ar
+				);
+			}
+
 			// Kategória lista, ahol szerepel a termék
 			$in_cat = $this->getCategoriesWhereProductIn( $d['product_id'] );
 
@@ -1061,6 +1118,9 @@ class Products
 			//$d['ar'] 				= $arInfo['ar'];
 			//$d['akcios_fogy_ar']	= $akcios_arInfo['ar'];
 			//$d['arres_szazalek'] 	= $arInfo['arres'];
+
+			// CRM - incash
+			$d['crm'] = array();
 
 			$bdata[]	 			= $d;
 		}
@@ -1733,6 +1793,7 @@ class Products
 			SELECT
 				$row,
 				getTermekAr(t.ID, ".$uid.") as ar,
+				getTermekOriginalAr(t.ID, ".$uid.") as eredeti_ar,
 				k.neve as kategoriaNev,
 				ta.elnevezes as keszletNev,
 				sza.elnevezes as szallitasNev
@@ -1747,6 +1808,8 @@ class Products
 		$data = $q->fetch(\PDO::FETCH_ASSOC);
 
 		$brutto_ar = $data['ar'];
+		$eredeti_brutto_ar	= $data['eredeti_ar'];
+		$akcios_brutto_ar 	= $data['akcios_brutto_ar'];
 		//$akcios_brutto_ar = $data['akcios_brutto_ar'];
 
 		$kep = $data['profil_kep'];
@@ -1765,6 +1828,15 @@ class Products
 		//$arInfo['ar'] 			= ($this->settings['round_price_5'] == '1') ? round($arInfo['ar'] / 5) * 5 : $arInfo['ar'] ;
 		//$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
 
+		// Dinamic akciózás
+		if ( $eredeti_brutto_ar != $brutto_ar ) {
+			$data['akcios'] = 1;
+			$data['akcio'] = array(
+				'szazalek' => (100-round($brutto_ar / ($eredeti_brutto_ar / 100))),
+				'mertek' => $eredeti_brutto_ar - $brutto_ar
+			);
+		}
+
 		$data['rovid_leiras'] = $this->addLinkToString( $data, $data['rovid_leiras'] );
 		//$data['ar'] = $arInfo['ar'];
 		//$data['akcios_fogy_ar']		= $akcios_arInfo['ar'];
@@ -1773,6 +1845,7 @@ class Products
 		$data['hasonlo_termek_ids'] = $this->getProductRelatives( $product_id );
 		$in_kat = $this->getProductInCategory( $product_id, true );
 		$data['in_cats'] 				= $in_kat;
+		$data['in_cat_ids'] 		= $in_kat['id'];
 		$data['in_cat_names'] 		= $in_kat['name'];
 		$data['in_cat_hashkey']		= $in_kat['hashkey'];
 		$data['in_cat_page_hashkeys']= $in_kat['page_hashkeys'];
@@ -1797,6 +1870,12 @@ class Products
 
 		// Csatolt link hivatkozások
 		$this->getProductLinksFromCategoryHashkeys( $data['in_cat_page_hashkeys'], $data['link_lista'] );
+
+		// CRM - inCash
+		if ( $this->crm && gettype($this->crm) == 'object' )
+		{
+			$data['crm'] = $this->crm->getFullItemData( 1, $data['xml_import_res_id'] );
+		}
 
 		return $data;
 	}

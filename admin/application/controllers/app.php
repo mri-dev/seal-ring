@@ -32,7 +32,7 @@ class app extends Controller{
 			$arg[limit] = 999999;
 			$arg['archivalt'] = 0;
 			$arg['filters']['csv_export_generated'] = 1;
-			$arg['exc_orderstatus'] = array(1, 13); // 1 = feldolgozás alatt, 13 = törölve
+			$arg['exc_orderstatus'] = array(13); // 13 = törölve
 			$orders = $this->AdminUser->getMegrendelesek($arg);
 
 			$fiz_mods = array(

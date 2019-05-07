@@ -27,7 +27,7 @@
                 <div class="">
                     <div class="flatInfoBox">
                         <div class="" align="center">
-                            <div style="color:#d41c4f;; font-size:1.8em;"><?=count($this->orders[progress])?> db</div>
+                            <div style="color:#15a78a;; font-size:1.8em;"><?=count($this->orders[progress])?> db</div>
                             <div>folyamatban</div>
                         </div>
                         <div class="" align="center">
