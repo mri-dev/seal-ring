@@ -64,7 +64,7 @@
                   $ar = $this->product['eredeti_ar'];
               ?>
               <div class="old">
-                  <div class="price"><strike><?=\PortalManager\Formater::cashFormat($ar)?> <?=$this->valuta?></strike></div>
+                  <div class="price"><strike><?=\PortalManager\Formater::cashFormat($ar)?> <?=$this->valuta?></strike> <span class="disc-percent">-<?=$this->product['akcio']['szazalek']?>%</span> </div>
               </div>
               <? endif; ?>
               <div class="current">
