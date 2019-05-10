@@ -1,5 +1,5 @@
-<form action="/user/belepes?return=<?=($_GET['return'] == '') ? $_SERVER['REQUEST_URI'] : $_GET['return']?>" method="post">
-	<div class="row np">		
+<form action="/user/belepes?return=<?=($_GET['return'] == '') ? ( ('/user/belepes'  == $_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'] ) : $_GET['return']?>" method="post">
+	<div class="row np">
 		<div class="col-md-12">
 			<label for="login_email">E-mail cím</label>
 			<input type="email" id="login_email" name="email" class="form-control">

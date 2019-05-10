@@ -1,7 +1,7 @@
 <div class="cat-menu">
   <ul>
     <?php foreach ( $this->categories->tree  as $cat ) { ?>
-    <li class="menu-item item<?=$cat['ID']?> deep<?=$cat['deep']?>"><a href="<?=$cat['link']?>"><?=$cat['neve']?></a><? if($cat['child']): ?><div class="toggler" toggle-menu="<?=$cat['ID']?>"></div><? endif; ?></li>
+    <li class="menu-item item<?=$cat['ID']?> deep<?=$cat['deep']?><?=($this->catid && $this->catid == $cat['ID'])?' active':''?>"><a href="<?=$cat['link']?>"><?=$cat['neve']?></a><? if($cat['child']): ?><div class="toggler" toggle-menu="<?=$cat['ID']?>"></div><? endif; ?></li>
       <?php
       foreach ( (array)$cat['child'] as $cat2): $rowclass = 'row-'.$cat['ID'].'-'.$cat2['ID']; ?>
         <li class="menu-item item<?=$cat2['ID']?> <?=$rowclass?> deep<?=$cat2['deep']?> childof<?=$cat2['szulo_id']?>"><a href="<?=$cat2['link']?>"><?=$cat2['neve']?></a><? if($cat2['child']): ?><div class="toggler" toggle-menu="<?=$cat2['ID']?>"></div><? endif; ?></li>

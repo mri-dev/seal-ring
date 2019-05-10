@@ -70,6 +70,32 @@
                         <li><a href="/termekek/<?=$navh?>"><?php echo $nav['neve']; ?></a></li>
                       <?php endforeach; endif; ?>
                       </ul>
+
+                      <div class="orders">
+                        <form class="" id="formfilter" action="/termekek/<?=$this->gets[1]?>" method="get">
+                          <input type="hidden" name="src" value="<?=$_GET['src']?>">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <div class="page-product-info">
+                                <div class="prod-items"><strong><?php echo $this->products->getItemNumbers(); ?> találat</strong></div>
+                                <div class="pages"><?php echo $this->products->getMaxPage(); ?> / <strong><?php echo $this->products->getCurrentPage(); ?>. oldal</strong></div>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="input-group">
+                                <span class="input-group-addon">Rendezés</span>
+                                <select class="form-control" name="order" onchange="$('#formfilter').submit()">
+                                  <option value="" selected="selected">Méret szerint</option>
+                                  <option value="nev_ASC" <?=($_GET['order'] == 'nev_ASC'?'selected="selected"':'')?>>Név: A-Z</option>
+                                  <option value="nev_DESC" <?=($_GET['order'] == 'nev_DESC'?'selected="selected"':'')?>>Név: Z-A</option>
+                                  <option value="ar_ASC" <?=($_GET['order'] == 'ar_ASC'?'selected="selected"':'')?>>Ár: növekvő</option>
+                                  <option value="ar_DESC" <?=($_GET['order'] == 'ar_DESC'?'selected="selected"':'')?>>Ár: csökkenő</option>
+                                </select>
+                              </div>
+                            </div>
+                        </div>
+                        </form>
+                      </div>
                       <div id="cart-msg"></div>
                   </div>
 

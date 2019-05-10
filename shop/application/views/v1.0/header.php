@@ -156,7 +156,7 @@
           </div>
           <div class="search">
             <div class="searchform">
-              <form class="" action="/termekek/" method="get">
+              <form class="" action="/termekek/<?=($this->gets[0] == 'termekek' && $this->gets[1] != '')?$this->gets[1]:''?>" method="get">
                 <div class="wrapper">
                   <div class="input">
                     <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">

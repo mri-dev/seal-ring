@@ -176,9 +176,9 @@ class user extends Controller{
 			}
 
 			if( Post::on('loginUser') ) {
-				$reurl = '/user';
+				$reurl = '/';
 
-				if ( $_GET['return'] ) {
+				if ( $_GET['return'] != '' ) {
 					$reurl = $_GET['return'];
 				}
 

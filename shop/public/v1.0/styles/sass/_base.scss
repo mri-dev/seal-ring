@@ -335,6 +335,15 @@ body.singlepage{
 			}
 		}
 	}
+	.orders{
+		.page-product-info{
+			.prod-items{
+				margin: 0 0 4px 0;
+				color: black;
+				font-size: 1.1rem;
+			}
+		}
+	}
 }
 
 .shop-cat {
@@ -1619,7 +1628,7 @@ body.singlepage{
 				display: block;
 			}
 
-			&:hover{
+			&:hover, &.active{
 				a{
 					background: $color-green;
 					color: white;

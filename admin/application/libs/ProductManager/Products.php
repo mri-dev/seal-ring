@@ -788,26 +788,30 @@ class Products
 		// Keresés
 		if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) )
 		{
-			$srcstr = strtolower(str_replace(" ","",$arg['search_str']));
-			$add = " and (";
-				$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$srcstr."%'";
-				$add .= " or (";
-				foreach ($arg['search'] as $src ) {
-					$src = strtolower(str_replace(" ","",$src));
-					$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$src."%' and ";
-				}
-				$add = rtrim($add," and ");
-				$add .= ")";
-			$add .= ") ";
+			$add = ' and (';
+				$srcstr = strtolower(str_replace(" ","",$arg['search_str']));
 
-			$whr .= $add;
-			$size_whr .= $add;
+				$add .= " (";
+					$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$srcstr."%'";
+						$add .= " or (";
+						foreach ($arg['search'] as $src ) {
+							$src = strtolower(str_replace(" ","",$src));
+							$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$src."%' and ";
+						}
+						$add = rtrim($add," and ");
+					$add .= ")";
+				$add .= ") ";
 
-			$add = " or (";
-				foreach ($arg['search'] as $src ) {
-					$add .= "(p.nev LIKE '%".$src."%' or p.kulcsszavak LIKE '%".$src."%' or p.rovid_leiras LIKE '%".$src."%') and ";
-				}
-				$add = rtrim($add," and ");
+				$whr .= $add;
+				$size_whr .= $add;
+
+				$add = " or (";
+					foreach ($arg['search'] as $src ) {
+						$add .= "(p.nev LIKE '%".$src."%' or p.kulcsszavak LIKE '%".$src."%' or p.rovid_leiras LIKE '%".$src."%') and ";
+					}
+					$add = rtrim($add," and ");
+				$add .= ") ";
+
 			$add .= ") ";
 
 			$whr .= $add;
@@ -987,6 +991,7 @@ class Products
 		$qry .= $having;
 
 		// ORDER
+		// REGEXP ORDER https://regex101.com/r/hh19vp/1 ([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)
 		// ORDER if collect
 		if ( isset($arg['collectby'])) {
 			if ( $arg['collectby'] == 'top' ) {
@@ -1008,7 +1013,8 @@ class Products
 					$add =  " ORDER BY ".$arg['order']['by']." ".$arg['order']['how'];
 					$qry .= $add;
 				} else {
-					$add =  " ORDER BY ar ASC, fotermek DESC, p.ID DESC ";
+					$add =  " ORDER BY p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
+					//$add =  " ORDER BY ar ASC, fotermek DESC, p.ID DESC ";
 					$qry .= $add;
 				}
 			}
