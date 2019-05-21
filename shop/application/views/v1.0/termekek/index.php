@@ -164,6 +164,47 @@
           </div>
         </div>
     </div>
+    <script type="text/javascript">
+      $(function(){
+        fixCatHeight();
+        fixCatPosition();  
+
+        $(window).scroll(function(){
+          fixCatHeight();
+          fixCatPosition();
+        });
+      })
+
+      function fixCatPosition() {
+        var etop = $('.cat-menu').offset().top;
+        var wtop = $(window).scrollTop();
+
+        if ( wtop > 20 ) {
+          $('.cat-menu').css({
+            top: wtop + 0
+          });
+        } else {
+          $('.cat-menu').css({
+            top: 0
+          });
+        }
+      }
+
+      function fixCatHeight() {
+        var wh = $(window).height();
+        var header_h = $('body > header').height()+8;
+        var footer_h = $('body > footer').height()+3;
+        var visible_footer = ((wh-($('body > footer').offset().top-$(window).scrollTop())) > 0) ? true : false;
+
+        if (!visible_footer) {
+          footer_h = 0;
+        }
+
+        $('.cat-menu').css({
+          maxHeight: wh - (header_h+footer_h)-25
+        });
+      }
+    </script>
 <? else: ?>
     <?=$this->render('home')?>
 <? endif; ?>

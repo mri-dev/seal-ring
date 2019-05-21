@@ -346,6 +346,12 @@ body.singlepage{
 	}
 }
 
+.list-view{
+	.cat-menu{
+		position: relative;
+	}
+}
+
 .shop-cat {
 	display: table;
 	width: 100%;
@@ -1551,6 +1557,27 @@ body.singlepage{
   padding: 1px;
 	border: 0.5px solid $color-grey;
 	background: #f1f1f1;
+  overflow-x: auto;
+
+	/* width */
+	&::-webkit-scrollbar {
+	  width: 10px;
+	}
+
+	/* Track */
+	&::-webkit-scrollbar-track {
+	  background: #9c9c9c;
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+	  background: $color-pr;
+	}
+
+	/* Handle on hover */
+	&::-webkit-scrollbar-thumb:hover {
+	  background: darken($color-pr, 10%);
+	}
 
 	ul{
 		li{

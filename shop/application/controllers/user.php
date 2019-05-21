@@ -169,12 +169,8 @@ class user extends Controller{
 			}
 		}
 
-		function belepes(){
-
-			if ( $this->view->user ) {
-				Helper::reload('/user');
-			}
-
+		function belepes()
+		{
 			if( Post::on('loginUser') ) {
 				$reurl = '/';
 
@@ -184,11 +180,15 @@ class user extends Controller{
 
 				try{
 					$re = $this->User->login($_POST);
-					Helper::reload($reurl);
+					Helper::reload('/');
 				}catch(Exception $e){
 					$err = $e->getCode();
 					$this->view->msg = Helper::makeAlertMsg('pError',$e->getMessage());
 				}
+			}
+
+			if ( $this->view->user ) {
+				Helper::reload('/user');
 			}
 		}
 

@@ -317,6 +317,14 @@
 </div>
 <script type="text/javascript">
     $(function() {
+        fixCatHeight();
+        fixCatPosition();
+
+        $(window).scroll(function(){
+          fixCatHeight();
+          fixCatPosition();
+        });
+
         <? if( $_GET['buy'] == 'now'): ?>
         $('#add_cart_num').val(1);
         $('#addtocart').trigger('click');
@@ -383,5 +391,34 @@
     function changeProfilImg(i){
         $('.product-view .main-img a.zoom img').attr('src',i);
         $('.product-view .main-img a.zoom').attr('href',i);
+    }
+    function fixCatPosition() {
+      var etop = $('.cat-menu').offset().top;
+      var wtop = $(window).scrollTop();
+
+      if ( wtop > 20 ) {
+        $('.cat-menu').css({
+          top: wtop + 0
+        });
+      } else {
+        $('.cat-menu').css({
+          top: 0
+        });
+      }
+    }
+
+    function fixCatHeight() {
+      var wh = $(window).height();
+      var header_h = $('body > header').height()+8;
+      var footer_h = $('body > footer').height()+3;
+      var visible_footer = ((wh-($('body > footer').offset().top-$(window).scrollTop())) > 0) ? true : false;
+
+      if (!visible_footer) {
+        footer_h = 0;
+      }
+
+      $('.cat-menu').css({
+        maxHeight: wh - (header_h+footer_h)-25
+      });
     }
 </script>
