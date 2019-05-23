@@ -104,7 +104,7 @@ header {
 				justify-content: flex-end;
 				& > div {
 					height: 40px;
-					a{
+					& > a{
 						display: block;
 						font-size: 1em;
 						line-height: 40px;
@@ -171,24 +171,25 @@ header {
 					&.cart{
 						background: white;
 						border: 0.5px solid $color-green;
-						flex-basis: $size-sidebar;
 						position: relative;
 
+						& > .holder{
+							display: -webkit-box;
+						  display: -ms-flexbox;
+						  display: flex;
+							flex-wrap: nowrap;
+							align-items: center;
+						}
+
 						.ico {
-							float: left;
-							height: 40px;
 							width: 45px;
-							padding: 8px;
-							margin-left: 5px;
+							padding: 10px;
 							img {
 								max-height: 100%;
 							}
 						}
 
 						.cash {
-							float: left;
-							line-height: 40px;
-							padding: 0 0 0 15px;
 							font-size: 1.2em;
 							font-weight: bold;
 							color: $color-green;
@@ -203,6 +204,18 @@ header {
 						    background: $color-red;
 						    font-size: 0.6em;
     						vertical-align: text-bottom;
+							}
+						}
+
+						.cbtn {
+							padding: 0 10px;
+							a{
+								display: block;
+								background: $color-green;
+						    color: white;
+						    padding: 7px 8px;
+						    border-radius: 3px;
+						    text-transform: uppercase;
 							}
 						}
 
@@ -268,9 +281,12 @@ header {
 										}
 
 										&.doempty{
-											background: $color-grey;
+											background:white;
+    									border-top: 0.5px solid #cdcdcd;
 											a{
-												color: #a9a9a9 !important;
+												color: red !important;
+												font-size: 0.85rem;
+												font-weight: 300;
 											}
 											i{
 												font-size: 15px;

@@ -30,8 +30,11 @@ class Database{
 				  DECLARE felh_ar FLOAT DEFAULT 0;
 					DECLARE felh_ar_akcios FLOAT DEFAULT 0;
 					DECLARE resid INT DEFAULT 0;
+					DECLARE showbrutto INT DEFAULT 1;
 					DECLARE afa FLOAT DEFAULT 1.27;
 					DECLARE pricegroup VARCHAR(20) DEFAULT NULL;
+
+					SELECT bErtek INTO showbrutto FROM beallitasok WHERE bKulcs = 'price_show_brutto';
 
 					SET @pg = 'ar1';
 
@@ -65,10 +68,15 @@ class Database{
 
 					END IF;
 
-					SET felh_ar = round(felh_ar * afa);
+					IF showbrutto = 1 THEN
+ 						SET felh_ar = round(felh_ar * afa);
+					END IF;
 
 					IF felh_ar_akcios != 0 THEN
-						SET felh_ar = round(felh_ar_akcios * afa);
+						SET felh_ar = felh_ar_akcios;
+						IF showbrutto = 1 THEN
+	 						SET felh_ar = round(felh_ar * afa);
+						END IF;
 					END IF;
 
 				  RETURN felh_ar;
@@ -85,8 +93,11 @@ class Database{
 				BEGIN
 				  DECLARE felh_ar FLOAT DEFAULT 0;
 					DECLARE resid INT DEFAULT 0;
+					DECLARE showbrutto INT DEFAULT 1;
 					DECLARE afa FLOAT DEFAULT 1.27;
 					DECLARE pricegroup VARCHAR(20) DEFAULT NULL;
+
+					SELECT bErtek INTO showbrutto FROM beallitasok WHERE bKulcs = 'price_show_brutto';
 
 					SET @pg = 'ar1';
 
@@ -120,7 +131,9 @@ class Database{
 
 					END IF;
 
-					SET felh_ar = round(felh_ar * afa);
+					IF showbrutto = 1 THEN
+						SET felh_ar = round(felh_ar * afa);
+					END IF;
 
 				  RETURN felh_ar;
 				END;

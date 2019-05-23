@@ -624,7 +624,7 @@ function searchFilters(){
 				$('#'+progress)
 				.stop()
 				.removeClass('in-progress')
-				.html('<img src="https://cp.autoradiokeret.web-pro.hu/src/images/shopcart-ico.svg" alt="Kosárba"> Kosárba');
+				.html('Kosárba <img src="https://cp.seal-ring.web-pro.hu/src/images/shopcart-ico.svg" alt="Kosárba">');
 			}
 
 		} );

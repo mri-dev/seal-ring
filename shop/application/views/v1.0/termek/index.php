@@ -46,11 +46,11 @@
         <div class="prices">
           <div class="lab">
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
-              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
+              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> <?=($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó'?> ár:
             <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
               Nettó <strong>beszerzési</strong> ár:
             <?php else: ?>
-              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> bruttó ár:
+              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> <?=($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó'?> ár:
             <?php endif; ?>
           </div>
           <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
@@ -68,8 +68,8 @@
               </div>
               <? endif; ?>
               <div class="current">
-                  <?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?>
-                  <?php if ($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
+                  <?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?>
+                  <?php if ($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1): ?>
                     <span class="text">+ ÁFA</span>
                   <?php endif; ?>
               </div>

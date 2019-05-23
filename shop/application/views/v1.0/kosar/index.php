@@ -34,7 +34,7 @@
 									<th class="center">Termék</th>
 									<th class="center">Me.</th>
 									<th class="center" width="15%">Egységár</th>
-									<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':'Bruttó ár'?></th>
+									<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':(($this->settings['price_show_brutto'] == 0)?'Nettó ár':'Bruttó ár')?></th>
 									<th class="center"></th>
 								</tr>
 							</thead>
@@ -378,7 +378,7 @@
 																<span class="kedvPrice">kedvezményesen <strong><?=Helper::cashFormat($calc_final_total)?> Ft</strong></span>
 																<span class="discountPrice"><span>(-<?=Helper::cashFormat($this->kosar[kedvezmeny])?> Ft)</span></span>
 															<? else: ?>
-																<?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':'bruttó'?>
+																<?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?>
 																 <strong><?=Helper::cashFormat($calc_final_total)?></strong> Ft
 															<? endif;?>
 													</span>
@@ -979,7 +979,7 @@
 											//if($kedvezmeny > 0){	$vegosszeg -= $kedvezmeny; }
 										?>
 	                                	<span class="n">Végösszeg:</span>
-	                                    <span class="a"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':'bruttó'?> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> Ft</span>
+	                                    <span class="a"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> Ft</span>
 	                                    <input type="hidden" name="kedvezmeny" value="<?=($this->kosar[kedvezmeny] > 0)?1:0?>" />
 	                                    <input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 	                               	</div>
@@ -1130,9 +1130,9 @@
 						var e = $(this).attr('name');
 						$('input[name=szall_'+e.replace('szam_','')+']').val($(this).val());
 					});
-					var megye_id = $('#szam_kozterulet_jelleg').val();
 
-					$('#szall_kozterulet_jelleg option:contains("'+megye_id+'")').prop('selected', true);
+					var kjid = $('#szam_kozterulet_jelleg').val();
+					$('#szall_kozterulet_jelleg option[value='+kjid+']').prop('selected', true);
 				}else{
 
 				}
