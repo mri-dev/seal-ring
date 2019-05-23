@@ -57,7 +57,15 @@ class Cart
 		LEFT OUTER JOIN shop_markak as m ON m.ID = t.marka
 		LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = t.keszletID
 		LEFT OUTER JOIN shop_szallitasi_ido as szid ON szid.ID = t.szallitasID
-		WHERE c.gepID = ".$this->machine_id;
+		WHERE 1=1 ";
+
+		$mid = $this->machine_id;
+
+		if ( $uid != 0 ) {
+			$q .= " and (c.gepID = $mid or c.user_id = $uid) ";
+		} else {
+			$q .= " and c.gepID = $mid ";
+		}
 
 		$qry = $this->db->query($q);
 

@@ -86,6 +86,14 @@ class Users
 		}
 	}
 
+	public function tempCartItemsFix( $uid = 0)
+	{
+		if ($uid != 0) {
+			$mid = \Helper::getMachineID();
+			// Kosár adatok user_id
+			$this->db->squery("UPDATE shop_kosar SET user_id = :uid WHERE gepID = :mid and user_id IS NULL", array('uid' => $uid, 'mid' => $mid));
+		}
+	}
 
 	function get( $arg = array() )
 	{
@@ -95,6 +103,7 @@ class Users
 		$torzsvasarloi_kedvezmeny = 0;
 		$referer_allow 	= false;
 		$getby 			= 'email';
+		$mid = \Helper::getMachineID();
 
 		$ret[options] 	= $arg;
 
@@ -123,7 +132,7 @@ class Users
 				if( is_null($ret[szamlazasi_adat]) ) $miss .= 'szamlazasi,';
 				$miss = rtrim($miss,',');
 				if ($miss != "") {
-					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );					
+					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );
 				}
 			}
 		}

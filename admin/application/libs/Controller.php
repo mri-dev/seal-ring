@@ -70,7 +70,10 @@ class Controller {
         );
 
         if (!$this->view->db) {  $this->out( 'db', $this->db ); }
-        if (!$this->view->user) { $this->out( 'user', $this->User->get( self::$user_opt ) ); }
+        if (!$this->view->user) {
+          $this->out( 'user', $this->User->get( self::$user_opt ) );
+          $this->User->tempCartItemsFix($this->view->user['data']['ID']);
+        }
 
         if ($this->gets[0] != 'ajax')
         {

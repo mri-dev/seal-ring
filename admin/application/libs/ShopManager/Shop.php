@@ -1062,6 +1062,7 @@ class Shop
 		} else {
 			$q .= " and c.gepID = $mid ";
 		}
+
 		$arg[multi] = '1';
 		extract($this->db->q($q, $arg));
 		$dt = array();
@@ -2117,7 +2118,7 @@ class Shop
 					$mid = ($mid == '') ? 0 : $mid;
 
 					$cart = array();
-					$cart_data = $this->db->query("
+					$cartqry = "
 						SELECT
 							c.*,
 							t.nev,
@@ -2131,7 +2132,15 @@ class Shop
 						FROM shop_kosar as c
 						LEFT OUTER JOIN shop_termekek as t ON t.ID = c.termekID
 						LEFT OUTER JOIN shop_markak as m ON m.ID = t.marka
-						WHERE c.gepID = $mid");
+						WHERE 1=1 ";
+
+					if ( $uid != 0 ) {
+						$cartqry .= " and (c.gepID = $mid or c.user_id = $uid) ";
+					} else {
+						$cartqry .= " and c.gepID = $mid ";
+					}
+
+					$cart_data = $this->db->query();
 					$cart = $cart_data->fetchAll(\PDO::FETCH_ASSOC);
 
 					if( count($cart) == 0 ){
@@ -2141,6 +2150,10 @@ class Shop
 					$referer_partner_id =($referer_partner_id) ? "'".$referer_partner_id."'" : 'NULL';
 					$coupon_code 		= ($coupon_code) ? "'".$coupon_code."'" : 'NULL';
 					$nettoar = ($arg['user'] && $arg['user']['data']['price_group_data']['groupkey'] == 'beszerzes_netto') ? 1 : 0;
+
+					if ($this->settings['price_show_brutto'] == 0 && $nettoar == 0) {
+						$nettoar  = 1;
+					}
 
 					$uid = ($uid == 0) ? 'NULL' : $uid;
 
