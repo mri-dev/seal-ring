@@ -111,7 +111,7 @@
                   <div class="col-md-4">Kapcsolt elem</div>
                 </div>
                 <? if(count($this->stats[lastMessages][data]) > 0): ?>
-                <? foreach($this->stats[lastMessages][data] as $d): ?>
+                <? foreach((array)$this->stats[lastMessages][data] as $d): ?>
                 <div class="row">
                     <div class="col-md-2">
                         <?=$d[felado_nev]?>
@@ -226,7 +226,7 @@
                 </div>
             </div>
             <div class="c">
-            	<? foreach($this->stats[termekView][data] as $d): ?>
+            	<? foreach((array)$this->stats[termekView][data] as $d): ?>
                  <div class="row">
                 	<div class="col-md-3"><strong><?=$d[me]?></strong> <span title="Oldal betöltés / Megjelenés"><i class="fa fa-eye"></i></span></div>
                     <div class="col-md-9 title">
@@ -262,7 +262,7 @@
                     Jelenleg nincs rendelkezésre álló adat.
                   </div>
                 <?php else: ?>
-                  <? foreach($this->stats[search][data] as $d): ?>
+                  <? foreach((array)$this->stats[search][data] as $d): ?>
                    <div class="row">
                   	<div class="col-md-3"><strong><?=$d[me]?>x</strong></div>
                       <div class="col-md-9 title"><?=$d[szoveg]?></div>
@@ -293,7 +293,7 @@
                     Jelenleg nincs rendelkezésre álló adat.
                   </div>
                 <?php else: ?>
-                  <? foreach($this->stats[kategoria][data] as $d): ?>
+                  <? foreach((array)$this->stats[kategoria][data] as $d): ?>
                    <div class="row">
                   	<div class="col-md-3"><strong><?=$d[me]?></strong> <span title="Oldal betöltés / Megjelenés"><i class="fa fa-eye"></i></span></div>
                       <div class="col-md-9 title"><a target="_blank" href="http://www.<?=str_replace(array('www.','http://'),'',rtrim($this->settings['page_url'],'/')).'/termekek/'.\PortalManager\Formater::makeSafeUrl($d['kategoriaNev'],'_-'.$d['kategoriaID'])?>"><?=$d['kategoriaNev']?></a></div>

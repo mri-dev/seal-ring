@@ -5778,9 +5778,10 @@ input[type=email][required].ng-touched.ng-valid + span:before
 }
 
 .empty-cart {
-	text-align: center;
-	color: darken($color-sec, 10%);
 	font-size: 1.1em;
+	text-align: center;
+  line-height: 1.5;
+  padding: 5rem 0;
 
 	i.ico, strong {
 		color: black;

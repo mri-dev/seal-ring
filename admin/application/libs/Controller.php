@@ -72,7 +72,6 @@ class Controller {
         if (!$this->view->db) {  $this->out( 'db', $this->db ); }
         if (!$this->view->user) {
           $this->out( 'user', $this->User->get( self::$user_opt ) );
-          $this->User->tempCartItemsFix($this->view->user['data']['ID']);
         }
 
         if ($this->gets[0] != 'ajax')
@@ -99,6 +98,9 @@ class Controller {
           }
 
           if ( defined('PRODUCTIONSITE') ) {
+            if (!$this->view->user) {
+              $this->User->tempCartItemsFix($this->view->user['data']['ID']);
+            }
             /****
             * TOP TERMÉKEK
             *****/
@@ -158,8 +160,8 @@ class Controller {
 
           $templates = new Template( VIEW . 'templates/' );
           $this->out( 'templates', $templates );
-          $this->out( 'highlight_text', $this->Portal->getHighlightItems() );
-          $this->out( 'slideshow', $this->Portal->getSlideshow() );
+          //$this->out( 'highlight_text', $this->Portal->getHighlightItems() );
+          //$this->out( 'slideshow', $this->Portal->getSlideshow() );
 
           if ( defined('PRODUCTIONSITE') )
           {
@@ -196,10 +198,9 @@ class Controller {
           }
 
           if ( $_GET['msgkey'] ) {
-              $this->out( $_GET['msgkey'], Helper::makeAlertMsg('pSuccess', $_GET[$_GET['msgkey']]) );
+            $this->out( $_GET['msgkey'], Helper::makeAlertMsg('pSuccess', $_GET[$_GET['msgkey']]) );
           }
-
-            $this->out( 'kozterulet_jellege', $this->kozterulet_jellege() );
+          $this->out( 'kozterulet_jellege', $this->kozterulet_jellege() );
         }
 
         $this->out( 'states', array(

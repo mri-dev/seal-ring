@@ -458,11 +458,14 @@ class Admin
 			getTermekUrl(t.ID,'".$this->settings['domain']."') as url,
 			ok.egysegAr as ar,
 			otp.nev as allapotNev,
-			otp.szin as allapotSzin
+			otp.szin as allapotSzin,
+			ta.elnevezes as termek_allapot,
+			ta.color as termek_allapot_color
 		FROM order_termekek as ok
 		LEFT OUTER JOIN shop_termekek as t ON t.ID = ok.termekID
 		LEFT OUTER JOIN shop_markak as m ON m.ID = t.marka
 		LEFT OUTER JOIN order_termek_allapot as otp ON ok.allapotID = otp.ID
+		LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = t.keszletID
 		WHERE ok.orderKey = $orderID";
 
 		$arg[multi] = '1';

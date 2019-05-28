@@ -66,19 +66,19 @@ Megrendelések
             <td><input type="text" name="access" class="form-control" value="<?=$_COOKIE[filter_access]?>" placeholder="Név vagy e-mail részlet..." /></td>
             <td><select class="form-control"  name="fallapot" style="max-width:200px;">
             	<option value="" selected="selected"># Mind</option>
-                	<? foreach($this->allapotok[order] as $m): ?>
+                	<? foreach((array)$this->allapotok[order] as $m): ?>
                     <option value="<?=$m[ID]?>" <?=($m[ID] == $_COOKIE[filter_fallapot])?'selected':''?>><?=$m[nev]?></option>
                     <? endforeach; ?>
                 </select></td>
             <td><select class="form-control"  name="fszallitas" style="max-width:150px;">
             	<option value="" selected="selected"># Mind</option>
-                	<? foreach($this->szallitas as $m): ?>
+                	<? foreach((array)$this->szallitas as $m): ?>
                     <option value="<?=$m[ID]?>" <?=($m[ID] == $_COOKIE[filter_fszallitas])?'selected':''?>><?=$m[nev]?></option>
                     <? endforeach; ?>
                 </select></td>
             <td><select class="form-control"  name="ffizetes" style="max-width:150px;">
             	<option value="" selected="selected"># Mind</option>
-                	<? foreach($this->fizetes as $m): ?>
+                	<? foreach((array)$this->fizetes as $m): ?>
                     <option value="<?=$m[ID]?>" <?=($m[ID] == $_COOKIE[filter_ffizetes])?'selected':''?>><?=$m[nev]?></option>
                     <? endforeach; ?>
                 </select></td>
@@ -90,11 +90,11 @@ Megrendelések
             	<button name="filterList" value="1" class="btn btn-default"><i class="fa fa-search"></i></button>
             </td>
     	</tr>
-    	<? if(count($this->megrendelesek[data]) > 0): foreach($this->megrendelesek[data] as $d):  ?>
+    	<? if(count($this->megrendelesek[data]) > 0): foreach((array)$this->megrendelesek[data] as $d):  ?>
 		<?
 		$preorders 	= 0;
 		$itemNum 	= 0;
-		foreach($d[items][data] as $item){
+		foreach((array)$d[items][data] as $item){
 			if($item[elorendelt] == '1') $preorders += $item[me];
 			$itemNum 	+= $item[me];
 		}?>
@@ -182,7 +182,7 @@ Megrendelések
                     		<tbody>
                             	<?
                                 $c_total = 0;
-                                foreach($d[items][data] as $item): $c_total += $item[subAr]; ?>
+                                foreach((array)$d[items][data] as $item): $c_total += $item[subAr]; ?>
                     			<tr>
                                 	<td width="35"><div class="img"><img src="<?=\PortalManager\Formater::productImage($item[profil_kep], 75, \ProductManager\Products::TAG_IMG_NOPRODUCT)?>" alt="" /></div></td>
                     				<td>
@@ -209,7 +209,7 @@ Megrendelések
                                     <td class="center"><?=Helper::cashFormat($item[subAr])?> Ft <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
                                     <td class="center" width="200">
                                     <select class="form-control" name="termekAllapot[<?=$d[ID]?>][<?=$item[ID]?>]" style="max-width:200px;">
-										<? foreach($this->allapotok[termek] as $m):  ?>
+										<? foreach((array)$this->allapotok[termek] as $m):  ?>
                                         <option style="color:<?=$m[szin]?>;" value="<?=$m[ID]?>" <?=($m[ID] == $item[allapotID])?'selected':''?>><?=$m[nev]?></option>
                                         <? endforeach; ?>
                                     </select>
@@ -257,7 +257,7 @@ Megrendelések
                         	<div class="col-md-6 selectCol"><strong>Megrendelés állapot:</strong></div>
                             <div class="col-md-6 right">
                             <select class="form-control" name="allapotID[<?=$d[ID]?>]">
-								<? foreach($this->allapotok[order] as $m): ?>
+								<? foreach((array)$this->allapotok[order] as $m): ?>
                                 <option style="color:<?=$m[szin]?>;" value="<?=$m[ID]?>" <?=($m[ID] == $d[allapot])?'selected':''?>><?=$m[nev]?></option>
                                 <? endforeach; ?>
                             </select>
@@ -285,7 +285,7 @@ Megrendelések
                         	<div class="col-md-7 selectCol"><strong>Átvételi mód:</strong></div>
                             <div class="col-md-5">
                            	<select class="form-control"  name="szallitas[<?=$d[ID]?>]">
-                                <? foreach($this->szallitas as $m): ?>
+                                <? foreach((array)$this->szallitas as $m): ?>
                                 <option value="<?=$m[ID]?>" <?=($m[ID] == $d[szallitasiModID])?'selected':''?>><?=$m[nev]?></option>
                                 <? endforeach; ?>
                             </select>
@@ -325,7 +325,7 @@ Megrendelések
                         	<div class="col-md-7 selectCol"><strong>Fizetési mód:</strong></div>
                             <div class="col-md-5">
                                	<select class="form-control"  name="fizetes[<?=$d[ID]?>]">
-                                    <? foreach($this->fizetes as $m): ?>
+                                    <? foreach((array)$this->fizetes as $m): ?>
                                     <option value="<?=$m[ID]?>" <?=($m[ID] == $d[fizetesiModID])?'selected':''?>><?=$m[nev]?></option>
                                     <? endforeach; ?>
                                 </select>
@@ -347,7 +347,7 @@ Megrendelések
                                             OTP Simple szerver üzenetek (IPN) (<?=count($d['payu_ipn'])?> db)
                                         </a>
                                         <div class="ipn-list" id="payuipns_<?=$d['ID']?>" style="display:none;">
-                                            <? if( count($d['payu_ipn']) > 0): foreach( $d['payu_ipn'] as $ipn ): ?>
+                                            <? if( count($d['payu_ipn']) > 0): foreach((array) $d['payu_ipn'] as $ipn ): ?>
                                             <div>
                                                 <span class="status"><em><?=$ipn['statusz']?></em></span>
                                                 <span class="time"><em><?=$ipn['idopont']?></em></span>
@@ -371,7 +371,7 @@ Megrendelések
                                         Cetelem szerver állapot-visszajelzések (<?=count($ipns)?> db)
                                     </a>
                                     <div class="ipn-list" id="cetelemipns_<?=$d['ID']?>" style="display:none;">
-                                        <? if( count($ipns) > 0): foreach( $ipns as $ipn ): ?>
+                                        <? if( count($ipns) > 0): foreach( (array)$ipns as $ipn ): ?>
                                         <div>
                                             <span class="status" style="background: <?=$ipn['statusz']['color']?>; color: white; text-shadow: none;"><em><?=$ipn['statusz']['text']?></em></span>
                                             <span class="time"><em><?=$ipn['idopont']?></em></span>
@@ -403,7 +403,7 @@ Megrendelések
                             	<div><strong>Számlázási adatok</strong></div>
                                 <? $szam = json_decode($d[szamlazasi_keys]);?>
                                 <div>
-                                	<? foreach($szam as $szmk => $szmv): ?>
+                                	<? foreach((array)$szam as $szmk => $szmv): ?>
                                    		<div class="row">
                                         	<div class="col-md-6 np selectCol em"><?=$nevek[$szmk]?></div>
                                         	<div class="col-md-6 np right"><input name="szamlazasi_adat[<?=$d[ID]?>][<?=$szmk?>]" type="text" class="form-control" value="<?=$szmv?>" /></div>
@@ -416,7 +416,7 @@ Megrendelések
                             	<? $szall = json_decode($d[szallitasi_keys]);?>
                             	<div><strong>Szállítási adatok</strong></div>
                                 <div>
-                                	<? foreach($szall as $szllk => $szllv): ?>
+                                	<? foreach((array)$szall as $szllk => $szllv): ?>
                                    		<div class="row">
                                         	<div class="col-md-6 selectCol np em"><?=$nevek[$szllk]?></div>
                                         	<div class="col-md-6 np right"><input name="szallitasi_adat[<?=$d[ID]?>][<?=$szllk?>]" type="text" class="form-control" value="<?=$szllv?>" /></div>

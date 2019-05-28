@@ -10,7 +10,7 @@
          <tr>
              <tbody>
                  <tr>
-                     <td style="text-align: center; font-size: 10px; color: #9c9c9c;">
+                     <td style="text-align: center; font-size: 10px; color: #333333;">
                         Ezt a levelet a(z) <?=$settings['page_author']?> küldte tájékoztató jelleggel. Az Ön adatait bizalmasan kezeljük.
                      </td>
                  </tr>

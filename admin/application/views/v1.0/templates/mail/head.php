@@ -31,7 +31,7 @@
         }
 
         a:link, a:visited {
-            color:#02a0e3;
+            color:#15a98c;
         }
         .width {
             width: 800px;
@@ -41,7 +41,7 @@
             padding: 10px 0;
         }
         .bar {
-            background: #02a0e3;
+            background: #15a98c;
         }
         .bar td {
             text-align: center;
@@ -64,7 +64,7 @@
         }
         .cdiv {
             height: 10px;
-            background: #02a0e3;
+            background: #15a98c;
             display: block;
             position: relative;
         }
@@ -162,7 +162,7 @@
               <tbody>
                   <tr>
                       <td  width="125" style="text-align:left; vertical-align:middle;">
-                          <img src="<?=IMGDOMAIN?>src/images/csofem_logo.svg" alt="<?=$settings['page_title']?>" style="width:auto !important; height:40px;">
+                          <img src="<?=ADMROOT?>src/images/sealringlogo.svg" alt="<?=$settings['page_title']?>" style="width:auto !important; height:40px;">
                       </td>
                       <td style="text-align:right; vertical-align:middle; font-size:14px; color:#00;" >
                           <div class="relax"><?=$settings['page_description']?></div>
