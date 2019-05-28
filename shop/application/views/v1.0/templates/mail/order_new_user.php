@@ -32,7 +32,7 @@
 		</td>
 		<td align="center"><?=round($d[ar])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center"><?=round($d[ar]*$d[me])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
-		<td align="center"><strong style="color:#CC0000;">Feldolgozás alatt</strong></td>
+		<td align="center"><strong style="color:<?=$d['termek_allapot_color']?>;"><?=$d['termek_allapot']?></strong></td>
 	</tr>
 <? }
 	// Összesítő ár

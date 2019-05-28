@@ -2125,6 +2125,8 @@ class Shop
 							t.meret,
 							t.szin,
 							t.raktar_articleid,
+							ta.elnevezes as termek_allapot,
+							ta.color as termek_allapot_color,
 							getTermekUrl(t.ID,'".$this->settings['domain']."') as url,
 							getTermekAr(c.termekID, ".$uid.") as ar,
 							t.referer_price_discount,
@@ -2132,6 +2134,7 @@ class Shop
 						FROM shop_kosar as c
 						LEFT OUTER JOIN shop_termekek as t ON t.ID = c.termekID
 						LEFT OUTER JOIN shop_markak as m ON m.ID = t.marka
+						LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = t.keszletID
 						WHERE 1=1 ";
 
 					if ( $uid != 0 ) {
@@ -2140,7 +2143,7 @@ class Shop
 						$cartqry .= " and c.gepID = $mid ";
 					}
 
-					$cart_data = $this->db->query();
+					$cart_data = $this->db->query($cartqry);
 					$cart = $cart_data->fetchAll(\PDO::FETCH_ASSOC);
 
 					if( count($cart) == 0 ){
