@@ -64,6 +64,8 @@ class Database{
 							SELECT ar9, ar9_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
 						ELSEIF pricegroup = 'ar10' THEN
 							SELECT ar10, ar10_akcios INTO felh_ar, felh_ar_akcios FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'beszerzes_netto' THEN
+								SELECT beszerzes_netto INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						END IF;
 
 					END IF;
@@ -127,6 +129,8 @@ class Database{
 							SELECT ar9 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						ELSEIF pricegroup = 'ar10' THEN
 							SELECT ar10 INTO felh_ar FROM xml_temp_products WHERE ID = resid;
+						ELSEIF pricegroup = 'beszerzes_netto' THEN
+							SELECT beszerzes_netto INTO felh_ar FROM xml_temp_products WHERE ID = resid;
 						END IF;
 
 					END IF;
