@@ -167,7 +167,7 @@
     <script type="text/javascript">
       $(function(){
         fixCatHeight();
-        fixCatPosition();  
+        fixCatPosition();
 
         $(window).scroll(function(){
           fixCatHeight();

@@ -2905,6 +2905,10 @@ class Shop
 				$cq .= " and d.lathato = 1 ";
 			}
 
+			if ( isset($arg['kiemelt']) ) {
+				$cq .= " and d.kiemelt = ".(int)$arg['kiemelt'];
+			}
+
 			$cq .= " and d.hashname = '{$file[hashname]}'";
 
 			if( isset($arg['user_group_in']) ) {
@@ -2930,7 +2934,6 @@ class Shop
 				$file['szaktanacsado_only'] = $data['szaktanacsado_only'];
 
 				$temp[$file['hashname']] = $file;
-
 			}
 			elseif( $arg['showOffline'] === true )
 			{
@@ -2944,6 +2947,10 @@ class Shop
 
 		if( isset($arg['showOffline']) ) {
 
+		}
+
+		if( isset($arg['kiemelt']) ) {
+			$eq .= " and d.kiemelt = ".(int)$arg['kiemelt'];
 		}
 
 		if( isset($arg['user_group_in']) ) {

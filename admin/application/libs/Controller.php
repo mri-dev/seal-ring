@@ -155,7 +155,11 @@ class Controller {
             /******
             * Dokumentumok - Kiemelt
             *******/
-            $this->out('top_documents', $viewed_products->getTermDocuments(0, array('kiemelt' => true )));
+            if ( defined('PRODUCTIONSITE') )
+            {
+              $files = new FileLister(RPDOCUMENTROOT);
+              $this->out( 'top_documents', $this->shop->checkDocuments(false, $files, array('showOffline' => false, 'showHided' => false, 'kiemelt' => 1)));
+            }
           }
 
           $templates = new Template( VIEW . 'templates/' );

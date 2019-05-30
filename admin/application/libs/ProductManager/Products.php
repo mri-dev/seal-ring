@@ -642,6 +642,7 @@ class Products
 		p.szallitasID,
 		p.keszletID,
 		p.raktar_keszlet,
+		p.show_stock,
 		p.raktar_articleid,
 		p.profil_kep,
 		p.kep_mappa,
@@ -660,6 +661,8 @@ class Products
 		p.xml_import_done,
 		p.beszerzes_netto,
 		p.fotermek,
+		ta.elnevezes as keszlet_nev,
+		ta.color as keszlet_color,
 		getTermekAr(p.ID, ".$uid.") as ar,
 		getTermekOriginalAr(p.ID, ".$uid.") as eredeti_ar,
 		(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) as in_cat,
@@ -679,6 +682,7 @@ class Products
 		$qry .= " FROM
 		shop_termekek as p
 		LEFT OUTER JOIN shop_termek_parameter as pa ON pa.termekID = p.ID
+		LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = p.keszletID
 		LEFT OUTER JOIN shop_markak as m ON m.ID = p.marka
 		WHERE 1 = 1
 		";
@@ -1947,6 +1951,7 @@ class Products
 		}
 
 		$qry .= " ORDER BY d.sorrend ASC, d.cim ASC";
+
 		$list = $this->db->query( $qry );
 
 		if ( $list->rowCount() != 0 ) {
@@ -1974,7 +1979,7 @@ class Products
 		}
 	}
 
-	protected function getTermDocumentExtensionIcon( $ext = false )
+	public function getTermDocumentExtensionIcon( $ext = false )
 	{
 		if ( $ext == '' || !$ext || $ext == 'url' ) {
 			return 'docst-url';

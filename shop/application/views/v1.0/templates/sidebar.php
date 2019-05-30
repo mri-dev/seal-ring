@@ -86,8 +86,8 @@
       <div class="document-top-list">
         <div class="wrapper">
           <ul>
-            <?php foreach ($this->top_documents as $docs ): ?>
-            <li><a title="<?=strtoupper($docs['ext'])?><?=($docs['filesize']) ? ' - '.$docs['filesize']:''?>" href="/app/dcl/<?=$docs['hashname']?>" target="_blank"><img src="<?=IMG?>icons/<?=$docs['icon']?>.svg" alt="<?=$docs['ext']?>"> <?=$docs['cim']?></a></li>
+            <?php foreach ($this->top_documents as $docs ): if(empty($docs['cim'])) continue; ?>
+            <li><a title="<?=strtoupper($docs['extension'])?><?=($docs['size']) ? ' - '.round($docs['sizes']['kb']).' KB':''?>" href="/app/dcl/<?=$docs['hashname']?>" target="_blank"><img src="<?=IMG?>icons/docst-<?=($docs['extension'] == '' || $docs['extension'] == 'link')?'url':$docs['extension']?>.svg" alt="<?=$docs['extension']?>"> <?=$docs['cim']?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>

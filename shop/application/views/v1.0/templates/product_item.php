@@ -29,6 +29,11 @@
         <?php echo $rovid_leiras; ?>
       </div>
       <?php endif; ?>
+      <div class="stockinfo">
+        <div class="rack" style="background: <?=$keszlet_color?>;">
+          <?=($show_stock=='1' && $raktar_keszlet > 0)?$raktar_keszlet.' db ':''?><?=$keszlet_nev?>
+        </div>
+      </div>
 		</div>
     <div class="title">
       <h3><a title="<?=$product_nev?>" href="<?=$link?>"><?=$product_nev?></a></h3>
@@ -71,7 +76,7 @@
     <div class="buttons<?=($wo_price)?' wo-price':''?>">
       <?php if (!$wo_price): ?>
       <div class="addnum">
-        <input type="number" onchange="$('#btn-add-p<?=$product_id?>').attr('cart-me', $(this).val())" step="1" min="1" value="1">
+        <input type="number" onchange="$('#btn-add-p<?=$product_id?>').attr('cart-me', $(this).val())" step="1" max="<?=($raktar_keszlet>0)?$raktar_keszlet:''?>" min="1" value="1">
       </div>
       <div class="add">
         <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> Kosárba <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
