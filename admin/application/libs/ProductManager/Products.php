@@ -793,14 +793,14 @@ class Products
 		if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) )
 		{
 			$add = ' and (';
-				$srcstr = strtolower(str_replace(array(" ","*"),array("", "x"),$arg['search_str']));
+				$srcstr = strtolower(str_replace(array(" ","*","."),array("", "x",","),$arg['search_str']));
 
 				$add .= " (";
-					$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$srcstr."%'";
+					$add .= "LOWER(REPLACE(REPLACE(p.nev, ' ', ''),'.','m')) LIKE '%".$srcstr."%'";
 						$add .= " or (";
 						foreach ($arg['search'] as $src ) {
 							$src = strtolower(str_replace(" ","",$src));
-							$add .= "LOWER(REPLACE(p.nev, ' ', '')) LIKE '%".$src."%' and ";
+							$add .= "LOWER(REPLACE(REPLACE(p.nev, ' ', ''),'.',',')) LIKE '%".$src."%' and ";
 						}
 						$add = rtrim($add," and ");
 					$add .= ")";

@@ -20,11 +20,11 @@ class News
 	private $tree_items = 0;
 	private $walk_step = 0;
 	private $selected_news_id = false;
-	private $item_limit_per_page = 50; 
+	private $item_limit_per_page = 50;
 	private $sitem_numbers = 0;
 
 	function __construct( $news_id = false, $arg = array() )
-	{		
+	{
 		$this->db = $arg[db];
 		if ( $news_id ) {
 			$this->selected_news_id = $news_id;
@@ -35,7 +35,7 @@ class News
 	{
 		$data = array();
 		$qry = "SELECT 	*	FROM hirek ";
-		
+
 		if (is_numeric($news_id_or_slug)) {
 			$qry .= " WHERE ID = ".$news_id_or_slug;
 		}else {
@@ -51,13 +51,13 @@ class News
 
 	public function add( $data )
 	{
-		$cim 	= ($data['cim']) ?: false;		
+		$cim 	= ($data['cim']) ?: false;
 		$eleres = ($data['eleres']) ?: false;
-		$szoveg = ($data['szoveg']) ?: NULL;		
-		$bevezeto = ($data['bevezeto']) ?: NULL; 
+		$szoveg = ($data['szoveg']) ?: NULL;
+		$bevezeto = ($data['bevezeto']) ?: NULL;
 		$lathato= ($data['lathato'] == 'on') ? 1 : 0;
 
-		if (!$cim) { throw new \Exception("Kérjük, hogy adja meg az <strong>Hír címét</strong>!"); } 
+		if (!$cim) { throw new \Exception("Kérjük, hogy adja meg az <strong>Hír címét</strong>!"); }
 
 
 		if (!$eleres) {
@@ -80,14 +80,14 @@ class News
 
 	public function save( $data )
 	{
-		$cim 	= ($data['cim']) ?: false;		
+		$cim 	= ($data['cim']) ?: false;
 		$eleres = ($data['eleres']) ?: false;
 		$szoveg = ($data['szoveg']) ?: NULL;
-		$bevezeto = ($data['bevezeto']) ?: NULL; 
+		$bevezeto = ($data['bevezeto']) ?: NULL;
 		$kep 	= ($data['belyegkep']) ?: NULL;
 		$lathato= ($data['lathato']) ? 1 : 0;
 
-		if (!$cim) { throw new \Exception("Kérjük, hogy adja meg a <strong>Hír címét</strong>!"); } 
+		if (!$cim) { throw new \Exception("Kérjük, hogy adja meg a <strong>Hír címét</strong>!"); }
 
 
 		if (!$eleres) {
@@ -114,15 +114,15 @@ class News
 		$text = Formater::makeSafeUrl($text,'');
 
 		$qry = $this->db->query(sprintf("
-			SELECT 		eleres 
-			FROM 		hirek 
-			WHERE 		eleres = '%s' or 
-						eleres like '%s-_' or 
-						eleres like '%s-__' 
-			ORDER BY 	eleres DESC 
+			SELECT 		eleres
+			FROM 		hirek
+			WHERE 		eleres = '%s' or
+						eleres like '%s-_' or
+						eleres like '%s-__'
+			ORDER BY 	eleres DESC
 			LIMIT 		0,1", trim($text), trim($text), trim($text) ));
 		$last_text = $qry->fetch(\PDO::FETCH_COLUMN);
-		
+
 		if( $qry->rowCount() > 0 ) {
 
 			$last_int = (int)end(explode("-",$last_text));
@@ -131,7 +131,7 @@ class News
 				$last_text = str_replace('-'.$last_int, '-'.($last_int+1) , $last_text);
 			} else {
 				$last_text .= '-1';
-			}			
+			}
 		} else {
 			$last_text = $text;
 		}
@@ -170,40 +170,44 @@ class News
 		// Legfelső színtű Hírak
 		$qry = "
 			SELECT 			SQL_CALC_FOUND_ROWS
-							* 
-			FROM 			hirek 
-			WHERE 			ID IS NOT NULL ";
+				*
+			FROM 			hirek
+			WHERE	ID IS NOT NULL ";
 
 		if( $arg['except_id'] ) {
 			$qry .= " and ID != ".$arg['except_id'];
 		}
-	
+
+		if( isset($arg['lathato']) ) {
+			$qry .= " and lathato = ".(int)$arg['lathato'];
+		}
+
 		if( $arg['order'] ) {
 			$qry .= " ORDER BY ".$arg['order']['by']." ".$arg['order']['how'];
 		} else {
 			$qry .= " ORDER BY letrehozva DESC ";
 		}
-		
 
-		// LIMIT 
+
+		// LIMIT
 		$current_page = ($arg['page'] ?: 1);
 		$start_item = $current_page * $this->item_limit_per_page - $this->item_limit_per_page;
 		$qry .= " LIMIT ".$start_item.",".$this->item_limit_per_page.";";
 
 		$top_news_qry 	= $this->db->query($qry);
-		$top_page_data 	= $top_news_qry->fetchAll(\PDO::FETCH_ASSOC); 
+		$top_page_data 	= $top_news_qry->fetchAll(\PDO::FETCH_ASSOC);
 
 		$this->sitem_numbers = $this->db->query("SELECT FOUND_ROWS();")->fetch(\PDO::FETCH_COLUMN);
 
 		$this->max_page = ceil($this->sitem_numbers / $this->item_limit_per_page);
 		$this->current_page = $current_page;
 
-		if( $top_news_qry->rowCount() == 0 ) return $this; 
-		
+		if( $top_news_qry->rowCount() == 0 ) return $this;
+
 		foreach ( $top_page_data as $top_page ) {
 			$this->tree_items++;
 			$this->tree_steped_item[] = $top_page;
-			
+
 			$tree[] = $top_page;
 		}
 
@@ -219,15 +223,15 @@ class News
 
 	/**
 	 * Végigjárja az összes Hírt, amit betöltöttünk a getTree() függvény segítségével. while php függvénnyel
-	 * járjuk végig. A while függvényen belül használjuk a the_news() objektum függvényt, ami az aktuális Hír 
+	 * járjuk végig. A while függvényen belül használjuk a the_news() objektum függvényt, ami az aktuális Hír
 	 * adataiat tartalmazza tömbbe sorolva.
 	 * @return boolean
 	 */
 	public function walk()
-	{	
+	{
 		if( !$this->tree_steped_item ) return false;
 
-		$this->current_item = $this->tree_steped_item[$this->walk_step];	
+		$this->current_item = $this->tree_steped_item[$this->walk_step];
 
 		$this->walk_step++;
 
@@ -239,7 +243,7 @@ class News
 			return false;
 		}
 
-		return true;	
+		return true;
 	}
 
 	public function getWalkInfo()
@@ -254,7 +258,7 @@ class News
 
 	/**
 	 * A walk() fgv-en belül visszakaphatjuk az aktuális Hír elem adatait tömbbe tárolva.
-	 * @return array 
+	 * @return array
 	 */
 	public function the_news()
 	{
@@ -281,7 +285,7 @@ class News
 	{
 		return $this->current_get_item;
 	}
-	
+
 	public function getImage()
 	{
 		return $this->current_get_item['belyeg_kep'];
@@ -335,7 +339,7 @@ class News
 		$this->tree_items = 0;
 		$this->walk_step = 0;
 		$this->selected_news_id = false;
-		$this->item_limit_per_page = 50; 
+		$this->item_limit_per_page = 50;
 		$this->sitem_numbers = 0;
 	}
 }

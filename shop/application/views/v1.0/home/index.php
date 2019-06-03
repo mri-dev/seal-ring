@@ -45,6 +45,7 @@
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
+				<?php if ( $this->news->has_news()): ?>
 				<div class="news trackwidth">
 					<div class="pw">
 						<div class="title-header">
@@ -64,6 +65,7 @@
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
 				<script type="text/javascript">
 					$(function(){
 						/* */

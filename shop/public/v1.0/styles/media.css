@@ -324,7 +324,7 @@ body, html {
 
 /* line 180, sass/_general.scss */
 .pwf {
-  width: 1050px;
+  width: 1200px;
   margin: 0 auto;
 }
 
@@ -468,7 +468,7 @@ body, html {
 
 /* line 234, sass/_general.scss */
 body.fixwidth .website {
-  width: 1050px;
+  width: 1200px;
   padding: 25px 0;
 }
 
@@ -1376,7 +1376,7 @@ h1 {
 }
 /* line 77, sass/_base.scss */
 .page-width.cart {
-  width: 1050px;
+  width: 1200px;
 }
 
 /* line 83, sass/_base.scss */
@@ -1391,7 +1391,7 @@ body.singlepage .website .cover-img {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0.7);
+  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0);
 }
 /* line 96, sass/_base.scss */
 body.singlepage .website .page {
@@ -1399,7 +1399,7 @@ body.singlepage .website .page {
 }
 /* line 100, sass/_base.scss */
 body.singlepage .website .page.page-width {
-  width: 1050px;
+  width: 1200px;
   margin: 0 auto;
 }
 /* line 105, sass/_base.scss */
@@ -1452,7 +1452,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 147, sass/_base.scss */
 .slideShow .info-box .strip .main {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0);
   color: #ffffff;
   text-transform: uppercase;
   font-weight: 300;
@@ -1462,7 +1462,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 156, sass/_base.scss */
 .slideShow .info-box .strip .second {
-  background: rgba(86, 86, 86, 0.45);
+  background: rgba(86, 86, 86, 0);
   padding: 8px 16px;
   font-size: 1.6em;
   line-height: 1.2;
@@ -1800,7 +1800,7 @@ body.singlepage .website .page.covered-page .side-menu {
   border: .4px solid #e0e0e0;
   background: white;
   margin: 0;
-  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0.8);
+  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -1838,7 +1838,7 @@ body.singlepage .website .page.covered-page .side-menu {
 .webshop-product-top .items .item .image .short-desc,
 .related-products .items .item .image .short-desc {
   z-index: 2;
-  background: rgba(240, 240, 240, 0.81);
+  background: rgba(240, 240, 240, 0);
   padding: 5px;
   font-size: 0.8em;
   text-align: left;
@@ -5145,7 +5145,7 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused {
 /* line 400, scss/_base.scss */
 /* line 3570, sass/_base.scss */
 .dialogBox.overlayed {
-  background: rgba(74, 74, 74, 0.9);
+  background: rgba(74, 74, 74, 0);
   pointer-events: auto;
 }
 
@@ -9039,44 +9039,49 @@ body.article footer {
   margin-top: 0;
 }
 
-/* line 7131, sass/_base.scss */
+/* line 7129, sass/_base.scss */
+body.homepage .home .pw {
+  width: 1200px;
+}
+
+/* line 7134, sass/_base.scss */
 body.article .site-container {
   background: white;
   padding: 0;
 }
-/* line 7135, sass/_base.scss */
+/* line 7138, sass/_base.scss */
 body.article .website {
-  width: 1050px;
+  width: 1200px;
   margin: 0 auto;
 }
 
-/* line 7144, sass/_base.scss */
+/* line 7147, sass/_base.scss */
 body.product-page .website,
 body.user .website,
 body.orderpage .website {
-  width: 1050px;
+  width: 1200px;
   margin: 0 auto;
 }
-/* line 7149, sass/_base.scss */
+/* line 7152, sass/_base.scss */
 body.product-page footer,
 body.user footer,
 body.orderpage footer {
   margin-top: 0;
 }
-/* line 7152, sass/_base.scss */
+/* line 7155, sass/_base.scss */
 body.product-page header .bottom > .pw > .flex,
 body.user header .bottom > .pw > .flex,
 body.orderpage header .bottom > .pw > .flex {
   padding-left: 0;
 }
-/* line 7156, sass/_base.scss */
+/* line 7159, sass/_base.scss */
 body.product-page .nav.nav-fix,
 body.user .nav.nav-fix,
 body.orderpage .nav.nav-fix {
   flex: 1;
 }
 
-/* line 7161, sass/_base.scss */
+/* line 7164, sass/_base.scss */
 .szechenyi-info {
   position: fixed;
   z-index: 100;
@@ -9084,7 +9089,7 @@ body.orderpage .nav.nav-fix {
   bottom: 0;
   height: 150px;
 }
-/* line 7167, sass/_base.scss */
+/* line 7170, sass/_base.scss */
 .szechenyi-info img {
   max-height: 100%;
   height: 100%;

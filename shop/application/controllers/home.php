@@ -19,6 +19,7 @@ class home extends Controller{
 			$arg = array(
 				'limit' => 30,
 				'page' 	=> 1,
+				'lathato' => 1,
 				'order' => array(
 					'by' => 'rand()'
 				)
