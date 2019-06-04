@@ -317,6 +317,9 @@ class ajax extends Controller{
 						case 'szin':
 							$this->db->query("UPDATE shop_termekek SET szin = '$val' WHERE ID = $id");
 						break;
+						case 'shopgroup':
+							$this->db->query("UPDATE shop_termekek SET shopgroup = '$val' WHERE ID = $id");
+						break;
 						case 'meret':
 							$this->db->query("UPDATE shop_termekek SET meret = '$val' WHERE ID = $id");
 						break;

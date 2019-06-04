@@ -143,11 +143,16 @@
 				       <a title="Szerkesztés" href="/termekek/t/edit/<?=$d['product_id']?>" style="color:black;" ><?=$d['product_nev']?></a>
              </div>
              <div class="inps">
-               <div class="szin">
-                 <input type="text" class="form-control action" mode="szin" tid="<?=$d['product_id']?>" value="<?=$d['szin']?>" placeholder="Variáció" />
-               </div>
+               <?php if (false): ?>
+                 <div class="szin">
+                   <input type="text" class="form-control action" mode="szin" tid="<?=$d['product_id']?>" value="<?=$d['szin']?>" placeholder="Variáció" />
+                 </div>
+                 <div class="meret">
+                   <input type="text" class="form-control action" mode="meret" tid="<?=$d['product_id']?>" value="<?=$d['meret']?>" placeholder="Kiszerelés" />
+                 </div>
+               <?php endif; ?>
                <div class="meret">
-                 <input type="text" class="form-control action" mode="meret" tid="<?=$d['product_id']?>" value="<?=$d['meret']?>" placeholder="Kiszerelés" />
+                 <input type="text" class="form-control action" mode="shopgroup" tid="<?=$d['product_id']?>" value="<?=$d['shopgroup']?>" placeholder="Termék csoport" />
                </div>
              </div>
             <? if( true ): ?>

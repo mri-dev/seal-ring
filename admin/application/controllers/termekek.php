@@ -24,167 +24,171 @@ class termekek extends Controller
 				$this->view->bmsg= Helper::makeAlertMsg('pSuccess', $_GET['msg']);
 			}
 
-			// Kategóriák
-			$cats = new Categories(  array( 'db' => $this->db )  );
-			$this->out( 'categories', $cats->getTree() );
+			if ($this->gets[1] == '' || is_numeric($this->gets[1]))
+			{
+				// Kategóriák
+				$cats = new Categories(  array( 'db' => $this->db )  );
+				$this->out( 'categories', $cats->getTree() );
 
-			if(Post::on('actionSaving')){
-				try{
-					$arg = array();
-					$re = $this->AdminUser->doAction($_POST[selectAction], 'action_', $arg);
-					/*echo '<pre>';
-					print_r($_POST);
-					echo '</pre>';*/
-					$this->view->rmsg	= Helper::makeAlertMsg('pSuccess', $re);
-				}catch(Exception $e){
-					$this->view->err 	= true;
-					$this->view->rmsg= Helper::makeAlertMsg('pError', $e->getMessage());
-				}
-			}
-
-			if(Post::on('filterList')){
-				$filtered = false;
-
-				if($_POST['ID'] != ''){
-					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+				if(Post::on('actionSaving')){
+					try{
+						$arg = array();
+						$re = $this->AdminUser->doAction($_POST[selectAction], 'action_', $arg);
+						/*echo '<pre>';
+						print_r($_POST);
+						echo '</pre>';*/
+						$this->view->rmsg	= Helper::makeAlertMsg('pSuccess', $re);
+					}catch(Exception $e){
+						$this->view->err 	= true;
+						$this->view->rmsg= Helper::makeAlertMsg('pError', $e->getMessage());
+					}
 				}
 
-				if($_POST['cikkszam'] != ''){
-					setcookie('filter_cikkszam',$_POST['cikkszam'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets[0]);
-				}
+				if(Post::on('filterList')){
+					$filtered = false;
 
-
-				if($_POST['szin'] != ''){
-					setcookie('filter_szin',$_POST['szin'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_szin','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-
-				if($_POST['meret'] != ''){
-					setcookie('filter_meret',$_POST['meret'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_meret','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-				if($_POST['nev'] != ''){
-					setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-				if($_POST['marka'] != ''){
-					setcookie('filter_marka',$_POST['marka'],time()+60*24,'/'.$this->view->gets[0]);
+					if($_POST['ID'] != ''){
+						setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets[0]);
 						$filtered = true;
-				}else{
-					setcookie('filter_marka','',time()-100,'/'.$this->view->gets[0]);
-				}
-				if($_POST['szallitasID'] != ''){
-					setcookie('filter_szallitasID',$_POST['szallitasID'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets[0]);
-				}
+					}else{
+						setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+					}
 
-				if($_POST['keszletID'] != ''){
-					setcookie('filter_keszletID',$_POST['keszletID'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-				if($_POST['lathato'] != ''){
-					setcookie('filter_lathato',$_POST['lathato'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_lathato','',time()-100,'/'.$this->view->gets[0]);
-				}
-
-				if($_POST['xml_import_done'] != ''){
-					setcookie('filter_xml_import_done',$_POST['xml_import_done'],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_xml_import_done','',time()-100,'/'.$this->view->gets[0]);
-				}
+					if($_POST['cikkszam'] != ''){
+						setcookie('filter_cikkszam',$_POST['cikkszam'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets[0]);
+					}
 
 
+					if($_POST['szin'] != ''){
+						setcookie('filter_szin',$_POST['szin'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_szin','',time()-100,'/'.$this->view->gets[0]);
+					}
 
-				if($_POST['fotermek'] == 'on'){
-					setcookie('filter_fotermek',1,time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets[0]);
+
+					if($_POST['meret'] != ''){
+						setcookie('filter_meret',$_POST['meret'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_meret','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($_POST['nev'] != ''){
+						setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($_POST['marka'] != ''){
+						setcookie('filter_marka',$_POST['marka'],time()+60*24,'/'.$this->view->gets[0]);
+							$filtered = true;
+					}else{
+						setcookie('filter_marka','',time()-100,'/'.$this->view->gets[0]);
+					}
+					if($_POST['szallitasID'] != ''){
+						setcookie('filter_szallitasID',$_POST['szallitasID'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($_POST['keszletID'] != ''){
+						setcookie('filter_keszletID',$_POST['keszletID'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($_POST['lathato'] != ''){
+						setcookie('filter_lathato',$_POST['lathato'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_lathato','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($_POST['xml_import_done'] != ''){
+						setcookie('filter_xml_import_done',$_POST['xml_import_done'],time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_xml_import_done','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+
+
+					if($_POST['fotermek'] == 'on'){
+						setcookie('filter_fotermek',1,time()+60*24,'/'.$this->view->gets[0]);
+						$filtered = true;
+					}else{
+						setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets[0]);
+					}
+
+					if($filtered){
+						setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					}else{
+						setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					}
+					Helper::reload('/termekek/1');
 				}
 
-				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
-				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+				// Termék lista
+				$products = new Products( array( 'db' => $this->db ) );
+				$price_groups = $products->priceGroupList();
+
+				$filters = Helper::getCookieFilter('filter',array('filtered'));
+
+				// GETS
+				if (isset($_GET['article'])) {
+					$filters['raktar_articleid'] = $_GET['article'];
 				}
-				Helper::reload('/termekek/1');
+				$arg = array(
+					'admin' => true,
+					'filters' => $filters,
+					'limit' => 50,
+					'page' => Helper::currentPageNum(),
+					'order' => array(
+						'by' => 'p.ID',
+						'how' => 'DESC'
+					)
+				);
+				$products_list = $products->prepareList( $arg )->getList();
+				$this->out( 'products', $products );
+				$this->out( 'termekek', $products_list );
+				$this->out( 'navigator', (new Pagination(array(
+					'class' => 'pagination pagination-sm center',
+					'current' => $products->getCurrentPage(),
+					'max' => $products->getMaxPage(),
+					'root' => '/'.__CLASS__,
+					'item_limit' => 28
+				)))->render() );
+
+				// Márkák
+				$this->view->markak 	= $this->AdminUser->getMarkak();
+				// Kategóriák
+				$this->view->kategoria  = $this->AdminUser->getTermekKategoriak();
+
+				// Készlet lista
+				$this->view->keszlet 	= $this->AdminUser->getKeszletLista();
+				// Szállításimód lista
+				$this->view->szallitasMod 	= $this->AdminUser->getSzallitasModLista();
+				// Szállításimód lista
+				$fizmod = $this->AdminUser->getFizetesiModok();
+
+				$nfizmod = array();
+				foreach ( $fizmod as $fm ) {
+					$nfizmod[$fm['ID']] = $fm;
+				}
+				$this->view->fizetesiMod = $nfizmod;
+				// Szállítási idő lista
+				$this->view->szallitas 	= $this->AdminUser->getSzallitasIdoLista();
+				// Ár csoportok
+				$this->view->price_groups = $price_groups;
 			}
 
-			// Termék lista
-			$products = new Products( array( 'db' => $this->db ) );
-			$price_groups = $products->priceGroupList();
-
-			$filters = Helper::getCookieFilter('filter',array('filtered'));
-
-			// GETS
-			if (isset($_GET['article'])) {
-				$filters['raktar_articleid'] = $_GET['article'];
-			}
-			$arg = array(
-				'admin' => true,
-				'filters' => $filters,
-				'limit' => 50,
-				'page' => Helper::currentPageNum(),
-				'order' => array(
-					'by' => 'p.ID',
-					'how' => 'DESC'
-				)
-			);
-			$products_list = $products->prepareList( $arg )->getList();
-			$this->out( 'products', $products );
-			$this->out( 'termekek', $products_list );
-			$this->out( 'navigator', (new Pagination(array(
-				'class' => 'pagination pagination-sm center',
-				'current' => $products->getCurrentPage(),
-				'max' => $products->getMaxPage(),
-				'root' => '/'.__CLASS__,
-				'item_limit' => 28
-			)))->render() );
-
-			// Márkák
-			$this->view->markak 	= $this->AdminUser->getMarkak();
-			// Kategóriák
-			$this->view->kategoria  = $this->AdminUser->getTermekKategoriak();
-
-			// Készlet lista
-			$this->view->keszlet 	= $this->AdminUser->getKeszletLista();
-			// Szállításimód lista
-			$this->view->szallitasMod 	= $this->AdminUser->getSzallitasModLista();
-			// Szállításimód lista
-			$fizmod = $this->AdminUser->getFizetesiModok();
-
-			$nfizmod = array();
-			foreach ( $fizmod as $fm ) {
-				$nfizmod[$fm['ID']] = $fm;
-			}
-			$this->view->fizetesiMod = $nfizmod;
-			// Szállítási idő lista
-			$this->view->szallitas 	= $this->AdminUser->getSzallitasIdoLista();
-			// Ár csoportok
-			$this->view->price_groups = $price_groups;
 
 
 			// SEO Információk
@@ -221,7 +225,7 @@ class termekek extends Controller
 		function t(){
 			// CRM
 			$crm = new ResourceImport( array( 'db' => $this->db ) );
-			$products = new Products( array( 'db' => $this->db ) );			
+			$products = new Products( array( 'db' => $this->db ) );
 			$products->setCRMHandler( $crm );
 
 			switch($this->view->gets[2]){
@@ -880,6 +884,47 @@ class termekek extends Controller
 
 			if( $_GET[path] != '' )
 			$this->view->csv = CSVParser::GET( $_GET[path] );
+		}
+
+		public function csoportmodosito()
+		{
+			// Termék lista
+			$terms = new Products( array( 'db' => $this->db ) );
+
+			$arg = array(
+				'admin' => true,
+				'filters' => array(),
+				'limit' => -1,
+				'page' => 1,
+				'shortlist' => true,
+				'order' => array(
+					'by' => 'p.ID',
+					'how' => 'DESC'
+				)
+			);
+
+			if (isset($_GET['by']) && isset($_GET['src']))
+			{
+				if ($_GET['by'] == 'shopgroup') {
+					$arg['shopgroup'] = trim($_GET['src']);
+				}
+				if ($_GET['by'] == 'search') {
+					$arg['search_str'] = trim($_GET['src']);
+					$search = explode(" ", trim($_GET['src']));
+					if (!empty($search)) {
+						$this->shop->logSearching($_GET['src']);
+						$arg['search'] = $search;
+						$this->out( 'searched_by', $search );
+					}
+				}
+			}
+			if ($_GET['src'] != '') {
+				$termlist = $terms->prepareList( $arg )->getList();
+
+				$this->out( 'terms', $terms );
+				$this->out( 'term_list', $termlist );
+			}		
+
 		}
 
 		function __destruct(){

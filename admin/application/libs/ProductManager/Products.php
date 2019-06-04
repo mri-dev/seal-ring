@@ -626,6 +626,7 @@ class Products
 		p.nev as product_nev,
 		p.cikkszam,
 		p.nagyker_kod,
+		p.shopgroup,
 		p.kulcsszavak,
 		p.pickpackszallitas,
 		p.no_cetelem,
@@ -712,6 +713,12 @@ class Products
 		// felhasznalasi_terulet
 		if ( isset($arg['felhasznalasi_terulet']) && $arg['felhasznalasi_terulet'] != 0 ) {
 			$add = " and p.felhasznalasi_terulet = ".$arg['felhasznalasi_terulet']." ";
+			$whr .= $add;
+			$size_whr .= $add;
+		}
+
+		if ( isset($arg['shopgroup']) ) {
+			$add = " and p.shopgroup = '".$arg['shopgroup']."' ";
 			$whr .= $add;
 			$size_whr .= $add;
 		}
@@ -1085,52 +1092,54 @@ class Products
 
 		foreach($data as $d)
 		{
-			$brutto_ar = $d['ar'];
-			$eredeti_brutto_ar = $d['eredeti_ar'];
-			//$akcios_brutto_ar = $d['akcios_brutto_ar'];
+			if (!isset($arg['shortlist'])) {
+				$brutto_ar = $d['ar'];
+				$eredeti_brutto_ar = $d['eredeti_ar'];
+				//$akcios_brutto_ar = $d['akcios_brutto_ar'];
 
-			$kep = $d['profil_kep'];
-			$d['profil_kep'] 		=  \PortalManager\Formater::productImage( $kep, false, self::TAG_IMG_NOPRODUCT );
-			$d['profil_kep_mid'] 	=  \PortalManager\Formater::productImage( $kep, 300, self::TAG_IMG_NOPRODUCT );
-			$d['profil_kep_small'] 	=  \PortalManager\Formater::productImage( $kep, 150, self::TAG_IMG_NOPRODUCT );
+				$kep = $d['profil_kep'];
+				$d['profil_kep'] 		=  \PortalManager\Formater::productImage( $kep, false, self::TAG_IMG_NOPRODUCT );
+				$d['profil_kep_mid'] 	=  \PortalManager\Formater::productImage( $kep, 300, self::TAG_IMG_NOPRODUCT );
+				$d['profil_kep_small'] 	=  \PortalManager\Formater::productImage( $kep, 150, self::TAG_IMG_NOPRODUCT );
 
-			$this->makeKeywordsArray($d['kulcsszavak']);
+				$this->makeKeywordsArray($d['kulcsszavak']);
 
-			/*
-			$arInfo	= $this->getProductPriceCalculate( $d['marka_id'], $brutto_ar );
-			$akcios_arInfo 	= $this->getProductPriceCalculate( $d['marka_id'], $akcios_brutto_ar );
+				/*
+				$arInfo	= $this->getProductPriceCalculate( $d['marka_id'], $brutto_ar );
+				$akcios_arInfo 	= $this->getProductPriceCalculate( $d['marka_id'], $akcios_brutto_ar );
 
-			if( $d['akcios'] == '1') {
-				$arInfo['ar'] = $arInfo['ar'];
+				if( $d['akcios'] == '1') {
+					$arInfo['ar'] = $arInfo['ar'];
+				}
+
+				$arInfo['ar'] 			= ($this->settings['round_price_5'] == '1') ? round($arInfo['ar'] / 5) * 5 : $arInfo['ar'] ;
+				$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
+				*/
+
+				// Dinamic akciózás
+				if ( $eredeti_brutto_ar != $brutto_ar ) {
+					$d['akcios'] = 1;
+					$d['akcio'] = array(
+						'szazalek' => (100-round($brutto_ar / ($eredeti_brutto_ar / 100))),
+						'mertek' => $eredeti_brutto_ar - $brutto_ar
+					);
+				}
+
+				// Kategória lista, ahol szerepel a termék
+				$in_cat = $this->getCategoriesWhereProductIn( $d['product_id'] );
+
+				$d['link'] 				= DOMAIN.'termek/'.\PortalManager\Formater::makeSafeUrl( $d['product_nev'], '_-'.$d['product_id'] );
+				$d['hasonlo_termek_ids']= $this->getProductRelatives( $d['product_id'] );
+				$d['parameters'] 		= $this->getParameters( $d['product_id'], $d['alapertelmezett_kategoria'] );
+				$d['price_groups'] 	= $this->priceGroups( $d['xml_import_origin'], $d['nagyker_kod'] );
+				$d['inKatList'] 		= $in_cat;
+				//$d['ar'] 				= $arInfo['ar'];
+				//$d['akcios_fogy_ar']	= $akcios_arInfo['ar'];
+				//$d['arres_szazalek'] 	= $arInfo['arres'];
+
+				// CRM - incash
+				$d['crm'] = array();
 			}
-
-			$arInfo['ar'] 			= ($this->settings['round_price_5'] == '1') ? round($arInfo['ar'] / 5) * 5 : $arInfo['ar'] ;
-			$akcios_arInfo['ar'] 	= ($this->settings['round_price_5'] == '1') ? round($akcios_arInfo['ar'] / 5) * 5 : $akcios_arInfo['ar'] ;
-			*/
-
-			// Dinamic akciózás
-			if ( $eredeti_brutto_ar != $brutto_ar ) {
-				$d['akcios'] = 1;
-				$d['akcio'] = array(
-					'szazalek' => (100-round($brutto_ar / ($eredeti_brutto_ar / 100))),
-					'mertek' => $eredeti_brutto_ar - $brutto_ar
-				);
-			}
-
-			// Kategória lista, ahol szerepel a termék
-			$in_cat = $this->getCategoriesWhereProductIn( $d['product_id'] );
-
-			$d['link'] 				= DOMAIN.'termek/'.\PortalManager\Formater::makeSafeUrl( $d['product_nev'], '_-'.$d['product_id'] );
-			$d['hasonlo_termek_ids']= $this->getProductRelatives( $d['product_id'] );
-			$d['parameters'] 		= $this->getParameters( $d['product_id'], $d['alapertelmezett_kategoria'] );
-			$d['price_groups'] 	= $this->priceGroups( $d['xml_import_origin'], $d['nagyker_kod'] );
-			$d['inKatList'] 		= $in_cat;
-			//$d['ar'] 				= $arInfo['ar'];
-			//$d['akcios_fogy_ar']	= $akcios_arInfo['ar'];
-			//$d['arres_szazalek'] 	= $arInfo['arres'];
-
-			// CRM - incash
-			$d['crm'] = array();
 
 			$bdata[]	 			= $d;
 		}
