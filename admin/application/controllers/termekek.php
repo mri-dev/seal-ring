@@ -892,6 +892,7 @@ class termekek extends Controller
 			$terms = new Products( array( 'db' => $this->db ) );
 
 			$arg = array(
+				'collectIDS' => true,
 				'admin' => true,
 				'filters' => array(),
 				'limit' => -1,
@@ -905,6 +906,10 @@ class termekek extends Controller
 
 			if (isset($_GET['by']) && isset($_GET['src']))
 			{
+				$_GET['by'] = ($_GET['by']=='') ? 'search' : $_GET['by'];
+				if ($_GET['by'] == 'ids') {
+					$arg['in_ID'] = explode(",",trim($_GET['src']));
+				}
 				if ($_GET['by'] == 'shopgroup') {
 					$arg['shopgroup'] = trim($_GET['src']);
 				}
@@ -920,10 +925,22 @@ class termekek extends Controller
 			}
 			if ($_GET['src'] != '') {
 				$termlist = $terms->prepareList( $arg )->getList();
+				if (isset($_POST['modifyAllTerm']))
+				{
+					try {
+						$back = $terms->groupProductChanger( $_POST, $terms->getLoadedIDS() );
+						if ($back) {
+							\Helper::reload();
+						}
+					} catch (\Exception $e) {
+						$this->view->err 	= true;
+						$this->view->bmsg	= Helper::makeAlertMsg('pError', $e->getMessage());
+					}
+				}
 
 				$this->out( 'terms', $terms );
 				$this->out( 'term_list', $termlist );
-			}		
+			}
 
 		}
 

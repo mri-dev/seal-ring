@@ -1032,7 +1032,7 @@ class Products
 		}
 
 		// Összes kategórián belüli termék ID összegyűjtése
-		if ( false ) {
+		if ( $arg['collectIDS'] === true ) {
 			$ids_query = $this->db->query( "SELECT p.ID FROM shop_termekek as p WHERE 1=1 ".$whr );
 
 			if ( $ids_query->rowCount() != 0 ) {
@@ -2305,6 +2305,41 @@ class Products
 		}
 
 		return false;
+	}
+
+	public function groupProductChanger( $datas, $prodids = array() )
+	{
+		if (!is_array($prodids) || count($prodids) == 0) {
+			throw new \Exception("Nem történt módosítás, mivel nem találtunk termék ID-kat.");
+		}
+
+		$q = "UPDATE shop_termekek SET ";
+
+		if ($datas['shopgroup'] != '') {
+			$q .= "shopgroup = ".$this->db->db->quote(trim($datas['shopgroup'])).", ";
+		} else if(in_array('shopgroup', (array)$datas['deleting'])){
+			$q .= "shopgroup = NULL, ";
+		}
+
+		if ($datas['kulcsszavak'] != '') {
+			$q .= "kulcsszavak = ".$this->db->db->quote(trim($datas['kulcsszavak'])).", ";
+		}else if(in_array('kulcsszavak', (array)$datas['deleting'])){
+			$q .= "kulcsszavak = NULL, ";
+		}
+
+		if ($datas['leiras'] != '') {
+			$q .= "leiras = ".$this->db->db->quote(trim($datas['leiras'])).", ";
+		}else if(in_array('leiras', (array)$datas['deleting'])){
+			$q .= "leiras = NULL, ";
+		}
+
+
+		$q = rtrim($q, ", ");
+		$q .= " WHERE ID IN (".implode(",", $prodids).")";
+
+		$this->db->query( $q );
+
+		return true;
 	}
 
 	/*===============================
