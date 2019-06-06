@@ -38,15 +38,15 @@ class Mailer extends PHPMailer
 
 	public function add( $email )
 	{
-		if (is_array($email)) 
+		if (is_array($email))
 		{
 			if(count($email) > 0)
-				foreach ($email as $mail) 
+				foreach ($email as $mail)
 				{
 					$this->recepiens[] = $mail;
 				}
-		} 
-		else 
+		}
+		else
 		{
 			$this->recepiens[] = $email;
 		}
@@ -65,12 +65,12 @@ class Mailer extends PHPMailer
 		return $this;
 	}
 
-	public function sendMail()
+	public function sendMail( $arg = array())
 	{
-		date_default_timezone_set('Europe/Budapest');						
-		
+		date_default_timezone_set('Europe/Budapest');
+
 		if ( $this->mode == 'php' ) {
-					
+
 		} else if( $this->mode == 'smtp' ) {
 			$this->isSMTP();                    // Set mailer to use SMTP
 			//$this->Host 		= '';
@@ -81,30 +81,30 @@ class Mailer extends PHPMailer
 			$this->Host 		= SMTP_HOST;  	// Specify main and backup server
 			$this->Port 		= SMTP_PORT;
 			$this->Username 	= SMTP_USER;    // SMTP username
-			$this->Password 	= SMTP_PW;      // SMTP password			
+			$this->Password 	= SMTP_PW;      // SMTP password
 		}
 
 		// Küldő adatai
 		$this->setFrom( $this->from_email, $this->from_name );
-		
+
 		$inserted 			= array();
 		$err 				= array();
-		$ret 				= array(); 
+		$ret 				= array();
 
 		if ( count($this->recepiens) > 0 ) {
 
 			foreach( $this->recepiens as $r ){
-				$this->addAddress($r);  	
+				$this->addAddress($r);
 				// Válasz adatok
-				if ( $this->rply_email ) 
-				{		
-					$this->clearReplyTos();	
+				if ( $this->rply_email )
+				{
+					$this->clearReplyTos();
 					$this->addReplyTo( $this->rply_email, $this->rply_name );
 				}
 
 				$this->WordWrap = 150;   // Set word wrap to 50 characters
 				$this->isHTML(true);     // Set email format to HTML
-				
+
 				/*
 				$msg = Helper::emailPatern(array(
 					'UZENET' 	=> $arg[msg],
@@ -114,11 +114,11 @@ class Mailer extends PHPMailer
 					'EMAIL' 	=> $r
 				));
 				*/
-					
+
 				$this->Subject = $this->subject;
 				$this->Body    = $this->msg;
 				$this->AltBody = $this->html2text( $this->msg );
-				
+
 				if (!$this->send()) {
 			       	$emsg 	=  "Kiküldés sikertelen: (" . str_replace("@", "&#64;", $r) . ') ' . $this->ErrorInfo . '<br />';
 					$err[] 	= array('mail' => $r, 'msg' => $emsg);

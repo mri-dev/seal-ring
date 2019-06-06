@@ -1,16 +1,18 @@
-<? 
+<?
 /*========================================
 =            Teszt Controller            =
 ========================================*/
 
 use PortalManager\Portal;
 use PortalManager\Request;
+use MailManager\Mailer;
+use PortalManager\Template;
 
 class test extends Controller{
-	function __construct(){	
+	function __construct(){
 		parent::__construct();
 		parent::$pageTitle = 'Teszt';
-				
+
 	}
 
 	function request () {
@@ -21,7 +23,7 @@ class test extends Controller{
 			//$url = 'http://casada-shop-cp.mri-dev.com/test/post';
 			$request = (new Request)->post( $url, array(
 				// E-mail cím
-				'subscr' 	=> 'pocokxtrame@gmail.com', 
+				'subscr' 	=> 'pocokxtrame@gmail.com',
 				// Név
 				'f_943' 	=> 'MRIDEV',
 				// Telefonszám
@@ -37,13 +39,28 @@ class test extends Controller{
 			$result = $request->decodeJSON( $request->getResult() );
 
 			echo $request->getResult();
-			
+
 			echo '<pre>';
 				print_r($result);
 			echo '</pre>';
 		} catch( \Exception $e ) {
 			echo $e->getMessage();
-		}	
+		}
+	}
+
+	public function mail()
+	{
+		$mail = new Mailer( $this->db->settings['page_title'], 'no-reply@sealring.hu', $this->db->settings['mail_sender_mode'] );
+		$mail->add( 'mistvan2014@gmail.com' );
+
+		$arg = array(
+			'settings' => $this->db->settings
+		);
+
+		$mail->setSubject( 'Teszt' );
+		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'clearmail', $arg ) );
+		$re = $mail->sendMail(array('debug' => 3));
+		print_r($re);
 	}
 
 	function post() {
@@ -51,7 +68,7 @@ class test extends Controller{
 
 		print_r($_POST);
 	}
-	
+
 	function __destruct(){
 		// RENDER OUTPUT
 			parent::bodyHead();					# HEADER
