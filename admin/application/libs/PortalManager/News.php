@@ -276,10 +276,16 @@ class News
 		return $text;
 	}
 
-
 	/*===============================
 	=            GETTERS            =
 	===============================*/
+
+
+
+	public function getNums()
+	{
+		return $this->tree_items;
+	}
 
 	public function getFullData()
 	{

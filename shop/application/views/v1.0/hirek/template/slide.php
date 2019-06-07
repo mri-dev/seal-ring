@@ -1,7 +1,7 @@
 <article class="<?=($belyeg_kep == '')?'no-img':''?>">
   <div class="wrapper">
     <?php
-      $belyeg_kep = ($belyeg_kep == '') ? IMG.'no-image.png' : \PortalManager\Formater::sourceImg($belyeg_kep);
+      $belyeg_kep = ($belyeg_kep == '') ? IMG.'no-product-img.png' : \PortalManager\Formater::sourceImg($belyeg_kep);
     ?>
     <div class="img"><a href="/hirek/<?=$eleres?>"><img src="<?=$belyeg_kep?>" alt="<?=$cim?>"></a></div>
     <div class="title">

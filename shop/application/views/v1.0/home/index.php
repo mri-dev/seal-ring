@@ -47,13 +47,12 @@
 				<?php endif; ?>
 				<?php if ( $this->news->has_news()): ?>
 				<div class="news trackwidth">
-					<div class="pw">
 						<div class="title-header">
 							<div class="">
 								<h2>Híreink</h2>
 							</div>
 						</div>
-						<div class="articles">
+						<div class="articles <?=($this->news->getNums() > 3)?'slided':'no-slided'?>">
 							<?
 							$step = 0;
 							while ( $this->news->walk() ) {
@@ -63,19 +62,20 @@
 								echo $this->template->get( 'slide', $arg );
 							}?>
 						</div>
-					</div>
 				</div>
-				<?php endif; ?>
+			<?php endif;?>
 				<script type="text/javascript">
 					$(function(){
+						<? if($this->news->getNums() > 3): ?>
 						/* */
-						$('.news .articles').slick({
+						$('.news .articles.slided').slick({
 							infinite: true,
 						  slidesToShow: 2,
 						  slidesToScroll: 1,
 							dots: true
 						});
 						/* */
+						<? endif; ?>
 
 						$('.webshop-product-top .items').slick({
 						  slidesToShow: 3,
@@ -93,7 +93,9 @@
 					})
 
 					function trackwidth(){
-						var w = $(window).width() - $('.filter-sidebar').width() - $('.right-sidebar').width() - 50 - 40 - 2;
+						var w = 1200 - $('.filter-sidebar').width() - $('.right-sidebar').width() - 40;
+						console.log(w);
+						// 680
 						$('.trackwidth').css({
 							width: w
 						});

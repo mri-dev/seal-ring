@@ -26,6 +26,7 @@ class hirek extends Controller{
 			$arg = array(
 				'limit' => 4,
 				'page' 	=> 1,
+				'lathato' => 1,
 				'order' => array(
 					'by' => 'rand()'
 				),

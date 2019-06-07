@@ -1391,7 +1391,7 @@ body.singlepage .website .cover-img {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0);
+  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0.7);
 }
 /* line 96, sass/_base.scss */
 body.singlepage .website .page {
@@ -1452,7 +1452,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 147, sass/_base.scss */
 .slideShow .info-box .strip .main {
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.6);
   color: #ffffff;
   text-transform: uppercase;
   font-weight: 300;
@@ -1462,7 +1462,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 156, sass/_base.scss */
 .slideShow .info-box .strip .second {
-  background: rgba(86, 86, 86, 0);
+  background: rgba(86, 86, 86, 0.45);
   padding: 8px 16px;
   font-size: 1.6em;
   line-height: 1.2;
@@ -1800,7 +1800,7 @@ body.singlepage .website .page.covered-page .side-menu {
   border: .4px solid #e0e0e0;
   background: white;
   margin: 0;
-  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0);
+  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0.8);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -1838,7 +1838,7 @@ body.singlepage .website .page.covered-page .side-menu {
 .webshop-product-top .items .item .image .short-desc,
 .related-products .items .item .image .short-desc {
   z-index: 2;
-  background: rgba(240, 240, 240, 0);
+  background: rgba(240, 240, 240, 0.81);
   padding: 5px;
   font-size: 0.8em;
   text-align: left;
@@ -5145,7 +5145,7 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused {
 /* line 400, scss/_base.scss */
 /* line 3570, sass/_base.scss */
 .dialogBox.overlayed {
-  background: rgba(74, 74, 74, 0);
+  background: rgba(74, 74, 74, 0.9);
   pointer-events: auto;
 }
 
@@ -8452,18 +8452,20 @@ a.cetelem-startrans {
 /* line 6570, sass/_base.scss */
 .page .page-view .content {
   line-height: 1.4;
+  font-size: 1rem;
+  color: #353535;
 }
-/* line 6573, sass/_base.scss */
+/* line 6575, sass/_base.scss */
 .page .page-view .content img {
   width: 100%;
   max-width: 100%;
 }
-/* line 6578, sass/_base.scss */
+/* line 6580, sass/_base.scss */
 .page .page-view .content p {
   margin: 10px 0 5px 0;
 }
 
-/* line 6586, sass/_base.scss */
+/* line 6588, sass/_base.scss */
 .document-top-list > .wrapper {
   overflow-y: auto;
   max-height: 280px;
@@ -8473,12 +8475,12 @@ a.cetelem-startrans {
   /* Handle */
   /* Handle on hover */
 }
-/* line 6592, sass/_base.scss */
+/* line 6594, sass/_base.scss */
 .document-top-list > .wrapper ul li {
   border-bottom: 0.5px solid #c8cbcc;
   padding: 10px 0;
 }
-/* line 6596, sass/_base.scss */
+/* line 6598, sass/_base.scss */
 .document-top-list > .wrapper ul li:after {
   content: "";
   display: block;
@@ -8486,7 +8488,7 @@ a.cetelem-startrans {
   clear: both;
   width: 100%;
 }
-/* line 6603, sass/_base.scss */
+/* line 6605, sass/_base.scss */
 .document-top-list > .wrapper ul li a {
   display: block;
   color: #333333;
@@ -8494,47 +8496,47 @@ a.cetelem-startrans {
   font-size: 0.85em;
   text-decoration: none;
 }
-/* line 6610, sass/_base.scss */
+/* line 6612, sass/_base.scss */
 .document-top-list > .wrapper ul li a img {
   height: 20px;
   width: auto !important;
   float: left;
   margin: 0 10px 0 0;
 }
-/* line 6617, sass/_base.scss */
+/* line 6619, sass/_base.scss */
 .document-top-list > .wrapper ul li a:hover {
   color: #1a1a1a;
 }
-/* line 6621, sass/_base.scss */
+/* line 6623, sass/_base.scss */
 .document-top-list > .wrapper ul li:last-child {
   border-bottom: none;
 }
-/* line 6628, sass/_base.scss */
+/* line 6630, sass/_base.scss */
 .document-top-list > .wrapper::-webkit-scrollbar {
   width: 5px;
 }
-/* line 6633, sass/_base.scss */
+/* line 6635, sass/_base.scss */
 .document-top-list > .wrapper::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-/* line 6638, sass/_base.scss */
+/* line 6640, sass/_base.scss */
 .document-top-list > .wrapper::-webkit-scrollbar-thumb {
   background: #15a98c;
 }
-/* line 6643, sass/_base.scss */
+/* line 6645, sass/_base.scss */
 .document-top-list > .wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-/* line 6649, sass/_base.scss */
+/* line 6651, sass/_base.scss */
 .helpdesk-top-searcher {
   padding: 5px;
 }
-/* line 6651, sass/_base.scss */
+/* line 6653, sass/_base.scss */
 .helpdesk-top-searcher .helpdesk-search {
   position: relative;
 }
-/* line 6653, sass/_base.scss */
+/* line 6655, sass/_base.scss */
 .helpdesk-top-searcher .helpdesk-search input[type=text] {
   width: 100%;
   display: block;
@@ -8544,7 +8546,7 @@ a.cetelem-startrans {
   height: 35px;
   font-size: 0.9em;
 }
-/* line 6662, sass/_base.scss */
+/* line 6664, sass/_base.scss */
 .helpdesk-top-searcher .helpdesk-search button {
   position: absolute;
   background: transparent;
@@ -8557,11 +8559,11 @@ a.cetelem-startrans {
   top: 0;
   cursor: pointer;
 }
-/* line 6675, sass/_base.scss */
+/* line 6677, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles {
   margin-top: 5px;
 }
-/* line 6677, sass/_base.scss */
+/* line 6679, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper {
   overflow-y: auto;
   max-height: 280px;
@@ -8570,58 +8572,58 @@ a.cetelem-startrans {
   /* Handle */
   /* Handle on hover */
 }
-/* line 6682, sass/_base.scss */
+/* line 6684, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper ul li a {
   display: block;
   line-height: 1.4;
   font-size: 0.85em;
   text-decoration: underline;
 }
-/* line 6688, sass/_base.scss */
+/* line 6690, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper ul li a:hover {
   color: #0f7c66;
 }
-/* line 6696, sass/_base.scss */
+/* line 6698, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper::-webkit-scrollbar {
   width: 5px;
 }
-/* line 6701, sass/_base.scss */
+/* line 6703, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-/* line 6706, sass/_base.scss */
+/* line 6708, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper::-webkit-scrollbar-thumb {
   background: #15a98c;
 }
-/* line 6711, sass/_base.scss */
+/* line 6713, sass/_base.scss */
 .helpdesk-top-searcher .picked-articles > .wrapper::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-/* line 6718, sass/_base.scss */
+/* line 6720, sass/_base.scss */
 .cetelem-calc {
   font-size: 0.8em;
   padding: 5px;
   background: #F1F1F3;
   position: relative;
 }
-/* line 6724, sass/_base.scss */
+/* line 6726, sass/_base.scss */
 .cetelem-calc #preload {
   text-align: center;
   padding: 8px;
   color: black;
 }
-/* line 6729, sass/_base.scss */
+/* line 6731, sass/_base.scss */
 .cetelem-calc #preload i {
   font-size: 28px;
 }
-/* line 6734, sass/_base.scss */
+/* line 6736, sass/_base.scss */
 .cetelem-calc .error {
   text-align: center;
   color: red;
   padding: 10px;
 }
-/* line 6740, sass/_base.scss */
+/* line 6742, sass/_base.scss */
 .cetelem-calc #next, .cetelem-calc #prev {
   cursor: pointer;
   background: #85A774;
@@ -8632,27 +8634,27 @@ a.cetelem-startrans {
   bottom: 2px;
   z-index: 1;
 }
-/* line 6750, sass/_base.scss */
+/* line 6752, sass/_base.scss */
 .cetelem-calc #next:hover, .cetelem-calc #prev:hover {
   background: #3E9219;
 }
-/* line 6755, sass/_base.scss */
+/* line 6757, sass/_base.scss */
 .cetelem-calc #prev {
   left: 2px;
 }
-/* line 6759, sass/_base.scss */
+/* line 6761, sass/_base.scss */
 .cetelem-calc #next {
   right: 2px;
 }
-/* line 6764, sass/_base.scss */
+/* line 6766, sass/_base.scss */
 .cetelem-calc #results .result {
   display: none;
 }
-/* line 6768, sass/_base.scss */
+/* line 6770, sass/_base.scss */
 .cetelem-calc #results .result.active {
   display: block;
 }
-/* line 6772, sass/_base.scss */
+/* line 6774, sass/_base.scss */
 .cetelem-calc #results .constuction {
   float: right;
   font-weight: bold;
@@ -8662,40 +8664,40 @@ a.cetelem-startrans {
   margin-bottom: 5px;
   color: #309033;
 }
-/* line 6782, sass/_base.scss */
+/* line 6784, sass/_base.scss */
 .cetelem-calc #results .havi {
   font-style: italic;
   color: #727273;
   font-size: 0.8em;
 }
-/* line 6788, sass/_base.scss */
+/* line 6790, sass/_base.scss */
 .cetelem-calc #results .ownSharePrice {
   border-top: 1px solid #d7d7d7;
   padding-top: 5px;
   margin-top: 5px;
   font-size: 0.8em;
 }
-/* line 6794, sass/_base.scss */
+/* line 6796, sass/_base.scss */
 .cetelem-calc #results .ownSharePrice input {
   border: none;
   padding: 4px;
   width: 60px;
 }
-/* line 6800, sass/_base.scss */
+/* line 6802, sass/_base.scss */
 .cetelem-calc #results .ownSharePrice input + button {
   height: 21px;
   background: #DADADA;
   color: #848484;
   border: none;
 }
-/* line 6808, sass/_base.scss */
+/* line 6810, sass/_base.scss */
 .cetelem-calc #results .futamidok {
   text-align: center;
   margin-top: 8px;
   display: block;
   position: relative;
 }
-/* line 6817, sass/_base.scss */
+/* line 6819, sass/_base.scss */
 .cetelem-calc #results:after {
   content: "";
   background: url("//www.cp.seal-ring.web-pro.hu/src/images/src/images/cetelem_babu.png") no-repeat center;
@@ -8706,7 +8708,7 @@ a.cetelem-startrans {
   top: 21px;
 }
 
-/* line 6830, sass/_base.scss */
+/* line 6832, sass/_base.scss */
 .news-page .related-news h2.title {
   margin: 20px 0 35px 0;
   font-weight: bold;
@@ -8714,11 +8716,11 @@ a.cetelem-startrans {
   text-transform: uppercase;
   font-size: 1.8em;
 }
-/* line 6838, sass/_base.scss */
+/* line 6840, sass/_base.scss */
 .news-page .news-content {
   padding: 25px 0;
 }
-/* line 6841, sass/_base.scss */
+/* line 6843, sass/_base.scss */
 .news-page .news-content .head .subline {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8727,7 +8729,7 @@ a.cetelem-startrans {
   flex-wrap: wrap;
   margin: 20px 0 40px 0;
 }
-/* line 6850, sass/_base.scss */
+/* line 6852, sass/_base.scss */
 .news-page .news-content .head .subline .backurl a {
   border: 0.4px solid #acacac;
   padding: 0 5px;
@@ -8741,44 +8743,44 @@ a.cetelem-startrans {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 6863, sass/_base.scss */
+/* line 6865, sass/_base.scss */
 .news-page .news-content .head .subline .backurl a:hover {
-  background: #bde0f4;
-  border: 0.4px solid #bde0f4;
+  background: #15a98c;
+  border: 0.4px solid #15a98c;
   color: white;
 }
-/* line 6871, sass/_base.scss */
+/* line 6873, sass/_base.scss */
 .news-page .news-content .head .subline ul {
   margin: 0;
 }
-/* line 6875, sass/_base.scss */
+/* line 6877, sass/_base.scss */
 .news-page .news-content .head .subline > div {
   padding: 0 20px 0 0;
 }
-/* line 6881, sass/_base.scss */
+/* line 6883, sass/_base.scss */
 .news-page .news-content > .content {
   font-size: 1.2em;
   line-height: 1.5;
   margin: 0 0 50px 0;
 }
-/* line 6886, sass/_base.scss */
+/* line 6888, sass/_base.scss */
 .news-page .news-content > .content p {
   margin: 0 0 20px 0;
 }
 
-/* line 6893, sass/_base.scss */
+/* line 6895, sass/_base.scss */
 .news,
 .news-list {
   position: relative;
 }
-/* line 6896, sass/_base.scss */
+/* line 6898, sass/_base.scss */
 .news .slick-dots,
 .news-list .slick-dots {
   position: absolute;
   right: 70px;
   top: -42px;
 }
-/* line 6901, sass/_base.scss */
+/* line 6903, sass/_base.scss */
 .news .slick-dots li,
 .news-list .slick-dots li {
   width: 25px;
@@ -8790,7 +8792,7 @@ a.cetelem-startrans {
   zoom: 1;
   margin-left: 5px;
 }
-/* line 6911, sass/_base.scss */
+/* line 6913, sass/_base.scss */
 .news .slick-dots li button,
 .news-list .slick-dots li button {
   width: 25px;
@@ -8802,27 +8804,27 @@ a.cetelem-startrans {
   font-weight: bold;
   font-size: 0.9em;
 }
-/* line 6921, sass/_base.scss */
+/* line 6923, sass/_base.scss */
 .news .slick-dots li.slick-active,
 .news-list .slick-dots li.slick-active {
   background: #333333;
 }
-/* line 6923, sass/_base.scss */
+/* line 6925, sass/_base.scss */
 .news .slick-dots li.slick-active button,
 .news-list .slick-dots li.slick-active button {
   color: white;
 }
-/* line 6927, sass/_base.scss */
+/* line 6929, sass/_base.scss */
 .news .slick-dots li:hover,
 .news-list .slick-dots li:hover {
   background: #666666;
 }
-/* line 6929, sass/_base.scss */
+/* line 6931, sass/_base.scss */
 .news .slick-dots li:hover button,
 .news-list .slick-dots li:hover button {
   color: white;
 }
-/* line 6936, sass/_base.scss */
+/* line 6938, sass/_base.scss */
 .news .slick-arrow,
 .news-list .slick-arrow {
   position: absolute;
@@ -8836,7 +8838,7 @@ a.cetelem-startrans {
   color: #555555;
   z-index: 2;
 }
-/* line 6948, sass/_base.scss */
+/* line 6950, sass/_base.scss */
 .news .slick-arrow:after,
 .news-list .slick-arrow:after {
   font-family: 'FontAwesome';
@@ -8852,55 +8854,55 @@ a.cetelem-startrans {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 6963, sass/_base.scss */
+/* line 6965, sass/_base.scss */
 .news .slick-arrow.slick-prev,
 .news-list .slick-arrow.slick-prev {
   right: 40px;
 }
-/* line 6965, sass/_base.scss */
+/* line 6967, sass/_base.scss */
 .news .slick-arrow.slick-prev:after,
 .news-list .slick-arrow.slick-prev:after {
   content: "\f104";
 }
-/* line 6969, sass/_base.scss */
+/* line 6971, sass/_base.scss */
 .news .slick-arrow.slick-next,
 .news-list .slick-arrow.slick-next {
   right: 10px;
 }
-/* line 6971, sass/_base.scss */
+/* line 6973, sass/_base.scss */
 .news .slick-arrow.slick-next:after,
 .news-list .slick-arrow.slick-next:after {
   content: "\f105";
 }
-/* line 6976, sass/_base.scss */
+/* line 6978, sass/_base.scss */
 .news .slick-arrow:hover,
 .news-list .slick-arrow:hover {
   background: #333333;
   color: white;
 }
-/* line 6980, sass/_base.scss */
+/* line 6982, sass/_base.scss */
 .news .slick-arrow:hover:after,
 .news-list .slick-arrow:hover:after {
   color: white;
 }
-/* line 6986, sass/_base.scss */
+/* line 6988, sass/_base.scss */
 .news .articles,
 .news-list .articles {
   margin: 0 -15px;
 }
-/* line 6988, sass/_base.scss */
+/* line 6990, sass/_base.scss */
 .news .articles article,
 .news-list .articles article {
   padding: 0 15px;
 }
-/* line 6991, sass/_base.scss */
+/* line 6993, sass/_base.scss */
 .news .articles article > .wrapper,
 .news-list .articles article > .wrapper {
   padding: 0.5px;
   background: white;
   border: 0.5px solid #d9d9d9;
 }
-/* line 6996, sass/_base.scss */
+/* line 6998, sass/_base.scss */
 .news .articles article > .wrapper .img,
 .news-list .articles article > .wrapper .img {
   height: 220px;
@@ -8909,7 +8911,7 @@ a.cetelem-startrans {
   border-bottom: 0.5px solid #d9d9d9;
   background: white;
 }
-/* line 7002, sass/_base.scss */
+/* line 7004, sass/_base.scss */
 .news .articles article > .wrapper .img img,
 .news-list .articles article > .wrapper .img img {
   position: absolute;
@@ -8919,14 +8921,14 @@ a.cetelem-startrans {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 7012, sass/_base.scss */
+/* line 7014, sass/_base.scss */
 .news .articles article > .wrapper .title,
 .news-list .articles article > .wrapper .title {
   height: 50px;
   position: relative;
   margin: 10px 0;
 }
-/* line 7017, sass/_base.scss */
+/* line 7019, sass/_base.scss */
 .news .articles article > .wrapper .title h2,
 .news-list .articles article > .wrapper .title h2 {
   position: absolute;
@@ -8935,7 +8937,7 @@ a.cetelem-startrans {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-/* line 7026, sass/_base.scss */
+/* line 7028, sass/_base.scss */
 .news .articles article > .wrapper h2,
 .news-list .articles article > .wrapper h2 {
   text-align: center;
@@ -8943,24 +8945,26 @@ a.cetelem-startrans {
   margin: 0;
   padding: 0 10px;
 }
-/* line 7032, sass/_base.scss */
+/* line 7034, sass/_base.scss */
 .news .articles article > .wrapper h2 a,
 .news-list .articles article > .wrapper h2 a {
-  color: #6e6e6e;
+  color: #15a98c;
   text-decoration: none;
+  font-size: 1.16rem;
+  font-weight: bold;
 }
-/* line 7038, sass/_base.scss */
+/* line 7042, sass/_base.scss */
 .news .articles article > .wrapper .content,
 .news-list .articles article > .wrapper .content {
   padding: 0 30px;
-  font-size: 0.8em;
+  font-size: 0.9rem;
   line-height: 1.2;
   text-align: justify;
   height: 70px;
   overflow: hidden;
   position: relative;
 }
-/* line 7047, sass/_base.scss */
+/* line 7051, sass/_base.scss */
 .news .articles article > .wrapper .content:after,
 .news-list .articles article > .wrapper .content:after {
   content: "";
@@ -8979,13 +8983,13 @@ a.cetelem-startrans {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
   /* IE6-9 */
 }
-/* line 7062, sass/_base.scss */
+/* line 7066, sass/_base.scss */
 .news .articles article > .wrapper .more,
 .news-list .articles article > .wrapper .more {
   text-align: center;
   padding: 15px 10px 25px 10px;
 }
-/* line 7066, sass/_base.scss */
+/* line 7070, sass/_base.scss */
 .news .articles article > .wrapper .more a,
 .news-list .articles article > .wrapper .more a {
   padding: 10px 15px;
@@ -8997,29 +9001,43 @@ a.cetelem-startrans {
   border-radius: 3px;
   background: #6e6e6e;
 }
-/* line 7081, sass/_base.scss */
+/* line 7085, sass/_base.scss */
 .news .articles article.no-img > .wrapper .img img,
 .news-list .articles article.no-img > .wrapper .img img {
   width: auto;
   height: 100%;
 }
-/* line 7092, sass/_base.scss */
+/* line 7096, sass/_base.scss */
 .news .articles article:hover > .wrapper .more a,
 .news-list .articles article:hover > .wrapper .more a {
   background: #15a98c;
 }
+/* line 7104, sass/_base.scss */
+.news .articles.no-slided,
+.news-list .articles.no-slided {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+/* line 7111, sass/_base.scss */
+.news .articles.no-slided > article,
+.news-list .articles.no-slided > article {
+  flex-basis: calc(100% / 2);
+}
 
-/* line 7102, sass/_base.scss */
+/* line 7118, sass/_base.scss */
 .news-list {
   border-top: none;
 }
-/* line 7104, sass/_base.scss */
+/* line 7120, sass/_base.scss */
 .news-list h1 {
   text-align: center;
   margin: 20px 0 40px 0;
   padding: 0 15px;
 }
-/* line 7109, sass/_base.scss */
+/* line 7125, sass/_base.scss */
 .news-list .articles {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9027,61 +9045,60 @@ a.cetelem-startrans {
   flex-wrap: wrap;
   align-items: flex-start;
 }
-/* line 7116, sass/_base.scss */
+/* line 7132, sass/_base.scss */
 .news-list .articles > article {
   padding: 15px;
   flex-basis: calc(100% / 3);
 }
 
-/* line 7125, sass/_base.scss */
+/* line 7141, sass/_base.scss */
 body.homepage footer,
 body.article footer {
   margin-top: 0;
 }
 
-/* line 7129, sass/_base.scss */
+/* line 7145, sass/_base.scss */
 body.homepage .home .pw {
   width: 1200px;
 }
 
-/* line 7134, sass/_base.scss */
+/* line 7150, sass/_base.scss */
 body.article .site-container {
-  background: white;
   padding: 0;
 }
-/* line 7138, sass/_base.scss */
+/* line 7153, sass/_base.scss */
 body.article .website {
   width: 1200px;
   margin: 0 auto;
 }
 
-/* line 7147, sass/_base.scss */
+/* line 7162, sass/_base.scss */
 body.product-page .website,
 body.user .website,
 body.orderpage .website {
   width: 1200px;
   margin: 0 auto;
 }
-/* line 7152, sass/_base.scss */
+/* line 7167, sass/_base.scss */
 body.product-page footer,
 body.user footer,
 body.orderpage footer {
   margin-top: 0;
 }
-/* line 7155, sass/_base.scss */
+/* line 7170, sass/_base.scss */
 body.product-page header .bottom > .pw > .flex,
 body.user header .bottom > .pw > .flex,
 body.orderpage header .bottom > .pw > .flex {
   padding-left: 0;
 }
-/* line 7159, sass/_base.scss */
+/* line 7174, sass/_base.scss */
 body.product-page .nav.nav-fix,
 body.user .nav.nav-fix,
 body.orderpage .nav.nav-fix {
   flex: 1;
 }
 
-/* line 7164, sass/_base.scss */
+/* line 7179, sass/_base.scss */
 .szechenyi-info {
   position: fixed;
   z-index: 100;
@@ -9089,7 +9106,7 @@ body.orderpage .nav.nav-fix {
   bottom: 0;
   height: 150px;
 }
-/* line 7170, sass/_base.scss */
+/* line 7185, sass/_base.scss */
 .szechenyi-info img {
   max-height: 100%;
   height: 100%;
