@@ -1,4 +1,5 @@
 <div style="float:right;">
+  <a href="/termekek/csoportmodosito" class="btn btn-primary"><i class="fa fa-refresh"></i> termékek csoportos módosítása</a>
   <?php if (false): ?>
     <a href="/termekek/import" class="btn btn-default"><i class="fa fa-newspaper-o"></i> termékek importálása</a>
     <a href="/termekek/kepek" class="btn btn-default"><i class="fa fa-picture-o"></i> képek frissítése</a>
