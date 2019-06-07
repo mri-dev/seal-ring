@@ -896,6 +896,14 @@ class ResourceImportBase
       );
     }
 
+	if ($current_data['raktar_keszlet'] != $tempdata['termek_keszlet']) {
+      $wupdate['what'][] = 'raktar_keszlet';
+      $wupdate['field']['raktar_keszlet'] = array(
+        'new' => $tempdata['termek_keszlet'],
+        'old' => $current_data['raktar_keszlet']
+      );
+    }
+
     if ($keszletID != $current_data['keszletID']) {
       $wupdate['what'][] = 'keszletID';
       $wupdate['field']['keszletID'] = array(
@@ -1235,8 +1243,10 @@ class ResourceImportBase
 
       $prepare[] = $each;
     }
+
     unset($each);
     unset($context);
+
 
     $insert_row = array();
     $img_row = array();
@@ -1313,7 +1323,7 @@ class ResourceImportBase
 
     /* * /
     echo '<pre>';
-    print_r($img_row);
+    print_r($insert_row);
     echo '</pre>';
     return true;
     /* */
@@ -1323,7 +1333,7 @@ class ResourceImportBase
 
     /* */
     if (!empty($insert_row)) {
-      $debug = false;
+      $debug = true;
       $dbx = $this->db->multi_insert_v2(
         self::DB_TEMP_PRODUCTS,
         $insert_header,

@@ -28,7 +28,7 @@ class app extends Controller{
 			$mode = $this->view->gets[2];
 
 			$resources = new ResourceImport( array( 'db' => $this->db ) );
-			
+
 			switch ( $mode )
 			{
 				case 'downloads':
@@ -37,10 +37,8 @@ class app extends Controller{
 					$context = $resources->loadResource( $originid );
 					$comparer = $resources->getColumnComparerKeys( $originid );
 					$context = $resources->prepareContext( $context );
-					//echo '<pre>';
-					//print_r($context);
 					$resources->importToTemp( $originid, $context, $comparer );
-					unset($context);
+					//unset($context);
 					//$group = $resources->groupCat( $content );
 				break;
 
@@ -54,6 +52,26 @@ class app extends Controller{
 					// Seal Ring inCash Cat
 					$originid = 1;
 					$resources->autoCategoryConnecter( $originid );
+				break;
+
+				case 'stock':
+					// http://cp.sealring.hu/src/json/arlista.csv
+					$content = $resources->loadCSV( 'http://cp.sealring.hu/src/json/arlista.csv' );
+
+					echo '<pre>';
+					print_r($content);
+
+					/*
+
+					if( $content ){
+						foreach( (array)$content as $row ){
+							$cikkszam = $row['Cikkszam'];
+							if(empty($cikkszam)) continue;
+							$darab = (int)$row['DARAB'];
+							$this->db->squery("UPDATE shop_termekek SET raktar_keszlet");
+						}
+					}
+					*/
 				break;
 
 				default:

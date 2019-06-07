@@ -893,9 +893,16 @@ class Products
 
 					break;
 					case 'cikkszam':
-						$add = " and p.".$key." = '".$v."' ";
-						$whr .= $add;
-						$size_whr .= $add;
+						if (is_array($v)) {
+							$add = " and p.cikkszam IN(".implode(",", $v).") ";
+							$whr .= $add;
+							$size_whr .= $add;
+						} else {
+							$add = " and p.".$key." = '".$v."' ";
+							$whr .= $add;
+							$size_whr .= $add;
+						}
+
 					break;
 					case 'nev':
 						$add = " and p.".$key." LIKE '%".$v."%' ";
