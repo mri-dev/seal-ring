@@ -913,6 +913,9 @@ class termekek extends Controller
 				if ($_GET['by'] == 'shopgroup') {
 					$arg['shopgroup'] = trim($_GET['src']);
 				}
+				if ($_GET['by'] == 'cikkszam') {
+					$arg['filters']['cikkszam'] = trim($_GET['src']);
+				}
 				if ($_GET['by'] == 'search') {
 					$arg['search_str'] = trim($_GET['src']);
 					$search = explode(" ", trim($_GET['src']));

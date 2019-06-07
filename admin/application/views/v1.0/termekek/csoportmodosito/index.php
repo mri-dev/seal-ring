@@ -11,7 +11,8 @@
       <div class="col-md-11">
         <input type="radio" name="by" <?=(isset($_GET['by']) && $_GET['by'] == 'search')?'checked="checked"':''?> value="search" id="by_search"> <label for="by_search">keresési kifejezés</label> <br>
         <input type="radio" name="by" <?=(isset($_GET['by']) && $_GET['by'] == 'shopgroup')?'checked="checked"':''?>  value="shopgroup" id="by_shopgroup"> <label for="by_shopgroup">termék csoport azonosító</label><br>
-        <input type="radio" name="by" <?=(isset($_GET['by']) && $_GET['by'] == 'ids')?'checked="checked"':''?>  value="ids" id="by_ids"> <label for="by_ids">termék id-k (vesszővel elválasztva)</label>
+        <input type="radio" name="by" <?=(isset($_GET['by']) && $_GET['by'] == 'ids')?'checked="checked"':''?>  value="ids" id="by_ids"> <label for="by_ids">termék id-k (vesszővel elválasztva)</label><br>
+        <input type="radio" name="by" <?=(isset($_GET['by']) && $_GET['by'] == 'cikkszam')?'checked="checked"':''?>  value="cikkszam" id="by_cikkszam"> <label for="by_cikkszam">termék cikkszám</label>
       </div>
     </div>
     <br>
@@ -105,6 +106,7 @@
             <tr>
               <th width="10">#</th>
               <th width="30">ID</th>
+              <th width="60">Cikkszám</th>
               <th width="">Termék név</th>
               <th width="100" title="Termék csoport azonosító">Csop. az.</th>
               <th width="">Kulcsszavak</th>
@@ -117,6 +119,7 @@
             <tr>
               <td class="center"><?=$ii?></td>
               <td class="center"><?=$term['product_id']?></td>
+              <td class="center"><?=$term['cikkszam']?></td>
               <td><strong><a href="<?=$this->settings['page_url']?>/termek/<?=Helper::makeSafeUrl($term['product_nev'],'_-'.$term['product_id'])?>" target="_blank"><?=$term['product_nev']?></a></strong></td>
               <td class="center"><?=($term['shopgroup'])?$term['shopgroup']:'&mdash;'?></td>
               <td><?=$term['kulcsszavak']?></td>
