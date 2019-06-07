@@ -35,16 +35,15 @@
   <div class="header">
     <h3><strong><?php echo $this->terms->getItemNumbers(); ?> db eredmény</strong> / Tömeges módosítása</h3>
   </div>
-
   <?php if ($this->terms->getItemNumbers() > 0): ?>
     <div class="modifier-block">
-      <form class="" action="" method="post">
+      <form class="" action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="by" value="<?=$_GET['by']?>">
       <input type="hidden" name="src" value="<?=$_GET['src']?>">
       <div class="con con-edit">
         <div class="row">
           <div class="col-md-2">
-            <label for="shopgroup" style="line-height: 35px;">Termél csoport azonosító</label>
+            <label for="shopgroup" style="line-height: 35px;">Termék csoport azonosító</label>
           </div>
           <div class="col-md-4">
             <input type="text" id="shopgroup" class="form-control" name="shopgroup" value="">
@@ -86,6 +85,7 @@
             <div class=""><input type="checkbox" name="deleting[]" value="shopgroup" id="del_shopgroup"> <label for="del_shopgroup">termék csoport azonosítók</label></div>
             <div class=""><input type="checkbox" name="deleting[]" value="kulcsszavak" id="del_kulcsszavak"> <label for="del_kulcsszavak">termék kulcsszavak</label></div>
             <div class=""><input type="checkbox" name="deleting[]" value="leiras" id="del_leiras"> <label for="del_leiras">termék leírás</label></div>
+            <div class=""><input type="checkbox" name="deleting[]" value="images" id="del_images"> <label for="del_images">termék képek</label></div>
           </div>
         </div>
         <br>

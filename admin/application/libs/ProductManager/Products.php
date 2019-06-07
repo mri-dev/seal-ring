@@ -161,7 +161,8 @@ class Products
 			}
 
 			// Képfeltöltés
-			if($_FILES[img][name][0] != ''){
+			if($_FILES[img][name][0] != '')
+			{
 				$dir 	= 'p'.$uploadedProductId;
 				$idir 	= 'src/products/'.$dir;
 
@@ -1647,14 +1648,30 @@ class Products
 	 * @param int $sorrend  kép sorrend
 	 */
 	public function addImageToProduct( $termekID, $kep, $sorrend = 0 ) {
-		$this->db->insert(
-			'shop_termek_kepek',
-			array(
-				'termekID' => $termekID,
-				'kep' => $kep,
-				'sorrend' => $sorrend
-			)
-		);
+
+		if (is_array($termekID))
+		{
+			foreach ( (array)$termekID as $tid )
+			{
+				$this->db->insert(
+					'shop_termek_kepek',
+					array(
+						'termekID' => $tid,
+						'kep' => $kep,
+						'sorrend' => $sorrend
+					)
+				);
+			}
+		} else {
+			$this->db->insert(
+				'shop_termek_kepek',
+				array(
+					'termekID' => $termekID,
+					'kep' => $kep,
+					'sorrend' => $sorrend
+				)
+			);
+		}
 	}
 
 	public function removeImageFromProduct( $termekID )
@@ -2314,30 +2331,96 @@ class Products
 		}
 
 		$q = "UPDATE shop_termekek SET ";
+		$updated = false;
 
 		if ($datas['shopgroup'] != '') {
 			$q .= "shopgroup = ".$this->db->db->quote(trim($datas['shopgroup'])).", ";
+			$updated = true;
 		} else if(in_array('shopgroup', (array)$datas['deleting'])){
 			$q .= "shopgroup = NULL, ";
+			$updated = true;
 		}
 
 		if ($datas['kulcsszavak'] != '') {
 			$q .= "kulcsszavak = ".$this->db->db->quote(trim($datas['kulcsszavak'])).", ";
+			$updated = true;
 		}else if(in_array('kulcsszavak', (array)$datas['deleting'])){
 			$q .= "kulcsszavak = NULL, ";
+			$updated = true;
 		}
 
 		if ($datas['leiras'] != '') {
 			$q .= "leiras = ".$this->db->db->quote(trim($datas['leiras'])).", ";
+			$updated = true;
 		}else if(in_array('leiras', (array)$datas['deleting'])){
 			$q .= "leiras = NULL, ";
+			$updated = true;
+		}
+
+		if ( $updated )
+		{
+			$q = rtrim($q, ", ");
+			$q .= " WHERE ID IN (".implode(",", $prodids).")";
+			$this->db->query( $q );
 		}
 
 
-		$q = rtrim($q, ", ");
-		$q .= " WHERE ID IN (".implode(",", $prodids).")";
+		/**
+		* Képek
+		**/
+		// Képek törlése
+		if(in_array('images', (array)$datas['deleting'])) {
+			foreach ((array)$prodids as $id) {
+				$this->removeImageFromProduct($id);
+				$this->db->query("UPDATE shop_termekek SET profil_kep = NULL WHERE ID = $id;");
+			}
+		}
 
-		$this->db->query( $q );
+		// Képfeltöltés
+		//print_r($_FILES);
+		if($_FILES[img][name][0] != '')
+		{
+			$dir 	= 'p'.uniqid();
+			$idir 	= 'src/products/' . $dir;
+
+			// Termékmappa létrehozás / Permission
+			if( !file_exists($idir) ) {
+				mkdir( $idir, 0777, true );
+			}
+
+			// Feltöltése
+			$mt = explode(" ",str_replace(".","",microtime()));
+			$imgName = \PortalManager\Formater::makeSafeUrl( uniqid().'__'.date('YmdHis').$mt[0] );
+			$img = \Images::upload(array(
+				'src' => 'img',
+				'upDir' => $idir,
+				'noRoot' => true,
+				'fileName' => $imgName,
+				'maxFileSize' => 1024
+			));
+
+			/*
+			$upDir 		= str_replace(array('../img/'),array(''),$img[dir]);
+			$upProfil 	= str_replace(array('../img/'),array(''),$img[file]);
+			*/
+
+			$upDir 		= $img[dir];
+			$upProfil 	= $img[file];
+
+			$this->db->update(
+				'shop_termekek',
+				array(
+					'kep_mappa' => $upDir,
+					'profil_kep' => $upProfil
+				),
+				"ID IN (".implode(",", $prodids).")"
+			);
+
+			foreach( $img['allUploadedFiles'] as $kep )
+			{
+				$this->addImageToProduct( $prodids, $kep );
+			}
+		}
 
 		return true;
 	}
