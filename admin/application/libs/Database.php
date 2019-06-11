@@ -316,7 +316,7 @@ DELIMITER ;";
 					  DECLARE prevKey INT DEFAULT 0;
 					  DECLARE prevKeyStr VARCHAR(5) DEFAULT '0000';
 
-					  SET orderPrefix = 'TUZVED';
+					  SET orderPrefix = 'SLR';
 					  SET cYear 	= SUBSTR(YEAR(NOW()),3);
 					  SET cMonth 	= MONTH(NOW());
 

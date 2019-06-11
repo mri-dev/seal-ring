@@ -165,7 +165,7 @@
                           <img src="<?=IMGDOMAIN?>src/images/sealringlogo.svg" alt="<?=$settings['page_title']?>" style="width:auto !important; height:40px;">
                       </td>
                       <td style="text-align:right; vertical-align:middle; font-size:14px; color:#00;" >
-                          <div class="relax"><?=$settings['page_description']?></div>
+                        <div class="relax"></div>
                       </td>
                   </tr>
               </tbody>
