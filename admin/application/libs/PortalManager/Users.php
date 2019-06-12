@@ -38,7 +38,8 @@ class Users
 	public 	$days 		= array('hetfo','kedd','szerda', 'csutortok','pentek','szombat','vasarnap');
 	public 	$day_names	= array('hetfo' => 'Hétfő','kedd' => 'Kedd','szerda' => 'Szerda', 'csutortok' => 'Csütörtök','pentek' => 'Péntek','szombat' =>'Szombat','vasarnap' => 'Vasárnap');
 
-	function __construct( $arg = array() ){
+	function __construct( $arg = array() )
+	{
 		$this->db 		= $arg['db'];
 		$this->is_cp 	= $arg['admin'];
 		$this->settings = $arg[view]->settings;
@@ -104,6 +105,7 @@ class Users
 		$referer_allow 	= false;
 		$getby 			= 'email';
 		$mid = \Helper::getMachineID();
+		$ajaxrequest = ( strpos($_GET['tag'], 'ajax') !== false) ? true : false;
 
 		$ret[options] 	= $arg;
 
@@ -125,11 +127,11 @@ class Users
 		$ret[szamlazasi_adat] = $this->getSzamlazasiAdatok($ret['data']['ID']);
 
 		// Ha hiányzik az adat
-		if( (is_null($ret[szallitasi_adat]) || is_null($ret[szamlazasi_adat]) ) && !$this->is_cp) {
+		if( ( !$ret[szallitasi_adat] || !$ret[szamlazasi_adat] ) && !$this->is_cp && !$ajaxrequest) {
 			if( $_GET['safe'] !='1' ) {
 				$miss = '';
-				if( is_null($ret[szallitasi_adat]) ) $miss .= 'szallitasi,';
-				if( is_null($ret[szamlazasi_adat]) ) $miss .= 'szamlazasi,';
+				if( !($ret[szallitasi_adat]) ) $miss .= 'szallitasi,';
+				if( !($ret[szamlazasi_adat]) ) $miss .= 'szamlazasi,';
 				$miss = rtrim($miss,',');
 				if ($miss != "") {
 					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );

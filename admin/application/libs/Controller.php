@@ -71,6 +71,8 @@ class Controller {
 
         if (!$this->view->db) {  $this->out( 'db', $this->db ); }
         if (!$this->view->user) {
+
+          self::$user_opt['gets'] = $this->gets;
           $this->out( 'user', $this->User->get( self::$user_opt ) );
         }
 

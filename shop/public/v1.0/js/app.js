@@ -271,41 +271,42 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   }
 
   $scope.findedCity = {};
-$scope.findCityByIrsz = function( event, tinput )
-{
-  event.preventDefault();
-  var val = event.target.value;
+  $scope.findCityByIrsz = function( event, tinput )
+  {
+    event.preventDefault();
+    var val = event.target.value;
 
-  $http({
-    method: 'POST',
-    url: '/ajax/get',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    data: $.param({
-      type: "irszCityHint",
-      irsz: val
-    })
-  }).success(function(r){
-    if (r.data && r.data.length != 0) {
-      if (r.data.length == 1) {
-        $('input#'+tinput).val( r.data[0].varos );
-      } else {
-        $scope.findedCity[tinput] = r.data;
+    $http({
+      method: 'POST',
+      url: '/ajax/get',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      data: $.param({
+        type: "irszCityHint",
+        irsz: val
+      })
+    }).success(function(r){
+      if (r.data && r.data.length != 0) {
+        if (r.data.length == 1) {
+          $('input#'+tinput).val( r.data[0].varos );
+        } else {
+          $scope.findedCity[tinput] = r.data;
+        }
+      } else if( r.data && r.data.length == 0) {
+        $scope.findedCity[tinput] = [];
       }
-    } else if( r.data && r.data.length == 0) {
-      $scope.findedCity[tinput] = [];
-    }
-  });
-}
-$scope.fillCityHint = function( tinput, city ) {
-  $('input#'+tinput).val( city.varos );
-  $scope.findedCity[tinput] = [];
-}
+    });
+  }
+  $scope.fillCityHint = function( tinput, city ) {
+    $('input#'+tinput).val( city.varos );
+    $scope.findedCity[tinput] = [];
+  }
 
   /******************************
   * Finder
   *******************************/
   $scope.findernavpos = 'simple';
   $scope.finder_result_num = -1;
+  $scope.finder_result_text = '';
   $scope.finder_base_url = '/termekek/';
   $scope.finder_config = {
     'felhasznalasi_teruletek': [],
@@ -349,6 +350,7 @@ $scope.fillCityHint = function( tinput, city ) {
     if (catid != 0 && catid && catid != '') {
       $scope.finder_config_select.catid = catid;
     }
+    $scope.finder_result_text = 'Betöltés...';
     $scope.finder_result_num = -1;
     $http({
       method: 'POST',
@@ -362,6 +364,11 @@ $scope.fillCityHint = function( tinput, city ) {
       })
     }).success(function(r)
     {
+      if (r.success == 0) {
+        $scope.finder_result_text = r.msg;
+      } else {
+        $scope.finder_result_text = r.nums+' db találat';
+      }
       $scope.finder_result_num = r.nums;
       if ( r.baseurl ) {
         $scope.finder_base_url = r.baseurl;
@@ -605,8 +612,6 @@ tc.controller('ActionButtons', ['$scope', '$http', '$mdDialog', '$mdToast', func
       		}).success(function(r){
       			$scope.sending = false;
       			$scope.ajanlat = {};
-
-            console.log(r);
 
             if (r.error == 1) {
               $scope.toast(r.msg, 'alert', 10000);

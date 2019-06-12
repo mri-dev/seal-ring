@@ -173,21 +173,23 @@ class termekek extends Controller
 
 				// Készlet lista
 				$this->view->keszlet 	= $this->AdminUser->getKeszletLista();
-				// Szállításimód lista
-				$this->view->szallitasMod 	= $this->AdminUser->getSzallitasModLista();
-				// Szállításimód lista
-				$fizmod = $this->AdminUser->getFizetesiModok();
 
-				$nfizmod = array();
-				foreach ( $fizmod as $fm ) {
-					$nfizmod[$fm['ID']] = $fm;
-				}
-				$this->view->fizetesiMod = $nfizmod;
-				// Szállítási idő lista
-				$this->view->szallitas 	= $this->AdminUser->getSzallitasIdoLista();
 				// Ár csoportok
 				$this->view->price_groups = $price_groups;
 			}
+
+			// Szállításimód lista
+			$this->view->szallitasMod 	= $this->AdminUser->getSzallitasModLista();
+			// Szállításimód lista
+			$fizmod = $this->AdminUser->getFizetesiModok();
+
+			$nfizmod = array();
+			foreach ( $fizmod as $fm ) {
+				$nfizmod[$fm['ID']] = $fm;
+			}
+			$this->view->fizetesiMod = $nfizmod;
+			// Szállítási idő lista
+			$this->view->szallitas 	= $this->AdminUser->getSzallitasIdoLista();
 
 
 

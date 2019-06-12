@@ -27,7 +27,7 @@
         </div>
         <div class="right-side">
           <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
-            <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-show="finder_result_num!==-1">{{finder_result_num}} db. találat</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
+            <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-bind-html="finder_result_text|unsafe">{{finder_result_text}}</span></button>
           </div>
         </div>
       </div>
@@ -104,7 +104,8 @@
             </div>
           <?php endif; ?>
           <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
-            <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-show="finder_result_num!==-1">{{finder_result_num}} db. találat</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
+            <button ng-click="goFinder()"><strong>Keresés</strong><br>
+              <span>{{finder_result_text}}</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
           </div>
         </div>
       </div>
@@ -120,7 +121,7 @@
         <div class="div">&nbsp;</div>
         <div class="right-side">
           <div class="search-button">
-            <button ng-click="goFinder()"><strong>Keresés</strong><br>{{finder_result_num}} db. találat</button>
+            <button ng-click="goFinder()"><strong>Keresés</strong><br>{{finder_result_text}}</button>
           </div>
         </div>
       </div>

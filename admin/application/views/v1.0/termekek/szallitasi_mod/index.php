@@ -29,7 +29,7 @@
 		<div class="con <?=($this->gets[2] == 'szerkeszt')?'edit':''?>">
         	<form action="" method="post" enctype="multipart/form-data">
         	<h2><? if($this->gets[2] == 'szerkeszt'): ?>Szerkesztése<? else: ?>Új szállítási mód hozzáadása<? endif; ?></h2>
-            <? 
+            <?
                 $fizmod     = explode(",",$this->sm['fizetesi_mod']);
             ?>
             <br>
@@ -102,7 +102,7 @@
                                     $fimodstr .= $this->fizetesiMod[$key]['nev'].", ";
                                 }
                             }
-                            
+
                             $fimodstr = rtrim($fimodstr, ", ");
 
                             echo $fimodstr;

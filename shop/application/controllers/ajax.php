@@ -28,51 +28,60 @@ class ajax extends Controller{
 						case 'calcitem':
 							$felhasznalasi_terulet = (int)$datas['felhasznalasi_terulet'];
 							$catid = (int)$datas['catid'];
-							$search_keywords = explode(" ",trim($datas['search_keywords']));
 
-							$products = new Products( array(
-								'db' => $this->db,
-								'user' => $this->User->get()
-							) );
+							$ret['srclength'] = (int)strlen(trim($datas['search_keywords']));
 
-							$arg = array();
-							$arg['search_str'] = trim($datas['search_keywords']);
-
-							if ($catid  != '') {
-								$cat = new Category($catid, array( 'db' => $this->db ));
-								$ret['baseurl'] = '/termekek/'.\Helper::makeSafeUrl($cat->getName(),'_-'.$catid)."/";
-								$arg['in_cat'] = $catid;
+							if ($ret['srclength'] < 3) {
+								$err = $this->escape('Legalább 3 karaktert üssön be!', $ret);
 							}
 
-							if ($findermode == 'simple')
-							{
-								$arg['search'] = (array)$search_keywords;
-							}
-							else if($findermode == 'numbers')
-							{
-								$arg['filters']['cikkszam'] = trim($datas['search_keywords']);
-							}
-							$products->prepareList( $arg );
+							if ( !$err ) {
+								$search_keywords = explode(" ",trim($datas['search_keywords']));
 
-							$n = $products->getItemNumbers();
+								$products = new Products( array(
+									'db' => $this->db,
+									'user' => $this->User->get()
+								) );
+
+								$arg = array();
+								$arg['search_str'] = trim($datas['search_keywords']);
+
+								if ($catid  != '') {
+									$cat = new Category($catid, array( 'db' => $this->db ));
+									$ret['baseurl'] = '/termekek/'.\Helper::makeSafeUrl($cat->getName(),'_-'.$catid)."/";
+									$arg['in_cat'] = $catid;
+								}
+
+								if ($findermode == 'simple')
+								{
+									$arg['search'] = (array)$search_keywords;
+								}
+								else if($findermode == 'numbers')
+								{
+									$arg['filters']['cikkszam'] = trim($datas['search_keywords']);
+								}
+								$products->prepareList( $arg );
+
+								$n = $products->getItemNumbers();
 
 
-							/*
-							$q = "SELECT
-								count(t.ID)
-							FROM shop_termekek as t
-							WHERE 1=1 and t.lathato = 1 and (t.xml_import_origin IS NULL || (t.xml_import_origin IS NOT NULL && t.xml_import_done IN (0,1)))";
+								/*
+								$q = "SELECT
+									count(t.ID)
+								FROM shop_termekek as t
+								WHERE 1=1 and t.lathato = 1 and (t.xml_import_origin IS NULL || (t.xml_import_origin IS NOT NULL && t.xml_import_done IN (0,1)))";
 
-							if ( $felhasznalasi_terulet != 0 ) {
-								$q .= " and t.felhasznalasi_terulet = ".$felhasznalasi_terulet;
-							}
+								if ( $felhasznalasi_terulet != 0 ) {
+									$q .= " and t.felhasznalasi_terulet = ".$felhasznalasi_terulet;
+								}
 
-							$n = $this->db->query($q)->fetchColumn();
-							*/
+								$n = $this->db->query($q)->fetchColumn();
+								*/
+								$ret['nums'] = (int)$n;
+								$ret['pass'] = $datas;
+								$this->setSuccess(false, $ret);
+							}						
 
-							$ret['nums'] = (int)$n;
-							$ret['pass'] = $datas;
-							$this->setSuccess(false, $ret);
 						break;
 						case 'loadTerms':
 							// Termék típus és melléktermék
