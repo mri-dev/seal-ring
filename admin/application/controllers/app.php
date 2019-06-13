@@ -78,7 +78,7 @@ class app extends Controller{
 
 				if ( $o['user'] && $o['user']['price_group_key'] ) {
 					if ($o['user']['price_group_key'] == 'beszerzes_netto') {
-						$user_arkat = 0;
+						$user_arkat = '';
 					} else {
 						$user_arkat = (int)str_replace("ar", "", $o['user']['price_group_key']);
 					}
