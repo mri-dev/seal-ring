@@ -27,7 +27,6 @@ class app extends Controller{
 		// https://www.cp.seal-ring.web-pro.hu/app/generateOrderCSV
 		public function generateOrderCSV()
 		{
-
 			$arg = array();
 			$arg[limit] = 999999;
 			$arg['archivalt'] = 0;
