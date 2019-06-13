@@ -34,7 +34,6 @@ class app extends Controller{
 			$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(13); // 13 = törölve
 			$orders = $this->AdminUser->getMegrendelesek($arg);
-
 			$fiz_mods = array(
 				'Készpénz' => 1,
 				'Átutalás' => 2,
@@ -77,6 +76,14 @@ class app extends Controller{
 				// default
 				$user_arkat = 1;
 				$adoszam = (!empty($szam['adoszam'])) ? trim($szam['adoszam']) : '';
+
+				if ( $o['user'] && $o['user']['price_group_key'] ) {
+					if ($o['user']['price_group_key'] == 'beszerzes_netto') {
+						$user_arkat = 0;
+					} else {
+						$user_arkat = (int)str_replace("ar", "", $o['user']['price_group_key']);
+					}
+				}
 
 				// Megrendelés adatok
 				$items[] = array(
