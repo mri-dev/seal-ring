@@ -84,6 +84,18 @@ class app extends Controller{
 					}
 				}
 
+				$egyebcim = '';
+
+				if (trim($szall['epulet']) != '') {
+					$egyebcim .= ', '.trim($szall['epulet']).' épület';
+				}
+				if (trim($szall['lepcsohaz']) != '') {
+					$egyebcim .= ', '.trim($szall['lepcsohaz']).' lépcsőház';
+				}
+				if (trim($szall['szint']) != '') {
+					$egyebcim .= ', '.trim($szall['szint']).'/'.trim($szall['ajto']);
+				}
+
 				// Megrendelés adatok
 				$items[] = array(
 					$user_id, // A - webazon
@@ -99,7 +111,7 @@ class app extends Controller{
 					trim($o['comment']), // I - megjegyzés
 					trim($szall['irsz']), // J - sz_irszam
 					trim($szall['city']), // K - sz_helyseg
-					trim($szall['kozterulet_nev']), // L - sz_utca
+					trim($szall['kozterulet_nev']).' '.trim($szall['kozterulet_jelleg']).' '.trim($szall['hazszam']).'.'.$egyebcim, // L - sz_utca
 					trim($szall['nev']), // M - sz_nev
 					'', // N - sz_megjegy - szállítási megjegyzés, rajta lesz a számlán
 					'Webshop felhasználó', // O - vevo_statusz
