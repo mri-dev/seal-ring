@@ -2280,7 +2280,6 @@ class Shop
 
 						$cart = $temp_cart;
 						unset( $temp_cart );
-
 					}
 
 
@@ -2305,6 +2304,7 @@ class Shop
 							$this->settings['mail_sender_mode']
 						);
 						$mail->add( $this->settings['alert_email'] );
+						$mail->addBCC('peter.szelecz@sealring.hu-ra', 'Szelecz Péter');
 
 						$arg = array(
 							'settings' 		=> $this->settings,

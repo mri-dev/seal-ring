@@ -121,6 +121,7 @@
                       }*/ ?>
                           <div class="items">
                               <? foreach ( $this->product_list as $p ) {
+
                                   $p['itemhash'] = hash( 'crc32', microtime() );
                                   $p['sizefilter'] = ( count($this->products->getSelectedSizes()) > 0 ) ? true : false;
                                   $p['show_variation'] = ($this->myfavorite) ? true : false;

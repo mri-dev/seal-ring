@@ -29,8 +29,8 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=round($d[ar])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
-		<td align="center"><?=round($d[ar]*$d[me])?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format($d[ar], 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format(($d[ar]*$d[me]), 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center"><strong style="color:<?=$d['termek_allapot_color']?>;"><?=$d['termek_allapot']?></strong></td>
 	</tr>
 <? }
@@ -38,7 +38,7 @@
 ?>
 	<tr>
 		<td colspan="4" align="right">Összesen:</td>
-		<td align="center"><?=$total?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format($total, 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 
 	<tr>
@@ -54,7 +54,7 @@
 	?>
 	<tr>
 		<td colspan="4" align="right"><strong>Végösszeg:</strong></td>
-		<td align="center"><strong><?=round($total-$kedvezmeny)?> Ft</strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><strong><?=number_format($total-$kedvezmeny, 2, ".", " ")?> Ft</strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 </tbody>
 </table>

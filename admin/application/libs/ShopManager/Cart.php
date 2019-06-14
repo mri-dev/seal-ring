@@ -92,12 +92,14 @@ class Cart
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
 			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
+			$d[ar] = number_format($d[ar],2,"."," ");
+
 			$dt[] = $d;
 		}
 
 		$re[itemNum]			= $itemNum;
 		$re[totalPrice]			= $totalPrice;
-		$re[totalPriceTxt]		= number_format($totalPrice,0,""," ");
+		$re[totalPriceTxt]		= number_format($totalPrice,2,"."," ");
 		$re[items] 				= $dt;
 
 		return $re;

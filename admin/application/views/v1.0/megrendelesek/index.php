@@ -38,7 +38,7 @@ Megrendelések
     </span>
 </h1>
 <?=$this->msg?>
-<form action="" method="post">
+<form action="" method="post" novalidate>
     <div class="right" style="display:none;">
         <button type="button" onclick="collectSprinterTrans();">Sprinter futár export (.csv)</button>
     </div>

@@ -93,7 +93,7 @@ class app extends Controller{
 					trim($szam['kozterulet_nev']), // E - utca
 					trim($szall['phone']), // F - tel
 					trim($o['email']), // G - email
-					(int)$user_arkat, // H - arkategoria
+					$user_arkat, // H - arkategoria
 
 
 					trim($o['comment']), // I - megjegyzés
@@ -116,7 +116,7 @@ class app extends Controller{
 
 				// Cikkek / termékek
 				foreach ( (array)$o['items']['data'] as $i ) {
-					$netto = $i['egysegAr'] / 1.27;
+					$netto = $i['egysegAr'];
 					$items[] = array(
 						(int)$i['cikkszam'], // A - cikkszam
 						(float)$i['me'], // B - mennyiség

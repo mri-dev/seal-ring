@@ -35,7 +35,6 @@ class Mailer extends PHPMailer
 		$this->rply_email 	= $email;
 		return $this;
 	}
-
 	public function add( $email )
 	{
 		if (is_array($email))

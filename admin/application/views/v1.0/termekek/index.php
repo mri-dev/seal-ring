@@ -170,8 +170,7 @@
                 </select>
             </td>
             <td class="center">
-              <strong><?php echo \Helper::cashFormat($d['beszerzes_netto'] * 1.27); ?> Ft</strong><br>
-              <small class="arres">(<?=$d['beszerzes_netto']?> Ft + ÁFA)</small>
+              <strong><?php echo \Helper::cashFormat($d['beszerzes_netto']); ?> Ft</strong> + ÁFA<br>
             </td>
             <?php if (false): ?>
               <td>

@@ -137,7 +137,11 @@
 		}
 
 		static function cashFormat($cash){
-			$cash = number_format($cash,0,""," ");
+			if ( strpos($cash, ".") !== false ) {
+				$cash = number_format($cash, 2,"."," ");
+			} else {
+				$cash = number_format($cash, 0, "", " ");
+			}
 			return $cash;
 		}
 
