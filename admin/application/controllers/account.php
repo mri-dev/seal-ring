@@ -4,7 +4,7 @@ use ProductManager\Products;
 class account extends Controller
 {
 	function __construct(){
-		parent::__construct();
+		parent::__construct(array('admin' => true));
 		parent::$pageTitle = 'Fiókok';
 
         $this->view->adm = $this->AdminUser;
