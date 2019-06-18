@@ -24,9 +24,13 @@
 							<label for="data_felhasznalok_jelszo">új jelszó</label>
 							<input type="text" id="data_felhasznalok_jelszo" class="form-control" name="data[felhasznalok][jelszo]">
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-3">
 							<label for="data_felhasznalok_cash">Virtuális egyenleg</label>
 							<input type="text" id="data_felhasznalok_cash" class="form-control" name="data[felhasznalok][cash]" value="<?=$data[cash]?>" min="0">
+						</div>
+						<div class="col-sm-3">
+							<label for="data_incsahuserid">inCash felh. ID</label>
+							<input type="text" id="data_incsahuserid" class="form-control" name="data[felhasznalok][incash_userid]" value="<?=$data[incash_userid]?>">
 						</div>
 					</div>
 

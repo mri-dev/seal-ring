@@ -43,17 +43,19 @@ class app extends Controller{
 				'Bannkártya' => 8
 			);
 
-			foreach ((array)$orders['data'] as $o) {
+			foreach ((array)$orders['data'] as $o)
+			{
 				$file_check = $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'].'.csv';
 				if (file_exists( $file_check )) {
 					continue;
 				}
 				$items = array();
-				$user_id = (empty($o['userID'])) ? 0 : (int)$o['userID'];
+				$user_id = (empty($o['incash_userid']) || $o['incash_userid'] == 0) ? false : (int)$o['incash_userid'];
 				$szam = json_decode($o['szamlazasi_keys'], true);
 				$szall = json_decode($o['szallitasi_keys'], true);
 
-				switch ($o['fizetesiModNev']) {
+				switch ($o['fizetesiModNev'])
+				{
 					case 'Készpénz':
 						$fiz_mod = (int)$fiz_mods['Készpénz'];
 					break;
@@ -66,7 +68,6 @@ class app extends Controller{
 					case 'Utánvétel':
 						$fiz_mod = (int)$fiz_mods['Utánvét'];
 					break;
-
 					default:
 						$fiz_mod = (int)$fiz_mods['Átutalás'];
 					break;
@@ -130,7 +131,7 @@ class app extends Controller{
 
 					'Ft', // R - valutanem
 					$adoszam, // S - adoszam
-					$user_id, // T - ugyfelszam
+					(($user_id) ? $user_id : ''), // T - ugyfelszam
 					trim($o['nev']), // U - kapcsolat
 					trim($szall['phone']), // V - kapcsolat telefonszám
 					'', // W - szállítás dátuma

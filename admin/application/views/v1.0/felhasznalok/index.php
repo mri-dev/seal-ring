@@ -16,22 +16,24 @@
 	<thead>
     	<tr>
 			<th title="Felhasználó ID" width="40">#</th>
-	        <th>Név</th>
-            <th width="200">E-mail</th>
-            <th width="250">Számlázási adat</th>
-            <th width="250">Szállítási adat</th>
-            <th width="100" title="Megrendeléseinek összesített értéke">Fizetett össz.</th>
-            <th width="50">Kedvezménye</th>
-            <th width="100">Engedélyezve</th>
-            <th width="100">Aktiválva</th>
-            <th width="120">Utoljára belépett</th>
-            <th width="120">Regisztrált</th>
-            <th width="20"></th>
-        </tr>
+			<th title="InCash felhasználó ID" width="40">ic #</th>
+      <th>Név</th>
+      <th width="200">E-mail</th>
+      <th width="250">Számlázási adat</th>
+      <th width="250">Szállítási adat</th>
+      <th width="100" title="Megrendeléseinek összesített értéke">Fizetett össz.</th>
+      <th width="50">Kedvezménye</th>
+      <th width="100">Engedélyezve</th>
+      <th width="100">Aktiválva</th>
+      <th width="120">Utoljára belépett</th>
+      <th width="120">Regisztrált</th>
+      <th width="20"></th>
+    </tr>
 	</thead>
     <tbody>
     	<tr class="search <? if($_COOKIE[filtered] == '1'): ?>filtered<? endif;?>">
     		<td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE[filter_ID]?>" /></td>
+        <td><input type="text" name="incash_userid" class="form-control" value="<?=$_COOKIE[filter_incash_userid]?>" /></td>
     		<td><input type="text" name="nev" class="form-control" placeholder="felhasználó neve..." value="<?=$_COOKIE[filter_nev]?>" /></td>
             <td><input type="text" name="email" class="form-control" placeholder="e-mail cím..." value="<?=$_COOKIE[filter_email]?>" /></td>
             <td></td>
@@ -57,6 +59,7 @@
     	<? if(count($this->users[data]) > 0): foreach($this->users[data] as $d):  ?>
     	<tr>
 	    	<td align="center"><?=$d[ID]?></td>
+        <td align="center"><?=$d[incash_userid]?></td>
 	          <td>
           		<strong><?=$d[nev]?></strong> <?php if ( $d['user_group'] == 'company' ): ?>
                 <span class="company">(<?php echo $d['total_data']['data']['company_name']; ?>)</span>

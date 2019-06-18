@@ -271,17 +271,20 @@ class AdminUser
 
 		return $data;
 	}
+
 	function getMegrendelesek($arg = array())
 	{
 		$stat = array();
 		$q = "SELECT
 			o.*,
 			fm.nev as fizetesiModNev,
-			szm.nev as szallitasiModNev
+			szm.nev as szallitasiModNev,
+			u.incash_userid
 		FROM orders as o
 		LEFT OUTER JOIN order_allapot as oa ON oa.ID = o.allapot
 		LEFT OUTER JOIN shop_fizetesi_modok as fm ON fm.ID = o.fizetesiModID
 		LEFT OUTER JOIN shop_szallitasi_mod as szm ON szm.ID = o.szallitasiModID
+		LEFT OUTER JOIN felhasznalok as u ON u.ID = o.userID
 		WHERE 1=1 ";
 
 		if (isset($arg['archivalt']))

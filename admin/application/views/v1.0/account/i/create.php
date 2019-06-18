@@ -23,9 +23,13 @@
 							<label for="data_felhasznalok_jelszo">Jelszó*</label>
 							<input type="text" id="data_felhasznalok_jelszo" class="form-control" name="data[felhasznalok][jelszo]" value="<?=strrev(uniqid())?>" required>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-3">
 							<label for="data_felhasznalok_cash">Virtuális egyenleg</label>
-							<input type="text" id="data_felhasznalok_cash" class="form-control" name="data[felhasznalok][cash]" value="<?=(isset($_POST[data])) ? $_POST[data][felhasznalo_adatok][szamlazas_nev] : 0?>" min="0">
+							<input type="text" id="data_felhasznalok_cash" class="form-control" name="data[felhasznalok][cash]" value="<?=(isset($_POST[data])) ? $_POST[data][felhasznalok][cash] : 0?>" min="0">
+						</div>
+						<div class="col-sm-3">
+							<label for="data_incsahuserid">inCash felh. ID</label>
+							<input type="text" id="data_incsahuserid" class="form-control" name="data[felhasznalok][incash_userid]" value="<?=(isset($_POST[data])) ? $_POST[data][felhasznalok][incash_userid] : 0?>" min="0">
 						</div>
 					</div>
 
@@ -40,12 +44,12 @@
 						<div class="col-sm-6">
 							<label for="data_felhasznalo_adatok_szamlazas_state">Megye*</label>
 							<select name="data[felhasznalo_adatok][szamlazas_state]" class="form-control" id="data_felhasznalo_adatok_szamlazas_state" required>
-	                            <option value="" selected="selected">-- válasszon --</option>
-	                            <option value="" disabled="disabled"></option>
-	                            <? foreach( $this->states as $s ): ?>
-	                                <option value="<?=$s?>" <?=($s==$_POST[data][felhasznalo_adatok][szamlazas_state])?'selected="selected"':''?>><?=$s?></option>
-	                            <? endforeach; ?>
-	                        </select>
+                  <option value="" selected="selected">-- válasszon --</option>
+                  <option value="" disabled="disabled"></option>
+                  <? foreach( $this->states as $s ): ?>
+                      <option value="<?=$s?>" <?=($s==$_POST[data][felhasznalo_adatok][szamlazas_state])?'selected="selected"':''?>><?=$s?></option>
+                  <? endforeach; ?>
+              </select>
 						</div>
 					</div>
 					<br>
