@@ -19,6 +19,25 @@ class termekek extends Controller {
 				$this->out( 'myfavorite', $myfavorite );
 			}
 
+			$list_type = $_COOKIE['listtype'];
+			$item_limit = $_COOKIE['itemlimit'];
+
+			if ( isset($_GET['view']) && !empty($_GET['view']) ) {
+				setcookie('listtype', trim($_GET['view']), time() + 3600 * 24 * 12, '/termekek');
+				$list_type = trim($_GET['view']);
+			}
+
+			if ( isset($_GET['itemlimit']) && !empty($_GET['itemlimit']) ) {
+				setcookie('itemlimit', trim($_GET['itemlimit']), time() + 3600 * 24 * 12, '/termekek');
+				$item_limit = (int)trim($_GET['itemlimit']);
+			}
+
+			$list_type = ($list_type == '') ? 'grid' : $list_type;
+			$this->out('list_type', $list_type);
+
+			$item_limit = ($item_limit == '') ? 40 : $item_limit;
+			$this->out('item_limit', $item_limit);
+
 			// Template
 			$temp = new Template( VIEW . 'templates/' );
 			$this->out( 'template', $temp );
@@ -87,7 +106,7 @@ class termekek extends Controller {
 				'in_cat' 	=> $cat->getId(),
 				'meret' 	=> $_GET['meret'],
 				'order' 	=> $order,
-				'limit' 	=> 40,
+				'limit' 	=> $item_limit,
 				'page' 		=> Helper::currentPageNum(),
 				'favorite' => $myfavorite
 			);

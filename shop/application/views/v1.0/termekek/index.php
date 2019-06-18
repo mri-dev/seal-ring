@@ -72,16 +72,30 @@
                       </ul>
 
                       <div class="orders">
+                        <?php
+                        $get = $_GET;
+                        unset($get['tag']);
+                        unset($get['st']);
+                        unset($get['view']);
+                        $qryget = http_build_query($get);
+                        ?>
                         <form class="" id="formfilter" action="/termekek/<?=$this->gets[1]?>" method="get">
                           <input type="hidden" name="src" value="<?=$_GET['src']?>">
-                          <div class="row">
-                            <div class="col-md-9">
-                              <div class="page-product-info">
-                                <div class="prod-items"><strong><?php echo $this->products->getItemNumbers(); ?> találat</strong></div>
-                                <div class="pages"><?php echo $this->products->getMaxPage(); ?> / <strong><?php echo $this->products->getCurrentPage(); ?>. oldal</strong></div>
+                          <div class="wrapper">
+                            <div class="page-product-info">
+                              <div class="prod-items"><strong><?php echo $this->products->getItemNumbers(); ?> találat</strong></div>
+                              <div class="pages"><?php echo $this->products->getMaxPage(); ?> / <strong><?php echo $this->products->getCurrentPage(); ?>. oldal</strong></div>
+                            </div>
+                            <div class="orders-list-view">
+                              <div class="input-group">
+                                <span class="input-group-addon">Nézet</span>
+                                <div class="list-type-switch-holder">
+                                  <div title="Lista nézet" class="<?=($this->list_type=='list')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=list&'.$qryget?>"><i class="fa fa-list"></i></a></div>
+                                  <div title="Blokk nézet" class="<?=($this->list_type=='grid')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=grid&'.$qryget?>"><i class="fa fa-th"></i></a></div>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="orders-list-group">
                               <div class="input-group">
                                 <span class="input-group-addon">Rendezés</span>
                                 <select class="form-control" name="order" onchange="$('#formfilter').submit()">
@@ -93,7 +107,17 @@
                                 </select>
                               </div>
                             </div>
-                        </div>
+                            <div class="orders-list-limit">
+                              <div class="input-group">
+                                <span class="input-group-addon">Megjelen</span>
+                                <select class="form-control" name="itemlimit" onchange="$('#formfilter').submit()">
+                                  <?php foreach (array(10, 20, 40, 80, 100, 200) as $n): ?>
+                                    <option value="<?=$n?>" <?=(($n == $this->item_limit ) ?'selected="selected"':'')?>><?=$n?> db</option>
+                                  <?php endforeach; ?>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
                         </form>
                       </div>
                       <div id="cart-msg"></div>
@@ -112,7 +136,8 @@
                       <?php endif; ?>
                   </div>
                   <? else: ?>
-                      <div class="grid-container">
+                      <?php $listing_type = $this->list_type; ?>
+                      <div class="<?=($listing_type == 'grid')?'grid-container':'list-container'?>">
 
                       <? /* foreach ( $this->product_list as $p ) {
                           $p['itemhash'] = hash( 'crc32', microtime() );
@@ -120,13 +145,17 @@
                           echo $this->template->get( 'product_list_item', $p );
                       }*/ ?>
                           <div class="items">
-                              <? foreach ( $this->product_list as $p ) {
-
+                              <? foreach ( $this->product_list as $p )
+                              {
                                   $p['itemhash'] = hash( 'crc32', microtime() );
                                   $p['sizefilter'] = ( count($this->products->getSelectedSizes()) > 0 ) ? true : false;
                                   $p['show_variation'] = ($this->myfavorite) ? true : false;
                                   $p = array_merge( $p, (array)$this );
-                                  echo $this->template->get( 'product_item', $p );
+                                  if ($listing_type == 'grid') {
+                                    echo $this->template->get( 'product_item', $p );
+                                  } else if( $listing_type == 'list'){
+                                    echo $this->template->get( 'product_list_item', $p );
+                                  }
                               } ?>
                           </div>
                       </div>

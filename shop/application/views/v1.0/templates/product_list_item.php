@@ -1,40 +1,52 @@
-<div class="item item_<?=$itemhash?>">
-	<div class="view">	
-		<div class="icon-set">
-			<? if($ujdonsag == 1): ?>
-				<img class="aw" src="<?=IMG?>new_small_icon.png" title="Újdonság!" alt="Újdonság!">
-			<? endif;?>
-			<? if($akcios == 1): ?>
-				<img class="aw" src="<?=IMG?>discount_small_icon.png" title="Akciós termék!" alt="Akciós termék">
-			<? endif;?>
-		</div>	
-		<div class="img-bg">
-			<div class="img img-thb"><span class="helper"></span><a title="<?=$product_nev?>" class="item_<?=$itemhash?>_link" href="<?=$link?>"><img class="item_<?=$itemhash?>_img" src="<?=$profil_kep?>" alt="<?=$product_nev?>"></a>
+<div class="item">
+	<?php
+    $wo_price = (empty($ar) || $ar == '0') ? true : false;
+  ?>
+	<div class="wrapper">
+		<div class="fav" ng-class="(fav_ids.indexOf(<?=$product_id?>) !== -1)?'selected':''" title="Kedvencekhez adom" ng-click="productAddToFav(<?=$product_id?>, $event)">
+			<i class="fa fa-star" ng-show="fav_ids.indexOf(<?=$product_id?>) !== -1"></i>
+			<i class="fa fa-star-o" ng-show="fav_ids.indexOf(<?=$product_id?>) === -1"></i>
+		</div>
+		<div class="maindata">
+			<div class="title">
+				<h3><a title="<?=$product_nev?>" href="<?=$link?>"><?=$product_nev?></a></h3>
+				<div class="subtitle"><?=__($csoport_kategoria)?></div>
 			</div>
 		</div>
-		<div class="datas">
-			<div class="colors">	
-				<? 
-				if( !$sizefilter ): 
-				unset($hasonlo_termek_ids['colors'][$szin]); ?>		
-				<div class="colors-ca overflowed" style="">	
-					<ul class="colors-va" style="width: <?=(count($hasonlo_termek_ids['colors']) * 55 + 55)?>px;">
-						<li hashkey="<?=$itemhash?>"><div class="img-thb"><span class="helper"></span><a href="<?=$link?>" title="<?=$szin?>"><img data-img="<?=$profil_kep?>" src="<?=Images::getThumbImg(75, $profil_kep)?>" alt="<?=$product_nev?>"></a></div></li>
-						<? foreach ( $hasonlo_termek_ids['colors'] as $szin => $color ) { ?><li hashkey="<?=$itemhash?>">
-							<div class="img-thb"><span class="helper"></span><a href="<?=$color['link']?>" title="<?=$szin?> <? if(rtrim($color['size_stack'],", ") != ''): ?>(<?=rtrim($color['size_stack'],", ")?>)<? endif; ?>"><img data-img="<?=$color['img']?>" src="<?=Images::getThumbImg(75, $color['img'])?>" alt=""></a></div></li><? } ?>
-					</ul>
-				</div>
-				<div class="clr"></div>
-				<?=count($hasonlo_termek_ids['colors'])+1?> szín
-				<? else: ?>
-					<span style="color:#FF8202;">Méret: <em><?=$meret?></em></span>
-				<? endif; ?>
+		<div class="prices">
+      <div class="wrapper <?=($wo_price)?'wo-price':''?>">
+        <?php if ( $wo_price ): ?>
+          <div class="ar">
+            <strong>ÉRDEKLŐDJÖN!</strong>
+          </div>
+        <?php else: ?>
+          <?php if ( $akcios == '1' ): ?>
+            <div class="ar akcios">
+              <div class="old"><?=Helper::cashFormat($eredeti_ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?></div>
+              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?></div>
+            </div>
+          <?php else: ?>
+            <div class="ar">
+              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?> <? if($user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1) { echo '<span class="text">+ ÁFA</span>'; } ?></div>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
+    </div>
+		<div class="stockinfo">
+			<div class="rack" style="background: <?=$keszlet_color?>;">
+				<?=($show_stock=='1' && $raktar_keszlet > 0)?$raktar_keszlet.' db ':''?><?=$keszlet_nev?>
 			</div>
-			<div class="info">
-				<div class="name"><a class="item_<?=$itemhash?>_link" href="<?=$link?>"><?=$product_nev?></a></div>
-				<div class="kat"><?=ucfirst($csoport_kategoria)?></div>
-				<div class="price"><? if( $akcios == '1' && $akcios_fogy_ar > 0): ?><span class="old" title="Eredeti ár"><strike><?=\PortalManager\Formater::cashFormat($ar)?> Ft</strike></span> <span title="Akciós ár" class="new"><?=\PortalManager\Formater::cashFormat($akcios_fogy_ar)?> Ft</span>	<? else: ?><?=\PortalManager\Formater::cashFormat($ar)?> Ft<? endif; ?></div>
-			</div>	
-		</div>	
+		</div>
+		<div class="buttons<?=($wo_price)?' wo-price':''?>">
+      <?php if (!$wo_price): ?>
+      <div class="addnum">
+        <input type="number" onchange="$('#btn-add-p<?=$product_id?>').attr('cart-me', $(this).val())" step="1" max="<?=($raktar_keszlet>0)?$raktar_keszlet:''?>" min="1" value="1">
+      </div>
+      <div class="add">
+        <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> Kosárba <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
+      </div>
+      <?php endif; ?>
+    </div>
 	</div>
 </div>
