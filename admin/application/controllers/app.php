@@ -106,9 +106,9 @@ class app extends Controller{
 					trim($szall['phone']), // F - tel
 					trim($o['email']), // G - email
 					$user_arkat, // H - arkategoria
-
-
 					trim($o['comment']), // I - megjegyzés
+
+					/*
 					trim($szall['irsz']), // J - sz_irszam
 					trim($szall['city']), // K - sz_helyseg
 					trim($szall['kozterulet_nev']).' '.trim($szall['kozterulet_jelleg']).' '.trim($szall['hazszam']).'.'.$egyebcim, // L - sz_utca
@@ -117,6 +117,17 @@ class app extends Controller{
 					'Webshop felhasználó', // O - vevo_statusz
 					$fiz_mod, // P - fizmod
 					(int)$o['szallitasiModID'], // Q - szalltip
+					*/
+
+					'', // J - sz_irszam
+					'', // K - sz_helyseg
+					'', // L - sz_utca
+					'', // M - sz_nev
+					'', // N - sz_megjegy - szállítási megjegyzés, rajta lesz a számlán
+					'', // O - vevo_statusz
+					'', // P - fizmod
+					'', // Q - szalltip
+
 					'Ft', // R - valutanem
 					$adoszam, // S - adoszam
 					$user_id, // T - ugyfelszam
