@@ -106,7 +106,7 @@ class app extends Controller{
 					trim($szam['kozterulet_nev']), // E - utca
 					trim($szall['phone']), // F - tel
 					trim($o['email']), // G - email
-					$user_arkat, // H - arkategoria
+					'', // H - arkategoria
 					trim($o['comment']), // I - megjegyzés
 
 					/*
