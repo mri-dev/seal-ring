@@ -638,7 +638,7 @@ class ResourceImportBase
         list($keszlet_id, $szallitas_id) = $this->pushedProductKeszletSzallitasID($originid, (int)$d['termek_keszlet']);
 
         $irow = array(
-          $d['prod_id'], $d['prod_id'], addslashes($d['termek_nev']), addslashes($d['termek_leiras']), $keszlet_id, $szallitas_id, $d['beszerzes_netto'], 0, 0, $originid, $d['ID'], 0, 0, 0, (int)$d['termek_keszlet']
+          $d['prod_id'], $d['prod_id'], addslashes($d['termek_nev']), addslashes($d['termek_leiras']), $keszlet_id, $szallitas_id, $d['beszerzes_netto'], 0, 0, $originid, $d['ID'], 1, 0, 0, (int)$d['termek_keszlet']
         );
 
         $insert_row[] = $irow;
@@ -858,7 +858,6 @@ class ResourceImportBase
     WHERE
       `xml_import_origin` = $orignid and
       xml_import_done = 1 and
-      lathato = 1 and
       (SELECT t.io FROM xml_temp_products as t WHERE t.prod_id != '' and t.prod_id = nagyker_kod and t.origin_id = xml_import_origin) != lathato";
 
     $data = $this->db->query( $q );
