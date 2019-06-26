@@ -51,9 +51,9 @@
                       <?php endif; ?>
                       <?php if (isset($this->searched_by)): ?>
                         <div class="search-for">
-                         <i class="fa fa-search"></i> Keresés, mint: <?php foreach ($this->searched_by as $s): ?>
+                         <i class="fa fa-search"></i> Keresés, mint: <?php if(is_array($this->searched_by)): foreach ($this->searched_by as $s): ?>
                             <span><?=$s?></span>
-                          <?php endforeach; ?>
+                          <?php endforeach; else: ?><span><?=$this->searched_by?></span><? endif; ?>
                         </div>
                       <?php endif; ?>
                     <?php endif; ?>

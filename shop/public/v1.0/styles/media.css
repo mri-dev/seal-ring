@@ -1425,7 +1425,7 @@ body.singlepage .website .cover-img {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0.7);
+  box-shadow: inset 0 -200px 200px -80px rgba(0, 0, 0, 0);
 }
 /* line 127, sass/_base.scss */
 body.singlepage .website .page {
@@ -1486,7 +1486,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 178, sass/_base.scss */
 .slideShow .info-box .strip .main {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0);
   color: #ffffff;
   text-transform: uppercase;
   font-weight: 300;
@@ -1496,7 +1496,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 /* line 187, sass/_base.scss */
 .slideShow .info-box .strip .second {
-  background: rgba(86, 86, 86, 0.45);
+  background: rgba(86, 86, 86, 0);
   padding: 8px 16px;
   font-size: 1.6em;
   line-height: 1.2;
@@ -2092,7 +2092,7 @@ body.singlepage .website .page.covered-page .side-menu {
   border: .4px solid #e0e0e0;
   background: white;
   margin: 0;
-  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0.8);
+  box-shadow: 0 0 8px -2px rgba(169, 169, 169, 0);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -2130,7 +2130,7 @@ body.singlepage .website .page.covered-page .side-menu {
 .webshop-product-top .grid-container > .items .item .image .short-desc,
 .related-products .grid-container > .items .item .image .short-desc {
   z-index: 2;
-  background: rgba(240, 240, 240, 0.81);
+  background: rgba(240, 240, 240, 0);
   padding: 5px;
   font-size: 0.8em;
   text-align: left;
@@ -2711,7 +2711,7 @@ body.singlepage .website .page.covered-page .side-menu {
   font-weight: bold;
 }
 /* line 1267, sass/_base.scss */
-.search-finder .contents > div > .wrapper {
+.search-finder .contents > div > form > .wrapper {
   padding: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2720,32 +2720,32 @@ body.singlepage .website .page.covered-page .side-menu {
   justify-content: space-between;
 }
 /* line 1275, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div {
+.search-finder .contents > div > form > .wrapper > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
 }
 /* line 1280, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div > * {
+.search-finder .contents > div > form > .wrapper > div > * {
   flex-basis: 100%;
 }
 /* line 1284, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div.src {
+.search-finder .contents > div > form > .wrapper > div.src {
   flex-basis: 100%;
   margin: 0 0 10px 0;
 }
 /* line 1289, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div.left-side, .search-finder .contents > div > .wrapper > div.right-side {
+.search-finder .contents > div > form > .wrapper > div.left-side, .search-finder .contents > div > form > .wrapper > div.right-side {
   flex-basis: 48%;
 }
 /* line 1292, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div.div {
+.search-finder .contents > div > form > .wrapper > div.div {
   flex-basis: 2%;
   position: relative;
 }
 /* line 1295, sass/_base.scss */
-.search-finder .contents > div > .wrapper > div.div:after {
+.search-finder .contents > div > form > .wrapper > div.div:after {
   content: "";
   position: absolute;
   height: 100%;
@@ -5437,7 +5437,7 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused {
 /* line 400, scss/_base.scss */
 /* line 3824, sass/_base.scss */
 .dialogBox.overlayed {
-  background: rgba(74, 74, 74, 0.9);
+  background: rgba(74, 74, 74, 0);
   pointer-events: auto;
 }
 

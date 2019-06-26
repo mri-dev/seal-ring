@@ -36,7 +36,8 @@ class ajax extends Controller{
 							}
 
 							if ( !$err ) {
-								$search_keywords = explode(" ",trim($datas['search_keywords']));
+								//$search_keywords = explode(" ",trim($datas['search_keywords']));
+								$search_keywords =trim($datas['search_keywords']);
 
 								$products = new Products( array(
 									'db' => $this->db,
@@ -80,7 +81,7 @@ class ajax extends Controller{
 								$ret['nums'] = (int)$n;
 								$ret['pass'] = $datas;
 								$this->setSuccess(false, $ret);
-							}						
+							}
 
 						break;
 						case 'loadTerms':

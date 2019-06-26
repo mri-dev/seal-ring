@@ -16,100 +16,105 @@
   </div>
   <div class="contents">
     <div class="cont-simple" ng-show="(findernavpos=='simple')">
+      <form class="" action="/termekek/<?=($this->gets[1] != '')?$this->gets[1]:''?>" method="get">
       <div class="wrapper">
+          <div class="left-side">
+            <div class="src">
+              <div class="search-wrapper">
+                <input type="text" name="src" ng-change="bindFinder(<?=$this->catid?>)" ng-model-options='{ debounce: 1000 }' ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+              </div>
+            </div>
+          </div>
+          <div class="right-side">
+            <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
+              <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-bind-html="finder_result_text|unsafe">{{finder_result_text}}</span></button>
+            </div>
+          </div>
+      </div>
+    </form>
+    </div>
 
-        <div class="left-side">
+    <?php if (false): ?>
+      <div class="cont-advenced" ng-show="(findernavpos=='advenced')">
+        <div class="wrapper">
           <div class="src">
             <div class="search-wrapper">
-              <input type="text" ng-change="bindFinder(<?=$this->catid?>)" ng-model-options='{ debounce: 1000 }' ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+              <input type="text" ng-change="bindFinder()" ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
             </div>
           </div>
-        </div>
-        <div class="right-side">
-          <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
-            <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-bind-html="finder_result_text|unsafe">{{finder_result_text}}</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="cont-advenced" ng-show="(findernavpos=='advenced')">
-      <div class="wrapper">
-        <div class="src">
-          <div class="search-wrapper">
-            <input type="text" ng-change="bindFinder()" ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
-          </div>
-        </div>
-        <div class="left-side">
-          <div class="group">
-            <div class="selections">
-              <label for="">Válassza ki a terméktípust</label>
-              <div class="select-wrapper">
-                <select ng-change="bindFinder()" ng-options="item as item.label for item in finder_config.selects.cats track by item.id" ng-model="finder_config_select.selects.cat"></select>
+          <div class="left-side">
+            <div class="group">
+              <div class="selections">
+                <label for="">Válassza ki a terméktípust</label>
+                <div class="select-wrapper">
+                  <select ng-change="bindFinder()" ng-options="item as item.label for item in finder_config.selects.cats track by item.id" ng-model="finder_config_select.selects.cat"></select>
+                </div>
               </div>
-            </div>
-            <div class="selections" ng-class="(!finder_config_select.selects.cat.id)?'disabled':''">
-              <label for="">Válassza ki a mellékterméket</label>
-              <div class="select-wrapper">
-                <select ng-change="bindFinder()" ng-disabled="(!finder_config_select.selects.cat.id)?true:false" ng-options="item as item.label for item in finder_config.selects.subcats[finder_config_select.selects.cat.id] track by item.id" ng-model="finder_config_select.selects.subcat"></select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div">&nbsp;</div>
-        <div class="right-side">
-          <div class="group">
-            <h3>Felhasználási terület</h3>
-            <div class="holder">
-              <div class="radioboxes">
-                <div class="" ng-repeat="cb in finder_config.felhasznalasi_teruletek">
-                  <input type="radio" ng-click="bindFinder()" ng-value="cb.id" ng-model="$parent.finder_config_select.felhasznalasi_terulet" id="felhasznalasi_teruletek_v{{cb.id}}"> <label for="felhasznalasi_teruletek_v{{cb.id}}">{{cb.label}}</label>
+              <div class="selections" ng-class="(!finder_config_select.selects.cat.id)?'disabled':''">
+                <label for="">Válassza ki a mellékterméket</label>
+                <div class="select-wrapper">
+                  <select ng-change="bindFinder()" ng-disabled="(!finder_config_select.selects.cat.id)?true:false" ng-options="item as item.label for item in finder_config.selects.subcats[finder_config_select.selects.cat.id] track by item.id" ng-model="finder_config_select.selects.subcat"></select>
                 </div>
               </div>
             </div>
           </div>
-          <?php if (false): ?>
+          <div class="div">&nbsp;</div>
+          <div class="right-side">
             <div class="group">
-              <h3>Méretek</h3>
-              <div class="size-configs">
-                <div class="size-group" ng-repeat="size in finder_config.meretek">
-                  <div class="flex">
-                    <div class="ranges">
-                      <label for="">{{size.name}}</label>
-                      <div class="flex">
-                        <div class="r-min">
-                          <input type="text" ng-value="size.range.min">
-                        </div>
-                        <div class="t-label">
-                          ≤ {{size.label}} ≤
-                        </div>
-                        <div class="r-max">
-                          <input type="text" ng-value="size.range.max">
+              <h3>Felhasználási terület</h3>
+              <div class="holder">
+                <div class="radioboxes">
+                  <div class="" ng-repeat="cb in finder_config.felhasznalasi_teruletek">
+                    <input type="radio" ng-click="bindFinder()" ng-value="cb.id" ng-model="$parent.finder_config_select.felhasznalasi_terulet" id="felhasznalasi_teruletek_v{{cb.id}}"> <label for="felhasznalasi_teruletek_v{{cb.id}}">{{cb.label}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php if (false): ?>
+              <div class="group">
+                <h3>Méretek</h3>
+                <div class="size-configs">
+                  <div class="size-group" ng-repeat="size in finder_config.meretek">
+                    <div class="flex">
+                      <div class="ranges">
+                        <label for="">{{size.name}}</label>
+                        <div class="flex">
+                          <div class="r-min">
+                            <input type="text" ng-value="size.range.min">
+                          </div>
+                          <div class="t-label">
+                            ≤ {{size.label}} ≤
+                          </div>
+                          <div class="r-max">
+                            <input type="text" ng-value="size.range.max">
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="fvalue">
-                      <label for="">Pontos méret</label>
-                      <div class="flex">
-                        <div class="t-label">
-                          {{size.label}}=
-                        </div>
-                        <div class="v">
-                          <input type="text">
+                      <div class="fvalue">
+                        <label for="">Pontos méret</label>
+                        <div class="flex">
+                          <div class="t-label">
+                            {{size.label}}=
+                          </div>
+                          <div class="v">
+                            <input type="text">
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            <?php endif; ?>
+            <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
+              <button ng-click="goFinder()"><strong>Keresés</strong><br>
+                <span>{{finder_result_text}}</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
             </div>
-          <?php endif; ?>
-          <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
-            <button ng-click="goFinder()"><strong>Keresés</strong><br>
-              <span>{{finder_result_text}}</span><span ng-hide="finder_result_num!==-1">Betöltés...<i class="fa fa-refresh fa-spin"></i></span></button>
           </div>
         </div>
       </div>
-    </div>
+    <?php endif; ?>
+
     <?php if (false): ?>
     <div class="cont-keywords" ng-show="(findernavpos=='keywords')">
       <div class="wrapper">
