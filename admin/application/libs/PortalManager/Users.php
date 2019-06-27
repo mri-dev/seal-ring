@@ -1344,6 +1344,12 @@ class Users
 			$arg['user_szall_'.$key] = $value;
 		}
 
+		$arg['user_company_nev'] = '';
+		$arg['user_company_szekhely'] = '';
+		$arg['user_company_adoszam'] = '';
+		$arg['user_company_cim'] = '';
+		$arg['user_company_bankszamlaszam'] = '';
+
 		if( $data['group'] == self::USERGROUP_COMPANY )
 		{
 			/* */
