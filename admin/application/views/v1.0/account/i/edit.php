@@ -31,6 +31,9 @@
 						<div class="col-sm-3">
 							<label for="data_incsahuserid">inCash felh. ID</label>
 							<input type="text" id="data_incsahuserid" class="form-control" name="data[felhasznalok][incash_userid]" value="<?=$data[incash_userid]?>">
+							<div class="">
+								Belső userID: <strong><?=$data['ID']?></strong> 	
+							</div>
 						</div>
 					</div>
 

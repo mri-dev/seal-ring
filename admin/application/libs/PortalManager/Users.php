@@ -1201,6 +1201,8 @@ class Users
 
 		// Aktiváló e-mail kiküldése
 		$this->sendActivationEmail( $data['email'], trim($data[pw2]) );
+		// Admin értesítő
+		$this->sendAdminAlert( $data, $uid );
 
 		return $data;
 	}
@@ -1298,6 +1300,55 @@ class Users
 
 			break;
 		}
+	}
+
+	public function sendAdminAlert( $data, $userid )
+	{
+		$szamlazasi_keys = \Helper::getArrayValueByMatch($data,'szam_');
+		$szallitasi_keys = \Helper::getArrayValueByMatch($data,'szall_');
+
+		$usergroup = 'Magánszemély';
+
+		if( $data['group'] == self::USERGROUP_COMPANY )
+		{
+			$usergroup = 'Cég';
+		}
+
+		// Értesítő e-mail kiküldése
+		$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
+		$mail->add( $this->settings['alert_email'] );
+
+		$arg = array(
+			'user_ID' => $userid,
+			'user_nev' => trim($data['nev']),
+			'user_email' => trim($data['email']),
+			'user_group' => $usergroup,
+			'settings' => $this->settings,
+		);
+
+		foreach ($szamlazasi_keys as $key => $value) {
+			$arg['user_szam_'.$key] = $value;
+		}
+		foreach ($szallitasi_keys as $key => $value) {
+			$arg['user_szall_'.$key] = $value;
+		}
+
+		if( $data['group'] == self::USERGROUP_COMPANY )
+		{
+			/* */
+			$arg['user_company_nev'] = $data[self::USERGROUP_COMPANY]['company_name'];
+			$arg['user_company_szekhely'] = $data[self::USERGROUP_COMPANY]['company_hq'];
+			$arg['user_company_adoszam'] = $data[self::USERGROUP_COMPANY]['company_adoszam'];
+			$arg['user_company_cim'] = $data[self::USERGROUP_COMPANY]['company_address'];
+			$arg['user_company_bankszamlaszam'] = $data[self::USERGROUP_COMPANY]['company_bankszamlaszam'];
+			/* */
+		}
+
+		$arg['mailtemplate'] = (new MailTemplates(array('db'=>$this->db)))->get('admin_alert_newuser', $arg);
+
+		$mail->setSubject( 'Új regisztráció: '.$data['nev'] );
+		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'register', $arg ) );
+		$re = $mail->sendMail();
 	}
 
 	public function sendActivationEmail( $email, $origin_pw )
