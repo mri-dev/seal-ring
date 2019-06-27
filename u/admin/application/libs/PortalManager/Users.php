@@ -1105,6 +1105,8 @@ class Users
 			$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'account_create_byadmin', $arg ) );
 			$re = $mail->sendMail();
 		}
+
+
 	}
 
 	function add( $data )
@@ -1166,15 +1168,6 @@ class Users
 			// Új regisztrált felhasználó ID-ka
 			$uid = $this->db->lastInsertId();
 
-			// Update incash_userid
-			$this->db->update(
-				self::TABLE_NAME,
-				array(
-					'incash_userid' => $uid
-				),
-				sprintf("ID = %d", (int)$uid)
-			);
-
 			/**
 			 * Számlázási, szállítási adatok
 			 * */
@@ -1208,11 +1201,8 @@ class Users
 
 		// Aktiváló e-mail kiküldése
 		$this->sendActivationEmail( $data['email'], trim($data[pw2]) );
-
-		usleep(500);
-
 		// Admin értesítő
-		$this->sendAdminAlert( $data, $uid );
+		//$this->sendAdminAlert( $data, $uid );
 
 		return $data;
 	}
@@ -1327,7 +1317,6 @@ class Users
 		// Értesítő e-mail kiküldése
 		$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
 		$mail->add( $this->settings['alert_email'] );
-		$mail->addBCC('mistvan2014@gmail.com', 'Molnár István');
 
 		$arg = array(
 			'user_ID' => $userid,
