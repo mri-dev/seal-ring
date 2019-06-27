@@ -498,6 +498,9 @@ body.singlepage{
 		.page-product-info{
 			flex: 1;
 		}
+		.orders-list-view{
+			min-width: 170px;
+		}
 	}
 }
 
@@ -607,7 +610,7 @@ body.singlepage{
 					.addnum{
 						flex-basis: 70px;
 						input[type=number]{
-							height: auto;
+							height: 32px;
 							line-height: 32px;
 							width: 100%;
 							padding: 0 10px;
