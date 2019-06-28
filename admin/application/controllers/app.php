@@ -99,15 +99,15 @@ class app extends Controller{
 
 				// Megrendelés adatok
 				$items[] = array(
-					$user_id, // A - webazon
+					'', // $user_id, // A - webazon
 					(string)trim($o['nev']), // B - pnev
-					trim($szam['irsz']), // C - irszam
-					trim($szam['city']), // D - helyseg
-					trim($szam['kozterulet_nev']), // E - utca
-					trim($szall['phone']), // F - tel
-					trim($o['email']), // G - email
+					'', //trim($szam['irsz']), // C - irszam
+					'', // trim($szam['city']), // D - helyseg
+					'', // trim($szam['kozterulet_nev']), // E - utca
+					'', // trim($szall['phone']), // F - tel
+					'', // trim($o['email']), // G - email
 					'', // H - arkategoria
-					trim($o['comment']), // I - megjegyzés
+					'', // trim($o['comment']), // I - megjegyzés
 
 					/*
 					trim($szall['irsz']), // J - sz_irszam
@@ -129,11 +129,11 @@ class app extends Controller{
 					'', // P - fizmod
 					'', // Q - szalltip
 
-					'Ft', // R - valutanem
-					$adoszam, // S - adoszam
+					'', // R - valutanem
+					'', // $adoszam, // S - adoszam
 					(($user_id) ? $user_id : ''), // T - ugyfelszam
-					trim($o['nev']), // U - kapcsolat
-					trim($szall['phone']), // V - kapcsolat telefonszám
+					'', // trim($o['nev']), // U - kapcsolat
+					'', // trim($szall['phone']), // V - kapcsolat telefonszám
 					'', // W - szállítás dátuma
 					trim($o['azonosito']), // X - orderid
 				);
@@ -145,9 +145,9 @@ class app extends Controller{
 						(int)$i['cikkszam'], // A - cikkszam
 						(float)$i['me'], // B - mennyiség
 						number_format((float)$netto, 4, ".", ""), // C - nettoar
-						trim($i['termekNev']), // D - cikkmegnev
+						'', // trim($i['termekNev']), // D - cikkmegnev
 						'', // E - cikkazonosító
-						0, // F - garancia hónap,
+						'', // F - garancia hónap,
 						'', // G - üzletág
 						'', // H - termékcsoport
 						''  // I - termékfajta
