@@ -2304,7 +2304,8 @@ class Shop
 							$this->settings['mail_sender_mode']
 						);
 						$mail->add( $this->settings['alert_email'] );
-						$mail->addBCC('peter.szelecz@sealring.hu-ra', 'Szelecz Péter');
+						$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
+						$mail->addBCC('molnar.istvan@web-pro.hu', 'Molnár István');
 
 						$arg = array(
 							'settings' 		=> $this->settings,
@@ -2328,7 +2329,7 @@ class Shop
 							'nettoar' => $nettoar,
 							'userdata' => $arg['user']
 						);
-						$mail->setSubject( 'Értesítő: Új megrendelés érkezett' );
+						$mail->setSubject( 'Értesítő: Új megrendelés ('.$szamlazasi_keys['nev'].')' );
 						$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'order_new_admin', $arg ) );
 						$re = $mail->sendMail();
 

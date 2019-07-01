@@ -100,14 +100,14 @@ class app extends Controller{
 				// Megrendelés adatok
 				$items[] = array(
 					'', // $user_id, // A - webazon
-					(string)trim($o['nev']), // B - pnev
+					trim($szall['nev']), // B - pnev
 					'', //trim($szam['irsz']), // C - irszam
 					'', // trim($szam['city']), // D - helyseg
 					'', // trim($szam['kozterulet_nev']), // E - utca
 					'', // trim($szall['phone']), // F - tel
 					'', // trim($o['email']), // G - email
 					'', // H - arkategoria
-					'', // trim($o['comment']), // I - megjegyzés
+					trim($o['comment']), // I - megjegyzés
 
 					/*
 					trim($szall['irsz']), // J - sz_irszam
