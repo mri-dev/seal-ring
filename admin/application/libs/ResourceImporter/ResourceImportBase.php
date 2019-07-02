@@ -1656,6 +1656,45 @@ class ResourceImportBase
 
   public function autoCategoryConnecter( $originid )
   {
+    // remove if hasnt got hashkey
+    $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE hashkey = ''");
+
+    // remobe if hashkey dosent have
+    $hashq = $this->db->query("SELECT t.ID FROM `shop_termek_in_kategoria` as t LEFT OUTER JOIN shop_termek_kategoriak as k ON k.ID = t.kategoria_id WHERE k.hashkey IS NULL");
+
+    if ($hashq->rowCount() != 0) {
+      $ids = array();
+      foreach ((array)hashq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
+        $ids[] = $did['ID'];
+      }
+
+      if (!empty($ids)) {
+        $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID IN (".implode(",", $ids).")");
+      }
+    }
+
+    // remove previous
+    $q = "SELECT
+    k.ID
+    FROM shop_termek_in_kategoria as k
+    LEFT OUTER JOIN shop_termek_kategoriak as tk ON tk.ID = k.kategoria_id
+    LEFT OUTER JOIN shop_termekek as t ON t.ID = k.termekID
+    LEFT OUTER JOIN xml_temp_products as xt ON xt.ID = t.xml_import_res_id
+    WHERE !FIND_IN_SET(xt.kategoria_kulcs, tk.hashkey)";
+    $delq = $this->db->query($q);
+
+    if ($delq->rowCount() != 0) {
+      $ids = array();
+      foreach ((array)$delq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
+        $ids[] = $did['ID'];
+      }
+
+      if (!empty($ids)) {
+        $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID IN (".implode(",", $ids).")");
+      }
+    }
+
+    // add new
     $q = "SELECT
       xt.prod_id,
       xt.kategoria_kulcs,
@@ -1664,8 +1703,8 @@ class ResourceImportBase
       t.ID as termekID,
       MD5(CONCAT('{$originid}_', xt.prod_id, '_', k.ID)) as xref_cat_hashkey
     FROM xml_temp_products as xt
-    LEFT OUTER JOIN shop_termek_kategoriak as k ON FIND_IN_SET(xt.kategoria_kulcs, k.hashkey)
     LEFT OUTER JOIN shop_termekek as t ON t.xml_import_origin = xt.origin_id and xt.ID = t.xml_import_res_id
+    LEFT OUTER JOIN shop_termek_kategoriak as k ON xt.kategoria_kulcs = k.hashkey
     WHERE 1 = 1 and
     xt.origin_id = {$originid} and
     xt.kategoria_kulcs IS NOT NULL and
