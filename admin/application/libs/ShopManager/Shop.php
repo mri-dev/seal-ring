@@ -2305,7 +2305,6 @@ class Shop
 						);
 						$mail->add( $this->settings['alert_email'] );
 						$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
-						$mail->addBCC('molnar.istvan@web-pro.hu', 'Molnár István');
 
 						$arg = array(
 							'settings' 		=> $this->settings,

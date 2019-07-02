@@ -189,6 +189,7 @@ Megrendelések
 									   <a href="<?=HOMEDOMAIN.'termek/'.\PortalManager\Formater::makeSafeUrl($item[termekNev],'_-'.$item[termekID])?>" target="_blank"><?=($item[termekNev]) ?: '-törölt termék-'?></a>
                                        <div class="item-number">
 																				 <span class="number tid" title="Termék ID">#<?=$item['termekID']?></span>
+																				 <span class="number tid" title="inCash cikkszám">IC cikkszám: <?=$item['cikkszam']?></span>
 																				 <?php if ( $item['szin'] != '' ): ?>
 																				 <span class="number tvar" title="Termék variáció">Var.: <strong><?php echo $item['szin']; ?></strong></span>
 																				 <?php endif; ?>
