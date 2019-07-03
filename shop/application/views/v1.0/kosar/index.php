@@ -1123,20 +1123,20 @@
 
 
 		$('#sameOfSzam').click(function(){
-				var cls = $(this).is(':checked');
+			var cls = $(this).is(':checked');
 
-				if(cls){
-					$('input[name^=szam_]').each(function(){
-						var e = $(this).attr('name');
-						$('input[name=szall_'+e.replace('szam_','')+']').val($(this).val());
-					});
+			if(cls){
+				$('input[name^=szam_]').each(function(){
+					var e = $(this).attr('name');
+					$('input[name=szall_'+e.replace('szam_','')+']').val($(this).val());
+				});
 
-					var kjid = $('#szam_kozterulet_jelleg').val();
-					$('#szall_kozterulet_jelleg option[value='+kjid+']').prop('selected', true);
-				}else{
+				var kjid = $('#szam_kozterulet_jelleg').val();
+				$('#szall_kozterulet_jelleg option[value='+kjid+']').prop('selected', true);
+			}else{
 
-				}
-			});
+			}
+		});
 
 		$('input[type=radio][name=atvetel]').change(function(){
 			var v = $(this).val();
