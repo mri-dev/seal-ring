@@ -768,6 +768,31 @@ class Products
 			$size_whr .= $add;
 		}
 
+
+		if ( isset($arg['in_cat']) )
+		{
+			$catid = (int)$arg['in_cat'];
+			$in_cat_str = ' and (';
+
+			$in_cats = array();
+			$in_cats[] = $catid;
+
+			$cat_children = $this->getCategoryChildren($catid);
+			if ($cat_children)
+			{
+				$sub_cat =
+				$in_cats = array_merge($in_cats, $cat_children);
+			}
+
+			$in_cat_str .= '(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) REGEXP "('.implode("|", $in_cats).')"';
+
+			$in_cat_str .= ')';
+
+			$add = $in_cat_str;
+			$whr .= $add;
+			$size_whr .= $add;
+		}
+		/*
 		if ( isset($arg['in_cat']) ) {
 			$in_cats = array();
 			$catid = (int)$arg['in_cat'];
@@ -789,7 +814,7 @@ class Products
 			$add = $in_cat_str;
 			$whr .= $add;
 			$size_whr .= $add;
-		}
+		}*/
 
 		if ( $arg['csoport_kategoria'] ) {
 			$add = " and p.csoport_kategoria = '{$arg[csoport_kategoria]}' ";
@@ -2163,17 +2188,18 @@ class Products
 	{
 		$set = array();
 		$walk = true;
+		$parent = $cat_id;
 
-		$q = $this->db->squery("SELECT ID FROM shop_termek_kategoriak WHERE szulo_id = :cid;", array('cid' => $cat_id));
-
-		if ($q->rowCount() == 0) {
-			return false;
-		}
-
-		$qd = $q->fetchAll(\PDO::FETCH_ASSOC);
-
-		foreach ( (array)$qd as $cid ) {
-			$set[] = (int)$cid['ID'];
+		$qry = "SELECT ID FROM shop_termek_kategoriak WHERE szulo_id = :id";
+		$q = $this->db->squery($qry, array('id' => $parent));
+		if ($q->rowCount() != 0) {
+			$data = $q->fetchAll(\PDO::FETCH_ASSOC);
+			foreach ((array)$data as $v) {
+				$subset = array();
+				$set[] = (int)$v['ID'];
+				$subset = $this->getCategoryChildren((int)$v['ID']);
+				$set = array_merge($set, $subset);
+			}
 		}
 
 		return $set;
