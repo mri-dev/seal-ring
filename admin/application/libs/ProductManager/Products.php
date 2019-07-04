@@ -784,7 +784,7 @@ class Products
 				$in_cats = array_merge($in_cats, $cat_children);
 			}
 
-			$in_cat_str .= '(SELECT GROUP_CONCAT(kategoria_id) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) REGEXP "('.implode("|", $in_cats).')"';
+			$in_cat_str .= '(SELECT CONCAT("-",GROUP_CONCAT(kategoria_id)) FROM shop_termek_in_kategoria WHERE termekID = p.ID ) REGEXP "(-'.implode("|-", $in_cats).')"';
 
 			$in_cat_str .= ')';
 
@@ -1088,7 +1088,10 @@ class Products
 		$start_item = $current_page * $this->product_limit_per_page - $this->product_limit_per_page;
 		$qry .= " LIMIT ".$start_item.",".$this->product_limit_per_page.";";
 
-		//echo $qry . '<br>';
+			if($_GET['devs'] == '1'){
+				echo $qry . '<br>';
+			}
+
 
 		$this->qry_str = $qry;
 		$get = $this->db->query( $qry );
