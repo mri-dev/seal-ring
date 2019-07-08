@@ -158,6 +158,10 @@ class app extends Controller{
 				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendeles/'.$o['azonosito'] );
 				$csv->run( false );
 
+				$csv = new CSVGenerator;
+				$csv->prepare( false, $items, $_SERVER['DOCUMENT_ROOT'].'/src/json/rendelesmasolat/'.$o['azonosito'] );
+				$csv->run( false );
+
 				// Log export
 
 				$this->db->update(
