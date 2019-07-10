@@ -1664,7 +1664,7 @@ class ResourceImportBase
 
     if ($hashq->rowCount() != 0) {
       $ids = array();
-      foreach ((array)hashq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
+      foreach ((array)$hashq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
         $ids[] = $did['ID'];
       }
 

@@ -58,20 +58,28 @@ class app extends Controller{
 					// http://cp.sealring.hu/src/json/arlista.csv
 					$content = $resources->loadCSV( 'http://cp.sealring.hu/src/json/arlista.csv' );
 
+					/*
 					echo '<pre>';
 					print_r($content);
+					*/
 
-					/*
-
+					/* */
 					if( $content ){
 						foreach( (array)$content as $row ){
 							$cikkszam = $row['Cikkszam'];
 							if(empty($cikkszam)) continue;
 							$darab = (int)$row['DARAB'];
-							$this->db->squery("UPDATE shop_termekek SET raktar_keszlet");
+							$this->db->squery("UPDATE xml_temp_products SET termek_keszlet = :db WHERE prod_id = :cikk and termek_keszlet != :db", array('db' => $darab, 'cikk' => $cikkszam));
 						}
+
+						$originid = 1;
+						$resources->pushToTermekek( $originid );
 					}
-					*/
+
+					unset($content);
+					unset($resources);
+
+				 	/* */
 				break;
 
 				default:
