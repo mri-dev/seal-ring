@@ -73,7 +73,11 @@
             <td>
                 <? if( $d['total_data']['szamlazasi_adat'] ): ?>
                   <strong><?=$d['total_data']['szamlazasi_adat']['nev']?></strong><br>
-                  <?=$d['total_data']['szamlazasi_adat']['irsz']?> <?=$d['total_data']['szamlazasi_adat']['city']?>, <?=$d['total_data']['szamlazasi_adat']['uhsz']?>
+                    <?=$d['total_data']['szamlazasi_adat']['irsz']?> <?=$d['total_data']['szamlazasi_adat']['city']?>, <?=$d['total_data']['szamlazasi_adat']['kozterulet_nev']?> <?=$d['total_data']['szamlazasi_adat']['kozterulet_jelleg']?> <?=$d['total_data']['szamlazasi_adat']['hazszam']?> <br>
+					<?=($d['total_data']['szamlazasi_adat']['epulet']!='')?'Épület: '.$d['total_data']['szamlazasi_adat']['epulet']:''?>
+					<?=($d['total_data']['szamlazasi_adat']['lepcsohaz']!='')?', Lépcsőház: '.$d['total_data']['szamlazasi_adat']['lepcsohaz']:''?>
+					<?=($d['total_data']['szamlazasi_adat']['szint']!='')?', Szint: '.$d['total_data']['szamlazasi_adat']['szint']:''?>
+					<?=($d['total_data']['szamlazasi_adat']['ajto']!='')?', Ajtó: '.$d['total_data']['szamlazasi_adat']['ajto']:''?>
                   <?php if ( $d['total_data']['szamlazasi_adat']['adoszam'] != '' ): ?>
                     <div>Adószám: <strong><?php echo $d['total_data']['szamlazasi_adat']['adoszam']; ?></strong></div>
                   <?php endif; ?>
@@ -84,8 +88,12 @@
             <td>
                 <? if( $d['total_data']['szallitasi_adat'] ): ?>
                     <strong><?=$d['total_data']['szallitasi_adat']['nev']?></strong><br>
-                    <?=$d['total_data']['szallitasi_adat']['irsz']?> <?=$d['total_data']['szallitasi_adat']['city']?>, <?=$d['total_data']['szallitasi_adat']['uhsz']?> <br>
-                    Telefon: <?=$d['total_data']['szallitasi_adat']['phone']?>
+                    <?=$d['total_data']['szallitasi_adat']['irsz']?> <?=$d['total_data']['szallitasi_adat']['city']?>, <?=$d['total_data']['szallitasi_adat']['kozterulet_nev']?> <?=$d['total_data']['szallitasi_adat']['kozterulet_jelleg']?> <?=$d['total_data']['szallitasi_adat']['hazszam']?> <br>
+					<?=($d['total_data']['szallitasi_adat']['epulet']!='')?'Épület: '.$d['total_data']['szallitasi_adat']['epulet']:''?>
+					<?=($d['total_data']['szallitasi_adat']['lepcsohaz']!='')?', Lépcsőház: '.$d['total_data']['szallitasi_adat']['lepcsohaz']:''?>
+					<?=($d['total_data']['szallitasi_adat']['szint']!='')?', Szint: '.$d['total_data']['szallitasi_adat']['szint']:''?>
+					<?=($d['total_data']['szallitasi_adat']['ajto']!='')?', Ajtó: '.$d['total_data']['szallitasi_adat']['ajto']:''?>
+                    <br>Telefon: <?=$d['total_data']['szallitasi_adat']['phone']?>
                 <? else: ?>
                     &mdash; hiányzó adat &mdash;
                 <? endif; ?>
@@ -126,6 +134,9 @@
   <? endfor; ?>
   <li><a href="/<?=$this->gets[0]?>/<?=($this->gets[1] != '')?$this->gets[1].'/':'-/'?><?=$this->users[info][pages][max]?>">&raquo;</a></li>
 </ul>
+<? if($_GET['dv'] == 1): ?>
+<pre><? print_r($this->users); ?></pre>
+<? endif; ?>
 <script type="text/javascript">
     $(function(){
         $('.termeklista i.vtgl').click(function(){

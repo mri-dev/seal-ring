@@ -1530,7 +1530,7 @@ class Users
 		foreach($data as $d){
 			$d['user_group_name'] = $this->getUserGroupes( $d['user_group'] );
 			$d['price_group'] = $this->getPriceGroupes( $d['price_group'] );
-			$d[total_data] = $this->get(array( 'user' => $d['email'] ));
+			$d[total_data] = $this->get(array( 'user' => $d['ID'], 'userby' => 'ID' ));
 			$B[] = $d;
 		}
 
