@@ -226,9 +226,20 @@
 	                	</div>
 	                </div>
 									<?php endif; ?>
+
 									<?php if(!$this->user): ?>
-										<h3 class="offline-pretitle">Regisztráció nélküli vásárlás esetén kérjük, hogy adja meg a alapadataiat!</h3>
+										<h3 class="offline-pretitle">A termékek megrendeléséhez bejelentkezés szükséges!</h3>
+										<div class="logIn" style="min-width: 200px; max-width: 40%; margin: 15px auto;">
+											<fieldset>
+												<div>
+														<a href="/user/regisztracio?return=<?=$_SERVER['REQUEST_URI']?>" class="reg">Nincs fiókom, regisztrálok</a>
+														<a href="/user/belepes?return=<?=$_SERVER['REQUEST_URI']?>" class="login">Bejelentkezés</a>
+												</div>
+											</fieldset>
+										</div>
 									<?php endif; ?>
+
+									<?php if($this->user): ?>
 	                <br>
 	                <div class="divider"></div>
 	                <br>
@@ -247,7 +258,7 @@
 	                            </div>
 	                        </div>
 	                        <div class="logIn">
-	                        	<fieldset>
+	                        		<fieldset>
                                 <div>
                                     <a href="/user/regisztracio?return=<?=$_SERVER['REQUEST_URI']?>" class="reg">Nincs fiókom, regisztrálok</a>
                                     <a href="/user/belepes?return=<?=$_SERVER['REQUEST_URI']?>" class="login">Bejelentkezés</a>
@@ -358,7 +369,9 @@
 												</div>
 	                    </div>
 	                </div>
+									<? endif; ?>
 
+									<?php if($this->user): ?>
 									<div class="stepzerostarter">
 											<div class="cartInfo">
 												<? $vcash = $this->storedString[0][virtual_cash]; ?>
@@ -387,6 +400,7 @@
 													<button name="orderState" value="start"  type="submit" class="btn btn-success">Megrendelés folytatása <i class="fa fa-arrow-circle-right"></i></button>
 											</div>
 									</div>
+									<?php endif; ?>
 
 	            	</div>
 	                <!--/ORDER STEP 0.-->
