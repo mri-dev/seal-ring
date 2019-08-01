@@ -1011,6 +1011,10 @@ class Shop
 		$itemNum 	= 0;
 		$totalPrice = 0;
 		$totalPrice_before_discount = 0;
+		$unstocked_items = array(
+			'total' => 0,
+			'items' => array()
+		);
 		$disc_partner = false;
 		$disc_coupon = false;
 		$no_cetelem_items = array(
@@ -1045,6 +1049,7 @@ class Shop
 			getTermekUrl(t.ID,'".DOMAIN."') as url,
 			ta.elnevezes as allapot,
 			t.profil_kep,
+			t.raktar_keszlet,
 			getTermekOriginalAr(c.termekID, ".$uid.") as eredeti_ar,
 			getTermekAr(c.termekID, ".$uid.") as ar,
 			(getTermekAr(c.termekID, ".$uid.") * c.me) as sum_ar,
@@ -1098,6 +1103,12 @@ class Shop
 
 			if ($d['prices']['old_sum'] != 0) {
 				$totalPrice_before_discount += $d['prices']['old_sum'];
+			}
+
+			// stock check
+			if ($d['me'] > $d['raktar_keszlet']) {
+				$unstocked_items['total'] += $d['me'] - $d['raktar_keszlet'];
+				$unstocked_items['items'][$d['ID']] = $d['me'] - $d['raktar_keszlet'];
 			}
 
 			/*
@@ -1178,6 +1189,7 @@ class Shop
 		$re[totalPrice_before_discount]			= $totalPrice_before_discount;
 		$re[totalPriceTxt_before_discount]		= number_format($totalPrice_before_discount,0,""," ");
 		$re[excludes_from_cetelem]	= $no_cetelem_items;
+		$re[unstocked_items] = $unstocked_items;
 		$re[items] 				= $dt;
 
 		return $re;
@@ -2130,6 +2142,7 @@ class Shop
 							getTermekUrl(t.ID,'".$this->settings['domain']."') as url,
 							getTermekAr(c.termekID, ".$uid.") as ar,
 							t.referer_price_discount,
+							t.raktar_keszlet,
 							m.neve as markaNev
 						FROM shop_kosar as c
 						LEFT OUTER JOIN shop_termekek as t ON t.ID = c.termekID
@@ -2226,6 +2239,7 @@ class Shop
 						foreach($cart as $d)
 						{
 							$kedv = 0;
+							$unstocked_items = array();
 
 							if( $kedvezmeny > 0 )
 							{
@@ -2248,6 +2262,11 @@ class Shop
 							}
 
 							$total += ( $d[ar] * $d[me] );
+							$keszleten = ((float)$d['raktar_keszlet'] > $d['me']) ? $d['me'] : (float)$d['raktar_keszlet'];
+
+							// stock check
+							$d['keszleten'] = $keszleten;
+							
 
 							$this->db->insert('order_termekek', array(
 									'orderKey' => $orderID,
@@ -2256,6 +2275,7 @@ class Shop
 									'email' => $email,
 									'termekID' => $d['termekID'],
 									'me' => $d['me'],
+									'keszleten' => $keszleten,
 									'egysegAr' => $d['ar'],
 									'egysegArKedvezmeny'=> $kedv
 							));

@@ -16,6 +16,12 @@ class kosar extends Controller{
 
 			$ckosar	= $this->shop->cartInfo(Helper::getMachineID(), $arg);
 
+			/* * s/
+			echo '<pre>';
+			print_r($ckosar);
+			echo '</pre>';
+			/* */
+
 			// Kosar üritése
 			if( $_GET['clear'] == '1' )
 			{

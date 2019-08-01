@@ -32,7 +32,7 @@
 							<thead>
 								<tr class="item-header">
 									<th class="center">Termék</th>
-									<th class="center">Me.</th>
+									<th  width="120" class="center">Me.</th>
 									<th class="center" width="15%">Egységár</th>
 									<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':(($this->settings['price_show_brutto'] == 0)?'Nettó ár':'Bruttó ár')?></th>
 									<th class="center"></th>
@@ -65,7 +65,12 @@
 
 										</div>
 									</td>
-									<td class="center"><span><?=$d[me]?> db</span></td>
+									<td class="center">
+										<strong><?=$d[me]?> db</strong>
+										<?php if ($d['me'] > $d['raktar_keszlet']): ?>
+											<div class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?'Nincs raktáron: Rendelhető.':$d['raktar_keszlet'].' db raktáron.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).' rendelhető.</span>'?></div>
+										<?php endif; ?>
+									</td>
 									<td class="center">
 										<? if( $d['discounted'] ): ?>
 											<div><strike><?=Helper::cashFormat($d[prices][old_each])?> Ft</strike></div>
@@ -167,6 +172,11 @@
 	       	<? endif; ?>
 					<a name="step"></a>
 	        <? if(count($k[items]) > 0): ?>
+					<?php if ($k[unstocked_items] && $k[unstocked_items][total] != 0): ?>
+					<div class="alert alert-warning">
+						<i class="fa fa-exclamation-triangle"></i> A kosárban lévő termékeknél <strong><?=$k[unstocked_items][total]?> db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.
+					</div>
+					<?php endif; ?>
 					<div class="nextOrded">
 	            <div class="box">
 	                <h2 class="title">Termékek megrendelése</h2>
