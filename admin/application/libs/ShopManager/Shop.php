@@ -2266,9 +2266,10 @@ class Shop
 
 							// stock check
 							$d['keszleten'] = $keszleten;
-							
 
-							$this->db->insert('order_termekek', array(
+							$this->db->insert(
+								'order_termekek',
+								array(
 									'orderKey' => $orderID,
 									'gepID' => $mid,
 									'userID' => $uid,

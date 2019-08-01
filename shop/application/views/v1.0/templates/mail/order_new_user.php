@@ -32,7 +32,17 @@
 		</td>
 		<td align="center"><?=number_format($d[ar], 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center"><?=number_format(($d[ar]*$d[me]), 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
-		<td align="center"><strong style="color:<?=$d['termek_allapot_color']?>;"><?=$d['termek_allapot']?></strong></td>
+		<td align="center">
+			<?php if ((float)$d['keszleten'] == 0): ?>
+				<strong style="color:red;">Rendelhető!</strong>
+			<?php else: ?>
+				<?php if ($d['keszleten'] < $d['me']): ?>
+					<strong style="color:<?=$d['termek_allapot_color']?>;"><?=$d['termek_allapot']?>: <?=$d['keszleten']?> db. <span style="color:#ff9167;"><?=($d['me']-$d['keszleten'])?> db rendelhető!</span></strong>
+				<?php else: ?>
+					<strong style="color:<?=$d['termek_allapot_color']?>;"><?=$d['termek_allapot']?>: <?=$d['keszleten']?> db.</strong>
+				<?php endif; ?>
+			<?php endif; ?>
+		</td>
 	</tr>
 <? }
 	// Összesítő ár

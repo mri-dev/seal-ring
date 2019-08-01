@@ -48,91 +48,103 @@
                     <div class="orderStatus">
                         <span style="color:<?=$this->orderAllapot[$o[allapot]][szin]?>;"><strong><?=$this->orderAllapot[$o[allapot]][nev]?></strong></span>
                         <? // PayPal fizetés
-                            if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$o[fizetesiModID])][nev] == 'PayPal' && $o[paypal_fizetve] == 0): ?>
-                                <div style="padding:10px 0;">
-                                    <form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                        <input type="hidden" name="cmd" value="_xclick">
-                                        <INPUT TYPE="hidden" name="charset" value="utf-8">
-                                        <input type="hidden" name="business" value="<?=$this->settings['paypal_email']?>">
-                                        <input type="hidden" name="currency_code" value="HUF">
-                                        <input type="hidden" name="item_name" value="<?=$this->settings['page_title']?> megrendelés: <?=$o[azonosito]?>">
-                                        <input type="hidden" name="amount" value="<?=$vegosszeg?>">
-                                        <INPUT TYPE="hidden" NAME="return" value="<?=DOMAIN?>order/<?=$o[accessKey]?>/paid_via_paypal#pay">
-                                        <input type="image" src="<?=IMG?>i/paypal_payout.svg" border="0" style="height:35px;" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
-                                    </form>
-                                </div>
-                            <? endif; ?>
+                        if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$o[fizetesiModID])][nev] == 'PayPal' && $o[paypal_fizetve] == 0): ?>
+                            <div style="padding:10px 0;">
+                                <form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                    <input type="hidden" name="cmd" value="_xclick">
+                                    <INPUT TYPE="hidden" name="charset" value="utf-8">
+                                    <input type="hidden" name="business" value="<?=$this->settings['paypal_email']?>">
+                                    <input type="hidden" name="currency_code" value="HUF">
+                                    <input type="hidden" name="item_name" value="<?=$this->settings['page_title']?> megrendelés: <?=$o[azonosito]?>">
+                                    <input type="hidden" name="amount" value="<?=$vegosszeg?>">
+                                    <INPUT TYPE="hidden" NAME="return" value="<?=DOMAIN?>order/<?=$o[accessKey]?>/paid_via_paypal#pay">
+                                    <input type="image" src="<?=IMG?>i/paypal_payout.svg" border="0" style="height:35px;" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+                                </form>
+                            </div>
+                        <? endif; ?>
                     </div>
                 </div>
                 <div class="p10 divBtm items">
-                     <h4>Megrendelt termékek</h4>
-                     <div>
-                        <div class="mobile-table-container overflowed">
-                        <div class="items-table">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <td>Termék</td>
-                                    <td width="150" class="center">Állapot</td>
-                                    <td width="80" class="center">Me.</td>
-                                    <td width="120" class="center">Egységár</td>
-                                    <td width="120" class="center">Ár</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <? foreach($o[items] as $d): ?>
-                                <tr>
-                                    <td>
-                                        <div class="cont">
-                                            <div class="img img-thb" onClick="document.location.href='<?=$d[url]?>'">
-                                                <span class="helper"></span>
-                                                <a href="<?=$d[url]?>" target="_blank">
-                                                    <img src="<?=\PortalManager\Formater::productImage($d[profil_kep], false, \ProductManager\Products::TAG_IMG_NOPRODUCT)?>" alt="<?=$d[nev]?>">
-                                                </a>
-                                            </div>
-                                            <div class="name">
-                                                <a href="<?=$d[url]?>" target="_blank"><?=$d[nev]?></a>
-                                                <div class="sel-types">
-                                                  <?php if ($d['configs']): ?>
-                          													<i class="fa fa-gear" title="Kiválasztott konfiguráció"></i>
-                          													&nbsp;
-                          													<?php foreach ((array)$d['configs'] as $cid => $c): ?>
-                          														<em><?php echo $c['parameter']; ?>:</em> <strong><?php echo $c['value']; ?></strong>
-                          													<?php endforeach; ?>
-                          												<?php endif; ?>
-                                                </div>
+                 <h4>Megrendelt termékek</h4>
+                 <div>
+                    <div class="mobile-table-container overflowed">
+                    <div class="items-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>Termék</td>
+                                <td width="200" class="center">Állapot</td>
+                                <td width="80" class="center">Me.</td>
+                                <td width="120" class="center">Egységár</td>
+                                <td width="120" class="center">Ár</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <? foreach($o[items] as $d): ?>
+                            <tr>
+                                <td>
+                                    <div class="cont">
+                                        <div class="img img-thb" onClick="document.location.href='<?=$d[url]?>'">
+                                            <span class="helper"></span>
+                                            <a href="<?=$d[url]?>" target="_blank">
+                                                <img src="<?=\PortalManager\Formater::productImage($d[profil_kep], false, \ProductManager\Products::TAG_IMG_NOPRODUCT)?>" alt="<?=$d[nev]?>">
+                                            </a>
+                                        </div>
+                                        <div class="name">
+                                            <a href="<?=$d[url]?>" target="_blank"><?=$d[nev]?></a>
+                                            <div class="sel-types">
+                                              <?php if ($d['configs']): ?>
+                      													<i class="fa fa-gear" title="Kiválasztott konfiguráció"></i>
+                      													&nbsp;
+                      													<?php foreach ((array)$d['configs'] as $cid => $c): ?>
+                      														<em><?php echo $c['parameter']; ?>:</em> <strong><?php echo $c['value']; ?></strong>
+                      													<?php endforeach; ?>
+                      												<?php endif; ?>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td class="center"><span style="color:<?=$d[allapotSzin]?>;"><strong><?=$d[allapotNev]?></strong></span></td>
-                                    <td class="center">
-                                      <?=$d['me']?>
-                                    </td>
-                                    <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
-                                    <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
-                                </tr>
-                                <? endforeach; ?>
-                                <tr>
-                                    <td class="right" colspan="4"><strong>Termékek ára összesen</strong></td>
-                                    <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
-                                </tr>
-                                <tr>
-                                    <td class="right" colspan="4"><div><strong>Szállítási költség</strong></div></td>
-                                    <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> Ft</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="right" colspan="4"><div><strong>Kedvezmény</strong></div></td>
-                                    <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' Ft' : '-'?> </span></td>
-                                </tr>
-                                <tr style="font-size:18px;">
-                                    <td class="right" colspan="4"><strong>Végösszeg</strong></td>
-                                    <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> Ft</strong></span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                        </div>
-                     </div>
+                                    </div>
+                                </td>
+                                <td class="center">
+                                  <span style="color:<?=$d[allapotSzin]?>;"><strong><?=$d[allapotNev]?></strong></span>
+                                  <div class="">
+                                    <?php if ($d['keszleten'] >= $d['me']): ?>
+                                      <span style="color:#45c145;">Raktáron</span>
+                                    <?php elseif($d['keszleten'] == 0): ?>
+                                      <span style="color:#e27828;">Nincs raktáron: rendelhető!</span>
+                                    <?php elseif($d['keszleten'] <= $d['me']): ?>
+                                      <span style="color:#45c145;">Raktáron: <?=$d['keszleten']?> db.</span><br>
+                                      <span style="color:#e27828;"><?=$d['me']-$d['keszleten']?> db rendelhető!</span>
+                                    <?php endif; ?>
+                                  </div>
+                                </td>
+                                <td class="center">
+                                  <?=$d['me']?>
+                                </td>
+                                <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                            </tr>
+                            <? endforeach; ?>
+                            <tr>
+                                <td class="right" colspan="4"><strong>Termékek ára összesen</strong></td>
+                                <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                            </tr>
+                            <tr>
+                                <td class="right" colspan="4"><div><strong>Szállítási költség</strong></div></td>
+                                <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> Ft</span></td>
+                            </tr>
+                            <tr>
+                                <td class="right" colspan="4"><div><strong>Kedvezmény</strong></div></td>
+                                <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' Ft' : '-'?> </span></td>
+                            </tr>
+                            <tr style="font-size:18px;">
+                                <td class="right" colspan="4"><strong>Végösszeg</strong></td>
+                                <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> Ft</strong></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                 </div>
                 </div>
                 <br>
                 <a name="pay"></a>

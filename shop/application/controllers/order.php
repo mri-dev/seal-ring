@@ -6,7 +6,7 @@ class order extends Controller{
 		function __construct(){
 			parent::__construct();
 			$title = 'Megrendelés adatlapja';
-			
+
 			$this->out('bodyclass', 'orderpage');
 
 			if($this->view->gets[1] == ''){
@@ -37,7 +37,8 @@ class order extends Controller{
 			/** PAYU FIZETÉS */
 			$order_id = $this->view->order['azonosito'];
 
-			if( $order_id == '' ){
+			if( $order_id == '' )
+			{
 				Helper::reload( '/user' );
 			}
 
@@ -81,8 +82,6 @@ class order extends Controller{
 				$this->out('cetelem_start_url', '/gateway/cetelem/start/'.$this->view->order['accessKey']);
 				$this->out('cetelem_ipn_list', $cetelem->getIPNList($this->view->order['accessKey']));
 			}
-
-
 
 			// SEO Információk
 			$SEO = null;
