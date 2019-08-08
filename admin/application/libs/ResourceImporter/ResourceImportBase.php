@@ -610,6 +610,9 @@ class ResourceImportBase
 
   public function pushToTermekek( $originid )
   {
+	$data = null;
+	$insert_row = null;
+
     $q = "SELECT
       tp.*
     FROM `xml_temp_products` as tp
@@ -1704,7 +1707,7 @@ class ResourceImportBase
       MD5(CONCAT('{$originid}_', xt.prod_id, '_', k.ID)) as xref_cat_hashkey
     FROM xml_temp_products as xt
     LEFT OUTER JOIN shop_termekek as t ON t.xml_import_origin = xt.origin_id and xt.ID = t.xml_import_res_id
-    LEFT OUTER JOIN shop_termek_kategoriak as k ON xt.kategoria_kulcs = k.hashkey
+    LEFT OUTER JOIN shop_termek_kategoriak as k ON FIND_IN_SET(xt.kategoria_kulcs, k.hashkey)
     WHERE 1 = 1 and
     xt.origin_id = {$originid} and
     xt.kategoria_kulcs IS NOT NULL and
