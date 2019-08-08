@@ -312,7 +312,6 @@
 
 			switch (_.event) {
 				case 'toggleOnClick':
-
 					if ( _.target ) {
 						$(_.target).unbind('mouseenter mouseleave click');
 						$(this).click( function(){
@@ -320,9 +319,20 @@
 							var opened = t.hasClass('opened');
 							if ( opened ) {
 								t.removeClass('opened');
+								if (_.bodynoscroll == true) {
+									$('body').removeClass('noscroll');
+								}
 							} else {
 								$('.mb-tgl-close').removeClass('opened');
 								t.addClass('opened');
+								if (_.bodynoscroll == true) {
+									$('body').addClass('noscroll');
+								}
+								if (typeof _.calcheight !== 'undefined') {
+									var ph = $('body').height();
+									var hm = (typeof _.calcheightminus !== 'undefined') ? _.calcheightminus : 0;
+									$(_.calcheight).css({height:ph-hm});
+								}
 							}
 						});
 					}
@@ -389,7 +399,7 @@
 	}
 
 	function Cart(){
-		this.content = "#cartContent";
+		this.content = ".cartContent";
 		this.push = function(i){
 			var oi = $(this.content).find(".item");
 			console.log(i);
@@ -629,7 +639,7 @@
 					$('#'+progress)
 					.stop()
 					.removeClass('in-progress')
-					.html('Kosárba <img src="https://cp.seal-ring.web-pro.hu/src/images/shopcart-ico.svg" alt="Kosárba">');
+					.html('<span class="t">Kosárba</span> <img src="https://cp.seal-ring.web-pro.hu/src/images/shopcart-ico.svg" alt="Kosárba">');
 				}
 
 			} );
@@ -664,6 +674,7 @@
 		$('#cart-item-num, .cart-item-num-v').text(p.itemNum);
 		$('.cart-item-num, .cart-item-num-v').text(p.itemNum);
 		$('#cart-item-prices').text(p.totalPriceTxt);
+		$('.cart-item-prices').text(p.totalPriceTxt);
 
 		if( p.itemNum > 0 ){
 			$('.cart-box').show(0);
@@ -985,7 +996,7 @@
 	        $scope.toast(r.msg, 'alert', 10000);
 	      } else {
 	        $mdToast.hide();
-	        $scope.toast(r.msg, 'success', 5000);
+	        $scope.toast(r.msg, 'success', 50000);
 	      }
 
 	      if (typeof callback === 'function') {

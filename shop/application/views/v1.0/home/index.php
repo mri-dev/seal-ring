@@ -94,7 +94,12 @@
 
 					function trackwidth(){
 						var w = 1200 - $('.filter-sidebar').width() - $('.right-sidebar').width() - 40;
-						console.log(w);
+						var pw = $('body').width();
+
+						console.log(pw);
+						if (w >= pw) {
+							w = pw - 30;
+						}
 						// 680
 						$('.trackwidth').css({
 							width: w

@@ -25,6 +25,150 @@ header {
 		}
 	}
 
+	.nav {
+		padding: 0 25px 0 0;
+		flex: 1;
+		text-align: center;
+
+		& > ul {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			height: 38px;
+
+			& > li {
+				height: 38px;
+				position: relative;
+				 & > a{
+					 text-transform: uppercase;
+					 font-weight: 300;
+					 font-size: 1.1em;
+					 padding: 0 15px;
+					 text-decoration: none;
+					 display: block;
+					 height: 38px;
+					 line-height: 38px;
+					 text-align: left;
+					 color: $color-grey-dark !important;
+					 border: 0.4px solid transparent;
+
+					 i {
+						 font-size: 17px;
+						 vertical-align: middle;
+						 margin-left: 5px;
+					 }
+				 }
+				&:hover{
+					color: $color-grey;
+					& > a {
+						background: #fafafa;
+						color: $color-grey;
+						border: 0.4px solid $color-grey;
+						box-shadow: 4px 2px 3px -2px rgba(0, 0, 0, 0.19);
+					}
+					& > .sub {
+						display: block;
+					}
+				}
+
+				&.has-sub {
+					& > a{
+						height: 52px;
+					}
+				}
+
+				&.cats{
+					& > a{
+						position: relative;
+						padding: 0 30px 0 10px;
+						i {
+							font-size: 15px;
+							vertical-align: text-top;
+						}
+
+						i[class*=sliders] {
+							margin: 0 15px 0 0;
+						}
+						i[class*=angle-down] {
+							position: absolute;
+							right: 10px;
+							top: 50%;
+							transform: translateY(-50%);
+						}
+
+						&:hover{
+							background: white;
+							border: 0.4px solid $color-grey;
+						}
+					}
+
+					& > .list {
+						display: none;
+					}
+
+					&:hover{
+						& > .list {
+							display: block;
+						}
+					}
+				}
+
+				&.kiemelt{
+					a{
+						background: darken($color-grey, 50%);
+						color: white !important;
+					}
+				}
+				&.akciok{
+					a{
+						background: lighten($color-blue, 10%);
+						color: white !important;
+					}
+				}
+
+				& > .sub{
+					display: none;
+					right: 0;
+					position: absolute;
+					background: #fafafa;
+					min-width: 230px;
+					box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.5803921568627451);
+					border: 0.5px solid $color-grey;
+					border-top: none;
+					z-index: 100;
+					margin-top: -1px;
+
+					.inside{
+						padding: 0;
+
+						ul li {
+							a{
+								display: block;
+								padding: 8px 15px;
+								color: $color-grey-dark;
+								text-decoration: none;
+								font-size: 0.9em;
+								text-align: left !important;
+								&:hover{
+									background: darken($color-grey, 20%);
+									color: white;
+								}
+							}
+						}
+					}
+				}
+
+				&:hover{
+					& > .sub{
+						display: block;
+					}
+				}
+			}
+		}
+	}
+
 	.top {
 		padding: 10px 0;
 		border-bottom: 3px solid #f5f5f5;
@@ -168,139 +312,6 @@ header {
 							background: $color-green;
 						}
 					}
-					&.cart{
-						background: white;
-						border: 0.5px solid $color-green;
-						position: relative;
-
-						& > .holder{
-							display: -webkit-box;
-						  display: -ms-flexbox;
-						  display: flex;
-							flex-wrap: nowrap;
-							align-items: center;
-						}
-
-						.ico {
-							width: 45px;
-							padding: 10px;
-							img {
-								max-height: 100%;
-							}
-						}
-
-						.cash {
-							font-size: 1.2em;
-							font-weight: bold;
-							color: $color-green;
-
-							.badge{
-								position: relative;
-								top: initial;
-						    right: initial;
-						    -webkit-transform: none;
-						    transform: none;
-						    margin-left: 5px;
-						    background: $color-red;
-						    font-size: 0.6em;
-    						vertical-align: text-bottom;
-							}
-						}
-
-						.cbtn {
-							padding: 0 10px;
-							a{
-								display: block;
-								background: $color-green;
-						    color: white;
-						    padding: 7px 8px;
-						    border-radius: 3px;
-						    text-transform: uppercase;
-							}
-						}
-
-						.floating{
-							display: none;
-							right: 0;
-							top: 100%;
-							width: 450px;
-							position: absolute;
-							z-index: 10;
-							background: #ffffff;
-							box-shadow: 0 5px 50px -10px #000000;
-							border-top: 5px solid $color-green;
-
-							.adder i,
-							.remove i {
-								font-size: 14px !important;
-								height: 14px !important;
-								line-height: 14px !important;
-							}
-
-							.adder {
-								i[class*=fa-minus] {
-									color: #9c9c9c;
-								}
-								i[class*=fa-plus] {
-									color: #9c9c9c;
-								}
-							}
-
-							#cartContent{
-								color: $color-grey-dark;
-							}
-
-							.whattodo{
-								.flex{
-									& > div {
-										flex: 1;
-										a{
-											display: block;
-											text-align: center;
-											padding: 0 10px;
-											color: white !important;
-											height: 42px;
-											line-height: 42px;
-											text-decoration: none;
-											font-size: 0.9em;
-											i{
-												font-size: 20px;
-												height: 22px !important;
-												line-height: 1;
-												vertical-align: middle;
-											}
-										}
-
-										&.doorder{
-											background: $color-red;
-											a{
-												font-size: 1.15em;
-												text-transform: uppercase;
-												font-weight: bold;
-											}
-										}
-
-										&.doempty{
-											background:white;
-    									border-top: 0.5px solid #cdcdcd;
-											a{
-												color: red !important;
-												font-size: 0.85rem;
-												font-weight: 300;
-											}
-											i{
-												font-size: 15px;
-												height: 17px !important;
-											}
-										}
-									}
-								}
-							}
-						}
-						&:hover .floating{
-							display: block;
-						}
-					}
 				}
 			}
 		}
@@ -313,149 +324,6 @@ header {
 			padding: 10px 0;
 		}
 
-		.nav {
-			padding: 0 25px 0 0;
-			flex: 1;
-			text-align: center;
-
-			& > ul {
-				display: -webkit-box;
-			  display: -ms-flexbox;
-			  display: flex;
-				flex-wrap: wrap;
-				align-items: center;
-				height: 38px;
-
-				& > li {
-					height: 38px;
-					position: relative;
-					 & > a{
-						 text-transform: uppercase;
-						 font-weight: 300;
-						 font-size: 1.1em;
-					   padding: 0 15px;
-					   text-decoration: none;
-					   display: block;
-		 				 height: 38px;
-						 line-height: 38px;
-						 text-align: left;
-						 color: $color-grey-dark !important;
-						 border: 0.4px solid transparent;
-
-						 i {
-							 font-size: 17px;
-						   vertical-align: middle;
-						   margin-left: 5px;
-						 }
-					 }
-					&:hover{
-						color: $color-grey;
-						& > a {
-							background: #fafafa;
-							color: $color-grey;
-							border: 0.4px solid $color-grey;
-							box-shadow: 4px 2px 3px -2px rgba(0, 0, 0, 0.19);
-						}
-						& > .sub {
-							display: block;
-						}
-					}
-
-					&.has-sub {
-						& > a{
-							height: 52px;
-						}
-					}
-
-					&.cats{
-						& > a{
-							position: relative;
-							padding: 0 30px 0 10px;
-							i {
-								font-size: 15px;
-    						vertical-align: text-top;
-							}
-
-							i[class*=sliders] {
-								margin: 0 15px 0 0;
-							}
-							i[class*=angle-down] {
-								position: absolute;
-								right: 10px;
-								top: 50%;
-								transform: translateY(-50%);
-							}
-
-							&:hover{
-								background: white;
-								border: 0.4px solid $color-grey;
-							}
-						}
-
-						& > .list {
-							display: none;
-						}
-
-						&:hover{
-							& > .list {
-								display: block;
-							}
-						}
-					}
-
-					&.kiemelt{
-						a{
-							background: darken($color-grey, 50%);
-							color: white !important;
-						}
-					}
-					&.akciok{
-						a{
-							background: lighten($color-blue, 10%);
-							color: white !important;
-						}
-					}
-
-					& > .sub{
-						display: none;
-						right: 0;
-						position: absolute;
-						background: #fafafa;
-						min-width: 230px;
-						box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.5803921568627451);
-						border: 0.5px solid $color-grey;
-						border-top: none;
-						z-index: 100;
-    				margin-top: -1px;
-
-						.inside{
-							padding: 0;
-
-							ul li {
-								a{
-									display: block;
-									padding: 8px 15px;
-									color: $color-grey-dark;
-									text-decoration: none;
-									font-size: 0.9em;
-									text-align: left !important;
-									&:hover{
-										background: darken($color-grey, 20%);
-										color: white;
-									}
-								}
-							}
-						}
-					}
-
-					&:hover{
-						& > .sub{
-							display: block;
-						}
-					}
-				}
-			}
-		}
 		.search{
 			flex-basis: $size-sidebar;
 			.searchform {
@@ -598,6 +466,139 @@ header {
 	}
 }
 
+.cart{
+	background: white;
+	border: 0.5px solid $color-green;
+	position: relative;
+
+	& > .holder{
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+	}
+
+	.ico {
+		width: 45px;
+		padding: 10px;
+		img {
+			max-height: 100%;
+		}
+	}
+
+	.cash {
+		font-size: 1.2em;
+		font-weight: bold;
+		color: $color-green;
+
+		.badge{
+			position: relative;
+			top: initial;
+			right: initial;
+			-webkit-transform: none;
+			transform: none;
+			margin-left: 5px;
+			background: $color-red;
+			font-size: 0.6em;
+			vertical-align: text-bottom;
+		}
+	}
+
+	.cbtn {
+		padding: 0 10px;
+		a{
+			display: block;
+			background: $color-green;
+			color: white;
+			padding: 7px 8px;
+			border-radius: 3px;
+			text-transform: uppercase;
+		}
+	}
+
+	.floating{
+		display: none;
+		right: 0;
+		top: 100%;
+		width: 450px;
+		position: absolute;
+		z-index: 10;
+		background: #ffffff;
+		box-shadow: 0 5px 50px -10px #000000;
+		border-top: 5px solid $color-green;
+
+		.adder i,
+		.remove i {
+			font-size: 14px !important;
+			height: 14px !important;
+			line-height: 14px !important;
+		}
+
+		.adder {
+			i[class*=fa-minus] {
+				color: #9c9c9c;
+			}
+			i[class*=fa-plus] {
+				color: #9c9c9c;
+			}
+		}
+
+		#cartContent{
+			color: $color-grey-dark;
+		}
+
+		.whattodo{
+			.flex{
+				& > div {
+					flex: 1;
+					a{
+						display: block;
+						text-align: center;
+						padding: 0 10px;
+						color: white !important;
+						height: 42px;
+						line-height: 42px;
+						text-decoration: none;
+						font-size: 0.9em;
+						i{
+							font-size: 20px;
+							height: 22px !important;
+							line-height: 1;
+							vertical-align: middle;
+						}
+					}
+
+					&.doorder{
+						background: $color-red;
+						a{
+							font-size: 1.15em;
+							text-transform: uppercase;
+							font-weight: bold;
+						}
+					}
+
+					&.doempty{
+						background:white;
+						border-top: 0.5px solid #cdcdcd;
+						a{
+							color: red !important;
+							font-size: 0.85rem;
+							font-weight: 300;
+						}
+						i{
+							font-size: 15px;
+							height: 17px !important;
+						}
+					}
+				}
+			}
+		}
+	}
+	&:hover .floating{
+		display: block;
+	}
+}
 
 
 .general-sidebar {

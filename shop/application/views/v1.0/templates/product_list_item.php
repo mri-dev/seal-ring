@@ -44,7 +44,7 @@
         <input type="number" onchange="$('#btn-add-p<?=$product_id?>').attr('cart-me', $(this).val())" step="1" max="<?=($raktar_keszlet>0)?$raktar_keszlet:''?>" min="1" value="1">
       </div>
       <div class="add">
-        <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> Kosárba <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
+        <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> <span class="t">Kosárba</span> <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
       </div>
       <?php endif; ?>
     </div>

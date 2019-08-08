@@ -85,9 +85,9 @@
 
 		function addStyle($style, $after = '', $source = true){
 			if($source){
-				return '<link rel="stylesheet" type="text/css" href="' . STYLE . $style .'.css" '.$after.'/>'."\n\r";
+				return '<link rel="stylesheet" type="text/css" href="' . STYLE . $style .'.css'. ( (defined('DEVMODE') && DEVMODE === true)?'?t='.uniqid():'' ) .'" '.$after.'/>'."\n\r";
 			}else{
-				return '<link rel="stylesheet" type="text/css" href="' . SSTYLE . $style .'.css" '.$after.'/>'."\n\r";
+				return '<link rel="stylesheet" type="text/css" href="' . SSTYLE . $style .'.css'. ( (defined('DEVMODE') && DEVMODE === true)?'?t='.uniqid():'' ) .'" '.$after.'/>'."\n\r";
 			}
 		}
 
@@ -103,10 +103,10 @@
 
 		function addJS($file, $type = false, $source = true){
 			if($source){
-				$wt = (!$type) ? JS.$file.'.js' : $file ;
+				$wt = (!$type) ? JS.$file.'.js'.( (defined('DEVMODE') && DEVMODE === true)?'?t='.uniqid():'' ) : $file ;
 				return '<script type="text/javascript" src="'.$wt.'"></script>'."\n\r";
 			}else{
-				$wt = (!$type) ? SJS.$file.'.js' : $file ;
+				$wt = (!$type) ? SJS.$file.'.js'.( (defined('DEVMODE') && DEVMODE === true)?'?t='.uniqid():'' ) : $file ;
 				return '<script type="text/javascript" src="'.$wt.'"></script>'."\n\r";
 			}
 		}

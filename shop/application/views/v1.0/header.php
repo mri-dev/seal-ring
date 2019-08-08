@@ -41,7 +41,7 @@
       <div class="logo">
         <a href="<?=$this->settings['page_url']?>"><img src="<?=IMG?>sealringlogo.svg" alt="<?=$this->settings['page_title']?>"></a>
       </div>
-      <div class="main">
+      <div class="main hide-on-mobile">
         <div class="top">
           <div class="flex">
             <div class="social">
@@ -95,7 +95,6 @@
                   </div>
                 <?php endif; ?>
 
-
                 <div class="div"></div>
                 <div class="kedvencek">
                   <a href="/kedvencek"><i class="fa fa-star"></i> Kedvencek <span class="badge">{{fav_num}}</span></a>
@@ -108,7 +107,7 @@
                     <div class="cash"><span class="amount" id="cart-item-prices">0</span> Ft <span class="badge" id="cart-item-num-v">0</span></div>
                     <div class="cbtn"><a href="/kosar">kosár</a></div>
                     <div class="floating">
-                      <div id="cartContent" class="overflowed">
+                      <div id="cartContent" class="cartContent overflowed">
                         <div class="noItem"><div class="inf">A kosár üres</div></div>
                       </div>
                       <div class="whattodo">
@@ -168,6 +167,78 @@
                 </div>
               </form>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-main show-on-mobile">
+        <div class="quicknav">
+          <div class="partner">
+            <a href="/user/regisztracio" title="Regisztráció"><i class="fa fa-sign-in"></i></a>
+          </div>
+          <div class="ugyfelkapu">
+            <a href="/user/belepes" title="Bejelentkezés"><i class="fa fa-user"></i></a>
+          </div>
+          <div class="kedvencek">
+            <a href="/kedvencek"><i class="fa fa-star"></i><span class="badge">{{fav_num}}</span></a>
+          </div>
+        </div>
+        <div class="cart">
+          <div class="holder" id="mb-cart" mb-event="true" data-mb='{ "event": "toggleOnClick", "target" : "#mb-cart" }'>
+            <div class="ico">
+              <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
+            </div>
+            <div class="cash"><span class="amount cart-item-prices">0</span> Ft <span class="badge" id="cart-item-num-v">0</span></div>
+            <div class="floating">
+              <div id="cartContent" class="cartContent overflowed">
+                <div class="noItem"><div class="inf">A kosár üres</div></div>
+              </div>
+              <div class="whattodo">
+                <div class="flex">
+                  <div class="doempty">
+                    <a href="/kosar/?clear=1">Kosár ürítése <i class="fa fa-trash"></i></a>
+                  </div>
+                  <div class="doorder">
+                    <a href="/kosar">Megrendelése <i class="fa fa-arrow-circle-o-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobilnav">
+          <div class="mobilnavtoggler" id="mb-nav" mb-event="true" data-mb='{ "event": "toggleOnClick", "target" : "#mb-nav", "bodynoscroll": true, "calcheight": ".mobilnavtoggler + .mobil-nav-holder", "calcheightminus": 0 }'>
+            <i class="fa fa-bars"></i>
+          </div>
+          <div class="mobil-nav-holder">
+            <div class="subnavtitle">Menü</div>
+            <div class="nav">
+              <ul>
+                <? foreach ( $this->menu_header->tree as $menu ): ?>
+                <li class="<?=($menu['child'])?'has-sub':''?>">
+                  <a href="<?=($menu['link']?:'')?>">
+                    <? if($menu['kep']): ?><img src="<?=\PortalManager\Formater::sourceImg($child['kep'])?>"><? endif; ?>
+                    <?=$menu['nev']?> <? if($menu['child']): ?><i class="fa fa-angle-down"></i><? endif; ?></a>
+                    <? if($menu['child']): ?>
+                    <div class="sub nav-sub-view">
+                        <div class="inside">
+                          <ul>
+                          <? foreach($menu['child'] as $child): ?>
+                          <li class="<?=$child['css_class']?>">
+                            <? if($child['link']): ?><a href="<?=$child['link']?>"><? endif; ?>
+                            <span style="<?=$child['css_styles']?>"><?=$child['nev']?></span>
+                            <? if($child['link']): ?></a><? endif; ?>
+                          </li>
+                          <? endforeach; ?>
+                          </ul>
+                        </div>
+                    </div>
+                    <? endif; ?>
+                </li>
+                <? endforeach; ?>
+              </ul>
+            </div>
+            <div class="subnavtitle">Termékek</div>
+            <? $this->render('templates/sidebar_menu'); ?>
           </div>
         </div>
       </div>
