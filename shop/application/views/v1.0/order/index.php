@@ -63,7 +63,7 @@
                             </div>
                         <? endif; ?>
                     </div>
-                </div>
+                </div> 
                 <div class="p10 divBtm items">
                  <h4>Megrendelt termékek</h4>
                  <div>
@@ -110,10 +110,10 @@
                                     <?php if ($d['keszleten'] >= $d['me']): ?>
                                       <span style="color:#45c145;">Raktáron</span>
                                     <?php elseif($d['keszleten'] == 0): ?>
-                                      <span style="color:#e27828;">Nincs raktáron: rendelhető!</span>
+                                      <span style="color:#e27828;">Nincs raktáron: rendelés alatt!</span>
                                     <?php elseif($d['keszleten'] <= $d['me']): ?>
                                       <span style="color:#45c145;">Raktáron: <?=$d['keszleten']?> db.</span><br>
-                                      <span style="color:#e27828;"><?=$d['me']-$d['keszleten']?> db rendelhető!</span>
+                                      <span style="color:#e27828;"><?=$d['me']-$d['keszleten']?> db rendelés alatt!</span>
                                     <?php endif; ?>
                                   </div>
                                 </td>

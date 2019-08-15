@@ -47,8 +47,22 @@ class account extends Controller
 			}
 		}
 
+		if (Post::on('delAccount')) {
+		try {
+			$this->User->deleteUser( $_GET['ID'] );
+			$return = '';
+			if(isset($_GET['ret'])) {
+				$return = $_GET['ret'];
+			}
+			Helper::reload($return);
+		} catch (\Exception $e) {
+			$this->view->err 	= true;
+			$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
+		}
+	}
+
 		// Szerkesztés
-		if ($_GET['t'] == 'edit')
+		if ($_GET['t'] == 'edit' || $_GET['t'] == 'delete')
 		{
 			$data 	= $this->User->get(array('user' => $_GET['ID'], 'userby' => 'ID'));
 			$this->out('data',$data['data']);

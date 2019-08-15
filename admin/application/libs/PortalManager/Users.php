@@ -62,6 +62,16 @@ class Users
 		}
 	}
 
+	public function deleteUser( $id )
+	{
+		if (empty($id)) {
+			return false;
+		}
+
+		$this->db->squery("DELETE FROM felhasznalo_adatok WHERE fiok_id = :uid", array('uid' => $id));
+		$this->db->squery("DELETE FROM felhasznalok WHERE ID = :uid", array('uid' => $id));
+	}
+
 	public function getPriceGroupes( $key = false )
 	{
 		$qry = $this->db->query("SELECT pg.* FROM shop_price_groups as pg ORDER BY pg.title ASC");
