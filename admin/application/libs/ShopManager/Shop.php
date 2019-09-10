@@ -1068,6 +1068,10 @@ class Shop
 			$q .= " and c.gepID = $mid ";
 		}
 
+
+		$q .= " ORDER BY c.ID ASC ";
+
+
 		$arg[multi] = '1';
 		extract($this->db->q($q, $arg));
 		$dt = array();

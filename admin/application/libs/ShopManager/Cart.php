@@ -67,6 +67,8 @@ class Cart
 			$q .= " and c.gepID = $mid ";
 		}
 
+		$q .= " ORDER BY c.ID ASC ";
+
 		$qry = $this->db->query($q);
 
 		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);

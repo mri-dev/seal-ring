@@ -32,9 +32,11 @@
   js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<? if($this->homepage): ?>
 <div class="szechenyi-info">
   <a href="/p/szechenyi-2020"><img src="<?=UPLOADS?>szechenyi2020/szechenyi2020-logo.png" alt="Széchenyi 2020"></a>
 </div>
+<? endif; ?>
 <header>
   <div class="pw">
     <div class="flex">
