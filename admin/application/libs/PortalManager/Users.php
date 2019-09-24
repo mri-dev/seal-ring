@@ -1502,6 +1502,9 @@ class Users
 					case 'nev':
 						$q .= " and ".$key." LIKE '".$v."%' ";
 					break;
+					case 'email':
+						$q .= " and f.".$key." LIKE '%".$v."%' ";
+					break;
 					default:
 						if (is_array($v))
 						{
