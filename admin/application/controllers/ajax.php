@@ -262,6 +262,10 @@ class ajax extends Controller{
 				case 'userChangeActions':
 					switch($mode){
 						case 'engedelyezve':
+							if ($val == '1') {
+								// Alert user if accepted
+								$re = $this->User->sendAdminAcceptedRegisterEmail( $id );
+							}
 							$this->db->query("UPDATE felhasznalok SET engedelyezve = '".$val."' WHERE ID = ".$id);
 						break;
 					}

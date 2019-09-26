@@ -1403,6 +1403,25 @@ class Users
 		$re = $mail->sendMail();
 	}
 
+	public function sendAdminAcceptedRegisterEmail( $uid )
+	{
+		$data = $this->db->query( sprintf(" SELECT * FROM ".self::TABLE_NAME." WHERE ID = '%d';", $uid) )->fetch(\PDO::FETCH_ASSOC);
+
+		$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
+		$mail->add( $data['email'] );
+
+		$arg = array(
+			'user_nev' 		=> trim($data['nev']),
+			'settings' 		=> $this->settings
+		);
+		$arg['mailtemplate'] = (new MailTemplates(array('db'=>$this->db)))->get('alert_register_user_adminaccept', $arg);
+
+		$mail->setSubject( 'Fiók hozzáférés: Engedélyezve!' );
+		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'clearmail', $arg ) );
+		$re = $mail->sendMail();
+		return $re;
+	}
+
 	function userExists($by = 'email', $val){
 		$q = "SELECT ID FROM ".self::TABLE_NAME." WHERE ".$by." = '".$val."'";
 
