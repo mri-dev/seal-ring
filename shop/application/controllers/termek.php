@@ -103,7 +103,8 @@ class termek extends Controller{
 			$this->shop->logLastViewedTermek(Product::getTermekIDFromUrl());
 
 			// Meta
-			$desc = substr(strip_tags($this->view->product['rovid_leiras']), 0, 250).'...';
+			$desc = 'Elérhetősége: '.strip_tags($product['keszlet_info']).'. Termék ára: '.\Helper::cashFormat($product['ar']).' Ft + ÁFA &mdash;';
+			$desc .= (strip_tags($this->view->product['rovid_leiras']) != '') ? substr(strip_tags($this->view->product['rovid_leiras']), 0, 250).'...' : 'Termék adatlap és vásárlás.';
 
 			$meta_title = $product['meta_title'];
 			$meta_desc = $product['meta_desc'];
@@ -120,28 +121,27 @@ class termek extends Controller{
 			$SEO = null;
 			// Site info
 			$SEO .= $this->view->addMeta('description',addslashes($desc));
-			$keyw = $this->view->product['kulcsszavak'];
-			$keyw .= " ".$this->view->product['csoport_kategoria'];
+			$keyw = 'seal ring,tömítőgyűrűk,tömítéstechnika,'.trim(implode(",",$this->view->product['kulcsszavak']));
 			$SEO .= $this->view->addMeta('keywords',addslashes($keyw));
 			$SEO .= $this->view->addMeta('revisit-after','3 days');
 
 			// FB info
-			$SEO .= $this->view->addOG('title',addslashes($title));
+			$SEO .= $this->view->addOG('title',addslashes($title).'Termékek | '.$this->view->settings['page_title']);
 			$SEO .= $this->view->addOG('description',addslashes($desc));
 			$SEO .= $this->view->addOG('type','product');
 			$SEO .= $this->view->addOG('url',$this->view->settings['page_url'].'/'.substr($_SERVER[REQUEST_URI],1));
 			$SEO .= $this->view->addOG('image',$product[profil_kep]);
-			$SEO .= $this->view->addOG('site_name', $title);
+			$SEO .= $this->view->addOG('site_name', $this->view->settings['page_title']);
 
 			// FB - OG - PRODUCT
-			$ar = $product['brutto_ar'];
-			$SEO .= '<meta property="product:original_price:amount" content="'.$ar.'" />'."\n\r";
+			$ar = $product['ar'];
+			$SEO .= '<meta property="product:original_price:amount" content="'.($ar*1.27).'" />'."\n\r";
 			$SEO .= '<meta property="product:original_price:currency" content="HUF" />'."\n\r";
-			$SEO .= '<meta property="product:price:amount" content="'.$ar.'" />'."\n\r";
+			$SEO .= '<meta property="product:price:amount" content="'.($ar*1.27).'" />'."\n\r";
 			$SEO .= '<meta property="product:price:currency" content="HUF" />'."\n\r";
 
 			if( $product['akcios'] == '1' && $product['akcios_fogy_ar'] > 0){
-				$SEO .= '<meta property="product:price:sale_amount" content="'.$product['akcios_fogy_ar'].'" />'."\n\r";
+				$SEO .= '<meta property="product:price:sale_amount" content="'.($product['akcios_fogy_ar']*1.27).'" />'."\n\r";
 				$SEO .= '<meta property="product:price:sale_currency" content="HUF" />'."\n\r";
 			}
 

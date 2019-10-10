@@ -186,12 +186,15 @@ class termekek extends Controller {
 
 			// SEO Információk
 			$SEO = null;
+			$desc = 'Minőségi termékek: '.strtolower($this->view->category->getName()) . ' kategória. A '.$this->view->settings['page_title'].'-től! Böngésszen termékeink közül!';
 			// Site info
-			$SEO .= $this->view->addMeta('description', 'Minőségi '.strtolower($this->view->category->getName()) . ' a Casada Hungary Kft.-től. Őrizze meg egészségét!');
-			$SEO .= $this->view->addMeta('keywords',$this->view->category->getName());
+			$SEO .= $this->view->addMeta('description', desc);
+			$SEO .= $this->view->addMeta('keywords','seal ring,tömítőgyűrűk,tömítéstechnika,'.$this->view->category->getName());
 			$SEO .= $this->view->addMeta('revisit-after','3 days');
 
 			// FB info
+			$SEO .= $this->view->addOG('title', $title.' | '.$this->view->settings['page_title']);
+			$SEO .= $this->view->addOG('description', $desc);
 			$SEO .= $this->view->addOG('type','product.group');
 			$SEO .= $this->view->addOG('url',substr(DOMAIN,0,-1).$_SERVER['REQUEST_URI']);
 			$SEO .= $this->view->addOG('image',$this->view->settings['domain'].'/admin'.$this->view->category->getImage());
