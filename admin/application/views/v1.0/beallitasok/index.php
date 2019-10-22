@@ -21,7 +21,7 @@
         });
 
 	})
-    
+
   function responsive_filemanager_callback(field_id){
       var imgurl = $('#'+field_id).val();
       $('#logo_preview').attr('src',imgurl);
@@ -160,6 +160,13 @@
                     <div class="col-md-12">
                         <label for="basics_page_description">Weboldal alcíme</label>
                         <input type="text" id="basics_page_description" name="page_description" class="form-control" value="<?=$this->settings['page_description']?>">
+                    </div>
+                </div>
+                <br>
+                <div class="row np">
+                    <div class="col-md-12">
+                        <label for="basics_page_keywords">Elsődleges kulcsszavak</label>
+                        <input type="text" id="basics_page_keywords" name="page_keywords" class="form-control" value="<?=$this->settings['page_keywords']?>">
                     </div>
                 </div>
 								<br>
