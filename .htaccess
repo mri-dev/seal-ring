@@ -3,7 +3,7 @@ AddDefaultCharset utf8
 Options -Indexes
 
 # Dev access
-RewriteCond %{REMOTE_ADDR} !=81.183.22.75
+RewriteCond %{REMOTE_ADDR} !=145.236.118.179
 RewriteRule .* https://www.sealring.hu [R=301,L]
 
 <filesMatch ".(css|jpg|jpeg|png|gif|js|ico|svg)$">
