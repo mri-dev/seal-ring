@@ -975,8 +975,31 @@
 				        </div>
 				    	<? endif; ?>
 	                    <div class="row np">
-	                    	<div class="col-sm-12 price">
-	                       		<div class="p10">
+												<div class="col-sm-4">
+													<div class="row np topDiv">
+			                    	<div class="col-sm-12">
+			                        	<div class="p10 transport-info-div">
+			                            	<h4><i class="fa fa-truck"></i> Szállítási információk</h4>
+		                                <div class="transport-info">
+		                                	<div class="gls"><strong>Rendelését a GLS szállítja ki!</strong></div>
+																			<ul>
+																				<li>
+																					<div class="h">Bruttó 10.000 Ft végösszeg alatt:</div>
+																					<strong>+ 2.000 Ft + ÁFA</strong> utánvét költséggel.<br>
+																					<em>Szerződött partnerek esetében: <strong>+1.200 Ft + ÁFA.</strong></em>
+																				</li>
+																				<li><div class="h">Bruttó 10.000 Ft végösszeg felett: <strong>Ingyenes!</strong></div></li>
+																			</ul>
+																			<div class="check">
+																				<input type="checkbox" id="transferinfo_ok" name="transferinfo_ok"><label for="transferinfo_ok">* Elfogadom a szállítási feltételeket!</label>
+																			</div>
+		                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+												</div>
+	                    	<div class="col-sm-8" style="padding-left: 25px;">
+	                       		<div class="p10 price">
 	                            	<div class="p inf">
 	                                	<span class="n">Termékek ára:</span>
 	                                    <span class="a"><span class="ar"><?=($this->kosar[kedvezmeny] > 0 && ($k[discount][partner] || $k[discount][coupon])) ? Helper::cashFormat($k[totalPrice_before_discount]) : Helper::cashFormat($k[totalPrice])?></span> Ft</span>
@@ -993,10 +1016,12 @@
 	                                    <span class="a"><span class="ar"><?=($this->user[kedvezmeny]> 0)? '<span class="kedv">'.$this->user[kedvezmeny].'%</span>':'</span>&mdash;'?></span>
 	                                </div>
 	                           		<? endif; ?>
-	                            	<div class="p">
-	                                	<span class="n">Szállítási költség:</span>
-	                                    <span class="a"><span class="ar"><?=($szallitasiKoltseg > 0)?'+'.Helper::cashFormat($szallitasiKoltseg):'0'?></span> Ft</span>
-	                                </div>
+																<?php if (false): ?>
+                            		<div class="p">
+                                	<span class="n">Szállítási költség:</span>
+                                    <span class="a"><span class="ar"><?=($szallitasiKoltseg > 0)?'+'.Helper::cashFormat($szallitasiKoltseg):'0'?></span> Ft</span>
+                                </div>
+																<?php endif; ?>
 	                                <div class="p end">
 	                                	<?
 	                                    	if($szallitasiKoltseg > 0){	$vegosszeg += $szallitasiKoltseg; }
@@ -1015,7 +1040,7 @@
                        			<? if( false ): ?>
                        			<div class="left"><input type="checkbox" checked="checked" id="subscribe" name="subscribe" /><label for="subscribe">Felirakozok hírlevélre!</label></div>
                        			<? endif; ?>
-                             	<div class="left"><input type="checkbox" id="aszf_ok" name="aszf_ok"><label for="aszf_ok">Megrendelésemmel elfogadom a(z) <?=$this->settings['page_title']?> mindenkor hatályos <a href="<?=$this->settings['ASZF_URL']?>" target="_blank">Általános Szerződési Feltételek</a>et!</label></div>
+                             	<div class="left"><input type="checkbox" id="aszf_ok" name="aszf_ok"><label for="aszf_ok">* Megrendelésemmel elfogadom a(z) <?=$this->settings['page_title']?> mindenkor hatályos <a href="<?=$this->settings['ASZF_URL']?>" target="_blank">Általános Szerződési Feltételek</a>et!</label></div>
 	                        </div>
 	                    </div>
 	                </div>

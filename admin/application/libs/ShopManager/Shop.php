@@ -2071,6 +2071,11 @@ class Shop
 				$mid 	= \Helper::getMachineID();
 				$err 		= false;
 				$inputErr 	= array();
+				
+				if ( !$post['transferinfo_ok'] ) {
+					$err 		= 'Megrendelés leadásához el kell fogadni a szállítási feltételeket!';
+					$inputErr[] = 'transferinfo_ok';
+				}
 
 				if ( !$post['aszf_ok'] ) {
 					$err 		= 'Megrendelés leadásához el kell fogadni az Általános Szerződési Feltételeket!';
