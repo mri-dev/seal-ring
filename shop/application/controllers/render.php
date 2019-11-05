@@ -12,7 +12,8 @@
 					$arg['s'] = $_GET['w'];
 				}
 
-				$img = SOURCE.str_replace('admin/src/','',urldecode($_GET['i']));
+				$img = SOURCE.'uploads/'.$_GET['i'];
+				//echo $img;
 				Images::thumbImg( $img , $arg );
 			}
 

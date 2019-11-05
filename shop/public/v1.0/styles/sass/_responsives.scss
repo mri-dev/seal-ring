@@ -15,7 +15,8 @@
 	.website, .pw, .page-width,
 	body.homepage .home .pw,
 	.pwf,
-	body.product-page .website, body.user .website, body.orderpage .website
+	body.product-page .website, body.user .website, body.orderpage .website,
+	body.article .website
 	{
 		width: 100%;
 	}
@@ -332,6 +333,10 @@
 /* 0 - 1023 px - SMARTPHONE */
 @media all and (max-width: 1023px)
 {
+	.galleries .folder-list > .folder,
+	.galleries .image-list > div{
+		flex-basis: calc(100% / 3);
+	}
 	.fb-page {
 		display: none !important;
 	}
@@ -693,6 +698,10 @@
 /* 0 - 640 px - SMARTPHONE */
 @media all and (max-width: 640px)
 {
+	.galleries .folder-list > .folder,
+	.galleries .image-list > div{
+		flex-basis: calc(100% / 2);
+	}
 	.kollega-list {
 
 		ul {
@@ -719,6 +728,10 @@
 /* 0 - 375 px - SMARTPHONE */
 @media all and (max-width: 398px)
 {
+	.galleries .folder-list > .folder,
+	.galleries .image-list > div{
+		flex-basis: calc(100% / 1);
+	}
 	.product-view .product-desc {
 	  width: 100% !important;
 

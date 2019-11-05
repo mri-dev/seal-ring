@@ -181,6 +181,7 @@
                 <li class="<?=($this->gets[0] == 'referrerHierarchy')?'on':''?>"><a href="/referrerHierarchy" title="Ajánló rangsor"><span class="ni">2</span><i class="fa fa-pie-chart"></i> Ajánló rangsor</a></li>
                 <? endif; ?>
                 <li class="<?=($this->gets[0] == 'termekek')?'on':''?>"><a href="/termekek" title="Termékek"><span class="ni">2</span><i class="fa fa-cubes"></i> Termékek</a></li>
+                <li class="<?=($this->gets[0] == 'galeria')?'on':''?>"><a href="/galeria" title="Galériák"><span class="ni">2</span><i class="fa fa-picture-o"></i> Galériák</a></li>
                 <li class="<?=($this->gets[0] == 'termektipuspage')?'on':''?>"><a href="/termektipuspage" title="Kategóriák"><span class="ni">6</span><i class="fa fa-bars"></i> Termék típusok</a></li>
                 <li class="<?=($this->gets[0] == 'felhasznalasi_teruletek')?'on':''?>"><a href="/felhasznalasi_teruletek" title="Kategóriák"><span class="ni">6</span><i class="fa fa-bars"></i> Felh. területek</a></li>
                 <li class="<?=($this->gets[0] == 'felhasznalok')?'on':''?>"><a href="/felhasznalok" title="Felhasználók"><span class="ni">2</span><i class="fa fa-group"></i> Felhasználók</a></li>

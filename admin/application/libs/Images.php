@@ -308,7 +308,6 @@ class Images
             if (strpos($img, IMG) === false) {
                 $img = substr(IMG, 1) . $img;
             }
-        //echo $img;
         // get width and height of original image
         $imagedata       = getimagesize($img);
         $original_width  = $imagedata[0];
@@ -329,6 +328,7 @@ class Images
 
         $new_width  = round($new_width);
         $new_height = round($new_height);
+
 
         // load the image
         if (substr_count(strtolower($img), ".jpg") or substr_count(strtolower($img), ".jpeg")) {
