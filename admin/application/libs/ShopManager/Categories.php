@@ -307,8 +307,8 @@ class Categories
 		if( $child_cat_qry->rowCount() == 0 ) return false;
 		foreach ( $child_cat_data as $child_cat ) {
 			$this->tree_items++;
-			//$child_cat['link'] 	= DOMAIN.$this->link_prefix.\PortalManager\Formater::makeSafeUrl($child_cat['neve'],'_-'.$child_cat['ID']);
-			$child_cat['link'] 	= DOMAIN.$this->link_prefix.$child_cat['slug'];
+			$child_cat['link'] 	= DOMAIN.$this->link_prefix.\PortalManager\Formater::makeSafeUrl($child_cat['neve'],'_-'.$child_cat['ID']);
+			//$child_cat['link'] 	= DOMAIN.$this->link_prefix.$child_cat['slug'];
 			$child_cat['kep'] 	= ($child_cat['kep'] == '') ? '/src/images/no-image.png' : $child_cat['kep'];
 			$child_cat['parent_row_title'] = $this->buildParentRowTitles($child_cat['ID']);
 			$this->tree_steped_item[] = $child_cat;
