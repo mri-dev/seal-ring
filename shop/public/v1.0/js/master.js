@@ -424,34 +424,40 @@
 
 	function Cart(){
 		this.content = ".cartContent";
-		this.push = function(i){
-			var oi = $(this.content).find(".item");
-			console.log(i);
-			var ec = '<div class="item i'+i.termekID+'">'+
-			'<div class="img">'+
-				'<div class="img-thb">'+
-				'<span class="helper"></span>'+
-				'<img src="'+i.profil_kep+'" alt="'+i.termekNev+'" name="'+i.termekNev+'"/>'+
+		this.push = function(i)
+		{
+			var gr = $(this.content);
+
+			jQuery.each(gr, function(ix,g)
+			{
+				var oi = $(g).find(".item");
+				var ec = '<div class="item i'+i.termekID+'">'+
+				'<div class="img">'+
+					'<div class="img-thb">'+
+					'<span class="helper"></span>'+
+					'<img src="'+i.profil_kep+'" alt="'+i.termekNev+'" name="'+i.termekNev+'"/>'+
+					'</div>'+
 				'</div>'+
-			'</div>'+
-			'<div class="info">'+
-				'<div class="adder">'+
-					'<i class="fa fa-minus-square" title="Kevesebb" onclick="Cart.removeItem('+i.termekID+')"></i>'+
-					'<i class="fa fa-plus-square" title="Több" onclick="Cart.addItem('+i.termekID+')"></i>'+
+				'<div class="info">'+
+					'<div class="adder">'+
+						'<i class="fa fa-minus-square" title="Kevesebb" onclick="Cart.removeItem('+i.termekID+')"></i>'+
+						'<i class="fa fa-plus-square" title="Több" onclick="Cart.addItem('+i.termekID+')"></i>'+
+					'</div>'+
+					'<div class="remove"><i class="fa fa-times "  onclick="Cart.remove('+i.termekID+');" title="Eltávolítás"></i></div>'+
+					'<div class="name"><a href="'+i.url+'"><span class="in">'+i.me+'x</span> '+i.termekNev+'</a></div>'+
+					'<div class="sub">'+
+					/*'<div class="tipus">Variáció: <span class="val">'+((i.szin) ? i.szin+'</span>' : '')+''+( (i.meret)?', Kiszerelés: <span class="val">'+i.meret+'</span>':'')+'</div>'+*/
+					'<span class="ar">'+( (i.ar != '-1')? i.ar+' Ft / db' : 'Ár: érdeklődjön' )+'</span>'+
+					'</div>'+
 				'</div>'+
-				'<div class="remove"><i class="fa fa-times "  onclick="Cart.remove('+i.termekID+');" title="Eltávolítás"></i></div>'+
-				'<div class="name"><a href="'+i.url+'"><span class="in">'+i.me+'x</span> '+i.termekNev+'</a></div>'+
-				'<div class="sub">'+
-				/*'<div class="tipus">Variáció: <span class="val">'+((i.szin) ? i.szin+'</span>' : '')+''+( (i.meret)?', Kiszerelés: <span class="val">'+i.meret+'</span>':'')+'</div>'+*/
-				'<span class="ar">'+( (i.ar != '-1')? i.ar+' Ft / db' : 'Ár: érdeklődjön' )+'</span>'+
-				'</div>'+
-			'</div>'+
-			'<div class="clr"></div></div>';
-			if(oi.length == 0){
-				$(this.content).html(ec);
-			}else{
-				$(ec).insertAfter(this.content+' .item:last');
-			}
+				'<div class="clr"></div></div>';
+
+				if(oi.length == 0){
+					$(g).html(ec);
+				}else{
+					$(ec).insertAfter($(g).find('.item:last'));
+				}
+			});
 		}
 		this.addItem = function(id){
 			var parent = this;
