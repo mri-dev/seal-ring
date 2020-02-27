@@ -1337,8 +1337,12 @@ class Users
 		// Értesítő e-mail kiküldése
 		$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
 		$mail->add( $this->settings['alert_email'] );
-		$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
-		$mail->addBCC('zsolt.fenyvesi@sealring.hu', 'Fenyvesi Zsolt');
+
+		if( DEVMODE === false ){
+			$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
+			$mail->addBCC('zsolt.fenyvesi@sealring.hu', 'Fenyvesi Zsolt');
+			$mail->addBCC('norbert.szikszai@sealring.hu', 'Szikszai Norbert');
+		}
 
 		$arg = array(
 			'user_ID' => $userid,

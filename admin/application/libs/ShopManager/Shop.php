@@ -2071,7 +2071,7 @@ class Shop
 				$mid 	= \Helper::getMachineID();
 				$err 		= false;
 				$inputErr 	= array();
-				
+
 				if ( !$post['transferinfo_ok'] ) {
 					$err 		= 'Megrendelés leadásához el kell fogadni a szállítási feltételeket!';
 					$inputErr[] = 'transferinfo_ok';
@@ -2334,7 +2334,10 @@ class Shop
 							$this->settings['mail_sender_mode']
 						);
 						$mail->add( $this->settings['alert_email'] );
-						$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
+
+						if( DEVMODE === false ){
+							$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
+						}
 
 						$arg = array(
 							'settings' 		=> $this->settings,
