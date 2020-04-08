@@ -13,7 +13,8 @@ class app extends Controller{
 			$this->authAccess();
 		}
 
-		private function authAccess(){
+		private function authAccess()
+		{
 			if($_SERVER[PHP_AUTH_USER] !== $this->AUTH_USER && $_SERVER[PHP_AUTH_PW] !== $this->AUTH_PW){
 
 				/*header("WWW-Authenticate: Basic realm=\"GOLDFISHING\"");
@@ -135,7 +136,8 @@ class app extends Controller{
 					'', // trim($o['nev']), // U - kapcsolat
 					'', // trim($szall['phone']), // V - kapcsolat telefonszám
 					'', // W - szállítás dátuma
-					trim($o['azonosito']), // X - orderid
+					trim($o['azonosito']), // X - orderid,
+					str_replace(array("\n","\r"), '', trim($o['comment'])), // Y - megjegyzés
 				);
 
 				// Cikkek / termékek
@@ -184,6 +186,7 @@ class app extends Controller{
 			$arg['archivalt'] = 0;
 			//$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(13); // 13 = törölve
+			$arg['filters']['azonosito'] = 'SLR19110146';
 			$orders = $this->AdminUser->getMegrendelesek($arg);
 			$fiz_mods = array(
 				'Készpénz' => 1,
@@ -194,6 +197,7 @@ class app extends Controller{
 				'Csekk' => 7,
 				'Bannkártya' => 8
 			);
+
 
 			foreach ((array)$orders['data'] as $o)
 			{
@@ -287,7 +291,8 @@ class app extends Controller{
 					'', // trim($o['nev']), // U - kapcsolat
 					'', // trim($szall['phone']), // V - kapcsolat telefonszám
 					'', // W - szállítás dátuma
-					trim($o['azonosito']), // X - orderid
+					trim($o['azonosito']), // X - orderid,
+					str_replace(array("\n","\r"), '', trim($o['comment'])), // Y - megjegyzés
 				);
 
 				// Cikkek / termékek
