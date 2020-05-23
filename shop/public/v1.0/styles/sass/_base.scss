@@ -3896,6 +3896,238 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 /**
  * CART
  */
+
+ /***
+ * New cart template style
+ * @since 2020. május 22.
+ ***/
+ .cart-items
+ {
+	table.table{
+		background: white;
+		border-radius: 5px;
+		overflow: hidden;
+
+		.item-header{
+			background: $color-green;
+			color: white;
+		}
+
+		.cart-adder {
+ 		 font-size: 18px;
+		 margin: 5px 0;
+		 cursor: pointer;
+		 &:hover{
+			 transform: scale(1.4);
+		 }
+		 &.asc{
+			 color: #15a98c;
+		 }
+		 &.desc{
+			 color: #f16969;
+		 }
+ 	 	}
+
+		td {
+			vertical-align: middle;
+		}
+		tr.item {
+			strong {
+				color: black;
+			}
+			.main{
+				display: -webkit-box;
+			  display: -ms-flexbox;
+			  display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				.img {
+					flex-basis: 75px;
+					img {
+						max-width: 100%;
+						width: 100%;
+					}
+				}
+				.tinfo {
+					flex: 1;
+					padding: 0 0 0 25px;
+					font-size: 1rem;
+
+					.nev a {
+						font-size: 1.3rem;
+						font-weight: bold;
+						text-decoration: none;
+					}
+
+					.subLine{
+						margin-top: 12px;
+						color: black;
+					}
+				}
+			}
+		}
+	}
+ }
+
+ .order-stepper
+ {
+	 .head{
+		margin: 0 0 20px 0;
+		h2{
+			color: #020202;
+	    font-weight: bold;
+	    font-size: 2rem;
+		}
+	}
+
+	.order-comment{
+		textarea{
+			min-height: 120px;
+			max-width: 100%;
+			padding: 15px;
+		}
+	}
+
+	.pre-before-order{
+		display: -webkit-box;
+	  display: -ms-flexbox;
+	  display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+
+		.full-line{
+			flex-basis: 100%;
+		}
+
+		& > .user{
+			display: -webkit-box;
+		  display: -ms-flexbox;
+		  display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+
+			.sep {
+				padding: 0 8px;
+			}
+
+			a:not(.logout){
+				display: block;
+				background: $color-grey-dark;
+				padding: 10px 18px;
+				border-radius: 15px;
+				color: white;
+				text-decoration: none;
+				font-size: 0.9rem;
+			}
+
+			.face{
+				flex-basis: 50px;
+				padding-right: 25px;
+				.face-wrapper{
+					border-radius: 100px;
+					width: 100px;
+					height: 100px;
+					background: white;
+					border: 2px solid #e2e2e2;
+					position: relative;
+
+					.it {
+						font-size: 3rem;
+						color: #e4e4e4;
+						position: absolute;
+						left: 50%;
+						top: 50%;
+						-webkit-transform: translate(-50%,-50%);
+						transform: translate(-50%,-50%);
+					}
+				}
+			}
+
+			.useroverview{
+				font-size: 1.1rem;
+				.name {
+					font-size: 1.3rem;
+					margin: 0 0 10px 0;
+					strong {
+						color: $color-green;
+					}
+				}
+				.email {
+					color: black;
+				}
+			}
+
+			.login{
+				a{
+					font-weight: bold;
+					background: $color-green;
+					font-size: 1.1rem;
+				}
+			}
+		}
+
+		& > .nextbutton{
+			button{
+				background: $color-green;
+				color: white;
+				text-transform: uppercase;
+				font-weight: bold;
+				padding: 15px;
+				border-radius: 5px;
+				font-size: 1.3rem;
+				border: 2px solid #1b8d77;
+				cursor: pointer;
+
+				&:disabled{
+					background: $color-grey;
+					font-style: italic;
+					font-weight: normal;
+			    font-size: 1.15rem;
+			    border: 2px dashed #bfbfbf;
+				}
+			}
+		}
+
+		&.user-logged{
+			a.logout {
+				color: $color-red;
+				font-size: 0.8rem;
+				display: block;
+				margin: 10px 0 0 0;
+			}
+			& > .user{
+				.face{
+					.face-wrapper{
+						background: $color-green;
+						border: 2px solid #ffffff;
+				    position: relative;
+				    box-shadow: 0 10px 40px -10px grey;
+					}
+				}
+			}
+		}
+	}
+	&.overview{
+		.head{
+			margin: 2rem 0 1rem 0;
+			h2 {
+				font-size: 1.5rem;
+				color: $color-grey-dark;
+
+				i {
+					color: $color-green;
+			    width: 43px;
+			    text-align: center;
+			    font-size: 25px;
+			    vertical-align: text-bottom;
+				}
+			}
+		}
+	}
+}
+
+
 .cart .mustReload {
 	visibility:hidden;
 }
@@ -6119,12 +6351,19 @@ input[type=email][required].ng-touched.ng-valid + span:before
   line-height: 1.5;
   padding: 5rem 0;
 
+	.searchform{
+		width: 280px;
+		margin: 20px auto 0 auto;
+	}
+
 	i.ico, strong {
 		color: black;
 	}
 
 	i.ico {
 		font-size: 64px;
+		width: 64px;
+		margin: 0 auto;
 	}
 
 	strong {
@@ -7577,6 +7816,11 @@ body.article{
 }
 body.homepage .home .pw {
 	width: $page-width-footer;
+}
+
+.page-width{
+	width: $page-width-footer;
+	margin: 0 auto;
 }
 
 body.article{

@@ -84,7 +84,7 @@
 											<div><strike><?=Helper::cashFormat($d[prices][old_sum])?> Ft</strike></div>
 											<div><strong><?=Helper::cashFormat($d[prices][current_sum])?> Ft</strong></div>
 										<? else: ?>
-										<span><?=Helper::cashFormat($d[prices][current_sum])?> Ft</span>
+										<strong><?=Helper::cashFormat($d[prices][current_sum])?> Ft</strong>
 										<? endif; ?>
 									</td>
 									<td class="center action">
@@ -102,8 +102,6 @@
 								//$calc_final_total = ($calc_final_total -(($this->user[kedvezmeny]/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
 								?>
 								</div>
-
-
 							</tbody>
 						</table>
 						<? if( $this->not_reached_min_price_text ): ?>

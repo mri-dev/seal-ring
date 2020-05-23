@@ -113,28 +113,28 @@ class Users
 		$kedvezmeny 	= 0;
 		$torzsvasarloi_kedvezmeny = 0;
 		$referer_allow 	= false;
-		$getby 			= 'email';
+		$getby = 'email';
 		$mid = \Helper::getMachineID();
 		$ajaxrequest = ( strpos($_GET['tag'], 'ajax') !== false) ? true : false;
 
-		$ret[options] 	= $arg;
+		$ret['options'] 	= $arg;
 
 		$user = ( !$arg['user'] ) 	? $this->user : $arg['user'];
 		$getby = ( !$arg['userby'] ) ? $getby 	: $arg['userby'];
 
 		if(!$user) return false;
 
-		$ret[data] 	= ($user) ? $this->getData($user, $getby) : false;
-		$ret[email] = $ret[data][email];
+		$ret['data'] 	= ($user) ? $this->getData($user, $getby) : false;
+		$ret['email'] = $ret['data']['email'];
 
 
-		if( !$ret[data] ) {
+		if( !$ret['data'] ) {
 			unset($_SESSION['user_email']);
 			return false;
 		}
 
-		$ret[szallitasi_adat] = $this->getSzallitasiAdatok($ret['data']['ID']);
-		$ret[szamlazasi_adat] = $this->getSzamlazasiAdatok($ret['data']['ID']);
+		$ret['szallitasi_adat'] = $this->getSzallitasiAdatok($ret['data']['ID']);
+		$ret['szamlazasi_adat'] = $this->getSzamlazasiAdatok($ret['data']['ID']);
 
 		// Ha hiányzik az adat
 		if( ( !$ret[szallitasi_adat] || !$ret[szamlazasi_adat] ) && !$this->is_cp && !$ajaxrequest) {
@@ -894,6 +894,14 @@ class Users
 		$data = array_merge($data, $detailslist);
 
 		$data['price_group_data'] = $this->getPriceGroupes( $data['price_group'] );
+
+		// Piktoname
+		$piktoname = '';
+		$xname = explode(" ", trim($data['nev']));
+		foreach ((array)$xname as $inev ) {
+			$piktoname .= substr($inev, 0, 1);
+		}
+		$data['piktoname'] = $piktoname;
 
 		return $data;
 	}
