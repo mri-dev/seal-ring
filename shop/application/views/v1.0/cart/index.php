@@ -45,7 +45,28 @@
 								</div>
 							</div>
 						</div>
+						<div class="pre-before-order user-logged">
+							<div class="szamlazas_info">
+								<h3>Számlázási adatok</h3>
+							</div>
+							<div class="szallitas_info">
+								<h3>Szállítási adatok</h3>
+							</div>
+						</div>
 						<div class="head"><h2><i class="fa fa-truck"></i> Átvétel módja</h2></div>
+						<div class="transmod <?=($this->user['data']['szallitas_mod_name'])?'':'not-valid'?>">
+							<div class="wrapper">
+								<?php if ($this->user['data']['szallitas_mod_name']): ?>
+								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
+								<div class="title"><?=$this->user['data']['szallitas_mod_name']['nev']?></div>
+								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<?php else: ?>
+								<div class="st"><i class="fa fa-times"></i> </div>
+								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
+								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<?php endif; ?>
+							</div>
+						</div>
 						<div class="head"><h2><i class="fa fa-money"></i> Fizetés módja</h2></div>
 						<div class="head"><h2><i class="fa fa-comment-o"></i> Megjegyzés a megrendeléshez</h2></div>
 						<div class="pre-before-order user-logged order-comment">

@@ -885,6 +885,14 @@ class Users
 
 		$details = $this->db->query($q = "SELECT nev, ertek FROM ".self::TABLE_DETAILS_NAME." WHERE fiok_id = ".$data['ID'].";");
 
+		if ($data['szallitas_mod_id'] != '') {
+			$data['szallitas_mod_name'] = $this->db->squery("SELECT nev, ido, koltseg, osszeghatar FROM shop_szallitasi_mod WHERE allapot = 1 and ID = :id", array('id' => (int)$data['szallitas_mod_id']))->fetch(\PDO::FETCH_ASSOC);
+		}
+
+		if ($data['fizetes_mod_id'] != '') {
+			$data['fizetes_mod_name'] = $this->db->squery("SELECT nev FROM shop_fizetesi_modok WHERE allapot = 1 and ID = :id", array('id' => (int)$data['fizetes_mod_id']))->fetch(\PDO::FETCH_ASSOC);
+		}
+
 		if ( $details->rowCount() != 0 ) {
 			foreach ($details->fetchAll(\PDO::FETCH_ASSOC) as $det) {
 				$detailslist[$det['nev']] = $det['ertek'];

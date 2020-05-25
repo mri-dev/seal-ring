@@ -62,7 +62,6 @@
 												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=$d[allapot]?></span> &nbsp;&nbsp;
 												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> <?=$d[szallitasIdo]?></span>
 											</div>
-
 										</div>
 									</td>
 									<td class="center">
