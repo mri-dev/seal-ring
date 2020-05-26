@@ -3980,6 +3980,13 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 		}
 	}
 
+	.szamlazas_info,
+	.szallitas_info{
+		& > .wrapper{
+			background: white;
+		}
+	}
+
 	.transmod {
 		& > .wrapper {
 			display: -webkit-box;
@@ -4020,9 +4027,31 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 				color: black;
 				font-weight: bold;
 				padding: 0 20px;
+
+				.transtime{
+					font-weight: normal;
+					margin: 0 10px;
+					color: #5b5b5b;
+    			font-size: 1rem;
+				}
 			}
 			.change {
 				padding: 0 20px;
+			}
+	 }
+
+	 &.not-valid{
+		 	& > .wrapper {
+				.st {
+					.wrap {
+						background: #fb5959;
+					}
+				}
+				.title{
+					color: #bd3737;
+			    font-weight: normal;
+			    font-style: italic;
+				}
 			}
 	 }
  }

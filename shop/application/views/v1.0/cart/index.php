@@ -47,10 +47,184 @@
 						</div>
 						<div class="pre-before-order user-logged">
 							<div class="szamlazas_info">
-								<h3>Számlázási adatok</h3>
+								<div class="wrapper">									
+									<h3>Számlázási adatok</h3>
+										<? if($this->orderExc && in_array(1, $this->orderMustFillStep)): ?>
+											<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!</span></div>
+										<? else: ?>
+										<div class="order-contact-info">
+											<div class="row np">
+													<div class="col-sm-5">
+															<strong>Név</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_nev']?>
+														</div>
+												</div>
+												<?php if ( $this->user['data']['szamlazas_adoszam'] != '' ): ?>
+												<div class="row np">
+														<div class="col-sm-5">
+																<strong>Adószám</strong>
+															</div>
+															<div class="col-sm-7 right">
+																<?=$this->user['data']['szamlazas_adoszam']?>
+															</div>
+													</div>
+												<?php endif; ?>
+												<?php if ( $this->user['data']['szamlazas_kerulet'] != '' ): ?>
+												<div class="row np">
+													<div class="col-sm-5">
+															<strong>Kerület</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_kerulet']?>
+														</div>
+												</div>
+												<?php endif; ?>
+												<div class="row np">
+													<div class="col-sm-5">
+															<strong>Település</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_irsz']?> <?=$this->user['data']['szamlazas_city']?>
+														</div>
+												</div>
+												<div class="row np">
+													<div class="col-sm-7">
+														<strong>Cím</strong> <br>
+														<em>(közterület neve, közterület jellege, házszám)</em>
+													</div>
+													<div class="col-sm-5 right">
+														<?=$this->user['data']['szamlazas_kozterulet_nev']?> <?=$this->user['data']['szamlazas_kozterulet_jelleg']?> <?=$this->user['data']['szamlazas_hazszam']?>
+													</div>
+												</div>
+												<?php if ( $this->user['data']['szamlazas_epulet'] != '' ): ?>
+												<div class="row np">
+													<div class="col-sm-5">
+															<strong>Épület</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_epulet']?>
+														</div>
+												</div>
+												<?php endif; ?>
+												<?php if ( $this->user['data']['szamlazas_emelet'] != '' ): ?>
+												<div class="row np">
+													<div class="col-sm-5">
+															<strong>Emelet</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_emelet']?>
+														</div>
+												</div>
+												<?php endif; ?>
+												<?php if ( $this->user['data']['szamlazas_ajto'] != '' ): ?>
+												<div class="row np">
+													<div class="col-sm-5">
+															<strong>Ajtó</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szamlazas_ajto']?>
+														</div>
+												</div>
+												<?php endif; ?>
+											</div>
+											<? endif; ?>
+								</div>
 							</div>
 							<div class="szallitas_info">
-								<h3>Szállítási adatok</h3>
+								<div class="wrapper">
+									<h3>Szállítási adatok</h3>
+									<? if($this->orderExc && in_array(1, $this->orderMustFillStep)): ?>
+										<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!</span></div>
+									<? else: ?>
+									<div class="order-contact-info">
+										<div class="row np">
+												<div class="col-sm-5">
+														<strong>Név</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_nev']?>
+													</div>
+											</div>
+											<?php if ( $this->user['data']['szallitas_adoszam'] != '' ): ?>
+											<div class="row np">
+													<div class="col-sm-5">
+															<strong>Adószám</strong>
+														</div>
+														<div class="col-sm-7 right">
+															<?=$this->user['data']['szallitas_adoszam']?>
+														</div>
+												</div>
+											<?php endif; ?>
+											<?php if ( $this->user['data']['szallitas_kerulet'] != '' ): ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Kerület</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_kerulet']?>
+													</div>
+											</div>
+											<?php endif; ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Település</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_irsz']?> <?=$this->user['data']['szallitas_city']?>
+													</div>
+											</div>
+											<div class="row np">
+												<div class="col-sm-7">
+													<strong>Cím</strong> <br>
+													<em>(közterület neve, közterület jellege, házszám)</em>
+												</div>
+												<div class="col-sm-5 right">
+													<?=$this->user['data']['szallitas_kozterulet_nev']?> <?=$this->user['data']['szallitas_kozterulet_jelleg']?> <?=$this->user['data']['szallitas_hazszam']?>
+												</div>
+											</div>
+											<?php if ( $this->user['data']['szallitas_epulet'] != '' ): ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Épület</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_epulet']?>
+													</div>
+											</div>
+											<?php endif; ?>
+											<?php if ( $this->user['data']['szallitas_emelet'] != '' ): ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Emelet</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_emelet']?>
+													</div>
+											</div>
+											<?php endif; ?>
+											<?php if ( $this->user['data']['szallitas_ajto'] != '' ): ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Ajtó</strong>
+													</div>
+													<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_ajto']?>
+													</div>
+											</div>
+											<?php endif; ?>
+											<div class="row np">
+												<div class="col-sm-5">
+														<strong>Telefonszám</strong>
+												</div>
+												<div class="col-sm-7 right">
+														<?=$this->user['data']['szallitas_phone']?>
+												</div>
+											</div>
+										</div>
+										<? endif; ?>
+								</div>
 							</div>
 						</div>
 						<div class="head"><h2><i class="fa fa-truck"></i> Átvétel módja</h2></div>
@@ -58,16 +232,29 @@
 							<div class="wrapper">
 								<?php if ($this->user['data']['szallitas_mod_name']): ?>
 								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
-								<div class="title"><?=$this->user['data']['szallitas_mod_name']['nev']?></div>
+								<div class="title"><?=$this->user['data']['szallitas_mod_name']['nev']?> <? if(!empty($this->user['data']['szallitas_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['szallitas_mod_name']['ido']?> munkanap</span><? endif; ?></div>
 								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
 								<?php else: ?>
-								<div class="st"><i class="fa fa-times"></i> </div>
+								<div class="st"><div class="wrap"><i class="fa fa-times"></i></div></div>
 								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
 								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
 								<?php endif; ?>
 							</div>
 						</div>
 						<div class="head"><h2><i class="fa fa-money"></i> Fizetés módja</h2></div>
+						<div class="transmod <?=($this->user['data']['fizetes_mod_name'])?'':'not-valid'?>">
+							<div class="wrapper">
+								<?php if ($this->user['data']['fizetes_mod_name']): ?>
+								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
+								<div class="title"><?=$this->user['data']['fizetes_mod_name']['nev']?> <? if(!empty($this->user['data']['fizetes_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['fizetes_mod_name']['ido']?> munkanap</span><? endif; ?></div>
+								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<?php else: ?>
+								<div class="st"><div class="wrap"><i class="fa fa-times"></i></div></div>
+								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
+								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<?php endif; ?>
+							</div>
+						</div>
 						<div class="head"><h2><i class="fa fa-comment-o"></i> Megjegyzés a megrendeléshez</h2></div>
 						<div class="pre-before-order user-logged order-comment">
 							<div class="full-line">
