@@ -70,8 +70,45 @@
             </form>
         </div>
 
+        <div class="divider"></div>
+        <a name="transmods"></a>
+        <h4>Vásálási beállítások</h4>
+        <?=$this->msg['transmods']?>
+        <div class="form-rows">
+          <form action="#transmods" method="post">
+            <div class="row">
+              <div class="col-md-3 form-text-md"><strong>Átvétel módja:</strong></div>
+              <div class="col-md-9">
+                <?php $fizmodstr = ''; ?>
+                <select class="form-control" name="szallitas_mod_id">
+                  <?php foreach ((array)$this->atvetelek as $d): if ($this->user['data']['szallitas_mod_id'] == $d['ID']) {
+                    $fizmodstr = $d['fizetesi_mod'];
+                  } ?>
+                  <option value="<?=$d['ID']?>" <?=($this->user['data']['szallitas_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=$d['nev']?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 form-text-md"><strong>Fizetés módja:</strong></div>
+              <div class="col-md-9">
+                <?php $fizetes_mods = ($fizmodstr == '') ? : explode(',', $fizmodstr ); ?>
+                <select class="form-control" name="fizetes_mod_id">
+                  <?php foreach ((array)$this->fizetesek as $d): ?>
+                  <option value="<?=$d['ID']?>" <?=($this->user['data']['fizetes_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=$d['nev']?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 right"><button name="saveTransmods" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+            </div>
+          </form>
+        </div>
+
         <? if($this->user[data][user_group] != \PortalManager\Users::USERGROUP_USER): ?>
         <div class="divider"></div>
+        <a name="ceg"></a>
         <h4>Céges adatok</h4>
         <?=$this->msg['ceg']?>
         <div class="form-rows">
@@ -107,6 +144,7 @@
         <? if( isset( $_GET['missed_details']) && in_array( 'szallitasi', $missed_details) ): ?>
             <?=Helper::makeAlertMsg('pWarning', '<BR><strong>HIÁNYZÓ ADAT:</strong><BR>Kérjük, hogy pótolja a hiányzó SZÁLLÍTÁSI adatait.' );?>
         <? endif; ?>
+        <a name="szallitas"></a>
         <h4>Szállítási adatok</h4>
         <?=$this->msg['szallitasi']?>
         <div class="form-rows">
@@ -155,6 +193,7 @@
         <? if( isset( $_GET['missed_details']) && in_array( 'szamlazasi', $missed_details) ): ?>
             <?=Helper::makeAlertMsg('pWarning', '<BR><strong>HIÁNYZÓ ADAT:</strong><BR>Kérjük, hogy pótolja a hiányzó SZÁMLÁZÁSI adatait.' );?>
         <? endif; ?>
+        <a name="szamlazas"></a>
         <h4>Számlázási adatok</h4>
         <?=$this->msg['szamlazasi']?>
         <div class="form-rows">

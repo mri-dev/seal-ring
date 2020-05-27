@@ -45,9 +45,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="pre-before-order user-logged">
+						<div class="pre-before-order align-top user-logged">
 							<div class="szamlazas_info">
-								<div class="wrapper">									
+								<div class="wrapper">
 									<h3>Számlázási adatok</h3>
 										<? if($this->orderExc && in_array(1, $this->orderMustFillStep)): ?>
 											<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!</span></div>
@@ -128,6 +128,12 @@
 														</div>
 												</div>
 												<?php endif; ?>
+
+												<div class="row np">
+													<div class="col-sm-12 right">
+															<a href="/user/beallitasok/?return=/cart/1/#szamlazas">Módosítás <i class="fa fa-gear"></i></a>
+													</div>
+												</div>
 											</div>
 											<? endif; ?>
 								</div>
@@ -222,6 +228,11 @@
 														<?=$this->user['data']['szallitas_phone']?>
 												</div>
 											</div>
+											<div class="row np">
+												<div class="col-sm-12 right">
+														<a href="/user/beallitasok/?return=/cart/1/#szallitas">Módosítás <i class="fa fa-gear"></i></a>
+												</div>
+											</div>
 										</div>
 										<? endif; ?>
 								</div>
@@ -233,11 +244,11 @@
 								<?php if ($this->user['data']['szallitas_mod_name']): ?>
 								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
 								<div class="title"><?=$this->user['data']['szallitas_mod_name']['nev']?> <? if(!empty($this->user['data']['szallitas_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['szallitas_mod_name']['ido']?> munkanap</span><? endif; ?></div>
-								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="change"><a href="/user/beallitasok/?return=/cart/1/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
 								<?php else: ?>
 								<div class="st"><div class="wrap"><i class="fa fa-times"></i></div></div>
 								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
-								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="change"><a href="/user/beallitasok/?return=/cart/1/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
 								<?php endif; ?>
 							</div>
 						</div>

@@ -60,7 +60,8 @@ class user extends Controller{
 			parent::$pageTitle = $title;
 		}
 
-		function activate(){
+		function activate()
+		{
 			$key = base64_decode($this->view->gets[2]);
 			$key = explode('=',$key);
 
@@ -79,15 +80,40 @@ class user extends Controller{
 				Helper::reload('/user/belepes');
 			}
 
+			$reurl = '/user/beallitasok';
+
+			if ( $_GET['return'] != '' ) {
+				$reurl = $_GET['return'];
+			}
+
+			$atvetelek = $this->db->squery("SELECT * FROM shop_szallitasi_mod WHERE allapot = 1")->fetchAll(\PDO::FETCH_ASSOC);
+			$this->out('atvetelek', $atvetelek);
+
+			$fizetesek = $this->db->squery("SELECT * FROM shop_fizetesi_modok WHERE allapot = 1")->fetchAll(\PDO::FETCH_ASSOC);
+			$this->out('fizetesek', $fizetesek );
+
 			// Watercard reg
 			if(Post::on('addWatercard')){
 				try{
 					$re = $this->User->registerWaterCard( $_POST[watercard][email], $_POST[watercard][userid], $_POST[watercard][id], $_POST[watercard][egyesulet] );
 					$this->view->msg['alapadat'] = Helper::makeAlertMsg('pSuccess',$re);
-					Helper::reload('/user/beallitasok');
+					Helper::reload($reurl);
 				}catch(Exception $e){
 					$this->view->err = true;
 					$this->view->msg['alapadat'] = Helper::makeAlertMsg('pError',$e->getMessage());
+				}
+			}
+
+			// Alapadatok cseréje
+			if(Post::on('saveTransmods'))
+			{
+				try{
+					$re = $this->User->changeUserTransmod( $this->view->user['data']['ID'], $_POST );
+					$this->view->msg['transmods'] = Helper::makeAlertMsg('pSuccess',$re);
+					Helper::reload($reurl);
+				}catch(Exception $e){
+					$this->view->err = true;
+					$this->view->msg['transmods'] = Helper::makeAlertMsg('pError',$e->getMessage());
 				}
 			}
 
@@ -96,18 +122,19 @@ class user extends Controller{
 				try{
 					$re = $this->User->changeUserAdat( $this->view->user['data']['ID'], $_POST );
 					$this->view->msg['alapadat'] = Helper::makeAlertMsg('pSuccess',$re);
-					Helper::reload('/user/beallitasok');
+					Helper::reload($reurl);
 				}catch(Exception $e){
 					$this->view->err = true;
 					$this->view->msg['alapadat'] = Helper::makeAlertMsg('pError',$e->getMessage());
 				}
 			}
+
 			// Céges adatok cseréje
 			if(Post::on('saveCompany')){
 				try{
 					$re = $this->User->changeUserCompanyAdat( $this->view->user['data']['ID'], $_POST );
 					$this->view->msg['ceg'] = Helper::makeAlertMsg('pSuccess',$re);
-					Helper::reload('/user/beallitasok#ceg');
+					Helper::reload($reurl);
 				}catch(Exception $e){
 					$this->view->err = true;
 					$this->view->msg['ceg'] = Helper::makeAlertMsg('pError',$e->getMessage());
@@ -119,7 +146,7 @@ class user extends Controller{
 				try{
 					$re = $this->User->changeSzallitasiAdat( $this->view->user['data']['ID'], $_POST );
 					$this->view->msg['szallitasi'] = Helper::makeAlertMsg('pSuccess',$re);
-					Helper::reload('/user/beallitasok');
+					Helper::reload($reurl);
 				}catch(Exception $e){
 					$this->view->err = true;
 					$this->view->msg['szallitasi'] = Helper::makeAlertMsg('pError',$e->getMessage());
@@ -130,7 +157,7 @@ class user extends Controller{
 				try{
 					$re = $this->User->changeSzamlazasiAdat( $this->view->user['data']['ID'], $_POST );
 					$this->view->msg['szamlazasi'] = Helper::makeAlertMsg('pSuccess',$re);
-					Helper::reload('/user/beallitasok');
+					Helper::reload($reurl);
 				}catch(Exception $e){
 					$this->view->err = true;
 					$this->view->msg['szamlazasi'] = Helper::makeAlertMsg('pError',$e->getMessage());
@@ -180,7 +207,7 @@ class user extends Controller{
 
 				try{
 					$re = $this->User->login($_POST);
-					Helper::reload('/');
+					Helper::reload( $reurl );
 				}catch(Exception $e){
 					$err = $e->getCode();
 					$this->view->msg = Helper::makeAlertMsg('pError',$e->getMessage());
@@ -210,10 +237,17 @@ class user extends Controller{
 			}
 		}
 
-		function logout(){
-			unset($_SESSION[user_email]);
+		function logout()
+		{
+			unset($_SESSION['user_email']);
 
-			Helper::reload($_SERVER[HTTP_REFERER]);
+			$reurl = $_SERVER['HTTP_REFERER'];
+
+			if ( $_GET['return'] != '' ) {
+				$reurl = $_GET['return'];
+			}
+
+			Helper::reload( $reurl );
 		}
 
 		function __destruct(){

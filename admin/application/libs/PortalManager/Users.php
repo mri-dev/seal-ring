@@ -735,6 +735,20 @@ class Users
 		}
 	}
 
+	function changeUserTransmod($userID, $post){
+		extract($post);
+
+		$this->db->update(
+			self::TABLE_NAME,
+			array(
+				'fizetes_mod_id' => (int)$fizetes_mod_id,
+				'szallitas_mod_id' => (int)$szallitas_mod_id
+			),
+			"ID = $userID"
+		);
+		return "Változásokat elmentettük. <a href=''>Frissítés</a>";
+	}
+
 	function changeUserAdat($userID, $post){
 		extract($post);
 		if($nev == '') throw new \Exception('A neve nem lehet üress. Kérjük írja be a nevét!');
