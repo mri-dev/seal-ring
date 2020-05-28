@@ -289,10 +289,12 @@
 						</thead>
 						<?php if (count($k['items']) > 0): ?>
 						<tbody>
+							<?php $calc_final_total = 0; ?>
 							<? foreach($k['items'] as $d):
 								if($d['szuper_akcios'] == 1){
 									$szuperakcios_termekek_ara += $d['sum_ar'];
 								}
+								$calc_final_total += $d['sum_ar'];
 								if($d['pickpackszallitas'] == 0) $no_ppp_itemNum++;
 								if($d['elorendelheto'] == 1) $preOrder_item++;
 							?>
@@ -347,10 +349,50 @@
 								</td>
 							</tr>
 							<? endforeach;
+								$szallias_informacio = $this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString[2][atvetel])];
+								$szallitasiKoltseg = 0;
+								//$szallitasiKoltseg 	= (int)$szallias_informacio['koltseg'];
+								// Ingyenes szállítás, ha túlhalad az összeghatáron, amikortól már ingyenes a szállítás
+								/*
+								if( $szallias_informacio['osszeghatar'] != '0' && ($k['totalPrice']-$szuperakcios_termekek_ara) > (int) $szallias_informacio['osszeghatar'] ){
+									$szallitasiKoltseg = 0;
+								}
+								*/
+								//$kedvezmeny 		= ($this->user && $this->user['kedvezmeny'] > 0) ? (($k['totalPrice'] - $szuperakcios_termekek_ara) * (($this->user['kedvezmeny']/100))) : 0;
+								$vegosszeg = $calc_final_total;
+
+
 							// Végső ár kiszámolása
-							$calc_final_total = $k[totalPrice] - $szuperakcios_termekek_ara;
+							//$calc_final_total = $k['totalPrice'] - $szuperakcios_termekek_ara;
 							//$calc_final_total = ($calc_final_total -(($this->user[kedvezmeny]/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
 							?>
+							<tr class="price-overview">
+								<td class="nocell"></td>
+								<td colspan="2" class="right">Termékek ára</td>
+								<td colspan="2" class="center">
+									<strong><span class="ar"><?=($this->kosar['kedvezmeny'] > 0 && ($k['discount']['partner'] || $k['discount']['coupon'])) ? Helper::cashFormat($k['totalPrice_before_discount']) : Helper::cashFormat($k['totalPrice'])?></span> Ft</strong>
+								</td>
+							</tr>
+							<tr class="price-overview">
+								<td class="nocell"></td>
+								<td colspan="2" class="right">Kedvezmény</td>
+								<td colspan="2" class="center">
+									<span class="a"><span class="ar"><?=($this->kosar['kedvezmeny']> 0)? '<span class="kedv">'.Helper::cashFormat($this->kosar['kedvezmeny']).' Ft</span>':'</span>&mdash;'?></span>
+								</td>
+							</tr>
+							<?
+								if($szallitasiKoltseg > 0){	$vegosszeg += $szallitasiKoltseg; }
+								//if($kedvezmeny > 0){	$vegosszeg -= $kedvezmeny; }
+							?>
+							<tr class="price-overview final">
+								<td class="nocell"></td>
+								<td colspan="2" class="right">Végösszeg</td>
+								<td colspan="2" class="center finalpricetd">
+									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?></span> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> <span style="font-size: 0.9rem !important;">Ft</span></span></strong>
+									<input type="hidden" name="kedvezmeny" value="<?=($this->kosar['kedvezmeny'] > 0)?1:0?>" />
+									<input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
+								</td>
+							</tr>
 							</div>
 						</tbody>
 						<?php else: ?>
@@ -389,17 +431,57 @@
 							<i class="fa fa-exclamation-triangle"></i> A kosárban lévő termékeknél <strong><?=$k['unstocked_items']['total']?> db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.
 						</div>
 						<?php endif; ?>
+						<? if( $this->not_reached_min_price_text ): ?>
+						<div class="not-enought-price-for-order"><?=$this->not_reached_min_price_text?></div>
+						<? endif; ?>
 					<?php endif; ?>
 
 					<?php if ( $this->gets[1] == '1' ): ?>
 						<div class="order-stepper overview">
 							<div class="head"><h2><i class="fa fa-shield"></i> Adatvédelmi Tájékoztató és Szállítási feltételek elfogadása</h2></div>
-							<div class="pre-before-order user-logged">
-								<div class="">
-									bla bla
+							<div class="pre-before-order transport-info-div user-logged">
+								<div class="wrapper">
+									<div class="transport-info">
+										<div class="group">
+											<div class="g">
+												<div class="gline">
+													<div class="h">Bruttó 10.000 Ft végösszeg alatt:</div>
+													<div class=""><u>Vásárlóknak:</u> <strong>+ 2 000 Ft + ÁFA</strong> utánvét költséggel.</div>
+													<div class=""><u>Szerződött partnerek esetében:</u> <strong>+ 1 200 Ft + ÁFA</strong>.</div>
+												</div>
+												<div class="gline">
+													<div class="h">Bruttó 10.000 Ft végösszeg felett:</div>
+													<div class="">A szállítási díj <strong>INGYENES!</strong></div>
+												</div>
+												<div class="gls"><strong>Rendelését a GLS szállítja ki!</strong></div>
+											</div>
+											<div class="g">
+												<div class="aszflinks">
+													<div class="h">Kérjük, hogy figyelmesen olvassa át az alábbi tájékoztatókat:</div>
+													<div class=""><a target="_blank" href="/p/aszf">> Általános Szerződési Feltételek</a></div>
+													<div class=""><a target="_blank" href="/p/szallitas_feltetelek">> Szállítási Feltételek</a></div>
+													<div class=""><a target="_blank" href="/p/vasarlasi-feltetelek">> Vásárlási Feltételek</a></div>
+													<div class=""><a target="_blank" href="/p/adatvedelmi-tajekoztato">> Adatvédelmi Tájékoztató</a></div>
+												</div>
+												<div class="check">
+													<input type="checkbox" id="transferinfo_ok" name="transferinfo_ok"><label for="transferinfo_ok">* Elolvastam az Általános Szerződési Feltételeket, Szállítási és Adatvédelmi Tájékoztatót!</label>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+						<br>
+						<?php if ($this->canOrder): ?>
+						<div class="order-stepper overview">
+							<div class="pre-before-order finish-order user-logged">
+								<div class="nextbutton center">
+									<button type="submit" name="orderState" value="start">Megrendelés leadása</button>
+								</div>
+							</div>
+						</div>
+						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php if ( empty($this->gets[1]) ): ?>
@@ -424,34 +506,36 @@
 									</div>
 								</div>
 								<?php else: ?>
-									<div class="head">
-										<h2>Bejelentkezve a következő fiókkal</h2>
-									</div>
-									<div class="pre-before-order user-logged">
-										<div class="user">
-											<div class="face">
-												<div class="face-wrapper">
-													<div class="it"><?=$this->user['data']['piktoname']?></div>
+									<?php if (count($k['items']) > 0): ?>
+										<div class="head">
+											<h2>Bejelentkezve a következő fiókkal</h2>
+										</div>
+										<div class="pre-before-order user-logged">
+											<div class="user">
+												<div class="face">
+													<div class="face-wrapper">
+														<div class="it"><?=$this->user['data']['piktoname']?></div>
+													</div>
+												</div>
+												<div class="useroverview">
+													<div class="name">
+														<strong><?=$this->user['data']['nev']?></strong> <?php if ($this->user['data']['user_group'] == 'company' && $this->user['data']['company_name'] != ''): ?>
+														(<?=$this->user['data']['company_name']?>)
+														<?php endif; ?>
+													</div>
+													<div class="email">
+														<?=$this->user['data']['email']?>
+													</div>
+													<div class="action">
+														<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout">Kijelentkezés <i class="fa fa-sign-out"></i></a>
+													</div>
 												</div>
 											</div>
-											<div class="useroverview">
-												<div class="name">
-													<strong><?=$this->user['data']['nev']?></strong> <?php if ($this->user['data']['user_group'] == 'company' && $this->user['data']['company_name'] != ''): ?>
-													(<?=$this->user['data']['company_name']?>)
-													<?php endif; ?>
-												</div>
-												<div class="email">
-													<?=$this->user['data']['email']?>
-												</div>
-												<div class="action">
-													<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout">Kijelentkezés <i class="fa fa-sign-out"></i></a>
-												</div>
+											<div class="nextbutton">
+												<button type="submit" name="orderState" value="start">Tovább a megrendeléshez</button>
 											</div>
 										</div>
-										<div class="nextbutton">
-											<button type="submit" name="orderState" value="start">Tovább a megrendeléshez</button>
-										</div>
-									</div>
+									<?php endif; ?>
 								<?php endif; ?>
 						</div>
 					<?php endif; ?>

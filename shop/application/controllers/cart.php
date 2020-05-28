@@ -64,11 +64,8 @@ class cart extends Controller{
 			$this->view->ppp->megyek 	= $this->ppp->getAreas($this->view->ppp->data);
 			/* */
 
-			$this->view->canOrder 			= false;
-			$this->view->orderMustFillStep 	= array();
-
+			$this->view->canOrder = true;
 			$arg = array();
-
 			/**
 			* Partner kód ellenőrzés
 			* */
@@ -105,52 +102,18 @@ class cart extends Controller{
 				$arg['coupon'] = $coupon;
 			}
 
-			$this->view->kosar 		= $this->shop->cartInfo(Helper::getMachineID(), $arg);
-			$this->view->szallitas 	= $this->shop->getSzallitasiModok();
-			$this->view->fizetes 	= $this->shop->getFizetesiModok();
-
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_1');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_2');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_3');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_4');
+			$this->view->kosar = $this->shop->cartInfo(Helper::getMachineID(), $arg);
 
 			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString[2][ppp_uzlet]);
 
 
-			if ( $this->view->storedString[0][virtual_cash] != "0" && isset($this->view->storedString[0][virtual_cash]) && $this->view->storedString[0][virtual_cash] > $ckosar['totalPrice'] ) {
-				$temp = $this->view->storedString[0];
-				$temp['virtual_cash'] = $ckosar['totalPrice'];
-				setcookie( '__order_step_1poststr', json_encode($temp, JSON_UNESCAPED_UNICODE), time() + 3600 * 48, '/' );
-				Helper::reload('/'.__CLASS__);
+			if($this->view->gets[1] == '2'){
+				//Helper::reload('/'.__CLASS__.'/done/'.$_COOKIE['lastOrderedKey']);
 			}
 
-			if($this->view->gets[1] == '5'){
-				Helper::reload('/'.__CLASS__.'/done/'.$_COOKIE[lastOrderedKey]);
-			}
 
-			if(
-				!empty($this->view->storedString[0]) &&
-				!empty($this->view->storedString[1]) &&
-				!empty($this->view->storedString[2]) &&
-				!empty($this->view->storedString[3])
-			){
-				$this->view->canOrder = true;
-			}else{
-				if(empty($this->view->storedString[0])) $this->view->orderMustFillStep[] = 0;
-				if(empty($this->view->storedString[1])) $this->view->orderMustFillStep[] = 1;
-				if(empty($this->view->storedString[2])) $this->view->orderMustFillStep[] = 2;
-				if(empty($this->view->storedString[3])) $this->view->orderMustFillStep[] = 3;
-			}
-
-			// PickPackPont szállítás esetén, ha nincs kiválasztva a PPP, akkor nem lehet megrendelni
-			if( $this->view->storedString[2][atvetel] == $this->view->settings['flagkey_pickpacktransfer_id'] &&
-				$this->view->storedString[2][ppp_uzlet_n] == ''
-			){
-				$this->view->canOrder = false;
-			}
-
-			$min_price_order = $this->view->settings[order_min_price];
-			if( $this->view->kosar[totalPrice] < $min_price_order ) {
+			$min_price_order = $this->view->settings['order_min_price'];
+			if( $this->view->kosar['totalPrice'] < $min_price_order ) {
 				$this->view->canOrder = false;
 				$this->view->not_reached_min_price_text = 'Minimális vásárlási érték <strong>'.Helper::cashFormat($min_price_order).' Ft</strong>! A kosarában található termékek összesített értéke nem haladja meg ezt az értéket!';
 			}
@@ -160,14 +123,15 @@ class cart extends Controller{
 				$this->view->canOrder = false;
 			}*/
 
-			if(Post::on('orderState')){
+			if(Post::on('orderState'))
+			{
 				/**
 				* Virtuálos egyenleg felhasználás
 				* */
 				// Ha a beírt cash nagyobb mint a rendelkezésre álló
-				if ( $_POST[virtual_cash] > $this->view->user[data][cash]  )
+				if ( $_POST['virtual_cash'] > $this->view->user['data']['cash']  )
 				{
-					$_POST[virtual_cash] = $this->view->user[data][cash];
+					$_POST['virtual_cash'] = $this->view->user['data']['cash'];
 				}
 
 				// Ha a beírt cash nagyobb, mint a kosár összértéke
@@ -194,8 +158,7 @@ class cart extends Controller{
 
 			$this->view->orderStep = (!$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP]) ? 0 : (int)$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP];
 
-
-			if($_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP] && $this->view->gets[1] > $this->view->orderStep){
+			if(isset($_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP]) && $this->view->gets[1] > $this->view->orderStep){
 				Helper::reload('/'.__CLASS__.'/'.$this->view->orderStep);
 			}
 

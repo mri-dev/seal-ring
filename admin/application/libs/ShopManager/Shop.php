@@ -1941,19 +1941,21 @@ class Shop
 	public function doOrderV2($post, $arg = array())
 	{
 		extract($post);
+		$pageslug = 'cart';
 		$errArr = false;
 		$gets 	= \Helper::GET();
 		$step 	= $gets[1];
 		$step 	= (!$step) ? 0 : $step;
 
 		$post_str = json_encode($post, JSON_UNESCAPED_UNICODE);
+		$user = $arg['user'];
 
 		switch($step){
 			case 0:
 				$err 		= false;
 				$inputErr 	= array();
 
-				if( empty($arg['user']) ){
+				if( empty($user) ){
 					$err = 'Bejelentkezés szükséges a vásárlás folytatásához!';
 					$inputErr[] = 'user';
 				}
@@ -1971,129 +1973,82 @@ class Shop
 				$inputErr 	= array();
 
 				// Számlázási adatok check
-				if($szam_nev == ''){
+				if($user['szamlazasi_adat']['nev'] == ''){
 					$err 		= 'Kötelező adat: Számlázási név hiányzik!';
 					$inputErr[] = 'szam_nev';
 				}
-				if($szam_hazszam == ''){
+				if($user['szamlazasi_adat']['hazszam'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Házszám hiányzik!';
 					$inputErr[] = 'szam_hazszam';
 				}
-				if($szam_city == ''){
+				if($user['szamlazasi_adat']['city'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Település hiányzik!';
 					$inputErr[] = 'szam_city';
 				}
-				if($szam_irsz == ''){
+				if($user['szamlazasi_adat']['irsz'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Irányítószám hiányzik!';
 					$inputErr[] = 'szam_irsz';
 				}
-				if($szam_kozterulet_nev == ''){
+				if($user['szamlazasi_adat']['kozterulet_nev'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Közterület neve hiányzik!';
 					$inputErr[] = 'szam_kozterulet_nev';
 				}
-				if($szam_kozterulet_jelleg == ''){
+				if($user['szamlazasi_adat']['kozterulet_jelleg'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Közterület jellege hiányzik!';
 					$inputErr[] = 'szam_kozterulet_jelleg';
 				}
 
 				// Szállítási
-				if($szall_nev == ''){
+				if($user['szallitasi_adat']['nev'] == ''){
 					$err 		= 'Kötelező adat: Szállítási név hiányzik!';
 					$inputErr[] = 'szall_nev';
 				}
-				if($szall_hazszam == ''){
+				if($user['szallitasi_adat']['hazszam'] == ''){
 					$err 		= 'Kötelező adat: Számlázási cím / Házszám hiányzik!';
 					$inputErr[] = 'szall_hazszam';
 				}
-				if($szall_city == ''){
+				if($user['szallitasi_adat']['city'] == ''){
 					$err 		= 'Kötelező adat: Szállítási cím / Település hiányzik!';
 					$inputErr[] = 'szall_city';
 				}
-				if($szall_irsz == ''){
+				if($user['szallitasi_adat']['irsz'] == ''){
 					$err 		= 'Kötelező adat: Szállítási cím / Irányítószám hiányzik!';
 					$inputErr[] = 'szall_irsz';
 				}
-				if($szall_kozterulet_nev == ''){
+				if($user['szallitasi_adat']['kozterulet_nev'] == ''){
 					$err 		= 'Kötelező adat: Szállítási cím / Közterület neve hiányzik!';
 					$inputErr[] = 'szall_kozterulet_nev';
 				}
-				if($szall_kozterulet_jelleg == ''){
+				if($user['szallitasi_adat']['kozterulet_jelleg'] == ''){
 					$err 		= 'Kötelező adat: Szállítási cím / Közterület jellege hiányzik!';
 					$inputErr[] = 'szall_kozterulet_jelleg';
 				}
-				if($szall_phone == ''){
-					$err 		= 'Kötelező adat: Telefonszám hiányzik!';
+
+				if($user['szallitasi_adat']['phone'] == ''){
+					$err 		= 'Kötelező adat: Telefonszám hiányzik a szállítási beállításokban!';
 					$inputErr[] = 'szall_phone';
 				}
 
-				if($err){
-					$errArr[input] = $inputErr;
-					throw new OrderException($err, $errArr);
-				}else{
-					setcookie(self::ORDER_COOKIE_KEY_STEP,$step+1,time()+3600*24,'/');
-					\Helper::setStoredPOSTData('order_step_'.($step+1),$post_str);
-				}
-			break;
-			case 2:
-				$err 		= false;
-				$inputErr 	= array();
-				if($atvetel == ''){
-					$err 		= 'Átvételi mód kiválasztása kötelező!';
-					$inputErr[] = 'atvetel';
-				}
-
-				if($err){
-					$errArr[input] = $inputErr;
-					throw new OrderException($err, $errArr);
-				}else{
-					setcookie(self::ORDER_COOKIE_KEY_STEP,$step+1,time()+3600*24,'/');
-
-					\Helper::setStoredPOSTData( 'order_step_'.($step+1) ,$post_str );
-				}
-			break;
-			case 3:
-				$err 		= false;
-				$inputErr 	= array();
-				if($fizetes == ''){
-					$err 		= 'Fizetési mód kiválasztása kötelező!';
-					$inputErr[] = 'fizetes';
-				}
-				if($err){
-					$errArr[input] = $inputErr;
-					throw new OrderException($err, $errArr);
-				}else{
-					setcookie(self::ORDER_COOKIE_KEY_STEP,$step+1,time()+3600*24,'/');
-					\Helper::setStoredPOSTData('order_step_'.($step+1),$post_str);
-				}
-			break;
-			case 4:
-				$mid 	= \Helper::getMachineID();
-				$err 		= false;
-				$inputErr 	= array();
-
 				if ( !$post['transferinfo_ok'] ) {
-					$err 		= 'Megrendelés leadásához el kell fogadni a szállítási feltételeket!';
+					$err 		= 'Megrendelés leadásához el kell fogadni az Általános Szerződési Feltételeket, Szállítási és Adatvédelmi Tájékoztatókat!';
 					$inputErr[] = 'transferinfo_ok';
 				}
 
-				if ( !$post['aszf_ok'] ) {
-					$err 		= 'Megrendelés leadásához el kell fogadni az Általános Szerződési Feltételeket!';
-					$inputErr[] = 'aszf_on';
-				}
-
-				if($err)
+				if( $err )
 				{
-					$errArr[input] = $inputErr;
+					$errArr['input'] = $inputErr;
 					throw new OrderException($err, $errArr);
 				}else
 				{
+					$orderUserID 	= $user['data']['ID'];
 					$go 					= true;
-					$orderID 				= 0;
+					$orderID 			= 0;
+					$email 				= $user['data']['email'];
 					$uid 					= ($orderUserID == '') ? 0 : $orderUserID;
-					$total 					= 0;
-					$pppkod 				= ($ppp_uzlet_str) ? "'".$ppp_uzlet_str."'" : 'NULL';
-					$pp_pont 				= ($pp_selected_point) ? "'".$pp_selected_point."'": 'NULL';
-					$kedvezmeny_ft 			= 0;
+					$total 				= 0;
+					$pppkod 			= ($ppp_uzlet_str) ? "'".$ppp_uzlet_str."'" : 'NULL';
+					$pp_pont 			= ($pp_selected_point) ? "'".$pp_selected_point."'": 'NULL';
+					$kedvezmeny_ft= 0;
 					$allow_partner_discount = false;
 					$allow_coupon_discount 	= false;
 					$referer_partner_id 	= ($referer_partner_id)? $referer_partner_id : NULL;
@@ -2135,6 +2090,7 @@ class Shop
 						}
 					}
 
+					$mid = \Helper::getMachineID();
 					$mid = ($mid == '') ? 0 : $mid;
 
 					$cart = array();
@@ -2158,6 +2114,7 @@ class Shop
 						LEFT OUTER JOIN shop_termek_allapotok as ta ON ta.ID = t.keszletID
 						WHERE 1=1 ";
 
+
 					if ( $uid != 0 ) {
 						$cartqry .= " and (c.gepID = $mid or c.user_id = $uid) ";
 					} else {
@@ -2173,7 +2130,7 @@ class Shop
 
 					$referer_partner_id =($referer_partner_id) ? "'".$referer_partner_id."'" : 'NULL';
 					$coupon_code 		= ($coupon_code) ? "'".$coupon_code."'" : 'NULL';
-					$nettoar = ($arg['user'] && $arg['user']['data']['price_group_data']['groupkey'] == 'beszerzes_netto') ? 1 : 0;
+					$nettoar = ($user && $user['data']['price_group_data']['groupkey'] == 'beszerzes_netto') ? 1 : 0;
 
 					if ($this->settings['price_show_brutto'] == 0 && $nettoar == 0) {
 						$nettoar  = 1;
@@ -2181,10 +2138,13 @@ class Shop
 
 					$uid = ($uid == 0) ? 'NULL' : $uid;
 
+					$atvetel = ($user) ? $user['data']['szallitas_mod_id'] : NULL;
+					$fizetes = ($user) ? $user['data']['fizetes_mod_id'] : NULL;
+
 					// Create new order
 					if($go){
-						$szamlazasi_keys = \Helper::getArrayValueByMatch($post,'szam_');
-						$szallitasi_keys = \Helper::getArrayValueByMatch($post,'szall_');
+						$szamlazasi_keys = $user['szamlazasi_adat'];
+						$szallitasi_keys = $user['szallitasi_adat'];
 						$iq = "INSERT INTO orders(nev,nettoar,azonosito,email,userID,gepID,szallitasiModID,fizetesiModID,kedvezmeny,szallitasi_koltseg,szamlazasi_keys,szallitasi_keys,pickpackpont_uzlet_kod,comment,postapont,referer_code,coupon_code, used_cash) VALUES(
 						'$nev',
 						$nettoar,
@@ -2203,8 +2163,10 @@ class Shop
 						$pp_pont,
 						$referer_partner_id,
 						$coupon_code,
-						$used_cash
+						(int)$used_cash
 						);";
+
+						echo $iq; exit;
 
 						$this->db->query($iq);
 
@@ -2416,16 +2378,18 @@ class Shop
 						}
 
 						// Clear cookies
-						setcookie('__order_step_1poststr',null,time()-3600,'/');
-						setcookie('__order_step_2poststr',null,time()-3600,'/');
-						setcookie('__order_step_3poststr',null,time()-3600,'/');
-						setcookie('__order_step_4poststr',null,time()-3600,'/');
+
+						setcookie( \ShopManager\Shop::ORDER_COOKIE_KEY_STEP, null, time()-3600, '/');
+						setcookie('__order_step_1poststr', null, time()-3600, '/');
+						setcookie('__order_step_2poststr', null, time()-3600, '/');
+						setcookie('__order_step_3poststr', null, time()-3600, '/');
+						setcookie('__order_step_4poststr', null, time()-3600, '/');
 						//setcookie('orderStep',null,time()-3600,'/');
 						setcookie('partner_code',null,time()-3600,'/');
 						setcookie('coupon_code',null,time()-3600,'/');
 
-						setcookie('acceptedOrder',null,time()-3600,'/kosar');
-						setcookie('lastOrderedKey',$accessKey,time()+3600,'/kosar');
+						setcookie('acceptedOrder',null,time()-3600, '/'.$pageslug);
+						setcookie('lastOrderedKey', $accessKey, time()+3600, '/'.$pageslug);
 				}
 			break;
 		}

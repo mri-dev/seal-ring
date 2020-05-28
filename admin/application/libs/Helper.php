@@ -221,7 +221,7 @@
 		}
 
 		static function getFromArrByAssocVal($arr,$by,$val){
-			foreach($arr as $key => $ar){
+			foreach((array)$arr as $key => $ar){
 				if($ar[$by] == $val){
 					$rmkey = $key;
 				}

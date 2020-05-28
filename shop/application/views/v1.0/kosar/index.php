@@ -654,10 +654,10 @@
 	                			$szallitasiKoltseg = 0;
 	                		}
 
-							$kedvezmeny 		= ($this->user && $this->user[kedvezmeny] > 0) ? (($k[totalPrice] - $szuperakcios_termekek_ara) * (($this->user[kedvezmeny]/100))) : 0;
-							$vegosszeg 			= $calc_final_total;
+											$kedvezmeny 		= ($this->user && $this->user[kedvezmeny] > 0) ? (($k[totalPrice] - $szuperakcios_termekek_ara) * (($this->user[kedvezmeny]/100))) : 0;
+											$vegosszeg 			= $calc_final_total;
 
-						?>
+										?>
 	                	<div class="row np" style="margin-top:5px;">
 	                    	<div class="col-sm-6 col1">
 													<div class="head"><h4>Számlázási adatok</h4></div>

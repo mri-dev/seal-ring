@@ -369,7 +369,7 @@ class termekek extends Controller
 								'upDir' 	=> $folder,
 								'fileName' 	=> $imgName,
 								'makeThumbImg' => true,
-								'makeWaterMark' => true,
+								'makeWaterMark' => false,
 								'maxFileSize' => 5150
 							));
 						}catch(Exception $e){
@@ -930,7 +930,7 @@ class termekek extends Controller
 				}
 			}
 			if ($_GET['src'] != '') {
-				$termlist = $terms->prepareList( $arg )->getList();
+				$termlist = $terms->prepareList( $arg )->getList(); 
 				if (isset($_POST['modifyAllTerm']))
 				{
 					try {
