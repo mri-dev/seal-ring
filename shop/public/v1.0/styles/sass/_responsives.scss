@@ -3,6 +3,26 @@
 
 }
 
+@media all and (min-width: 1600px)
+{
+	.pw, .page-width{
+		width: 1500px;
+	}
+	.webshop-product-top .grid-container > .items .item .title h3, .related-products .grid-container > .items .item .title h3{
+		font-size: 1.15em;
+	}
+}
+
+@media all and (min-width: 2000px)
+{
+	.pw, .page-width{
+		width: 1900px;
+	}
+	.webshop-product-top .grid-container > .items .item .title h3, .related-products .grid-container > .items .item .title h3{
+		font-size: 1.35em;
+	}
+}
+
 /* 1024 - 1050 px - MEDIUM */
 @media all and (max-width: 1050px)
 {

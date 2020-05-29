@@ -1,4 +1,4 @@
-<?
+<?php
 use ShopManager\OrderException;
 use Applications\PayU;
 use Applications\Simple;
@@ -26,33 +26,33 @@ class kosar extends Controller{
 			if( $_GET['clear'] == '1' )
 			{
 				$this->shop->clearCart(Helper::getMachineID());
-				Helper::reload('/kosar/');
+				Helper::reload('/'.__CLASS__);
 			}
 
 			// Partner kód mentése
 			if( Post::on('save_partner_code') ) {
-				setcookie( 'partner_code', $_POST['partner_code'], time() + 3600 * 48, '/kosar' );
-				setcookie( 'coupon_code', null, time() - 3600, '/kosar' );
+				setcookie( 'partner_code', $_POST['partner_code'], time() + 3600 * 48, '/'.__CLASS__ );
+				setcookie( 'coupon_code', null, time() - 3600, '/'.__CLASS__ );
 				setcookie( '__order_step_1poststr', null, time() - 3600, '/' );
-				Helper::reload('/kosar/');
+				Helper::reload('/'.__CLASS__);
 			}
 
 			// Partner kód mentése
 			if( Post::on('save_coupon_code') ) {
-				setcookie( 'coupon_code', $_POST['coupon_code'], time() + 3600 * 48, '/kosar' );
-				setcookie( 'partner_code', null, time() - 3600, '/kosar' );
+				setcookie( 'coupon_code', $_POST['coupon_code'], time() + 3600 * 48, '/'.__CLASS__ );
+				setcookie( 'partner_code', null, time() - 3600, '/'.__CLASS__ );
 				setcookie( '__order_step_1poststr', null, time() - 3600, '/' );
-				Helper::reload('/kosar/');
+				Helper::reload('/'.__CLASS__);
 			}
 
 			if( Post::on('save_vr_cash') ) {
 				if ( $_POST['virtual_cash'] > $ckosar['totalPrice'] ) {
 					$_POST['virtual_cash'] = $ckosar['totalPrice'];
 				}
-				setcookie( 'coupon_code', null, time() - 3600, '/kosar' );
-				setcookie( 'partner_code', null, time() - 3600, '/kosar' );
+				setcookie( 'coupon_code', null, time() - 3600, '/'.__CLASS__ );
+				setcookie( 'partner_code', null, time() - 3600, '/'.__CLASS__ );
 				setcookie( '__order_step_1poststr', json_encode($_POST, JSON_UNESCAPED_UNICODE), time() + 3600 * 48, '/' );
-				Helper::reload('/kosar/');
+				Helper::reload('/'.__CLASS__);
 			}
 
 			/* * /
@@ -64,11 +64,16 @@ class kosar extends Controller{
 			$this->view->ppp->megyek 	= $this->ppp->getAreas($this->view->ppp->data);
 			/* */
 
-			$this->view->canOrder 			= false;
-			$this->view->orderMustFillStep 	= array();
-
+			$this->view->canOrder = true;
 			$arg = array();
 
+			if (!$this->view->user) {
+				$this->view->canOrder = false;
+			}
+
+			if (!$this->view->user && $this->gets[1] == 1 ) {
+				Helper::reload('/'.__CLASS__);
+			}
 			/**
 			* Partner kód ellenőrzés
 			* */
@@ -105,52 +110,12 @@ class kosar extends Controller{
 				$arg['coupon'] = $coupon;
 			}
 
-			$this->view->kosar 		= $this->shop->cartInfo(Helper::getMachineID(), $arg);
-			$this->view->szallitas 	= $this->shop->getSzallitasiModok();
-			$this->view->fizetes 	= $this->shop->getFizetesiModok();
-
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_1');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_2');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_3');
-			$this->view->storedString[] = Helper::getbackPOSTData('order_step_4');
+			$this->view->kosar = $this->shop->cartInfo(Helper::getMachineID(), $arg);
 
 			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString[2][ppp_uzlet]);
 
-
-			if ( $this->view->storedString[0][virtual_cash] != "0" && isset($this->view->storedString[0][virtual_cash]) && $this->view->storedString[0][virtual_cash] > $ckosar['totalPrice'] ) {
-				$temp = $this->view->storedString[0];
-				$temp['virtual_cash'] = $ckosar['totalPrice'];
-				setcookie( '__order_step_1poststr', json_encode($temp, JSON_UNESCAPED_UNICODE), time() + 3600 * 48, '/' );
-				Helper::reload('/kosar/');
-			}
-
-			if($this->view->gets[1] == '5'){
-				Helper::reload('/kosar/done/'.$_COOKIE[lastOrderedKey]);
-			}
-
-			if(
-				!empty($this->view->storedString[0]) &&
-				!empty($this->view->storedString[1]) &&
-				!empty($this->view->storedString[2]) &&
-				!empty($this->view->storedString[3])
-			){
-				$this->view->canOrder = true;
-			}else{
-				if(empty($this->view->storedString[0])) $this->view->orderMustFillStep[] = 0;
-				if(empty($this->view->storedString[1])) $this->view->orderMustFillStep[] = 1;
-				if(empty($this->view->storedString[2])) $this->view->orderMustFillStep[] = 2;
-				if(empty($this->view->storedString[3])) $this->view->orderMustFillStep[] = 3;
-			}
-
-			// PickPackPont szállítás esetén, ha nincs kiválasztva a PPP, akkor nem lehet megrendelni
-			if( $this->view->storedString[2][atvetel] == $this->view->settings['flagkey_pickpacktransfer_id'] &&
-				$this->view->storedString[2][ppp_uzlet_n] == ''
-			){
-				$this->view->canOrder = false;
-			}
-
-			$min_price_order = $this->view->settings[order_min_price];
-			if( $this->view->kosar[totalPrice] < $min_price_order ) {
+			$min_price_order = $this->view->settings['order_min_price'];
+			if( $this->view->kosar['totalPrice'] < $min_price_order ) {
 				$this->view->canOrder = false;
 				$this->view->not_reached_min_price_text = 'Minimális vásárlási érték <strong>'.Helper::cashFormat($min_price_order).' Ft</strong>! A kosarában található termékek összesített értéke nem haladja meg ezt az értéket!';
 			}
@@ -160,47 +125,41 @@ class kosar extends Controller{
 				$this->view->canOrder = false;
 			}*/
 
-			if(Post::on('orderState')){
+			if(Post::on('orderState'))
+			{
 				/**
 				* Virtuálos egyenleg felhasználás
 				* */
 				// Ha a beírt cash nagyobb mint a rendelkezésre álló
-				if ( $_POST[virtual_cash] > $this->view->user[data][cash]  )
+				if ( $_POST['virtual_cash'] > $this->view->user['data']['cash']  )
 				{
-					$_POST[virtual_cash] = $this->view->user[data][cash];
+					$_POST['virtual_cash'] = $this->view->user['data']['cash'];
 				}
 
 				// Ha a beírt cash nagyobb, mint a kosár összértéke
-				if ( $_POST[virtual_cash] > $this->view->kosar[totalPrice] )
+				if ( $_POST['virtual_cash'] > $this->view->kosar['totalPrice'] )
 				{
-					$_POST[virtual_cash] = $this->view->kosar[totalPrice];
+					$_POST['virtual_cash'] = $this->view->kosar['totalPrice'];
 				}
 
 				// Kupon és partnerkód eltávolítása
-				if ( isset($_POST[virtual_cash]) && $_POST[virtual_cash] > 0 )
+				if ( isset($_POST['virtual_cash']) && $_POST['virtual_cash'] > 0 )
 				{
-					setcookie("coupon_code", 	null, time()-3600, "/kosar");
-					setcookie("partner_code", 	null, time()-3600, "/kosar");
+					setcookie("coupon_code", 	null, time()-3600, "/".__CLASS__);
+					setcookie("partner_code", 	null, time()-3600, "/".__CLASS__);
 				}
 
 				try{
-					$step = $this->shop->doOrder($_POST, array( 'user' => $this->view->user ));
-					Helper::reload('/kosar/'.$step.'#step');
+					$step = $this->shop->doOrderV2($_POST, array( 'user' => $this->view->user ));
+					if ($step == 2) {
+						Helper::reload('/'.__CLASS__.'/done/'.$_COOKIE['lastOrderedKey']);
+					} else {
+						Helper::reload('/'.__CLASS__.'/'.$step.'#step');
+					}
 				}catch(OrderException $e){
 					$this->view->orderExc = $e->getErrorData();
 					$this->out( 'msg', \Helper::makeAlertMsg('pError', $this->view->orderExc['msg']) );
 				}
-			}
-
-			$this->view->orderStep = (!$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP]) ? 0 : (int)$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP];
-
-
-			if($_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP] && $this->view->gets[1] > $this->view->orderStep){
-				Helper::reload('/kosar/'.$this->view->orderStep);
-			}
-
-			if($this->view->orderStep == 0 && $this->view->gets[1] != ''){
-				Helper::reload('/kosar/');
 			}
 
 			// SEO Információk

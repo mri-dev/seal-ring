@@ -1941,7 +1941,7 @@ class Shop
 	public function doOrderV2($post, $arg = array())
 	{
 		extract($post);
-		$pageslug = 'cart';
+		$pageslug = 'kosar';
 		$errArr = false;
 		$gets 	= \Helper::GET();
 		$step 	= $gets[1];
@@ -2138,8 +2138,11 @@ class Shop
 
 					$uid = ($uid == 0) ? 'NULL' : $uid;
 
+					$nev = $user['data']['nev'];
 					$atvetel = ($user) ? $user['data']['szallitas_mod_id'] : NULL;
 					$fizetes = ($user) ? $user['data']['fizetes_mod_id'] : NULL;
+
+					$used_cash = (int)$used_cash;
 
 					// Create new order
 					if($go){
@@ -2163,10 +2166,8 @@ class Shop
 						$pp_pont,
 						$referer_partner_id,
 						$coupon_code,
-						(int)$used_cash
+						$used_cash
 						);";
-
-						echo $iq; exit;
 
 						$this->db->query($iq);
 

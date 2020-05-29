@@ -32,10 +32,10 @@ class termekek extends Controller {
 				$item_limit = (int)trim($_GET['itemlimit']);
 			}
 
-			$list_type = ($list_type == '') ? 'grid' : $list_type;
+			$list_type = ($list_type == '') ? 'list' : $list_type;
 			$this->out('list_type', $list_type);
 
-			$item_limit = ($item_limit == '') ? 40 : $item_limit;
+			$item_limit = ($item_limit == '') ? 200 : $item_limit;
 			$this->out('item_limit', $item_limit);
 
 			// Template

@@ -99,8 +99,8 @@
                               <div class="input-group">
                                 <span class="input-group-addon">Rendezés</span>
                                 <select class="form-control" name="order" onchange="$('#formfilter').submit()">
-                                  <option value="" selected="selected">Méret szerint</option>
-                                  <option value="nev_ASC" <?=($_GET['order'] == 'nev_ASC'?'selected="selected"':'')?>>Név: A-Z</option>
+                                  <option value="size_ASC" <?=($_GET['order'] == 'size_ASC'?'selected="selected"':'')?>>Méret szerint</option>
+                                  <option value="nev_ASC" <?=(empty($_GET['order']) || $_GET['order'] == 'nev_ASC'?'selected="selected"':'')?>>Név: A-Z</option>
                                   <option value="nev_DESC" <?=($_GET['order'] == 'nev_DESC'?'selected="selected"':'')?>>Név: Z-A</option>
                                   <option value="ar_ASC" <?=($_GET['order'] == 'ar_ASC'?'selected="selected"':'')?>>Ár: növekvő</option>
                                   <option value="ar_DESC" <?=($_GET['order'] == 'ar_DESC'?'selected="selected"':'')?>>Ár: csökkenő</option>

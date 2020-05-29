@@ -6,7 +6,7 @@
     <? $this->render('templates/sidebar_menu'); ?>
   </div>
   <div class="product-data">
-    <div class="page-width">
+    <div class="">
       <div class="top-datas">
         <div class="images">
           <?php if (true): ?>
@@ -241,7 +241,7 @@
       </div>
     </div>
     <div class="more-datas">
-      <div class="page-width">
+      <div class="">
         <nav class="tab-header">
           <ul>
             <li class="description active"><a href="#description" onclick="switchTab('description')">Leírás</a></li>

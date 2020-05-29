@@ -4286,6 +4286,15 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 .cart .mustReload {
 	visibility:hidden;
 }
+
+.cart-head a.clear-cart{
+	border: 1px solid #a4d3ca;
+	text-decoration: none;
+  display: block;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
 .cartItems .cart-head {
 	padding: 15px 0;
 

@@ -1050,6 +1050,10 @@ class Products
 					 $add =  " ORDER BY (SELECT SUM(me) as total FROM `stat_nezettseg_termek` WHERE termekID = p.ID GROUP BY termekID) ".$arg['customorder']['how'];
 					 $qry .= $add;
 					break;
+					case 'size':
+					 $add =  " ORDER BY CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ".$arg['customorder']['how'];
+					 $qry .= $add;
+					break;
 				}
 			} else
 			{
@@ -1062,7 +1066,9 @@ class Products
 						$srctxt = $arg['search'][0];
 						$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
 					} else {
-						$add =  " ORDER BY CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
+						// Méret szerinti növekvő
+						//$add =  " ORDER BY CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
+						$add =  " ORDER BY nev ASC ";
 					}
 					//$add =  " ORDER BY ar ASC, fotermek DESC, p.ID DESC ";
 					$qry .= $add;
