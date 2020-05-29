@@ -335,8 +335,9 @@
 					</div>
 				<?php endif; ?>
 
-				<div class="mobile-table-container overflowed cart-items">
-					<table class="table table-bordered">
+				<div class="cart-items">
+					<div class="mobile-table-container overflowed ">
+						<table class="table table-bordered">
 						<thead>
 							<tr class="item-header">
 								<th class="center">Termék</th>
@@ -481,7 +482,7 @@
 						</tbody>
 						<?php endif; ?>
 					</table>
-
+					</div>
 	        <?php
 					// Ha nincs elegendő termék készleten - értesítő
 					if(count($k['items']) > 0): ?>
