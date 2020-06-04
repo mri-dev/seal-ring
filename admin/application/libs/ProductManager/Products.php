@@ -1064,7 +1064,8 @@ class Products
 					if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) )
 					{
 						$srctxt = $arg['search'][0];
-						$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
+						//$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
+						$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
 					} else {
 						// Méret szerinti növekvő
 						//$add =  " ORDER BY CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
@@ -1097,7 +1098,6 @@ class Products
 			if($_GET['devs'] == '1'){
 				echo $qry . '<br>';
 			}
-
 
 		$this->qry_str = $qry;
 		$get = $this->db->query( $qry );

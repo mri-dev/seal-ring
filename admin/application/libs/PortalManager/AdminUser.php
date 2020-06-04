@@ -325,7 +325,7 @@ class AdminUser
 			$q .= " and o.azonosito = '".trim($arg[filters][azonosito])."'"	;
 		}
 		if($arg[filters][access]){
-			$q .= " and o.accessKey = '".trim($arg[filters][access])."'"	;
+			$q .= " and (o.nev LIKE '%".trim($arg[filters][access])."%' or o.email LIKE '%".trim($arg[filters][access])."%')"	;
 		}
 		if($arg[filters][fallapot]){
 			$q .= " and o.allapot = '".trim($arg[filters][fallapot])."'"	;
