@@ -55,15 +55,16 @@ class app extends Controller{
 				break;
 
 				case 'stock':
+					//error_log('/app/sync/stock STARTED');
 					// http://cp.sealring.hu/src/json/arlista.csv
-					$content = $resources->loadCSV( 'http://cp.sealring.hu/src/json/arlista.csv' );
+					//$content = $resources->loadCSV( 'http://cp.sealring.hu/src/json/arlista.csv' );
 
 					/*
 					echo '<pre>';
 					print_r($content);
 					*/
 
-					/* */
+					/* * /
 					if( $content ){
 						foreach( (array)$content as $row ){
 							$cikkszam = $row['Cikkszam'];
@@ -100,55 +101,62 @@ class app extends Controller{
 			// Get doc
 			$doc = $this->db->squery("SELECT ID, filepath, tipus FROM shop_documents WHERE hashname = :hash;", array('hash'=> $hashkey));
 
-			if ($doc->rowCount() != 0)
-			{
-				$data = $doc->fetch(\PDO::FETCH_ASSOC);
-
-				$cc = $this->db->squery("SELECT ID, clicked FROM shop_documents_click WHERE felh_id = :f and doc_id = :d;", array('f'=> $uid, 'd' => $data['ID']));
-
-				// Log
-				if ( true ) {
-					if ($cc->rowCount() == 0 ) {
-						$this->db->insert(
-							'shop_documents_click',
-							array(
-								'felh_id' => $uid,
-								'doc_id' => $data['ID'],
-								'clicked' => 1
-							)
-						);
-					} else {
-						$ccd = $cc->fetch(\PDO::FETCH_ASSOC);
-						$click = (int)$ccd['clicked'] + 1;
-						$this->db->update(
-							'shop_documents_click',
-							array(
-								'clicked' => $click,
-								'last_visited' => NOW
-							),
-							sprintf('ID = %d', (int)$ccd['ID'])
-						);
-					}
-				}
-
-				$link = '/';
-
-				switch ($data['tipus'])
+			if( $uid ){
+				if ($doc->rowCount() != 0)
 				{
-					case 'external':
-						$link = $data['filepath'];
-					break;
-					case 'local':
-						$link = IMGDOMAIN.$data['filepath'];
-					break;
-				}
+					$data = $doc->fetch(\PDO::FETCH_ASSOC);
 
-				// Redirect
-				Helper::reload($link);
-			} else
+					$cc = $this->db->squery("SELECT ID, clicked FROM shop_documents_click WHERE felh_id = :f and doc_id = :d;", array('f'=> $uid, 'd' => $data['ID']));
+
+					// Log
+					if ( true ) {
+						if ($cc->rowCount() == 0 ) {
+							$this->db->insert(
+								'shop_documents_click',
+								array(
+									'felh_id' => $uid,
+									'doc_id' => $data['ID'],
+									'clicked' => 1
+								)
+							);
+						} else {
+							$ccd = $cc->fetch(\PDO::FETCH_ASSOC);
+							$click = (int)$ccd['clicked'] + 1;
+							$this->db->update(
+								'shop_documents_click',
+								array(
+									'clicked' => $click,
+									'last_visited' => NOW
+								),
+								sprintf('ID = %d', (int)$ccd['ID'])
+							);
+						}
+					}
+
+					$link = '/';
+
+					switch ($data['tipus'])
+					{
+						case 'external':
+							$link = $data['filepath'];
+						break;
+						case 'local':
+							$link = IMGDOMAIN.$data['filepath'];
+						break;
+					}
+
+					// Redirect
+					Helper::reload($link);
+				} else
+				{
+					Helper::reload('/');
+				}
+			}else
 			{
 				Helper::reload('/');
 			}
+
+
 		}
 
 		/**
@@ -266,6 +274,7 @@ class app extends Controller{
 		}
 
 		function __destruct(){
+			$this->db = null;
 			// RENDER OUTPUT
 				//parent::bodyHead();					# HEADER
 				//$this->view->render(__CLASS__);		# CONTENT

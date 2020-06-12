@@ -614,7 +614,12 @@ class ResourceImportBase
 	$insert_row = null;
 
     $q = "SELECT
-      tp.*
+      tp.ID,
+      tp.prod_id,
+      tp.termek_nev,
+      tp.termek_leiras,
+      tp.termek_keszlet,
+      tp.beszerzes_netto
     FROM `xml_temp_products` as tp
     WHERE 1=1 and
     tp.origin_id = {$originid}";
@@ -641,7 +646,21 @@ class ResourceImportBase
         list($keszlet_id, $szallitas_id) = $this->pushedProductKeszletSzallitasID($originid, (int)$d['termek_keszlet']);
 
         $irow = array(
-          $d['prod_id'], $d['prod_id'], addslashes($d['termek_nev']), addslashes($d['termek_leiras']), $keszlet_id, $szallitas_id, $d['beszerzes_netto'], 0, 0, $originid, $d['ID'], 1, 0, 0, (int)$d['termek_keszlet']
+          $d['prod_id'],
+          $d['prod_id'],
+          addslashes($d['termek_nev']),
+          addslashes($d['termek_leiras']),
+          $keszlet_id,
+          $szallitas_id,
+          $d['beszerzes_netto'],
+          0,
+          0,
+          $originid,
+          $d['ID'],
+          1,
+          0,
+          0,
+          (int)$d['termek_keszlet']
         );
 
         $insert_row[] = $irow;
@@ -790,13 +809,12 @@ class ResourceImportBase
         xml_import_res_id = {$d[ID]}")->fetch(\PDO::FETCH_ASSOC);
         //if($current_data['ID'] != 2421) continue;
 
-        /*
+        /* * /
         print_r($d);
         echo '<br>';
         print_r($current_data);
         echo '<br><br>';
-        */
-
+        /* */
 
         $d['will_update'] = $this->whatWantUpdate($originid, $d, $current_data);
         $d['current_data'] = $current_data;
@@ -1658,6 +1676,90 @@ class ResourceImportBase
   }
 
   public function autoCategoryConnecter( $originid )
+  {
+    // remove if hasnt got hashkey
+    $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE hashkey = ''");
+
+    // remobe if hashkey dosent have
+    $hashq = $this->db->query("SELECT t.ID FROM `shop_termek_in_kategoria` as t LEFT OUTER JOIN shop_termek_kategoriak as k ON k.ID = t.kategoria_id WHERE k.hashkey IS NULL");
+
+    if ($hashq->rowCount() != 0) {
+      $ids = array();
+      foreach ((array)$hashq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
+        $ids[] = $did['ID'];
+      }
+
+      if (!empty($ids)) {
+        $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID IN (".implode(",", $ids).")");
+      }
+    }
+
+    // remove previous
+    $q = "SELECT
+    k.ID
+    FROM shop_termek_in_kategoria as k
+    LEFT OUTER JOIN shop_termek_kategoriak as tk ON tk.ID = k.kategoria_id
+    LEFT OUTER JOIN shop_termekek as t ON t.ID = k.termekID
+    LEFT OUTER JOIN xml_temp_products as xt ON xt.ID = t.xml_import_res_id
+    WHERE !FIND_IN_SET(xt.kategoria_kulcs, tk.hashkey)";
+
+    $delq = $this->db->query($q);
+
+    if ($delq->rowCount() != 0) {
+      $ids = array();
+      foreach ((array)$delq->fetchAll(\PDO::FETCH_ASSOC) as $did) {
+        $ids[] = $did['ID'];
+      }
+
+      if (!empty($ids)) {
+        $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID IN (".implode(",", $ids).")");
+      }
+    }
+
+    unset($ids);
+
+    // add new
+    $q = "SELECT
+    	t.ID,
+    	(SELECT ID FROM shop_termek_kategoriak WHERE FIND_IN_SET(x.kategoria_kulcs, hashkey)) as connect_cat_id,
+    	MD5(CONCAT('{$originid}_', x.prod_id, '_', (SELECT ID FROM shop_termek_kategoriak WHERE FIND_IN_SET(x.kategoria_kulcs, hashkey)))) as xref_cat_hashkey
+    FROM shop_termekek as t
+    LEFT OUTER JOIN xml_temp_products as x ON x.ID = t.xml_import_res_id
+    WHERE 1=1 and
+    t.xml_import_origin = {$originid} and
+    (SELECT ID FROM shop_termek_in_kategoria WHERE hashkey = MD5(CONCAT('{$originid}_', x.prod_id, '_', (SELECT ID FROM shop_termek_kategoriak WHERE FIND_IN_SET(x.kategoria_kulcs, hashkey)))) ) IS NULL
+    HAVING connect_cat_id IS NOT NULL";
+
+    $qry = $this->db->query( $q );
+
+    if ($qry->rowCount() != 0)
+    {
+      $data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+      foreach ((array)$data as $d)
+      {
+        /* */
+        if ($d['ID'] != '') {
+          $this->db->insert(
+            'shop_termek_in_kategoria',
+            array(
+              'hashkey' => $d['xref_cat_hashkey'],
+              'kategoria_id' => $d['connect_cat_id'],
+              'termekID' => $d['ID'],
+              'connected' => 1
+            )
+          );
+        }
+        /**/
+      }
+    }
+    unset($data);
+  }
+
+  /**
+  * kivonva: 2020. 06. 12.
+  **/
+  public function _old_autoCategoryConnecter( $originid )
   {
     // remove if hasnt got hashkey
     $this->db->query("DELETE FROM shop_termek_in_kategoria WHERE hashkey = ''");
