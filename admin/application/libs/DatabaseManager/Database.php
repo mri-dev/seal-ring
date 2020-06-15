@@ -24,7 +24,7 @@ class Database
 	public function __construct(){
 		try{
 			$this->db = new \PDO('mysql:host=' . $this->db_host . ';dbname=' . $this->db_name, $this->db_user , $this->db_pw );
-			
+			$this->db->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION) ;
 			//echo '-DBOPEN-';
 			$this->query("set names utf8");
 		}catch(\PDOException $e){

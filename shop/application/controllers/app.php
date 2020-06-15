@@ -31,6 +31,24 @@ class app extends Controller{
 
 			switch ( $mode )
 			{
+				case 'test':
+
+					try
+					{
+						$this->db->db->beginTransaction();
+
+						$sql = "INSERT INTO test(product_id, name, nickname) VALUES(?,?,?);";
+				    $stmt = $this->db->db->prepare( $sql );
+
+						$this->db->db->commit();
+					}
+					catch ( \Exception $e )
+					{
+						echo $e->getMessage();
+				    $this->db->db->rollBack();
+					}
+
+				break;
 				case 'downloads':
 					// Seal Ring inCash
 					$originid = 1;
