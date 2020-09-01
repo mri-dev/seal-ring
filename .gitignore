@@ -3,3 +3,5 @@
 wp-config.php
 images/
 settings/
+.vscode/*
+u/*
