@@ -1370,7 +1370,7 @@ class Users
 
 		if( DEVMODE === false ){
 			$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
-			$mail->addBCC('zsolt.fenyvesi@sealring.hu', 'Fenyvesi Zsolt');
+			$mail->addBCC('zoltan.dujmov@sealring.hu', 'Dujmov Zoltán');
 			$mail->addBCC('norbert.szikszai@sealring.hu', 'Szikszai Norbert');
 		}
 
