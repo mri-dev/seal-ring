@@ -1372,6 +1372,7 @@ class Users
 			$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
 			$mail->addBCC('zoltan.dujmov@sealring.hu', 'Dujmov Zoltán');
 			$mail->addBCC('norbert.szikszai@sealring.hu', 'Szikszai Norbert');
+			$mail->addBCC('laszlo.szabo@sealring.hu', 'Szabó László');			
 		}
 
 		$arg = array(
