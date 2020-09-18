@@ -5204,6 +5204,29 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 }
 
 .account  {
+	.todo-after-reg{
+		width: 530px;
+		margin: 20px auto;
+		
+		h2{
+			font-weight: bold;
+			color: $color-green;
+		}
+
+		ul{
+			li {
+				font-size: 1.1rem;
+				line-height: 1.5;
+				margin: 12px 0;
+				text-align: left;
+				color: black;
+
+				i{
+					color: $color-green;
+				}
+			}
+		}
+	}
 	h1 {
 		text-transform: uppercase;
     font-weight: bold;

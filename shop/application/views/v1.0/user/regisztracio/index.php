@@ -219,7 +219,16 @@
           <?php elseif($_GET['successreg'] == 1): ?>
             <div class="success-reg-msg">
               <h1><i class="fa fa-check-circle-o"></i><br>Sikeresen rögzítette regisztrációját!</h1>
-              <p><?php echo $_GET['msg']; ?></p>
+              <p><?php echo $_GET['msg']; ?></p> 
+              <br>
+              <div class="todo-after-reg">
+                <h2>További teendők:</h2>
+                <ul>
+                    <li><i class="fa fa-circle-o"></i> <strong>Kérjük, hogy aktiválja regisztrációját!</strong></li>
+                    <li><i class="fa fa-circle-o"></i> <strong>Magánszemély esetén: kérjük várja meg a hozzáférés engedélyezését!</strong></li>
+                    <li><i class="fa fa-circle-o"></i> <strong>Céges regisztráció esetén: kérjük várja meg kollégánk jelentkezését!</strong></li>
+                </ul>
+              </div>
             </div>
           <?php else: ?>
             <div class="group-selector">

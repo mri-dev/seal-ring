@@ -228,7 +228,7 @@ class user extends Controller{
 			if( Post::on('registerUser') ) {
 				try{
 					$re = $this->User->add($_POST);
-					Helper::reload('/user/regisztracio?successreg=1&msg=Sikeresen rögzítettük regisztrációját! E-mail címére elküldtük az aktiváló e-mailt. Ha nem találja beérkezett üzenetei közt, kérjük, hogy nézze meg levélszemét (SPAM) mappájában is!');
+					Helper::reload('/user/regisztracio?successreg=1&msg=E-mail címére elküldtük az aktiváló e-mailt. Ha nem találja beérkezett üzenetei közt, kérjük, hogy nézze meg levélszemét (SPAM) mappájában is!');
 				}catch(Exception $e){
 					$err = $e->getCode();
 					$this->out( 'err', $err );
