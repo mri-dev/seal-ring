@@ -4,7 +4,7 @@
 	position: relative;
 	padding: 0;
 }
-
+ 
 h1{
   color: black;
   font-size: 2.3em;
@@ -60,6 +60,36 @@ h1{
 		background-color: #26c6f7 !important;
 	}
 	*/
+}
+
+.page-visit
+{
+	& > .wrapper{
+		background-color: $color-pr;
+		color: white;
+		padding: 15px;
+		font-size: 0.85rem;
+		border-radius: 10px;
+		float: left;
+		text-align:center;
+    box-shadow: 0 10px 25px -10px #8f8f8f;
+
+		.visit{
+			font-size: 1rem;
+			font-weight:bold;
+			margin: 15px 0 0 0;
+		}
+		.last-refresh{
+			font-size: 0.7rem;
+		}
+	}
+
+	.sep{
+		width: 90%;
+    margin: 10px auto;
+    height: 0.6px;
+    background-color: #8dd0c3;
+	}
 }
 
 .list-type-switch-holder{

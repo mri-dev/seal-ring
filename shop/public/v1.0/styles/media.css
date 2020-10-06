@@ -1379,6 +1379,35 @@ h1 {
 	*/
 }
 
+.page-visit > .wrapper {
+  background-color: #15a98c;
+  color: white;
+  padding: 15px;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  float: left;
+  text-align: center;
+  -webkit-box-shadow: 0 10px 25px -10px #8f8f8f;
+          box-shadow: 0 10px 25px -10px #8f8f8f;
+}
+
+.page-visit > .wrapper .visit {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 15px 0 0 0;
+}
+
+.page-visit > .wrapper .last-refresh {
+  font-size: 0.7rem;
+}
+
+.page-visit .sep {
+  width: 90%;
+  margin: 10px auto;
+  height: 0.6px;
+  background-color: #8dd0c3;
+}
+
 .list-type-switch-holder {
   display: -webkit-box;
   display: -ms-flexbox;

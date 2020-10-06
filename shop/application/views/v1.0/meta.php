@@ -42,9 +42,9 @@
 <script type="text/javascript" src="<?=JS?>fancybox/jquery.fancybox.js?v=2.1.4"></script>
 <script type="text/javascript" src="<?=JS?>fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
 <?php else: ?>
-<link rel="stylesheet" href="<?=SSTYLE?>all.min.css" />
-<script type="text/javascript" src="<?=SJS?>all.min.js"></script>
-<script type="text/javascript" src="<?=SJS?>master.min.js"></script>
+<link rel="stylesheet" href="<?=SSTYLE?>all.min.css?ts=<?=TS?>" />
+<script type="text/javascript" src="<?=SJS?>all.min.js?ts=<?=TS?>"></script>
+<script type="text/javascript" src="<?=SJS?>master.min.js?ts=<?=TS?>"></script>
 <?php endif; ?>
 <? if( !defined('CETELEM_HAS_ERROR') && false ): ?>
 <script src="//<?=(CETELEM_SANDBOX_MODE === true)?'ecomdemo':'ecom'?>.cetelem.hu/ecommerce/j/cetelem-ecommerce.js"></script>

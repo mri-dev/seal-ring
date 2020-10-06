@@ -2,7 +2,7 @@
 		function __construct(){
 			parent::__construct();
 			parent::$pageTitle = 'Az oldal nem található!';
-			
+			 
 		}
 		
 		

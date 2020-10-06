@@ -4,17 +4,18 @@
 
 		function __construct(){ }
 
-		function render($item,$fnList = null){
-            $step = 0;
+		function render($item,$fnList = null)
+		{
+			$step = 0;
 
-            if($fnList){
-                $f = VIEW.$item.'.php';
-                $f = rtrim($f,'/');
-                if(file_exists($f)){
-                    require $f;
-                    return true;
-                }
-            }
+			if($fnList){
+					$f = VIEW.$item.'.php';
+					$f = rtrim($f,'/');
+					if(file_exists($f)){
+							require $f;
+							return true;
+					}
+			}
 
 			if(strpos($item,"::") !== false){
 				$ext 	= explode("::",$item);
@@ -51,12 +52,11 @@
 
 			if($target){
 				if(!$this->clear){
-                    if($step == 0){
-                        $this->openSubPage($target);
-                    }else{
-                        require $target;
-                    }
-
+					if($step == 0){
+							$this->openSubPage($target);
+					}else{
+							require $target;
+					}
 				}
 			}
 		}

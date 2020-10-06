@@ -14,7 +14,7 @@ use PortalManager\Portal;
 use PortalManager\Helpdesk;
 use Applications\Captcha;
 use FileManager\FileLister;
-use PortalManager\Installer;
+use PortalManager\Installer; 
 
 class Controller {
     public $db = null;
@@ -99,7 +99,16 @@ class Controller {
             $redrirector->start();
           }
 
-          if ( defined('PRODUCTIONSITE') ) {
+          if ( defined('PRODUCTIONSITE') ) 
+          {
+            // log view 
+            $called_class = get_called_class();            
+            if( $called_class != 'PageNotFound' ) 
+            {
+              $this->Portal->logPageVisit();
+            }
+            $this->view->page_visits = $this->Portal->getPageVisitAll();
+
             if (!$this->view->user) {
               $this->User->tempCartItemsFix($this->view->user['data']['ID']);
             }

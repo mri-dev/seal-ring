@@ -11,13 +11,61 @@ use PortalManager\Request;
 * class Portal
 */
 class Portal
-{
+{ 
 	private $db = null;
 
 	function __construct( $arg = array() )
 	{
 		$this->db = $arg['db'];
 		$this->settings = $arg[view]->settings;
+	}
+
+	public function logPageVisit()
+	{
+		$mid = \Helper::getMachineID();
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$year = (int)date('Y');
+		$month = (int)date('m');
+
+		// check 
+		if( $this->db ) 
+		{
+			$check = $this->db->squery("SELECT oldalbetoltes FROM latogatok WHERE ip = :ip and mid = :mid and datum_ev = :ev and datum_ho = :ho LIMIT 0,1", array('ip' => $ip, 'mid' => $mid, 'ev' => $year, 'ho' => $month));
+
+			if( $check->rowCount() != 0 )
+			{
+				$checkd = $check->fetch(\PDO::FETCH_ASSOC);
+				$current = $checkd['oldalbetoltes'];
+
+				// update
+				$this->db->update(
+					'latogatok',
+					array(
+						'oldalbetoltes' => ($current + 1)
+					),
+					"ip = '{$ip}' and mid = '{$mid}' and datum_ev = '{$year}' and datum_ho = '{$month}'"
+				);
+			} else {
+				// insert
+				$this->db->insert(
+					'latogatok',
+					array(
+						'ip' => $ip,
+						'mid' => $mid,
+						'datum_ev' => (int)$year,
+						'datum_ho' => (int)$month,
+						'oldalbetoltes' => 1,
+						'idopont' => date('Y-m-d H:i:s'),
+					)
+				);
+			}
+		}
+	}
+	
+	public function getPageVisitAll()
+	{
+		$check = $this->db->query("SELECT SUM(oldalbetoltes) FROM latogatok")->fetchColumn();
+		return $check;
 	}
 
 	public function checkUnusedProductImage()

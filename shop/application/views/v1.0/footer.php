@@ -5,7 +5,7 @@
 		</div><!-- #main -->
 		<div class="clr"></div>
 	</div><!-- website -->
-	<?php endif; ?>
+	<?php endif; ?> 
 
 	<footer>
 		<div class="main">
@@ -65,6 +65,16 @@
 											<a target="_blank" title="Twitter oldalunk" href="<?=$this->settings['social_twitter_link']?>"><i class="fa fa-twitter"></i></a>
 										</div>
 										<?php endif; ?>
+									</div>
+								</div>
+								<br>
+								<div class="page-visit">
+									<div class="wrapper">
+										Weboldal látogatottsága:
+										<div class="seps"></div>
+										<div class="visit"><?php echo number_format($this->page_visits, 0, ".". "", " "); ?></div>										
+										<div class="sep"></div>
+										<div class="last-refresh">Frissítve: <?php echo date('Y. m. d. H:i'); ?></div>
 									</div>
 								</div>
 							</div>
