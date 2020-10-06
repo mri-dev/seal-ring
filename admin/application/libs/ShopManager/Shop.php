@@ -2299,6 +2299,7 @@ class Shop
 
 						if( DEVMODE === false ){
 							$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
+							$mail->addBCC('raktar@sealring.hu', 'SealRing Raktár');
 						}
 
 						$arg = array(
