@@ -169,13 +169,31 @@
                         <input type="text" id="basics_page_keywords" name="page_keywords" class="form-control" value="<?=$this->settings['page_keywords']?>">
                     </div>
                 </div>
-								<br>
-								<div class="row np">
+                <br>
+                
+			    <div class="row np">
+                    <div class="col-md-12">
+                        <label for="basics_header_futo_szoveg">Speciális feltételek szövege</label>
+						<textarea type="text" id="basics_header_futo_szoveg" name="header_futo_szoveg" class="form-control"><?=$this->settings['header_futo_szoveg']?></textarea>                       
+                    </div>
+                </div>
+                
+                <br>
+                <div class="row np">
+                    <div class="col-md-12">
+                        <label for="basics_header_futo_szoveg_speed">Speciális feltételek szövege gyorsasága (1 másodperc = 1000)</label>
+                        <input type="number" step="1000" id="basics_header_futo_szoveg_speed" name="header_futo_szoveg_speed" class="form-control" value="<?=$this->settings['header_futo_szoveg_speed']?>">
+                    </div>
+                </div>
+
+				<br>
+			    <div class="row np">
                     <div class="col-md-12">
                         <label for="basics_about_us">Weboldal bemutatkozás szövege</label>
                         <textarea name="about_us" id="basics_about_us" class="form-control no-editor" style="max-width: 100%;"><?=$this->settings['about_us']?></textarea>
                     </div>
                 </div>
+                
                 <br>
                 <div class="row np">
                     <div class="col-md-5">

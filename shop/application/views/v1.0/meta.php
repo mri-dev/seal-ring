@@ -27,6 +27,7 @@
 
 <!-- Angular Material Library -->
 <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
 <?=$this->addJS('bootstrap.min',false)?>
 <?=$this->addJS('jquery.cookieaccept',false,false)?>
 <?=$this->addJS('master',false,false)?>
