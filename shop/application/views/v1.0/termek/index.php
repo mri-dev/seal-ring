@@ -7,7 +7,7 @@
   </div>
   <div class="product-data">
     <div class="">
-      <div class="top-datas">
+      <div class="top-datas"> 
         <div class="images">
           <?php if (true): ?>
           <div class="main-img img-auto-cuberatio">
@@ -45,6 +45,7 @@
         <? endif; ?>
         </div>
         <div class="prices">
+          <?php if( $this->user ): ?>
           <div class="lab">
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
               <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> <?=($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó'?> ár:
@@ -76,6 +77,9 @@
               </div>
             <?php endif; ?>
           </div>
+          <?php else: ?>
+            <div class="login-for-price">Az Ár bejelentkezés után látható!</div><br>
+          <?php endif; ?>
         </div>
         <div class="divider"></div>
         <div class="status-params">

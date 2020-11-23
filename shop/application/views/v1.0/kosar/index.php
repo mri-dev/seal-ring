@@ -43,9 +43,9 @@
 						if($this->orderInfo[kedvezmeny] > 0) $vegosszeg -= $this->orderInfo[kedvezmeny];
 
 					?>
-								<h1><i class="fa fa-check-circle"></i><br />Megrendelés elküldve</h1>
-									<h2>Köszönjük megrendelését!</h2>
-									<p>E-mail címére folyamatos tájékoztatást küldünk megrendelésének állapotáról.</p>
+					<h1><i class="fa fa-check-circle"></i><br />Megrendelés elküldve</h1>
+						<h2>Köszönjük megrendelését!</h2>
+						<p>E-mail címére folyamatos tájékoztatást küldünk megrendelésének állapotáról.</p>
 
 					<? if( $this->orderInfo['fizetesiModID'] == $this->settings['flagkey_pay_payu'] && $this->orderInfo['payu_fizetve'] == 0 ): ?>
 						<br>
@@ -384,20 +384,28 @@
 									<?php endif; ?>
 								</td>
 								<td class="center">
+								<?php if( $this->user ): ?>
 									<? if( $d['discounted'] ): ?>
 										<div><strike><?=Helper::cashFormat($d['prices']['old_each'])?> Ft</strike></div>
 										<div><strong><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</strong></div>
 									<? else: ?>
 									<span><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</span>
 									<? endif; ?>
+								<?php else: ?> 
+									<div class="login-for-price">Az Ár bejelentkezés után látható!</div>
+								<?php endif; ?>
 								</td>
 								<td class="center">
+								<?php if( $this->user ): ?>
 									<? if( $d['discounted'] ): ?>
 										<div><strike><?=Helper::cashFormat($d['prices']['old_sum'])?> Ft</strike></div>
 										<div><strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong></div>
 									<? else: ?>
 									<strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong>
-									<? endif; ?>
+									<? endif; ?>									
+								<?php else: ?> 
+									<div class="login-for-price">Az Ár bejelentkezés után látható!</div>
+								<?php endif; ?>
 								</td>
 								<td class="center action">
 									<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
@@ -426,6 +434,7 @@
 							//$calc_final_total = $k['totalPrice'] - $szuperakcios_termekek_ara;
 							//$calc_final_total = ($calc_final_total -(($this->user[kedvezmeny]/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
 							?>
+							<?php if( $this->user ): ?>
 							<tr class="price-overview">
 								<td class="nocell"></td>
 								<td colspan="2" class="right">Termékek ára</td>
@@ -453,6 +462,7 @@
 									<input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 								</td>
 							</tr>
+							<?php endif; ?>
 							</div>
 						</tbody>
 						<?php else: ?>

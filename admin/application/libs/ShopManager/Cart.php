@@ -78,7 +78,8 @@ class Cart
 			$kedvezmenyes = true;
 		}
 
-		foreach($data as $d){
+		foreach($data as $d)
+		{
 			if( $kedvezmenyes ) {
 				\PortalManager\Formater::discountPrice( $d[ar], $this->user[kedvezmeny], true );
 				\PortalManager\Formater::discountPrice( $d[sum_ar], $this->user[kedvezmeny], true );
@@ -94,15 +95,25 @@ class Cart
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
 			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
-			$d[ar] = number_format($d[ar],2,"."," ");
+			$d['ar'] = number_format($d[ar],2,"."," ");
+
+			if( $uid == 0 )
+			{
+				$d['ar'] = '<span title="Az Ár megjelenítéséhez jelentkezzen be!">???</span>';	
+			}
 
 			$dt[] = $d;
 		}
 
-		$re[itemNum]			= $itemNum;
-		$re[totalPrice]			= $totalPrice;
-		$re[totalPriceTxt]		= number_format($totalPrice,2,"."," ");
-		$re[items] 				= $dt;
+		$re['itemNum']			= $itemNum;
+		$re['totalPrice']			= $totalPrice;
+		$re['totalPriceTxt']		= number_format($totalPrice,2,"."," ")." Ft";
+		$re['items'] 				= $dt;
+
+		if( $uid == 0 )
+		{
+			$re['totalPriceTxt'] = '<span title="Az Ár megjelenítéséhez jelentkezzen be!">???</span>';	
+		}
 
 		return $re;
 	}

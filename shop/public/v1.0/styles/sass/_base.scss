@@ -142,6 +142,10 @@ h1{
 body.noscroll{
 	overflow: hidden !important;
 }
+.login-for-price {
+	color: #d06262;
+	font-weight: bold;
+}
 body.singlepage{
 	.website{
 		width: 100%;
@@ -589,6 +593,16 @@ body.singlepage{
 							color:black;
 						}
 					}
+
+					&.not-logged-in{
+						flex-basis: 190px;
+						.wrapper > div {
+							text-align: right;
+							color: #d06262;
+							font-size: 0.7rem;
+							font-weight: bold;
+						}
+					}
 				}
 
 				.stockinfo{
@@ -960,6 +974,14 @@ body.singlepage{
 								font-size: 1.3em;
 							}
 						}
+					}
+				}
+				&.not-logged-in{
+					.ar{
+						text-align: right;
+						color: #d06262;
+						font-weight: bold;
+						padding-left: 8px;
 					}
 				}
 			}

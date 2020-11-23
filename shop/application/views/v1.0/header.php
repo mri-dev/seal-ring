@@ -116,7 +116,7 @@ $(function(){
                     <div class="ico">
                       <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
                     </div>
-                    <div class="cash"><span class="amount" id="cart-item-prices">0</span> Ft <span class="badge" id="cart-item-num-v">0</span></div>
+                    <div class="cash"><span class="amount" id="cart-item-prices">0</span> <span class="badge" id="cart-item-num-v">0</span></div>
                     <div class="cbtn"><a href="/kosar">kosár</a></div>
                     <div class="floating">
                       <div id="cartContent" class="cartContent overflowed">

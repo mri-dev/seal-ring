@@ -1525,6 +1525,11 @@ body.noscroll {
   overflow: hidden !important;
 }
 
+.login-for-price {
+  color: #d06262;
+  font-weight: bold;
+}
+
 body.singlepage .website {
   width: 100%;
   margin-top: 0;
@@ -2008,6 +2013,20 @@ body.singlepage .website .page.covered-page .side-menu {
   color: black;
 }
 
+.webshop-product-top .list-container > .items > .item > .wrapper .prices.not-logged-in,
+.related-products .list-container > .items > .item > .wrapper .prices.not-logged-in {
+  -ms-flex-preferred-size: 190px;
+      flex-basis: 190px;
+}
+
+.webshop-product-top .list-container > .items > .item > .wrapper .prices.not-logged-in .wrapper > div,
+.related-products .list-container > .items > .item > .wrapper .prices.not-logged-in .wrapper > div {
+  text-align: right;
+  color: #d06262;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
 .webshop-product-top .list-container > .items > .item > .wrapper .stockinfo,
 .related-products .list-container > .items > .item > .wrapper .stockinfo {
   -ms-flex-preferred-size: 150px;
@@ -2473,6 +2492,14 @@ body.singlepage .website .page.covered-page .side-menu {
 .related-products .grid-container > .items .item .prices > .wrapper.wo-price .ar strong {
   color: #747272;
   font-size: 1.3em;
+}
+
+.webshop-product-top .grid-container > .items .item .prices.not-logged-in .ar,
+.related-products .grid-container > .items .item .prices.not-logged-in .ar {
+  text-align: right;
+  color: #d06262;
+  font-weight: bold;
+  padding-left: 8px;
 }
 
 .webshop-product-top .grid-container > .items .item .title,

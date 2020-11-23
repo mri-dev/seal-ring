@@ -10,7 +10,7 @@
             <?php if ( $ujdonsag == '1' ): ?>
             <div class="ujdonsag-label">ÚJ</div>
             <?php endif; ?>
-          </div>
+          </div> 
           <?php
           ?>
           <div class="factory"><div class="marka" style="background-color: <?=$marka_szin?>; color: <?=$marka_tszin?>;"><?php if($marka_img == ''){ echo $marka_nev; }else{ echo '<img src="'.IMGDOMAIN.$marka_img.'" alt="'.$marka_nev.'"/>'; } ?></div></div>
@@ -48,8 +48,9 @@
     </div>
     <?php endif; ?>
 
-    <div class="prices">
-      <div class="wrapper <?=($wo_price)?'wo-price':''?>">
+    <div class="prices<?=(!$user)?' not-logged-in':''?>">
+      <div class="wrapper <?=($wo_price)?'wo-price':''?>">        
+        <?php if( $user ): ?>
         <?php if ( $wo_price ): ?>
           <div class="ar">
             <strong>ÉRDEKLŐDJÖN!</strong>
@@ -66,6 +67,9 @@
             </div>
           <?php endif; ?>
         <?php endif; ?>
+        <?php else: ?>
+          <div class="ar">Az Ár bejelentkezés után látható!</div>
+        <?php endif; ?>
         <div class="fav" ng-class="(fav_ids.indexOf(<?=$product_id?>) !== -1)?'selected':''" title="Kedvencekhez adom" ng-click="productAddToFav(<?=$product_id?>, $event)">
           <i class="fa fa-star" ng-show="fav_ids.indexOf(<?=$product_id?>) !== -1"></i>
           <i class="fa fa-star-o" ng-show="fav_ids.indexOf(<?=$product_id?>) === -1"></i>
@@ -73,6 +77,7 @@
       </div>
     </div>
 
+    <?php if( $user ): ?>
     <div class="buttons<?=($wo_price)?' wo-price':''?>">
       <?php if (!$wo_price): ?>
       <div class="addnum">
@@ -86,5 +91,6 @@
         <a href="<?=$link?>"><img src="<?=IMG?>eye-ico.svg" alt="Megtekint"></a>
       </div>
     </div>
+    <?php endif; ?>
   </div>
 </div>

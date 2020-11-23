@@ -669,7 +669,7 @@
 					$('#'+progress)
 					.stop()
 					.removeClass('in-progress')
-					.html('<span class="t">Kosárba</span> <img src="https://cp.seal-ring.web-pro.hu/src/images/shopcart-ico.svg" alt="Kosárba">');
+					.html('<span class="t">Kosárba</span> <img src="https://cp.sealring.hu/src/images/shopcart-ico.svg" alt="Kosárba">');
 				}
 
 			} );
@@ -703,8 +703,8 @@
 		$('#cart-item-num-v, .cart-item-num-v').text(p.itemNum);
 		$('#cart-item-num, .cart-item-num-v').text(p.itemNum);
 		$('.cart-item-num, .cart-item-num-v').text(p.itemNum);
-		$('#cart-item-prices').text(p.totalPriceTxt);
-		$('.cart-item-prices').text(p.totalPriceTxt);
+		$('#cart-item-prices').html(p.totalPriceTxt);
+		$('.cart-item-prices').html(p.totalPriceTxt);
 
 		if( p.itemNum > 0 ){
 			$('.cart-box').show(0);
@@ -1721,7 +1721,7 @@
 			'responsiveBreakpoint' : 960,
 			'domain' : false,
 			'receiverdomain' : '',
-			'imageRoot' : 'https://www.cp.sealring.web-pro.hu/'
+			'imageRoot' : 'https://www.cp.sealring.hu/'
 		};
 
 		var param 	= function(obj) {

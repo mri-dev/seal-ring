@@ -12,14 +12,15 @@
 				<h3><a title="<?=$product_nev?>" href="<?=$link?>"><?=$product_nev?></a></h3>
 				<div class="subtitle"><?=__($csoport_kategoria)?></div>
 			</div>
-		</div>
-		<div class="prices">
+    </div>
+		<div class="prices<?=(!$user)?' not-logged-in':''?>">
       <div class="wrapper <?=($wo_price)?'wo-price':''?>">
         <?php if ( $wo_price ): ?>
           <div class="ar">
-            <strong>ÉRDEKLŐDJÖN!</strong>
+            <strong>ÉRDEKLŐDJÖN!</strong> 
           </div>
         <?php else: ?>
+          <?php if( $user ): ?>
           <?php if ( $akcios == '1' ): ?>
             <div class="ar akcios">
               <div class="old"><?=Helper::cashFormat($eredeti_ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?></div>
@@ -30,6 +31,9 @@
               <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?> <? if($user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1) { echo '<span class="text">+ ÁFA</span>'; } ?></div>
             </div>
           <?php endif; ?>
+          <?php else: ?>
+            <div>Az Ár bejelentkezés után látható!</div>
+          <?php endif; ?>
         <?php endif; ?>
       </div>
     </div>
@@ -37,7 +41,9 @@
 			<div class="rack" style="background: <?=$keszlet_color?>;">
 				<?=($show_stock=='1' && $raktar_keszlet > 0)?$raktar_keszlet.' db ':''?><?=$keszlet_nev?>
 			</div>
-		</div>
+    </div>
+    
+    <?php if( $user ): ?>
 		<div class="buttons<?=($wo_price)?' wo-price':''?>">
       <?php if (!$wo_price): ?>
       <div class="addnum">
@@ -48,5 +54,7 @@
       </div>
       <?php endif; ?>
     </div>
+    <?php endif; ?>
+    
 	</div>
 </div>

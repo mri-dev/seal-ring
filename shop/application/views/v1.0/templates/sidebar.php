@@ -184,8 +184,10 @@
                 </div>
               </a>
               <div class="price">
+                <?php if($this->user): ?>
                 <strong><?php echo Helper::cashFormat($viewed['ar']); ?> Ft</strong> <?php if ($viewed['akcios'] == 1): ?>
                   <span class="old"><?php echo Helper::cashFormat($viewed['brutto_ar']); ?> Ft</span>
+                <?php endif; ?>
                 <?php endif; ?>
               </div>
             </div>
