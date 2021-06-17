@@ -26,7 +26,6 @@ class app extends Controller{
 		public function sync()
 		{
 			$mode = $this->view->gets[2];
-
 			$resources = new ResourceImport( array( 'db' => $this->db ) );
 
 			switch ( $mode )
@@ -46,6 +45,75 @@ class app extends Controller{
 					{
 						echo $e->getMessage();
 				    $this->db->db->rollBack();
+					}
+
+				break;
+				case 'autodata':
+					include $_SERVER['DOCUMENT_ROOT'].'admin/application/libs/Applications/RTF.php';
+
+					$docroot = $_SERVER['DOCUMENT_ROOT'] . 'admin/src/static/';
+					$sql = "SELECT 
+						ID,
+						shopgroup,
+						kulcsszavak,
+						leiras,
+						profil_kep						
+					FROM shop_termekek WHERE shopgroup IS NOT NULL and shopgroup != '' and shopgroup = 'ONBR70'";
+
+					$db = $this->db->db->query( $sql );
+					$data = $db->fetchAll(\PDO::FETCH_ASSOC);
+
+					$groups = [];
+					
+					if( $data )
+					{
+						foreach( (array)$data as $d )
+						{
+							$groups[$d['shopgroup']][] = $d['ID'];
+						}
+					}
+
+					unset($d, $sql, $data, $db);
+
+					if( $groups )
+					{
+						$rtf = new \RtfReader;
+						$formater = new \RtfHtml;
+						$updates = [];
+						foreach($groups as $gk => $gids )
+						{
+							$file = $gk.'.rtf';
+							$img = $gk.'.png';
+
+							// check desc
+							if( file_exists( $docroot.'desc/'.$file ) )
+							{
+								echo $docroot.'desc/'.$file; echo "<br>";
+
+								$rtfdata = file_get_contents($docroot.'desc/'.$file); // or use a string
+								$rtf->Parse($rtfdata);
+								echo $formater->Format($rtf->root);
+								//$updates[$gk]['leiras'] = $formater->Format($rtf->root);
+							}
+
+							// check keywords
+							if( file_exists( $docroot.'keywords/'.$file ) )
+							{
+								echo $docroot.'keywords/'.$file; echo "<br>";
+								$updates[$gk]['kulcsszavak'] = 1;
+							}
+
+							// check images
+							if( file_exists( $docroot.'images/'.$img ) )
+							{
+								echo $docroot.'images/'.$img; echo "<br>";
+								$updates[$gk]['profil_kep'] = 1;
+							}
+
+							$updates[$gk]['ids'] = $gids;
+						}
+						echo '<pre>';
+						print_r($updates);
 					}
 
 				break;
