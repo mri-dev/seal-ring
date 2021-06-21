@@ -49,7 +49,7 @@ class app extends Controller{
 
 				break;
 				case 'autodata':
-					include $_SERVER['DOCUMENT_ROOT'].'admin/application/libs/Applications/RTF.php';
+					include $_SERVER['DOCUMENT_ROOT'].'admin/application/libs/Applications/DOCXReader.php';
 
 					$docroot = $_SERVER['DOCUMENT_ROOT'] . 'admin/src/static/';
 					$sql = "SELECT 
@@ -77,22 +77,27 @@ class app extends Controller{
 
 					if( $groups )
 					{
-						$rtf = new \RtfReader;
-						$formater = new \RtfHtml;
+						$doc = new \Docx_reader();
 						$updates = [];
 						foreach($groups as $gk => $gids )
 						{
-							$file = $gk.'.rtf';
+							$file = $gk.'.docx';
 							$img = $gk.'.png';
 
 							// check desc
 							if( file_exists( $docroot.'desc/'.$file ) )
 							{
 								echo $docroot.'desc/'.$file; echo "<br>";
+								$doc->setFile( $docroot.'desc/'.$file );
 
-								$rtfdata = file_get_contents($docroot.'desc/'.$file); // or use a string
-								$rtf->Parse($rtfdata);
-								echo $formater->Format($rtf->root);
+								if(!$doc->get_errors()) 
+								{
+									$html = $doc->to_html();
+									echo $html;
+								} else {
+										echo implode(', ',$doc->get_errors());
+								}
+							
 								//$updates[$gk]['leiras'] = $formater->Format($rtf->root);
 							}
 
