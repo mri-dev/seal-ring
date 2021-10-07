@@ -1851,6 +1851,59 @@ class Products
 		return $set;
 	}
 
+	private $static_datasets = [];
+	public function getStaticContents( $group = false )
+	{
+		$ret = [
+			'desc' => false,
+			'keywords' => false,
+			'images' => false
+		];
+
+		if( $group && !empty($group) )
+		{
+			// DESC
+			if( !$this->static_datasets['desc'] )
+			{
+				$files = \File::showFolderFiles( '../admin/src/static/desc/' );
+				$this->static_datasets['desc'] = $files;
+				unset($files);
+			}
+
+			// DESC
+			if( !$this->static_datasets['images'] )
+			{
+				$files = \File::showFolderFiles( '../admin/src/static/images/' );
+				$this->static_datasets['images'] = $files;
+				unset($files);
+			}
+
+			// Desc line
+			foreach( $this->static_datasets['desc'] as $f )
+			{
+				$fl = str_replace( '.html', '', $f['name'] );
+
+				if( $fl == $group )
+				{
+					$ret['desc'] = file_get_contents( substr($f['src'], 1) );
+				}
+			}
+
+			// Images line
+			foreach( $this->static_datasets['images'] as $f )
+			{
+				$fl = str_replace( array('.png', '.jpg'), '', $f['name'] );
+
+				if( $fl == $group )
+				{
+					$ret['images'] = SOURCE.str_replace('/../admin/src/','',$f['src']);
+				}
+			}
+		}
+
+		return $ret;
+	}
+
 	/**
 	 * Termék adatainak lekérése ID alapján
 	 * @param  int $product_id
@@ -1959,6 +2012,8 @@ class Products
 		{
 			$data['crm'] = $this->crm->getFullItemData( 1, $data['xml_import_res_id'] );
 		}
+
+		$data['static'] = $this->getStaticContents( $data['shopgroup'] );
 
 		return $data;
 	}

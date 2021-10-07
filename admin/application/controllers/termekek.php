@@ -224,6 +224,39 @@ class termekek extends Controller
 			Helper::reload('/termekek/');
 		}
 
+		public function staticmaker()
+		{			
+			$root = $_SERVER['DOCUMENT_ROOT'].'src/static/';
+
+			if(Post::on('createDesc'))
+			{
+			 	$html =	fopen( $root.'desc/'.$_POST['group'].'.html' , "w");
+				$content = $_POST['content'];
+				fwrite($html, $content);
+				fclose($html);
+			}
+
+			// Files 
+			$files = \File::showFolderFiles( 'src/static/desc/' );
+			$this->view->files = $files;
+
+			// Szerkeszt
+			$editor = [];
+			if( isset($_GET['edit']) )
+			{
+				$editor['group'] = str_replace('.html', '', $_GET['edit'] );
+				foreach($files as $f)
+				{
+					if( $f['name'] == $_GET['edit'] )
+					{
+						$editor['content'] = file_get_contents( $root.'desc/'.$_GET['edit']);
+					}
+				}
+			}
+
+			$this->view->editor = $editor;
+		}
+
 		function t(){
 			// CRM
 			$crm = new ResourceImport( array( 'db' => $this->db ) );

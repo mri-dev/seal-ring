@@ -279,6 +279,13 @@
               </div>
             <?php endif; ?>
 
+            <pre><?php print_r($this->product['static']); ?></pre>
+
+            <?php 
+              if($this->product['static']['desc']){
+                $this->product['leiras'] = $this->product['static']['desc'];
+              }
+            ?>
 
             <a name="description"></a>
             <div class="description tab-holder showed" id="tab-content-description">

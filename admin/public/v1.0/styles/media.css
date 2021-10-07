@@ -3336,3 +3336,24 @@ md-toast.mode-warning .md-toast-content{
 md-toast.mode-success .md-toast-content{
   background-color: #29bc40;
 }
+
+.dinamicmaker .files .file{
+	margin: 4px 0;
+	border-radius: 4px;
+	background-color: #fff;
+	box-shadow: 0 4px 10px -4px #a0a0a0;
+	padding:5px;
+}
+.dinamicmaker .files .file a{
+	color: grey;
+	font-size: 1.2rem;
+}
+.dinamicmaker .files .file a strong{
+	color: #15a98c;
+	font-size: 1.3rem;
+}
+
+.dinamicmaker .files .file .view{
+	float: right;
+	color: #f8ac3a;
+}
