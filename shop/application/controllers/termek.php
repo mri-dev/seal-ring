@@ -18,6 +18,11 @@ class termek extends Controller{
 			$product =  $products->get( Product::getTermekIDFromUrl() );
 			$product['links'] = $products->getProductLinksFromStr($product['linkek']);
 
+			if( $product['static']['images'] )
+			{
+				$product['profil_kep'] = $product['static']['images'];
+			}
+
 			$this->out( 'product', $product );
 			$this->out( 'slideshow', $this->Portal->getSlideshow( $product['nev'] ) );
 

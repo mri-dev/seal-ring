@@ -768,7 +768,6 @@ class Products
 			$size_whr .= $add;
 		}
 
-
 		if ( isset($arg['in_cat']) )
 		{
 			$catid = (int)$arg['in_cat'];
@@ -1135,12 +1134,12 @@ class Products
 			}
 		}
 
-
 		$bdata = array();
 
 		foreach($data as $d)
 		{
-			if (!isset($arg['shortlist'])) {
+			if (!isset($arg['shortlist'])) 
+			{
 				$brutto_ar = $d['ar'];
 				$eredeti_brutto_ar = $d['eredeti_ar'];
 				//$akcios_brutto_ar = $d['akcios_brutto_ar'];
@@ -1184,6 +1183,13 @@ class Products
 				//$d['ar'] 				= $arInfo['ar'];
 				//$d['akcios_fogy_ar']	= $akcios_arInfo['ar'];
 				//$d['arres_szazalek'] 	= $arInfo['arres'];
+				
+				$d['static'] = $this->getStaticContents( $d['shopgroup'] );
+
+				if( $d['static']['images'] )
+				{
+					$d['profil_kep'] = $d['static']['images'];
+				}
 
 				// CRM - incash
 				$d['crm'] = array();
@@ -1917,7 +1923,7 @@ class Products
 
 		$categories = new Categories( array( 'db' => $this->db ) );
 
-		$uid = (int)$this->user[data][ID];
+		$uid = (int)$this->user['data']['ID'];
 
 		$row = "t.*";
 

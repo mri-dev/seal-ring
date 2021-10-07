@@ -240,6 +240,11 @@
                 <div class="">
                   <a href="/user/regisztracio?group=company">Cégként</a>
                 </div>
+                <div style="flex-basis: 100%; font-size: 1.25rem; line-height: 1.5; color: #000;">
+                    <h2 style="font-weight: bold; margin: 0 0 10px 0; color: #15a98c;">Tisztelt Leendő Ügyfelünk!</h2>
+                    <p>Regisztrációja aktiválása után kérjük várjon kollégánk jelentkezéséig, vagy a felhasználói fiókja engedélyezéséig!</p>   
+                    <p>Köszönjük türelmüket és megértésüket!</p>
+                </div>
               </div>
             </div>
           <?php endif; ?>

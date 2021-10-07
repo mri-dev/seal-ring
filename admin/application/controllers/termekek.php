@@ -228,6 +228,35 @@ class termekek extends Controller
 		{			
 			$root = $_SERVER['DOCUMENT_ROOT'].'src/static/';
 
+			if(Post::on('updateKeywords'))
+			{
+				$files = \File::showFolderFiles( 'src/static/keywords/' );
+
+				if( $files )
+				{
+					$total = 0;
+					$groups = '';
+					foreach($files as $f)
+					{
+						$str = trim(file_get_contents( substr($f['src'], 1) ));
+						$sg = str_replace( '.txt', '', $f['name'] );
+						if( $str ) $total++;
+						$this->db->update(
+							'shop_termekek',
+							[
+								'kulcsszavak' => $str
+							],
+							sprintf("shopgroup = '%s'", $sg)
+						);
+						$groups .= $sg.', ';
+					}
+					$groups = rtrim($groups, ', ');
+
+					$this->view->keywordmsg = '<strong>'.$total. ' db termék csoport</strong> azonosító termék kulcsszava cserélve lett:<br>'.$groups;
+				}
+				unset($files);
+			}
+
 			if(Post::on('createDesc'))
 			{
 			 	$html =	fopen( $root.'desc/'.$_POST['group'].'.html' , "w");
