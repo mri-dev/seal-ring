@@ -48,11 +48,11 @@
           <?php if( $this->user ): ?>
           <div class="lab">
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
-              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> <?=($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó'?> ár:
+             <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?'Nettó':'Bruttó'?> ár:
             <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
               Nettó <strong>beszerzési</strong> ár:
             <?php else: ?>
-              <strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong> <?=($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó'?> ár:
+              <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?'Nettó':'Bruttó'?> ár:
             <?php endif; ?>
           </div>
           <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
