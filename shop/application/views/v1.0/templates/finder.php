@@ -6,7 +6,7 @@
 <div class="search-finder" ng-init="loadFinder('<?=$this->catid?>','<?=$getqrystr?>')">
   <div class="tabs">
     <ul>
-      <li ng-class="(findernavpos=='simple')?'active':''" ng-click="switchFinderNav('simple')">Termék kereső</li>
+      <li ng-class="(findernavpos=='simple')?'active':''" ng-click="switchFinderNav('simple')"><?=__('Termék kereső')?></li>
       <?php if (false): ?>
         <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
         <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')">Keresés kifejezésre</li>

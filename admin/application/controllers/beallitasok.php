@@ -103,6 +103,38 @@ class beallitasok extends Controller {
 			
 			$this->view->SEOSERVICE = $SEO;
 		}
+
+		public function nyelvek()
+		{
+			$adm = $this->AdminUser;
+
+			if( $adm->admin_jog !== 0 ) { \Helper::reload('/'); exit;	}
+
+			if(\Post::on('saveTranslates'))
+			{
+				try {
+					$this->db->saveTranslates( $_POST['saveTranslates'], $_POST['translate'], [
+						$_POST['new_translate_head'],
+						$_POST['new_translate_value']
+					] );
+				} 
+				catch (\Exception $e) 
+				{
+					die('Hiba a nyelvi fájl mentésekor: '.$e->getMessage());
+				}
+			}
+
+			$editor = [];
+			
+			if( $_GET['editor'] != '' )
+			{
+				$translates = $this->db->getLangEditor($_GET['editor']);
+				$editor['lang'] = $this->view->languages[$_GET['editor']];
+				$editor['translates'] = $translates;
+			}
+			
+			$this->out('editor', $editor);
+		}
 		
 		public function clearimages()
 		{

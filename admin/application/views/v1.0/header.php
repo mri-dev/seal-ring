@@ -212,6 +212,9 @@
                 <?php endif; ?>
                 <!-- End of MODULS-->
                 <li class="<?=($this->gets[0] == 'beallitasok')?'on':''?>"><a href="/beallitasok" title="Beállítások"><span class="ni">8</span><i class="fa fa-gear"></i> Beállítások</a></li>
+								<? if($this->gets[0] == 'beallitasok'): ?>
+                <li class="<?=($this->gets[0] == 'beallitasok' && $this->gets[1] == 'nyelvek')?'on':''?> sub"><a href="/beallitasok/nyelvek" title="<?=__('Nyelvi beállítások')?>"><span class="ni">2</span> <?=__('Nyelvi beállítások')?></a></li>
+                <? endif; ?>
         	</ul>
         </div>
     </div>

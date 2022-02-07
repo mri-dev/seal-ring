@@ -12,6 +12,12 @@ class home extends Controller{
 			$this->out('showslideshow', true);
 			$this->out('bodyclass', 'homepage');
 
+			if( isset($_GET['lang']) && !empty($_GET['lang']) )
+			{
+				setcookie( 'lang', $_GET['lang'], time() + 3600 * 24 * 30, '/' );
+				Helper::reload( ($_SERVER['HTTP_REFERER'])?:'/' ); exit;
+			}
+
 			$news = new News( false, array( 'db' => $this->db ) );
 			$temp = new Template( VIEW .'hirek/template/' );
 			$ptemp = new Template( VIEW .'templates/' );
@@ -20,15 +26,13 @@ class home extends Controller{
 				'limit' => 30,
 				'page' 	=> 1,
 				'lathato' => 1,
-				'order' => array(
-					'by' => 'rand()'
-				)
+				
 			);
 			$this->out( 'news', $news->getTree( $arg ) );
 			$this->out( 'template', $temp );
 			$this->out( 'ptemplate', $ptemp );
 
-			// SEO Információk
+			// SEO Inform��ci��k
 			$SEO = null;
 			// Site info
 			$SEO .= $this->view->addMeta('description', $this->view->settings['about_us']);

@@ -94,6 +94,13 @@ $(function(){
                   <div class="marquee" data-duration="<?=(!empty($this->settings['header_futo_szoveg_speed'])?$this->settings['header_futo_szoveg_speed']:12000)?>" data-duplicated="true" data-gap="80" data-pauseOnHover="true"><?php echo $this->settings['header_futo_szoveg']; ?></div>
                   <?php endif; ?>
                 </div>
+                <div class="langs">
+                  <div class="wrap">
+                    <?php foreach((array)$this->languages as $lakey => $la): ?>
+                    <div class="lang<?=(\Lang::getLang() == $lakey)?' current':''?>"><a href="/?lang=<?=$lakey?>" title="<?=$la['title']?>"><?=strtoupper($lakey)?></a></div>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
                 <?php if (!$this->user): ?>
                 <div class="partner">
                   <a href="/user/regisztracio">Regisztráció</a>

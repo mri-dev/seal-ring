@@ -28,6 +28,8 @@ class Controller {
     public static $pageTitle;
     public $fnTemp          = array();
     public static $user_opt = array();
+    public $languages = [];
+    public $langkey = 'hu';
 
     function __construct($arg = array())
     {
@@ -45,6 +47,7 @@ class Controller {
         $this->installer = new Installer(array('db'=> $this->db));
         //////////////////////////////////////////////////////
         $this->view->settings = $this->getAllValtozo();
+        $this->view->languages = $this->languages;
         $this->gets = Helper::GET();
         $this->view->gets = $this->gets;
 
@@ -513,6 +516,13 @@ class Controller {
         {
           $v['alert_email'] = explode(",",$v['alert_email']);
         }
+
+        // Elérhető nyelvek @ 2022.02.07.     
+      $langq = $this->db->getLanguages();
+
+      foreach( $langq as $lang ){
+        $this->languages[$lang['langkey']] = $lang;
+      }
 
         return $v;
     }

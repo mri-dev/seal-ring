@@ -32,9 +32,26 @@
     }
     */
 
+	global $langs;
+	$langs = @file_get_contents( LANG_FOLDER . \Lang::getLang().'/lang.txt' );
+
 	$start = new Start();
 
-	function __( $text, $root = ''){
-		return $text;
+	function __( $text, $root = '')
+	{
+		global $langs;
+		return \Lang::content( $text, $langs );
+	}
+
+	/** URL rewrite */
+	function __r( $text, $root = '')
+	{
+		global $langs;
+		$value = \Lang::content( 'rewrite:'.$text, $langs );
+		if( strpos($value, 'rewrite:') === 0 )
+		{
+			$value = str_replace('rewrite:', '', $value);
+		}
+		return $value;
 	}
 ?>

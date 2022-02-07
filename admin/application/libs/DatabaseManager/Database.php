@@ -24,7 +24,6 @@ class Database
 	public function __construct(){
 		try{
 			$this->db = new \PDO('mysql:host=' . $this->db_host . ';dbname=' . $this->db_name, $this->db_user , $this->db_pw );
-			$this->db->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION) ;
 			//echo '-DBOPEN-';
 			$this->query("set names utf8");
 		}catch(\PDOException $e){
@@ -366,6 +365,136 @@ class Database
 		$back[$return_str][data] 	= $data;
 		$back[data] 				= $data;
 		return $back;
+	}
+
+	/** 
+	 * ADDED @ 2022. 02. 07. 
+	 * */
+
+	public function newDB( $language = 'HU' )
+	{
+		$db = null;
+
+		/*
+		// Kikapcsolva, nincs külön adatbázis
+		$dbname = constant('DB_NAME_'.$language);		
+		$dbuser = constant('DB_USER_'.$language);		
+		$dbpass = constant('DB_PW_'.$language);
+		*/
+
+		$dbname = constant('DB_NAME');		
+		$dbuser = constant('DB_USER');		
+		$dbpass = constant('DB_PW');
+
+		try{
+			$db = new \PDO('mysql:host=' . $this->db_host . ';dbname=' . $dbname, $dbuser , $dbpass );
+			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			$db->query("set names utf8");
+		}catch(\PDOException $e){
+			die($e->getMessage());
+		}
+
+		return $db;
+	}
+
+	public function getLanguages()
+	{
+		$db = $this->newDB('HU');
+		$qry = $db->query("SELECT ID, langkey, title, active, changes, sorrend, valuta FROM languages");
+
+		if( $qry->rowCount() != 0 )
+		{
+			$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+			return $data;
+		}
+
+		unset($db);
+
+		return [];
+	}
+
+	public function getLangEditor( $langkey = 'hu' )
+	{
+		$root = $_SERVER['DOCUMENT_ROOT'];
+		$root = preg_replace( '/admin\/$/', 'shop/languages/'.$langkey.'/', $root );
+		$file = $root.'lang.txt';
+
+		if( file_exists($file) )
+		{
+			$content = file_get_contents( $file );
+		} 
+		else 
+		{
+			if( !file_exists($root) )
+			{
+				mkdir( $root, 0777, true );
+			}
+			$content = file_get_contents( preg_replace( '/admin\/$/', 'shop/languages/default.txt', $_SERVER['DOCUMENT_ROOT'] ) );
+			$f = fopen( $file, 'w');
+			fwrite( $f, $content);
+			fclose($f);
+		}
+		
+		$translates = [];
+		$lines = explode(";;", $content);
+
+		foreach((array)$lines as $line )
+		{
+			if( $line != '' )
+			{
+				$item = explode("::", trim($line));
+				$translates[trim($item[0])] = trim($item[1]);
+			}
+		}
+
+		unset($lines, $line, $f, $content, $file );
+
+		return $translates;
+	}
+
+	public function saveTranslates( $langkey, $translates = [], $creator = [] )
+	{
+		if( $translates )
+		{
+			$root = $_SERVER['DOCUMENT_ROOT'];
+			$root = preg_replace( '/admin\/$/', 'shop/languages/'.$langkey.'/', $root );
+			$file = $root.'lang.txt';
+
+			if( !file_exists($file) )
+			{
+				throw new \Exception("Nem található a nyelvi fájl: ".$file);
+			}
+
+			$content = '';
+
+			foreach($translates as $key => $val)
+			{
+				if( $val != '' && $key != '')
+				{
+					$content .= $key.'::'.$val.';;'.PHP_EOL;
+				}
+			}
+
+			if( !empty($creator[0]) )
+			{
+				foreach((array)$creator[0] as $index => $head )
+				{
+					if( $head != '' )
+					{
+						$val = $creator[1][$index];
+						if( $val != '' )
+						{
+							$content .= trim($head).'::'.trim($val).';;'.PHP_EOL;
+						}
+					}
+				}
+			}
+
+			$f = fopen( $file, 'w');			
+			fwrite( $f, $content);			
+			fclose($f);
+		}
 	}
 
 	public function __destruct(){
