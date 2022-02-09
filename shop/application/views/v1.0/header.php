@@ -96,7 +96,7 @@ $(function(){
                 </div>
                 <div class="langs">
                   <div class="wrap">
-                    <?php foreach((array)$this->languages as $lakey => $la): ?>
+                    <?php foreach((array)$this->languages as $lakey => $la): if($la['active'] == 0) continue; ?>
                     <div class="lang<?=(\Lang::getLang() == $lakey)?' current':''?>"><a href="/?lang=<?=$lakey?>" title="<?=$la['title']?>"><?=strtoupper($lakey)?></a></div>
                     <?php endforeach; ?>
                   </div>

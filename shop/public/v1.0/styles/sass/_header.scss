@@ -463,6 +463,34 @@ header {
 		}
 		position: relative;
 	}
+
+	.langs{
+		padding: 0 10px;
+		> .wrap{
+			display: flex;
+			align-items: center;
+
+			.lang{
+				padding: 0 2px;
+				font-size: 1rem;
+				a{
+					display: block;
+					padding: 5px;
+					text-decoration: none;
+					font-weight: normal;
+					color: #b9b9b9;
+					line-height: 32px;
+				}
+
+				&.current{
+					a{
+						color: $color-green;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
 }
 
 .searchform {

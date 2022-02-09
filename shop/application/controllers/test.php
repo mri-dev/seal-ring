@@ -61,7 +61,7 @@ class test extends Controller
 			$arg = array(
 				'settings' => $this->view->settings
 			);
-			$template = (new Template( VIEW . 'templates/mail/' ))->get( 'admin_requesttermprice', $arg );
+			$template = (new Template( VIEW . 'templates/mail/' ))->get( 'user_password_reset', $arg );
 
 			echo $template;
 		}

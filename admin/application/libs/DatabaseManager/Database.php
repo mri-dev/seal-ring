@@ -453,6 +453,23 @@ class Database
 		return $translates;
 	}
 
+	public function saveTranslateSettings( $lang )
+	{
+		$key = $lang['langkey'];
+		$update = [];
+
+		$update['title'] = $lang['title'];	
+		$update['valuta'] = $lang['valuta'];
+		$update['changes'] = $lang['changes'];
+		$update['active'] = (isset($lang['active']) ? 1 : 0);
+
+		$this->update(
+			'languages',
+			$update,
+			sprintf("langkey = '%s'", $key )
+		);
+	}
+
 	public function saveTranslates( $langkey, $translates = [], $creator = [] )
 	{
 		if( $translates )

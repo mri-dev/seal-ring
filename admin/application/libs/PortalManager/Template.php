@@ -42,6 +42,15 @@ class Template
 		}
 
 		extract($this->data_list);		
+
+    // check language version
+    $current_lang = \Lang::getLang();
+    if( $current_lang !== DLANG )
+    {
+      if ( file_exists($this->template_root.$template_name.'_'.$current_lang.'.php') ) {
+        $template_name = $template_name.'_'.$current_lang;
+      }
+    }
 		
 		ob_start();
 

@@ -113,10 +113,12 @@ class beallitasok extends Controller {
 			if(\Post::on('saveTranslates'))
 			{
 				try {
+					$this->db->saveTranslateSettings( $_POST['lang'] );
 					$this->db->saveTranslates( $_POST['saveTranslates'], $_POST['translate'], [
 						$_POST['new_translate_head'],
 						$_POST['new_translate_value']
 					] );
+					\Helper::reload();
 				} 
 				catch (\Exception $e) 
 				{

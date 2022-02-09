@@ -531,6 +531,7 @@ class Users
 		$mail->setSubject( 'Elkészült új jelszava' );
 		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'user_password_reset', $arg ) );
 		$re = $mail->sendMail();
+		print_r($re); exit;
 	}
 
 	function getAllKedvezmeny(){

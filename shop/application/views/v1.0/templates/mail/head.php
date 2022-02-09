@@ -155,6 +155,15 @@
 </head>
 <body>
 
+<?php 
+$current_language = \Lang::getLang(); 
+
+if( DLANG !== $current_language && file_exists(VIEW.'templates/mail/head_'.$current_language.'.php') )
+{
+    include 'head_'.$current_language.'.php';
+} else 
+{
+?>
 <header>
   <div class="width">
       <table width="100%" border="0" style="border:none;">
@@ -194,3 +203,6 @@
 <div class="width">
 <div class="in-content">
     <div class="content-holder">
+<?php } ?>
+
+
