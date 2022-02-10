@@ -10,8 +10,7 @@ class emails extends Controller{
 			$this->view->adm->logged = $this->AdminUser->isLogged();
 
 			$mailtemplates = new MailTemplates(array('db'=>$this->db));
-			$this->out('mails', $mailtemplates->getList());
-			
+			$this->out('mails', $mailtemplates->getList());			
 			
 			// SEO Információk
 			$SEO = null;
@@ -33,19 +32,24 @@ class emails extends Controller{
 		{
 			$mailtemplate = (new MailTemplates(array('db'=>$this->db)))->load($this->gets[2]);
 			$this->out( 'mail', $mailtemplate->getData() );
+			$this->out( 'mailtranslates', $mailtemplate->getTranslates($this->gets[2]));
 
 			if (Post::on('saveEmail') ) 
 			{
 				try {
 					$mailtemplate->save( $this->gets[2], $_POST['data'] );
-					Helper::reload( );
+
+					if(isset($_POST['translate']))
+					{
+						$mailtemplate->saveTranslates( $this->gets[2], $_POST['translate'] );
+					}
+
+					Helper::reload();
 				} catch (\Exception $e) {
 					$this->view->msg = Helper::makeAlertMsg( 'pError', $e->getMessage() );
 				}
 				
 			}
-
-			
 		}
 		
 		function __destruct(){

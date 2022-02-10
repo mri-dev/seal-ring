@@ -58,10 +58,13 @@ class test extends Controller
 
 		function mailtemplate()
 		{
+			
 			$arg = array(
 				'settings' => $this->view->settings
 			);
-			$template = (new Template( VIEW . 'templates/mail/' ))->get( 'user_password_reset', $arg );
+			//$template = (new Template( VIEW . 'templates/mail/' ))->get( 'user_password_reset', $arg );
+
+			$template  = (new MailTemplates(array('db'=>$this->db)))->get('alert_register_user_adminaccept', $arg);
 
 			echo $template;
 		}

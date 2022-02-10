@@ -8,10 +8,20 @@
 			<div class="con">
 				<h3>Tartalom</h3>
 				<textarea class="editor" name="data[content]"><?=$this->mail['content']?></textarea>	
+				<?php if(count($this->languages) > 1): ?>
+				<br>
+				<h2>Nyelvi verziók</h2>
+				<?php foreach((array)$this->languages as $langkey => $lang): if($langkey == DLANG) continue; ?>
+					<br>
+					<h3>[<?=$langkey?>] <u><?=$lang['title']?></u></h3>
+					<textarea class="editor" name="translate[<?=$langkey?>][content]"><?=$this->mailtranslates[$langkey]['content']?></textarea>
+					<input type="hidden" name="translate[<?=$langkey?>][id]" value="<?=$this->mailtranslates[$langkey]['id']?>">
+				<?php endforeach; ?>
+				<?php endif; ?>
 				<br>
 				<div class="right">
 					<button class="btn btn-success" name="saveEmail">Változások mentése <i class="fa fa-save"></i></button>
-				</div>
+				</div>				
 			</div>			
 		</div>
 		<div class="col-sm-6">

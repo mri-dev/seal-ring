@@ -26,9 +26,30 @@ class MailTemplates
 		);
 	}
 
+	public function saveTranslates( $template, $translatestack )
+	{	
+		foreach((array) $translatestack as $tr => $data )
+		{
+			$this->db->createTranslateContent( $data, self::DB_TABLE, $template, $tr );
+		}
+	}
+
 	public function getList()
 	{
 		return $this->db->squery("SELECT * FROM ".self::DB_TABLE)->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	public function getTranslates( $emailkey )
+	{
+		$list = [];
+		foreach( $this->db->getLanguages() as $lang )
+		{
+			if( DLANG == $lang['langkey']) continue; 
+			$data = $this->db->getTranslateContent( self::DB_TABLE, $emailkey, $lang['langkey'] );
+
+			$list[$lang['langkey']] = $data;
+		}
+		return $list;
 	}
 
 	public function load( $what, $by = 'elnevezes' )
@@ -55,9 +76,20 @@ class MailTemplates
 
 		$this->template_name = $template;
 
-		$content = $this->db->squery("SELECT content FROM ".self::DB_TABLE." WHERE elnevezes = :nev;",array('nev' => $template));
+		if( DLANG != \Lang::getLang())
+		{
+			$translates = $this->db->getTranslateContent( self::DB_TABLE, $template, \Lang::getLang() );
 
-		$content = $content->fetchColumn();
+			if( !$translates ) {
+				$content = $this->db->squery("SELECT content FROM ".self::DB_TABLE." WHERE elnevezes = :nev;",array('nev' => $template));
+				$content = $content->fetchColumn();
+			} else {
+				$content = $translates['content'];
+			}
+		} else {
+			$content = $this->db->squery("SELECT content FROM ".self::DB_TABLE." WHERE elnevezes = :nev;",array('nev' => $template));
+			$content = $content->fetchColumn();
+		}
 
 		$this->replaceParams( $content, $params );
 

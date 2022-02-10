@@ -414,6 +414,50 @@ class Database
 		return [];
 	}
 
+	public function getTranslateContent( $table, $field, $lang )
+	{
+		$qry = $this->squery("SELECT * FROM language_translates WHERE langkey = :langkey and dbtable = :db and field = :field", [
+			'langkey' => $lang,
+			'db' => $table,
+			'field' => $field
+		] ); 
+
+		$data = $qry->fetch(\PDO::FETCH_ASSOC);
+
+		return $data;
+	}
+
+	public function createTranslateContent( $data, $table, $field, $lang )
+	{
+		if( isset($data['id']) && !empty($data['id']) )
+		{
+			$this->update(
+				'language_translates',
+				[
+					'langkey' => $lang,
+					'dbtable' => $table,
+					'field' => $field,
+					'content' => addslashes($data['content'])
+				],
+				sprintf("id = %d", (int)$data['id'])
+			);
+		} else {
+			$this->insert(
+				'language_translates',
+				[
+					'langkey' => $lang,
+					'dbtable' => $table,
+					'field' => $field,
+					'content' => addslashes($data['content'])
+				]
+			);
+		}
+
+		$data = $qry->fetch(\PDO::FETCH_ASSOC);
+
+		return $data['content'];
+	}
+
 	public function getLangEditor( $langkey = 'hu' )
 	{
 		$root = $_SERVER['DOCUMENT_ROOT'];
