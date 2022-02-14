@@ -26,6 +26,7 @@ class oldalak extends Controller{
 					if(Post::on('save')){
 						try{
 							$pages->save($_POST);	
+							$pages->saveTranslates( (int)$this->view->gets[2], $_POST['translate']);
 							Helper::reload();
 						}catch(Exception $e){
 							$this->view->err 	= true;

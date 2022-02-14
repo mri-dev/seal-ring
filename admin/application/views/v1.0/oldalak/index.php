@@ -141,31 +141,69 @@
                    <a href="javascript:void(0);" onclick="$('.imageset').append(addImagesetRow());"><i class="fa fa-plus"></i> új kép hozzáadása</a>
                 </div>
             </div>
-						<br>
-						<h3>Meta adatok</h3>
-						<p>
-							Az adatok hiányában az alapértelmezett, rendelkezésre álló adatok alapján lesznek összeállítva a meta adatok. Ezek a keresők és a social oldalak szempontjából fontosak.
-						</p>
-						<div class="row">
-							<div class="col-md-6">
-								<label for="meta_title">Cím</label>
-								<input type="text" id="meta_title" class="form-control" name="meta_title" value="<?=($this->page ? $this->page->getMetaValue('title') : '')?>">
-							</div>
-							<div class="col-md-6">
-								<label for="meta_image">Kép</label>
-								<div class="input-group">
-									<input type="text" id="meta_image" index="1" class="form-control" name="meta_image" value="<?=($this->page ? $this->page->getMetaValue('image') : '')?>">
-									<div class="input-group-addon"><a title="Kép kiválasztása" href="<?=FILE_BROWSER_IMAGE?>&field_id=meta_image" data-fancybox-type="iframe" class="iframe-btn" type="button"><i class="fa fa-search"></i></a></div>
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-md-12">
-								<label for="meta_desc">Leírás</label>
-								<textarea name="meta_desc" class="no-editor form-control" id="meta_desc" maxlength="350"><?=($this->page ? $this->page->getMetaValue('desc') : '')?></textarea>
-							</div>
-						</div>
+            <br>
+            <h3>Meta adatok</h3>
+            <p>
+                Az adatok hiányában az alapértelmezett, rendelkezésre álló adatok alapján lesznek összeállítva a meta adatok. Ezek a keresők és a social oldalak szempontjából fontosak.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="meta_title">Cím</label>
+                    <input type="text" id="meta_title" class="form-control" name="meta_title" value="<?=($this->page ? $this->page->getMetaValue('title') : '')?>">
+                </div>
+                <div class="col-md-6">
+                    <label for="meta_image">Kép</label>
+                    <div class="input-group">
+                        <input type="text" id="meta_image" index="1" class="form-control" name="meta_image" value="<?=($this->page ? $this->page->getMetaValue('image') : '')?>">
+                        <div class="input-group-addon"><a title="Kép kiválasztása" href="<?=FILE_BROWSER_IMAGE?>&field_id=meta_image" data-fancybox-type="iframe" class="iframe-btn" type="button"><i class="fa fa-search"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="meta_desc">Leírás</label>
+                    <textarea name="meta_desc" class="no-editor form-control" id="meta_desc" maxlength="350"><?=($this->page ? $this->page->getMetaValue('desc') : '')?></textarea>
+                </div>
+            </div>            
+            <?php if(count($this->languages) > 1): ?>
+            <br>
+            <h2>Nyelvi verziók</h2>
+            <?php foreach((array)$this->languages as $langkey => $lang): if($langkey == DLANG) continue; 
+                $translates = $this->page->getTranslates($langkey);
+            ?>
+                <br>                
+                <h3>[<?=$langkey?>] <u><?=$lang['title']?></u></h3>    
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="cim_<?=$langkey?>">Cím</label>
+                        <input type="text"class="form-control" name="translate[<?=$langkey?>][cim][content]" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
+                        <input type="hidden" name="translate[<?=$langkey?>][cim][id]" value="<?=$translates['cim']['id']?>">
+                    </div>
+                </div>    
+                <br>        
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="szoveg_<?=$langkey?>">Az oldal tartalma</label>
+                        <div style="background:#fff;"><textarea name="translate[<?=$langkey?>][szoveg][content]" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
+                        <input type="hidden" name="translate[<?=$langkey?>][szoveg][id]" value="<?=$translates['szoveg']['id']?>">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="meta_title_<?=$langkey?>">Meta cím</label>
+                        <input type="text"class="form-control" name="translate[<?=$langkey?>][meta_title][content]" id="meta_title_<?=$langkey?>" value="<?=$translates['meta_title']['content']?>">
+                        <input type="hidden" name="translate[<?=$langkey?>][meta_title][id]" value="<?=$translates['meta_title']['id']?>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="meta_desc_<?=$langkey?>">Meta leírás</label>
+                        <textarea name="translate[<?=$langkey?>][meta_desc][content]" class="no-editor form-control" id="meta_desc" maxlength="350"><?=$translates['meta_desc']['content']?></textarea>
+                        <input type="hidden" name="translate[<?=$langkey?>][meta_desc][id]" value="<?=$translates['meta_desc']['id']?>">
+                    </div>
+                </div> 
+            <?php endforeach; ?>
+            <?php endif; ?>
             </form>
         </div>
     </div>

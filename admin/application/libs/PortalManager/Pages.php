@@ -54,6 +54,22 @@ class Pages
 
 		$this->current_get_item = $qry->fetch(\PDO::FETCH_ASSOC);
 
+		if( DLANG != \Lang::getLang() )
+		{
+			$translates = $this->db->getTranslateContents( 'oldalak', $this->current_get_item['ID'], \Lang::getLang() );
+			if( $translates )
+			{
+				$translate_keys = ['cim', 'szoveg', 'meta_title', 'meta_desc'];
+				foreach( $translate_keys as $tk )
+				{
+					if( isset($translates[$tk]['content']) && !empty($translates[$tk]['content']) )
+					{
+						$this->current_get_item[$tk] = $translates[$tk]['content'];
+					}
+				}				
+			}
+		}
+
 		return $this;
 	}
 
@@ -128,6 +144,20 @@ class Pages
 				'meta_image' => $meta_image,
 			)
 		);
+	}
+
+	public function saveTranslates( $id, $langset )
+	{
+		if( $langset )
+		{
+			foreach( $langset as $langkey => $items )
+			{
+				foreach( (array)$items as $key => $i )
+				{
+					$this->db->createTranslateContent( $i, 'oldalak', $key, $langkey, $id );
+				}
+			}
+		}
 	}
 
 	public function save( $data )
@@ -482,6 +512,31 @@ class Pages
 	{
 		$back = array();
 
+		if( DLANG != \Lang::getLang() )
+		{
+			switch( $key )
+			{
+				case 'title':
+					return $this->current_get_item['meta_'.$key];
+				break;
+				case 'desc':
+					return $this->current_get_item['meta_'.$key];
+				break;
+			}
+			$translates = $this->db->getTranslateContents( 'oldalak', $this->current_get_item['ID'], \Lang::getLang() );
+			if( $translates )
+			{
+				$translate_keys = ['cim', 'szoveg', 'meta_title', 'meta_desc'];
+				foreach( $translate_keys as $tk )
+				{
+					if( isset($translates[$tk]['content']) && !empty($translates[$tk]['content']) )
+					{
+						$this->current_get_item[$tk] = $translates[$tk]['content'];
+					}
+				}				
+			}
+		}
+
 		$set = array(
 			'title' => array(
 				'A' => 'meta_title',
@@ -596,6 +651,14 @@ class Pages
 	{
 		return ($this->current_get_item['gyujto'] == 1 ? true : false);
 	}
+
+	/** Translates */
+	public function getTranslates( $lang )
+	{
+		$translates = $this->db->getTranslateContents( 'oldalak', $this->getId(), $lang );
+		return $translates;
+	}
+
 	/*-----  End of GETTERS  ------*/
 }
 ?>

@@ -414,6 +414,26 @@ class Database
 		return [];
 	}
 
+	public function getTranslateContents( $table, $id, $lang )
+	{
+		$qry = $this->squery("SELECT * FROM language_translates WHERE langkey = :langkey and dbtable = :db and item_id = :item_id", [
+			'langkey' => $lang,
+			'db' => $table,
+			'item_id' => $id
+		] ); 
+
+		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+		$back = [];
+		foreach((array)$data as $d)
+		{
+			$back[$d['field']] = $d;
+		} 
+		unset($data);
+
+		return $back;
+	}
+
 	public function getTranslateContent( $table, $field, $lang )
 	{
 		$qry = $this->squery("SELECT * FROM language_translates WHERE langkey = :langkey and dbtable = :db and field = :field", [
@@ -427,7 +447,7 @@ class Database
 		return $data;
 	}
 
-	public function createTranslateContent( $data, $table, $field, $lang )
+	public function createTranslateContent( $data, $table, $field, $lang, $item_id = null )
 	{
 		if( isset($data['id']) && !empty($data['id']) )
 		{
@@ -437,7 +457,8 @@ class Database
 					'langkey' => $lang,
 					'dbtable' => $table,
 					'field' => $field,
-					'content' => addslashes($data['content'])
+					'content' => addslashes($data['content']),
+					'item_id' => $item_id
 				],
 				sprintf("id = %d", (int)$data['id'])
 			);
@@ -448,14 +469,11 @@ class Database
 					'langkey' => $lang,
 					'dbtable' => $table,
 					'field' => $field,
-					'content' => addslashes($data['content'])
+					'content' => addslashes($data['content']),
+					'item_id' => $item_id
 				]
 			);
 		}
-
-		$data = $qry->fetch(\PDO::FETCH_ASSOC);
-
-		return $data['content'];
 	}
 
 	public function getLangEditor( $langkey = 'hu' )
