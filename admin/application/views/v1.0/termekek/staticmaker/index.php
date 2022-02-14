@@ -1,6 +1,16 @@
 <h1>Dinamikusan betöltődő adatkezelő</h1>
 <p>Ezzel a funkcióval létrehozhat olyan termékcsoport jellemzőt (pl.: leírás), amit a rendszer dinaimusan be tud tölteni.</p>
-<br>
+
+<?php if(count($this->languages) > 1): ?>
+<h4>Nyelv kiválasztása</h4>
+<?php foreach((array)$this->languages as $langkey => $lang): 
+  $selected = ( (!isset($_COOKIE['langedit']) && $langkey == DLANG ) || $_COOKIE['langedit'] == $langkey) ? true : false;
+  ?>
+  <a href="/termekek/staticmaker?changelang=<?=$langkey?>" class="btn <?=(!$selected)?'btn-default':'btn-warning'?>"><?=$lang['title']?></a>
+<?php endforeach; ?>
+<br><br>
+<?php endif; ?>
+
 <h2><strong>Kulcsszavak frissítése</strong></h2>
 <p>
   Az FTP-n feltöltött kulcsszó állományokból frissíti a rendszer a termék csoport azonosító alapján a kulcsszavakat. Az állomány neve <strong>termék csoport azonosító.txt</strong>. Pl.: <strong>ONBR70.txt</strong>. A kulcsszavakat simán, egymás után, vesszővel elválasztva írja az állományba.
@@ -40,7 +50,7 @@
   </div>
   <div class="col-md-4">
     <div class="con" style="margin: 0 10px;">
-      <h3>Állományok</h3>
+      <h3>Állományok [<?=$this->lang?>]</h3>
       <div class="files">
         <?php if($this->files): ?>
           <?php foreach((array)$this->files as $f): ?>

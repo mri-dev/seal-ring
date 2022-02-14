@@ -225,12 +225,69 @@ class termekek extends Controller
 		}
 
 		public function staticmaker()
-		{			
+		{	
+			global $root;
+			$lang = DLANG;
+
+			if( isset($_COOKIE['langedit']) )
+			{
+				$lang = $_COOKIE['langedit'];
+			}
+			
+			$this->view->lang = $lang;
+
 			$root = $_SERVER['DOCUMENT_ROOT'].'src/static/';
+
+			/* Automatikus nyelvi mappák létrehozása */
+			function checkLangRoot ()
+			{
+				global $root;
+				$folders = ['desc', 'images', 'keywords'];
+				
+				if( !file_exists($root) )
+				{
+					mkdir( $root, 0755, true );
+				}
+
+				foreach( $folders as $f )
+				{
+					if( !file_exists($root.$f) )
+					{
+						mkdir( $root.$f, 0755, true );
+					}					
+				}
+			}
+
+			if( $lang && $lang != DLANG )
+			{
+				$root = $root.$lang.'/';
+			}
+
+			if( isset($_GET['changelang']) && !empty($_GET['changelang']) )
+			{
+				if( $_GET['changelang'] == DLANG )
+				{
+					setcookie('langedit', false, time() - 3600, '/' );
+				} else {
+					setcookie('langedit', $_GET['changelang'], time() + (3600 * 24 * 90), '/' );
+				}
+
+				\Helper::reload('/termekek/staticmaker');
+			}
 
 			if(Post::on('updateKeywords'))
 			{
-				$files = \File::showFolderFiles( 'src/static/keywords/' );
+				checkLangRoot();
+
+				// Files 
+				$folder = 'src/static/desc/';
+
+				if( $lang && $lang != DLANG )
+				{
+					$folder = 'src/static/'.$lang.'/keywords/';
+				}
+					
+				$files = \File::showFolderFiles( $folder );
 
 				if( $files )
 				{
@@ -259,6 +316,8 @@ class termekek extends Controller
 
 			if(Post::on('createDesc'))
 			{
+				checkLangRoot();
+
 			 	$html =	fopen( $root.'desc/'.$_POST['group'].'.html' , "w");
 				$content = $_POST['content'];
 				fwrite($html, $content);
@@ -266,7 +325,14 @@ class termekek extends Controller
 			}
 
 			// Files 
-			$files = \File::showFolderFiles( 'src/static/desc/' );
+			$folder = 'src/static/desc/';
+
+			if( $lang && $lang != DLANG )
+			{
+				$folder = 'src/static/'.$lang.'/desc/';
+			}
+
+			$files = \File::showFolderFiles( $folder );
 			$this->view->files = $files;
 
 			// Szerkeszt

@@ -1866,20 +1866,37 @@ class Products
 			'images' => false
 		];
 
+		$lang = \Lang::getLang();
+
 		if( $group && !empty($group) )
 		{
 			// DESC
 			if( !$this->static_datasets['desc'] )
 			{
-				$files = \File::showFolderFiles( '../admin/src/static/desc/' );
+				$folder = '../admin/src/static/desc/';
+
+				if( $lang != DLANG )
+				{
+					$folder = '../admin/src/static/'.$lang.'/desc/';
+				}
+
+				$files = \File::showFolderFiles( $folder );
 				$this->static_datasets['desc'] = $files;
 				unset($files);
 			}
 
-			// DESC
+			// IMG
 			if( !$this->static_datasets['images'] )
 			{
-				$files = \File::showFolderFiles( '../admin/src/static/images/' );
+				$folder = '../admin/src/static/images/';
+
+				if( $lang != DLANG )
+				{
+					// IDEIGLENESEN KIKAPCSOLVA -> Nem biztos, hogy nyelvenként lesznek új képek
+					//$folder = '../admin/src/static/'.$lang.'/images/';
+				}
+
+				$files = \File::showFolderFiles( $folder );
 				$this->static_datasets['images'] = $files;
 				unset($files);
 			}

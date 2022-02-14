@@ -126,6 +126,8 @@ class beallitasok extends Controller {
 				}
 			}
 
+			// ALTER TABLE `shop_termekek` ADD `kulcsszavak_en` VARCHAR(250) NULL DEFAULT NULL AFTER `kulcsszavak`, ADD INDEX (`kulcsszavak_en`);
+
 			$editor = [];
 			
 			if( $_GET['editor'] != '' )
