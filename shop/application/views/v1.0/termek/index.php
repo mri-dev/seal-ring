@@ -34,32 +34,32 @@
         <div class="main-data">
         <h1><?=$this->product['nev']?></h1>
         <div class="csoport">
-          <?=$this->product['csoport_kategoria']?>
+          <?=__($this->product['csoport_kategoria'])?>
         </div>
         <div class="cimkek">
         <? if($this->product['akcios'] == '1'): ?>
-            <img src="<?=IMG?>discount_small_icon.png" title="Akciós!" alt="Akciós">
+            <img src="<?=IMG?>discount_small_icon.png" title="<?=__('Akciós')?>!" alt="<?=__('Akciós')?>">
         <? endif; ?>
         <? if($this->product['ujdonsag'] == '1'): ?>
-            <img src="<?=IMG?>new_icon_sq.svg" title="Újdonság!" alt="Újdonság">
+            <img src="<?=IMG?>new_icon_sq.svg" title="<?=__('Újdonság')?>!" alt="<?=__('Újdonság')?>">
         <? endif; ?>
         </div>
         <div class="prices">
           <?php if( $this->user ): ?>
           <div class="lab">
             <?php if (!$this->user || $this->user['data']['price_group_data']['groupkey'] == 'ar1'): ?>
-             <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?'Nettó':'Bruttó'?> ár:
+             <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:__('Kiskereskedelmi')?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?__('Nettó'):__('Bruttó')?> <?=__('ár')?>:
             <?php elseif($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto'): ?>
-              Nettó <strong>beszerzési</strong> ár:
+              <?=__('Nettó')?> <strong><?=__('beszerzési')?></strong> <?=__('ár')?>:
             <?php else: ?>
-              <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?'Nettó':'Bruttó'?> ár:
+              <? if(false): ?><strong><?=($this->user['data']['price_group_data']['title'] != '')?$this->user['data']['price_group_data']['title']:'Kiskereskedelmi'?></strong><? endif; ?><?=($this->settings['price_show_brutto'] == 0)?__('Nettó'):__('Bruttó')?> <?=__('ár')?>:
             <?php endif; ?>
           </div>
           <?php $kisker_brutto = (int)$this->product['price_default_kisker_brutto']; ?>
           <div class="base">
             <?php if ($kisker_brutto == 0): ?>
               <div class="current">
-                ÉRDEKLŐDJÖN!
+                <?=__('ÉRDEKLŐDJÖN!')?>
               </div>
             <?php else: ?>
               <?  if( $this->product['akcios'] == '1' && $this->product['akcio']['mertek'] > 0):
@@ -72,13 +72,13 @@
               <div class="current">
                   <?=\PortalManager\Formater::cashFormat($this->product['ar'])?> <?=$this->valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?>
                   <?php if ($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1): ?>
-                    <span class="text">+ ÁFA</span>
+                    <span class="text">+ <?=__('ÁFA')?></span>
                   <?php endif; ?>
               </div>
             <?php endif; ?>
           </div>
           <?php else: ?>
-            <div class="login-for-price">Az Ár bejelentkezés után látható!</div><br>
+            <div class="login-for-price"><?=__('Az Ár bejelentkezés után látható!')?></div><br>
           <?php endif; ?>
         </div>
         <div class="divider"></div>
@@ -87,13 +87,13 @@
             <div class="v"><?=$this->product['keszlet_info']?></div>
           </div>
           <div class="transport">
-            <div class="h">Várható szállítás:</div>
-            <div class="v"><span><?=$this->product['szallitas_info']?></span></div>
+            <div class="h"><?=__('Várható szállítás')?>:</div>
+            <div class="v"><span><?=__($this->product['szallitas_info'])?></span></div>
           </div>
           <?php if ( $ar > $this->settings['FREE_TRANSPORT_ABOVEPRICE']): ?>
           <div class="free-transport">
             <div class="free-transport-ele">
-              <i class="fa fa-car"></i> Ingyen szállítjuk
+              <i class="fa fa-car"></i> <?=__('Ingyen szállítjuk')?>
             </div>
           </div>
           <?php endif; ?>
@@ -110,11 +110,11 @@
         ?>
         <div class="divider"></div>
         <div class="variation-header">
-          Elérhető variációk:
+          <?=__('Elérhető variációk')?>:
         </div>
         <div class="variation-list">
         <? foreach ($colorset as $szin => $adat ) : ?>
-          <div class="variation<?=($szin == $this->product['szin'] )?' actual':''?>"><a href="<?=$adat['link']?>"><?=$szin?></a></div>
+          <div class="variation<?=($szin == $this->product['szin'] )?' actual':''?>"><a href="<?=$adat['link']?>"><?=__($szin)?></a></div>
         <? endforeach; ?>
         </div>
         <? endif; ?>
@@ -124,9 +124,9 @@
           <?php if ($this->product['show_stock'] == 1): ?>
             <div class="stock-info <?=($this->product['raktar_keszlet'] <=0)?'no-stock':''?>">
               <?php if ($this->product['raktar_keszlet'] > 0): ?>
-                Készleten: <strong><?php echo $this->product['raktar_keszlet']; ?> db</strong>
+                <?=__('Készleten')?>: <strong><?php echo $this->product['raktar_keszlet']; ?> <?=__('db')?></strong>
               <?php else: ?>
-                Készleten: <strong>Nincs készleten jelenleg.</strong>
+                <?=__('Készleten')?>: <strong><?=__('Nincs készleten jelenleg')?>.</strong>
               <?php endif; ?>
             </div>
             <?php endif; ?>
@@ -142,7 +142,7 @@
 
                 <div class="number-select dropdown-list-selecting overflowed">
                 <? foreach ($colorset as $szin => $adat ) : ?>
-                    <div link="<?=$adat['link']?>"><?=$adat['size']?></div>
+                    <div link="<?=$adat['link']?>"><?=__($adat['size'])?></div>
                 <? endforeach; ?>
                 </div>
             </div>
@@ -151,7 +151,7 @@
               <?php if ( !$this->product['without_price'] && $kisker_brutto != 0  ): ?>
               <div class="men">
                 <div class="wrapper">
-                  <label for="add_cart_num">Darab:</label>
+                  <label for="add_cart_num"><?=__('Darab')?>:</label>
                   <input type="number" name="" id="add_cart_num" cart-count="<?=$this->product['ID']?>" value="1" min="1">
                 </div>
               </div>
@@ -163,9 +163,9 @@
               <?php else: ?>
                 <div class="requestbutton">
                   <md-tooltip md-direction="top">
-                    Erre a gombra kattintva árajánlatot kérhet erre a termékre.
+                    <?=__('Erre a gombra kattintva árajánlatot kérhet erre a termékre.')?>
                   </md-tooltip>
-                  <button aria-label="Erre a gombra kattintva árajánlatot kérhet erre a termékre." class="tocart cart-btn" ng-click="requestPrice(<?=$this->product['ID']?>)"><?=__('Ajánlatot kérek')?></i></button>
+                  <button aria-label="<?=__('Erre a gombra kattintva árajánlatot kérhet erre a termékre.')?>" class="tocart cart-btn" ng-click="requestPrice(<?=$this->product['ID']?>)"><?=__('Ajánlatot kérek')?></i></button>
                 </div>
               <?php endif; ?>
             </div>
@@ -177,7 +177,7 @@
             <div class="cats">
               <div class="flex">
                 <div class="title">
-                  Kategóriák:
+                  <?=__('Kategóriák')?>:
                 </div>
                 <div class="val">
                   <div class="wrapper">
@@ -186,7 +186,7 @@
                       $ci = -1;
                       foreach ((array)$this->product['in_cats']['name'] as $cat ): $ci++; ?>
                       <div class="">
-                        <a href="<?=$this->product['in_cats']['url'][$ci]?>"><?=$cat?></a>
+                        <a href="<?=$this->product['in_cats']['url'][$ci]?>"><?=__(trim($cat))?></a>
                       </div>
                       <?php endforeach; unset($ci); ?>
                     </div>
@@ -199,7 +199,7 @@
             <div class="keywords">
               <div class="flex">
                 <div class="title">
-                  Címkék:
+                  <?=__('Címkék')?>:
                 </div>
                 <div class="val">
                   <div class="wrapper">
@@ -218,7 +218,7 @@
             <div class="shares">
               <div class="flex">
                 <div class="title">
-                  Megosztás:
+                  <?=__('Megosztás')?>:
                 </div>
                 <div class="val">
                   <div class="wrapper">
@@ -248,12 +248,12 @@
       <div class="">
         <nav class="tab-header">
           <ul>
-            <li class="description active"><a href="#description" onclick="switchTab('description')">Leírás</a></li>
+            <li class="description active"><a href="#description" onclick="switchTab('description')"><?=__('Leírás')?></a></li>
             <?php if ($this->product['parameters'] && !empty($this->product['parameters'])): ?>
-            <li class="parameters"><a href="#parameters" onclick="switchTab('parameters')">Műszaki adatok</a></li>
+            <li class="parameters"><a href="#parameters" onclick="switchTab('parameters')"><?=__('Műszaki adatok')?></a></li> 
             <?php endif; ?>
             <?php if ($this->product['documents']): ?>
-            <li class="documents"><a href="#documents" onclick="switchTab('documents')">Dokumentumok</a></li>
+            <li class="documents"><a href="#documents" onclick="switchTab('documents')"><?=__('Dokumentumok')?></a></li>
             <?php endif; ?>
           </ul>
         </nav>
@@ -291,7 +291,7 @@
                 <?=$this->product['leiras']?>
                 <?php else: ?>
                   <div class="no-data">
-                    <i class="fa fa-info-circle"></i> A terméknek nincs leírása.
+                    <i class="fa fa-info-circle"></i> <?=__('A terméknek nincs leírása.')?>
                   </div>
                 <?php endif; ?>
               </div>

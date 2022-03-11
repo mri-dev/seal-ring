@@ -3,7 +3,7 @@
     $wo_price = (empty($ar) || $ar == '0') ? true : false;
   ?>
 	<div class="wrapper">
-		<div class="fav" ng-class="(fav_ids.indexOf(<?=$product_id?>) !== -1)?'selected':''" title="Kedvencekhez adom" ng-click="productAddToFav(<?=$product_id?>, $event)">
+		<div class="fav" ng-class="(fav_ids.indexOf(<?=$product_id?>) !== -1)?'selected':''" title="<?=__('Kedvencekhez adom')?>" ng-click="productAddToFav(<?=$product_id?>, $event)">
 			<i class="fa fa-star" ng-show="fav_ids.indexOf(<?=$product_id?>) !== -1"></i>
 			<i class="fa fa-star-o" ng-show="fav_ids.indexOf(<?=$product_id?>) === -1"></i>
 		</div>
@@ -17,7 +17,7 @@
       <div class="wrapper <?=($wo_price)?'wo-price':''?>">
         <?php if ( $wo_price ): ?>
           <div class="ar">
-            <strong>ÉRDEKLŐDJÖN!</strong> 
+            <strong><?=__('ÉRDEKLŐDJÖN')?>!</strong> 
           </div>
         <?php else: ?>
           <?php if( $user ): ?>
@@ -32,14 +32,14 @@
             </div>
           <?php endif; ?>
           <?php else: ?>
-            <div>Az Ár bejelentkezés után látható!</div>
+            <div><?=__('Az Ár bejelentkezés után látható!')?></div>
           <?php endif; ?>
         <?php endif; ?>
       </div>
     </div>
 		<div class="stockinfo">
 			<div class="rack" style="background: <?=$keszlet_color?>;">
-				<?=($show_stock=='1' && $raktar_keszlet > 0)?$raktar_keszlet.' db ':''?><?=$keszlet_nev?>
+				<?=($show_stock=='1' && $raktar_keszlet > 0)?$raktar_keszlet.' '.__('db').' ':''?><?=$keszlet_nev?>
 			</div>
     </div>
     

@@ -14,14 +14,14 @@
 					<div class="flex">
 						<div class="links">
 							<div class="segitseg">
-								<h3>Tájékoztatók</h3>
+								<h3><?=__('Tájékoztatók')?></h3>
 								<ul>
 									<? foreach ( $this->menu_footer->tree as $menu ): ?>
 										<li>
 											<? if($menu['link']): ?><a href="<?=($menu['link']?:'')?>"><? endif; ?>
 												<span class="item <?=$menu['css_class']?>" style="<?=$menu['css_styles']?>">
 													<? if($menu['kep']): ?><img src="<?=\PortalManager\Formater::sourceImg($menu['kep'])?>"><? endif; ?>
-													<?=$menu['nev']?></span>
+													<?=__(trim($menu['nev']))?></span>
 											<? if($menu['link']): ?></a><? endif; ?>
 											<? if($menu['child']): ?>
 												<? foreach ( $menu['child'] as $child ) { ?>
@@ -33,7 +33,7 @@
 														<? else: ?>
 														<? if($child['link']): ?><a href="<?=$child['link']?>"><? endif; ?>
 														<? if($child['kep']): ?><img src="<?=\PortalManager\Formater::sourceImg($child['kep'])?>"><? endif; ?>
-														<span style="<?=$child['css_styles']?>"><?=$child['nev']?></span>
+														<span style="<?=$child['css_styles']?>"><?=__(trim($child['nev']))?></span>
 														<? if($child['link']): ?></a><? endif; ?>
 														<? endif; ?>
 													</div>
@@ -70,11 +70,11 @@
 								<br>
 								<div class="page-visit">
 									<div class="wrapper">
-										Weboldal látogatottsága:
+										<?=__('Weboldal látogatottsága')?>:
 										<div class="seps"></div>
 										<div class="visit"><?php echo number_format($this->page_visits, 0, ".". "", " "); ?></div>										
 										<div class="sep"></div>
-										<div class="last-refresh">Frissítve: <?php echo date('Y. m. d. H:i'); ?></div>
+										<div class="last-refresh"><?=__('Frissítve')?>: <?php echo date('Y. m. d. H:i'); ?></div>
 									</div>
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 
 						</div>
 						<div class="subs">
-							<h3>Feliratkozás</h3>
+							<h3><?=__('Feliratkozás')?></h3>
 							<div class="subbox">
 								<div class="wrapper">
 									<div class="form">
@@ -94,7 +94,7 @@
 														<i class="fa fa-user"></i>
 													</div>
 													<div class="input">
-														<input type="text" name="name" value="" placeholder="Név">
+														<input type="text" name="name" value="" placeholder="<?=__('Név')?>">
 													</div>
 												</div>
 											</div>
@@ -104,15 +104,15 @@
 														<i class="fa fa-envelope"></i>
 													</div>
 													<div class="input">
-														<input type="text" name="email" value="" placeholder="E-mail">
+														<input type="text" name="email" value="" placeholder="<?=__('E-mail')?>">
 													</div>
 												</div>
 											</div>
 											<div class="aszf">
-												<input type="checkbox" name="aszf" id="subs_aszf" value=""> <label for="subs_aszf"> Adataim magadásával, elfogadom az <a href="/p/aszf" target="_blank">ÁSZF</a> feltételeit és hozzájárulok ahhoz, hogy a <?php echo $this->settings['page_author']; ?> ismertető leveleket küldjön nekem a megadott névre és email címre.</label>
+												<input type="checkbox" name="aszf" id="subs_aszf" value=""> <label for="subs_aszf"> <?php echo sprintf(__('Adataim magadásával, elfogadom az <a href="%s" target="_blank">%s</a> feltételeit és hozzájárulok ahhoz, hogy a %s ismertető leveleket küldjön nekem a megadott névre és email címre.'), '/p/aszf', __('ÁSZF'), $this->settings['page_author']); ?> </label>
 											</div>
 											<div class="button">
-												<button type="submit" name="subscribe">Mehet</button>
+												<button type="submit" name="subscribe"><?=__('Mehet')?></button>
 											</div>
 										</form>
 									</div>
@@ -183,7 +183,7 @@
 		<div class="info">
 			<div class="bottom">
 				<div class="pwf">
-					<span class="author">&copy; <?=$this->settings['page_author']?></span> 2018. Minden jog fenntartva!
+					<span class="author"> <?=$this->settings['page_author']?></span> &copy; 2018. &mdash; <?=__('Minden jog fenntartva!')?>
 				</div>
 			</div>
 		</div>

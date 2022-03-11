@@ -3,7 +3,7 @@
     <form class="" action="" method="get">
       <div class="filters side-group">
         <div class="head">
-          Keresés tulajdonságok szerint
+          <?=__('Keresés tulajdonságok szerint')?>
         </div>
         <?php if ( !empty($this->productFilters) ): ?>
           <?php foreach ( $this->productFilters as $pf ):
@@ -45,7 +45,7 @@
                       <?=count($pf[hints])?>
                     </div>
                     <?php endif; ?>
-                    <div class="selector" key="p_<?=$pf[ID]?>" id="p_<?=$pf[ID]?>">összes</div>
+                    <div class="selector" key="p_<?=$pf[ID]?>" id="p_<?=$pf[ID]?>"><?=__('összes')?></div>
                     <div class="selectorHint p_<?=$pf[ID]?>" style="display:none;">
                        <ul>
                           <? foreach($pf[hints] as $h): ?>
@@ -60,18 +60,18 @@
           <?php endforeach; ?>
         <?php endif; ?>
         <div class="section-group">
-          Rendezés
+          <?=__('Rendezés')?>
         </div>
         <div class="section-wrapper">
           <select name="order" class="form-control">
-            <option value="ar_asc" selected="selected">Ár: növekvő</option>
-            <option value="ar_desc">Ár: csökkenő</option>
-            <option value="nev_asc">Név: A-Z</option>
-            <option value="nev_desc">Név: Z-A</option>
+            <option value="ar_asc" selected="selected"><?=__('Ár: növekvő')?></option>
+            <option value="ar_desc"><?=__('Ár: csökkenő')?></option>
+            <option value="nev_asc"><?=__('Név: A-Z')?></option>
+            <option value="nev_desc"><?=__('Név: Z-A')?></option>
           </select>
         </div>
         <div class="action-group">
-          <button type="submit">Szűrés <i class="fa fa-refresh"></i></button>
+          <button type="submit"><?=__('Szűrés')?> <i class="fa fa-refresh"></i></button>
         </div>
       </div>
     </form>
@@ -80,7 +80,7 @@
   <?php if ($this->top_documents): ?>
   <div class="documents side-group">
     <div class="head">
-      Dokumentumok
+      <?=__('Dokumentumok')?>
     </div>
     <div class="wrapper">
       <div class="document-top-list">
@@ -167,9 +167,7 @@
 
   <? if( $this->viewed_products_list ): ?>
   <div class="lastviewed side-group">
-    <div class="head">
-      Utoljára megtekintettek
-    </div>
+    <div class="head"><?=__('Utoljára megtekintettek')?></div>
     <div class="wrapper">
       <div class="product-side-items imaged-style">
         <? foreach ( $this->viewed_products_list as $viewed ) { ?>
@@ -202,14 +200,12 @@
     if( $top_tudastar ):
 	?>
   <div class="helpdesk side-group">
-    <div class="head">
-      Tudástár
-    </div>
+    <div class="head"><?=__('Tudástár')?></div>
     <div class="wrapper">
       <div class="helpdesk-top-searcher">
         <div class="helpdesk-search">
           <form class="" action="/tudastar" method="get" onsubmit="prepareHelpdeskHeaderSearch(this); return false;">
-            <input type="text" name="tags" value="" placeholder="Keresőszó megadása" autocomplete="off">
+            <input type="text" name="tags" value="" placeholder="<?=__('Keresőszó megadása')?>" autocomplete="off">
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
@@ -217,7 +213,7 @@
           <div class="wrapper">
             <ul>
               <?php foreach ($top_tudastar as $tud): ?>
-  						<li><a href="/tudastar/#?pick=<?=$tud['ID']?>"><?php echo $tud['cim']; ?></a></li>
+  						<li><a href="/tudastar/#?pick=<?=$tud['ID']?>"><?php echo __(trim($tud['cim'])); ?></a></li>
   						<?php endforeach; ?>
             </ul>
           </div>

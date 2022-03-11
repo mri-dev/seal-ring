@@ -13,9 +13,9 @@
                   <? if($this->parent_menu&& count($this->parent_menu) > 0): ?>
                   <div class="sub-categories">
                       <div class="title">
-                          <h3><? $subk = ''; foreach($this->parent_row as $sc) { $subk .= $sc.' / '; } echo rtrim($subk,' / '); ?> alkategóriái</h3>
+                          <h3><? $subk = ''; foreach($this->parent_row as $sc) { $subk .= $sc.' / '; } echo rtrim($subk,' / '); ?> <?=__('alkategóriái')?></h3>
                           <? if($this->parent_category): ?>
-                          <a class="back" href="<?=$this->parent_category->getURL()?>"><i class="fa fa-arrow-left"></i> vissza: <?=$this->parent_category->getName()?></a>
+                          <a class="back" href="<?=$this->parent_category->getURL()?>"><i class="fa fa-arrow-left"></i> <?=__('vissza')?>: <?=$this->parent_category->getName()?></a>
                            <? endif; ?>
                       </div>
                       <div class="holder">
@@ -35,24 +35,24 @@
 
                   <div class="category-title head">
                     <?php if ($this->myfavorite): ?>
-                      <h1>Kedvencnek jelölt termékek</h1>
+                      <h1><?=__('Kedvencnek jelölt termékek')?></h1>
                       <div class="push-cart-favorite">
-                        <a href="/kedvencek/?order=1&after=/kosar">Kedvenceket a kosárba teszem <i class="fa fa-cart-plus"></i></a>
+                        <a href="/kedvencek/?order=1&after=/kosar"><?=__('Kedvenceket a kosárba teszem')?> <i class="fa fa-cart-plus"></i></a>
                       </div>
                     <?php elseif($this->category->getName() != ''): ?>
-                      <h1><?=$this->category->getName()?></h1>
+                      <h1><?=__($this->category->getName())?></h1>
                     <?php else: ?>
                       <?php if ($this->gets[1] == 'akciok'): ?>
-                      <h1>Akciós termékek</h1>
+                      <h1><?=__('Akciós termékek')?></h1>
                     <?php elseif($this->gets[1] == 'kiemelt'): ?>
-                      <h1>Kiemelt termékek</h1>
+                      <h1><?=__('Kiemelt termékek')?></h1>
                       <?php else: ?>
-                      <h1>Termékek</h1>
+                      <h1><?=__('Termékek')?></h1>
                       <?php endif; ?>
                       <?php if (isset($this->searched_by)): ?>
-                        <div class="search-for">
-                         <i class="fa fa-search"></i> Keresés, mint: <?php if(is_array($this->searched_by)): foreach ($this->searched_by as $s): ?>
-                            <span><?=$s?></span>
+                        <div class="search-for">  
+                         <i class="fa fa-search"></i> <?=__('Keresés, mint')?>: <?php if(is_array($this->searched_by)): foreach ($this->searched_by as $s): ?>
+                            <span><?=__($s)?></span>
                           <?php endforeach; else: ?><span><?=$this->searched_by?></span><? endif; ?>
                         </div>
                       <?php endif; ?>
@@ -62,12 +62,12 @@
                         <li><a href="/"><i class="fa fa-home"></i></a></li>
                         <li><a href="<?=$navh?>">Webshop</a></li>
                         <?php if ($this->myfavorite): ?>
-                        <li>Kedvencek</li>
+                        <li><?=__('Kedvencek')?></li>
                         <?php endif; ?>
                         <?php
                         if($this->cat_nav):
                         foreach ( (array)$this->cat_nav as $nav ): $navh = \Helper::makeSafeUrl($nav['neve'],'_-'.$nav['ID']); ?>
-                        <li><a href="/termekek/<?=$navh?>"><?php echo $nav['neve']; ?></a></li>
+                        <li><a href="/termekek/<?=$navh?>"><?php echo __($nav['neve']); ?></a></li>
                       <?php endforeach; endif; ?>
                       </ul>
 
@@ -83,12 +83,12 @@
                           <input type="hidden" name="src" value="<?=$_GET['src']?>">
                           <div class="wrapper">
                             <div class="page-product-info">
-                              <div class="prod-items"><strong><?php echo $this->products->getItemNumbers(); ?> találat</strong></div>
-                              <div class="pages"><?php echo $this->products->getMaxPage(); ?> / <strong><?php echo $this->products->getCurrentPage(); ?>. oldal</strong></div>
+                              <div class="prod-items"><strong><?php echo $this->products->getItemNumbers(); ?> <?=__('találat')?></strong></div>
+                              <div class="pages"><?php echo $this->products->getMaxPage(); ?> / <strong><?php echo $this->products->getCurrentPage(); ?>. <?=__('oldal')?></strong></div>
                             </div>
                             <div class="orders-list-view">
                               <div class="input-group">
-                                <span class="input-group-addon">Nézet</span>
+                                <span class="input-group-addon"><?=__('Nézet')?></span>
                                 <div class="list-type-switch-holder">
                                   <div title="Lista nézet" class="<?=($this->list_type=='list')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=list&'.$qryget?>"><i class="fa fa-list"></i></a></div>
                                   <div title="Blokk nézet" class="<?=($this->list_type=='grid')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=grid&'.$qryget?>"><i class="fa fa-th"></i></a></div>
@@ -97,22 +97,22 @@
                             </div>
                             <div class="orders-list-group">
                               <div class="input-group">
-                                <span class="input-group-addon">Rendezés</span>
+                                <span class="input-group-addon"><?=__('Rendezés')?></span>
                                 <select class="form-control" name="order" onchange="$('#formfilter').submit()">
-                                  <option value="size_ASC" <?=($_GET['order'] == 'size_ASC'?'selected="selected"':'')?>>Méret szerint</option>
-                                  <option value="nev_ASC" <?=(empty($_GET['order']) || $_GET['order'] == 'nev_ASC'?'selected="selected"':'')?>>Név: A-Z</option>
-                                  <option value="nev_DESC" <?=($_GET['order'] == 'nev_DESC'?'selected="selected"':'')?>>Név: Z-A</option>
-                                  <option value="ar_ASC" <?=($_GET['order'] == 'ar_ASC'?'selected="selected"':'')?>>Ár: növekvő</option>
-                                  <option value="ar_DESC" <?=($_GET['order'] == 'ar_DESC'?'selected="selected"':'')?>>Ár: csökkenő</option>
+                                  <option value="size_ASC" <?=($_GET['order'] == 'size_ASC'?'selected="selected"':'')?>><?=__('Méret szerint')?></option>
+                                  <option value="nev_ASC" <?=(empty($_GET['order']) || $_GET['order'] == 'nev_ASC'?'selected="selected"':'')?>><?=__('Név: A-Z')?></option>
+                                  <option value="nev_DESC" <?=($_GET['order'] == 'nev_DESC'?'selected="selected"':'')?>><?=__('Név: Z-A')?></option>
+                                  <option value="ar_ASC" <?=($_GET['order'] == 'ar_ASC'?'selected="selected"':'')?>><?=__('Ár: növekvő')?></option>
+                                  <option value="ar_DESC" <?=($_GET['order'] == 'ar_DESC'?'selected="selected"':'')?>><?=__('Ár: csökkenő')?></option>
                                 </select>
                               </div>
                             </div>
                             <div class="orders-list-limit">
                               <div class="input-group">
-                                <span class="input-group-addon">Megjelen</span>
+                                <span class="input-group-addon"><?=__('Megjelen')?></span>
                                 <select class="form-control" name="itemlimit" onchange="$('#formfilter').submit()">
                                   <?php foreach (array(10, 20, 40, 80, 100, 200) as $n): ?>
-                                    <option value="<?=$n?>" <?=(($n == $this->item_limit ) ?'selected="selected"':'')?>><?=$n?> db</option>
+                                    <option value="<?=$n?>" <?=(($n == $this->item_limit ) ?'selected="selected"':'')?>><?=$n?> <?=__('db')?></option>
                                   <?php endforeach; ?>
                                 </select>
                               </div>
@@ -126,13 +126,13 @@
                   <? if( !$this->products->hasItems()): ?>
                   <div class="no-product-items">
                       <?php if ($this->myfavorite): ?>
-                        <div class="icon"><i class="fa fa-circle-o-notch "></i></div> 
-                        <strong>Nincsenek kedvencnek jelölt termékei!</strong><br>
-                        Kedvencnek jelölhet bármilyen terméket, hogy később gyorsan és könnyedén megtalálja.
+                        <div class="icon"><i class="fa fa-circle-o-notch "></i></div>
+                        <strong><?=__('Nincsenek kedvencnek jelölt termékei!')?></strong><br>
+                        <?=__('Kedvencnek jelölhet bármilyen terméket, hogy később gyorsan és könnyedén megtalálja.')?>
                       <?php else: ?>
                         <div class="icon"><i class="fa fa-circle-o-notch"></i></div>
-                        <strong>Nincsenek termékek ebben a kategóriában!</strong><br>
-                        A szűrőfeltételek alapján nincs megfelelő termék, amit ajánlani tudunk. Böngésszen további termékeink között.
+                        <strong><?=__('Nincsenek termékek ebben a kategóriában!')?></strong><br>
+                        <?=__('A szűrőfeltételek alapján nincs megfelelő termék, amit ajánlani tudunk. Böngésszen további termékeink között.')?>
                       <?php endif; ?>
                   </div>
                   <? else: ?>
@@ -146,7 +146,7 @@
                       }*/ ?>
                           <div class="items">
                               <? foreach ( $this->product_list as $p )
-                              { 
+                              {
                                   $p['itemhash'] = hash( 'crc32', microtime() );
                                   $p['sizefilter'] = ( count($this->products->getSelectedSizes()) > 0 ) ? true : false;
                                   $p['show_variation'] = ($this->myfavorite) ? true : false;

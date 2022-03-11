@@ -8,7 +8,7 @@
       <h2><a href="/hirek/<?=$eleres?>"><?=$cim?></a></h2>
     </div>
   	<div class="content"><?=$bevezeto?></div>
-  	<div class="more"><a href="/hirek/<?=$eleres?>">Tovább <i class="fa fa-angle-right"></i></a></div>
+  	<div class="more"><a href="/hirek/<?=$eleres?>"><?=__('Tovább')?> <i class="fa fa-angle-right"></i></a></div>
   	<div class="clr"></div>
   </div>
 </article>

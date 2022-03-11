@@ -49,7 +49,7 @@
 				<div class="news trackwidth">
 						<div class="title-header">
 							<div class="">
-								<h2>Híreink</h2>
+								<h2><?=__('Híreink')?></h2>
 							</div>
 						</div>
 						<div class="articles <?=($this->news->getNums() > 3)?'slided':'no-slided'?>">

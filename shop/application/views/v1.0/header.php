@@ -1,7 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/html4"
-      xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="http://www.facebook.com/2008/fbml" lang="hu-HU" ng-app="sealring">
+<!DOCTYPE html>
+<html lang="hu-HU" ng-app="sealring">
 <head>
     <title><?=$this->title?></title>
     <?=$this->addMeta('robots','index,folow')?>
@@ -18,14 +16,14 @@ $(function(){
   $('.marquee').marquee();
 });
 </script>
-<? if(!empty($this->settings[google_analitics])): ?>
+<? if(!empty($this->settings['google_analitics'])): ?>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', ' <?=$this->settings[google_analitics]?>', 'auto');
+  ga('create', ' <?=$this->settings['google_analitics']?>', 'auto');
   ga('send', 'pageview');
 </script>
 <? endif; ?>
@@ -55,12 +53,12 @@ $(function(){
               <div class="flex flexmob-exc-resp">
                 <?php if ( !empty($this->settings['social_facebook_link'])) : ?>
                 <div class="facebook">
-                  <a target="_blank" title="Facebook oldalunk" href="<?=$this->settings['social_facebook_link']?>"><i class="fa fa-facebook"></i></a>
+                  <a target="_blank" title="<?=__('Facebook oldalunk')?>" href="<?=$this->settings['social_facebook_link']?>"><i class="fa fa-facebook"></i></a>
                 </div>
                 <?php endif; ?>
                 <?php if ( !empty($this->settings['social_youtube_link'])) : ?>
                 <div class="youtube">
-                  <a target="_blank" title="Youtube csatornánk" href="<?=$this->settings['social_youtube_link']?>"><i class="fa fa-youtube"></i></a>
+                  <a target="_blank" title="<?=__('Youtube csatornánk')?>" href="<?=$this->settings['social_youtube_link']?>"><i class="fa fa-youtube"></i></a>
                 </div>
                 <?php endif; ?>
                 <?php if ( !empty($this->settings['social_googleplus_link'])) : ?>
@@ -103,20 +101,20 @@ $(function(){
                 </div>
                 <?php if (!$this->user): ?>
                 <div class="partner">
-                  <a href="/user/regisztracio">Regisztráció</a>
+                  <a href="/user/regisztracio"><?=__('Regisztráció')?></a>
                 </div>
                 <div class="ugyfelkapu">
-                  <a href="/user/belepes"><i class="fa fa-user"></i> Belépés</a>
+                  <a href="/user/belepes"><i class="fa fa-user"></i> <?=__('Belépés')?></a>
                 </div>
                 <?php else: ?>
                   <div class="ugyfelkapu">
-                    <a href="/user/"><i class="fa fa-user"></i> Belépve, mint <strong><?=$this->user['data']['nev']?></strong>.</a>
+                    <a href="/user/"><i class="fa fa-user"></i> <?=__('Belépve, mint')?> <strong><?=$this->user['data']['nev']?></strong>.</a>
                   </div>
                 <?php endif; ?>
 
                 <div class="div"></div>
                 <div class="kedvencek">
-                  <a href="/kedvencek"><i class="fa fa-star"></i> Kedvencek <span class="badge">{{fav_num}}</span></a>
+                  <a href="/kedvencek"><i class="fa fa-star"></i> <?=__('Kedvencek')?> <span class="badge">{{fav_num}}</span></a>
                 </div>
                 <div class="cart">
                   <div class="holder" id="mb-cart" mb-event="true" data-mb='{ "event": "toggleOnClick", "target" : "#mb-cart" }'>
@@ -124,18 +122,18 @@ $(function(){
                       <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
                     </div>
                     <div class="cash"><span class="amount" id="cart-item-prices">0</span> <span class="badge" id="cart-item-num-v">0</span></div>
-                    <div class="cbtn"><a href="/kosar">kosár</a></div>
+                    <div class="cbtn"><a href="/kosar"><?=__('kosár')?></a></div>
                     <div class="floating">
                       <div id="cartContent" class="cartContent overflowed">
-                        <div class="noItem"><div class="inf">A kosár üres</div></div>
+                        <div class="noItem"><div class="inf"><?=__('A kosár üres')?></div></div>
                       </div>
                       <div class="whattodo">
                         <div class="flex">
                           <div class="doempty">
-                            <a href="/kosar/?clear=1">Kosár ürítése <i class="fa fa-trash"></i></a>
+                            <a href="/kosar/?clear=1"><?=__('Kosár ürítése')?> <i class="fa fa-trash"></i></a>
                           </div>
                           <div class="doorder">
-                            <a href="/kosar">Megrendelése <i class="fa fa-arrow-circle-o-right"></i></a>
+                            <a href="/kosar"><?=__('Megrendelése')?> <i class="fa fa-arrow-circle-o-right"></i></a>
                           </div>
                         </div>
                       </div>
@@ -153,7 +151,7 @@ $(function(){
               <li class="<?=($menu['child'])?'has-sub':''?>">
                 <a href="<?=($menu['link']?:'')?>">
                   <? if($menu['kep']): ?><img src="<?=\PortalManager\Formater::sourceImg($child['kep'])?>"><? endif; ?>
-                  <?=$menu['nev']?> <? if($menu['child']): ?><i class="fa fa-angle-down"></i><? endif; ?></a>
+                  <?=__(trim($menu['nev']))?> <? if($menu['child']): ?><i class="fa fa-angle-down"></i><? endif; ?></a>
                   <? if($menu['child']): ?>
                   <div class="sub nav-sub-view">
                       <div class="inside">
@@ -161,7 +159,7 @@ $(function(){
                         <? foreach($menu['child'] as $child): ?>
                         <li class="<?=$child['css_class']?>">
                           <? if($child['link']): ?><a href="<?=$child['link']?>"><? endif; ?>
-                          <span style="<?=$child['css_styles']?>"><?=$child['nev']?></span>
+                          <span style="<?=$child['css_styles']?>"><?=__(trim($child['nev']))?></span>
                           <? if($child['link']): ?></a><? endif; ?>
                         </li>
                         <? endforeach; ?>
@@ -178,7 +176,7 @@ $(function(){
               <form class="" action="/termekek/<?=($this->gets[0] == 'termekek' && $this->gets[1] != '')?$this->gets[1]:''?>" method="get">
                 <div class="wrapper">
                   <div class="input">
-                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">
+                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="<?=__('TERMÉK NÉV / CIKKSZÁM')?>">
                   </div>
                   <div class="button">
                     <button type="submit"><i class="fa fa-search"></i></button>
@@ -192,10 +190,10 @@ $(function(){
       <div class="mobile-main show-on-mobile">
         <div class="quicknav">
           <div class="partner">
-            <a href="/user/regisztracio" title="Regisztráció"><i class="fa fa-sign-in"></i></a>
+            <a href="/user/regisztracio" title="<?=__('Regisztráció')?>"><i class="fa fa-sign-in"></i></a>
           </div>
           <div class="ugyfelkapu">
-            <a href="/user/belepes" title="Bejelentkezés"><i class="fa fa-user"></i></a>
+            <a href="/user/belepes" title="<?=__('Bejelentkezés')?>"><i class="fa fa-user"></i></a>
           </div>
           <div class="kedvencek">
             <a href="/kedvencek"><i class="fa fa-star"></i><span class="badge">{{fav_num}}</span></a>
@@ -209,15 +207,15 @@ $(function(){
             <div class="cash"><span class="amount cart-item-prices">0</span> Ft <span class="badge" id="cart-item-num-v">0</span></div>
             <div class="floating">
               <div id="cartContent" class="cartContent overflowed">
-                <div class="noItem"><div class="inf">A kosár üres</div></div>
+                <div class="noItem"><div class="inf"><?=__('A kosár üres')?></div></div>
               </div>
               <div class="whattodo">
                 <div class="flex">
                   <div class="doempty">
-                    <a href="/kosar/?clear=1">Kosár ürítése <i class="fa fa-trash"></i></a>
+                    <a href="/kosar/?clear=1"><?=__('Kosár ürítése')?> <i class="fa fa-trash"></i></a>
                   </div>
                   <div class="doorder">
-                    <a href="/kosar">Megrendelése <i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="/kosar"><?=__('Megrendelése')?> <i class="fa fa-arrow-circle-o-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -229,7 +227,7 @@ $(function(){
             <i class="fa fa-bars"></i>
           </div>
           <div class="mobil-nav-holder">
-            <div class="subnavtitle">Menü</div>
+            <div class="subnavtitle"><?=__('Menü')?></div>
             <div class="nav">
               <ul>
                 <? foreach ( $this->menu_header->tree as $menu ): ?>
@@ -256,7 +254,7 @@ $(function(){
                 <? endforeach; ?>
               </ul>
             </div>
-            <div class="subnavtitle">Termékek</div>
+            <div class="subnavtitle"><?=__('Termékek')?></div>
             <? $this->render('templates/sidebar_menu'); ?>
           </div>
         </div>
@@ -269,6 +267,7 @@ $(function(){
     <?php $this->render('templates/slideshow'); ?>
   </div>
   <?php endif; ?>
+
   <?php if ( $this->showslideshow && count($this->highlight_text) > 0 && false): ?>
   <div class="bottom">
     <div class="pw">

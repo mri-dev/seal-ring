@@ -1144,6 +1144,8 @@ class Products
 				$eredeti_brutto_ar = $d['eredeti_ar'];
 				//$akcios_brutto_ar = $d['akcios_brutto_ar'];
 
+				$d['keszlet_nev'] = __($d['keszlet_nev']);
+
 				$kep = $d['profil_kep'];
 				$d['profil_kep'] 		=  \PortalManager\Formater::productImage( $kep, false, self::TAG_IMG_NOPRODUCT );
 				$d['profil_kep_mid'] 	=  \PortalManager\Formater::productImage( $kep, 300, self::TAG_IMG_NOPRODUCT );

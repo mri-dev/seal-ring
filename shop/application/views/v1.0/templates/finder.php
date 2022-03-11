@@ -8,9 +8,9 @@
     <ul>
       <li ng-class="(findernavpos=='simple')?'active':''" ng-click="switchFinderNav('simple')"><?=__('Termék kereső')?></li>
       <?php if (false): ?>
-        <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')">Részletes kereső</li>
-        <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')">Keresés kifejezésre</li>
-        <li ng-class="(findernavpos=='numbers')?'active':''" ng-click="switchFinderNav('numbers')">Keresés cikkszám alapján</li>
+        <li ng-class="(findernavpos=='advenced')?'active':''" ng-click="switchFinderNav('advenced')"><?=__('Részletes kereső')?></li>
+        <li ng-class="(findernavpos=='keywords')?'active':''" ng-click="switchFinderNav('keywords')"><?=__('Keresés kifejezésre')?></li>
+        <li ng-class="(findernavpos=='numbers')?'active':''" ng-click="switchFinderNav('numbers')"><?=__('Keresés cikkszám alapján')?></li>
       <?php endif; ?>
     </ul>
   </div>
@@ -21,13 +21,13 @@
           <div class="left-side">
             <div class="src">
               <div class="search-wrapper">
-                <input type="text" name="src" ng-change="bindFinder(<?=$this->catid?>)" ng-model-options='{ debounce: 1000 }' ng-model="finder_config_select.search_keywords" placeholder="Keresési kifejezés...">
+                <input type="text" name="src" ng-change="bindFinder(<?=$this->catid?>)" ng-model-options='{ debounce: 1000 }' ng-model="finder_config_select.search_keywords" placeholder="<?=__('Keresési kifejezés...')?>">
               </div>
             </div>
           </div>
           <div class="right-side">
             <div class="search-button" ng-class="(finder_result_num == 0)?'disabled':''">
-              <button ng-click="goFinder()"><strong>Keresés</strong><br><span ng-bind-html="finder_result_text|unsafe">{{finder_result_text}}</span></button>
+              <button ng-click="goFinder()"><strong><?=__('Keresés')?></strong><br><span ng-bind-html="finder_result_text|unsafe">{{finder_result_text}}</span></button>
             </div>
           </div>
       </div>
