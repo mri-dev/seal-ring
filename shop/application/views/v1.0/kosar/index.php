@@ -15,13 +15,13 @@
 					<? if( count($k['items']) > 0 ): ?>
 					<div style="float:right;">
 						<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
-							<a href="/kosar/?clear=1" class="clear-cart" title="Kosár ürítése">kosár üritése <i class="fa fa-trash-o"></i></a>
+							<a href="/kosar/?clear=1" class="clear-cart" title="Kosár ürítése"><?=__('kosár üritése')?> <i class="fa fa-trash-o"></i></a>
 						<? endif; ?>
 					</div>
 					<? endif; ?>
-					<h1>Kosár tartalma</h1>
+					<h1><?=__('Kosár tartalma')?></h1>
 					<div class="right">
-						<button class="btn btn-danger btn-sm mustReload" onclick="document.location.reload(true);">A kosár tartalma megváltozott. <strong>Kattintson</strong> a frissítéshez!</button>
+						<button class="btn btn-danger btn-sm mustReload" onclick="document.location.reload(true);"><?=__('A kosár tartalma megváltozott')?>. <strong><?=__('Kattintson')?></strong> <?=__('a frissítéshez')?>!</button>
 					</div>
 				</div>
 				<?php endif; ?>
@@ -43,13 +43,13 @@
 						if($this->orderInfo[kedvezmeny] > 0) $vegosszeg -= $this->orderInfo[kedvezmeny];
 
 					?>
-					<h1><i class="fa fa-check-circle"></i><br />Megrendelés elküldve</h1>
-						<h2>Köszönjük megrendelését!</h2>
-						<p>E-mail címére folyamatos tájékoztatást küldünk megrendelésének állapotáról.</p>
+					<h1><i class="fa fa-check-circle"></i><br /><?=__('Megrendelés elküldve')?></h1>
+						<h2><?=__('Köszönjük megrendelését!')?></h2>
+						<p><?=__('E-mail címére folyamatos tájékoztatást küldünk megrendelésének állapotáról.')?></p>
 
 					<? if( $this->orderInfo['fizetesiModID'] == $this->settings['flagkey_pay_payu'] && $this->orderInfo['payu_fizetve'] == 0 ): ?>
 						<br>
-						<strong>Online bankkártyás fizetésindítása: </strong><br><br>
+						<strong><?=__('Online bankkártyás fizetésindítása')?>: </strong><br><br>
 						<?=$this->payu_btn?>
 					<? endif; ?>
 
@@ -72,7 +72,7 @@
 					<br />
 					<div align="center">
 						<br>
-						<a href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>" class="btn btn-pr">Megrendelés adatlapja <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>" class="btn btn-pr"><?=__('Megrendelés adatlapja')?> <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 							</div>
 					</div>
@@ -81,7 +81,7 @@
 				<?=$this->msg?>
 				<?php if ( $this->gets[1] == '1' ): ?>
 					<div class="order-stepper overview">
-						<div class="head"><h2><i class="fa fa-user"></i> Vásárlói fiók</h2></div>
+						<div class="head"><h2><i class="fa fa-user"></i> <?=__('Vásárlói fiók')?></h2></div>
 						<div class="pre-before-order user-logged">
 							<div class="user">
 								<div class="face">
@@ -99,7 +99,7 @@
 										<?=$this->user['data']['email']?>
 									</div>
 									<div class="action">
-										<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout">Kijelentkezés <i class="fa fa-sign-out"></i></a>
+										<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
 									</div>
 								</div>
 							</div>
@@ -107,14 +107,14 @@
 						<div class="pre-before-order align-top user-logged">
 							<div class="szamlazas_info">
 								<div class="wrapper">
-									<h3>Számlázási adatok</h3>
+									<h3><?=__('Számlázási adatok')?></h3>
 										<? if($this->orderExc && in_array(1, $this->orderMustFillStep)): ?>
-											<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!</span></div>
+											<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> <?=__('Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!')?></span></div>
 										<? else: ?>
 										<div class="order-contact-info">
 											<div class="row np">
 													<div class="col-sm-5">
-															<strong>Név</strong>
+															<strong><?=__('Név')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_nev']?>
@@ -123,7 +123,7 @@
 												<?php if ( $this->user['data']['szamlazas_adoszam'] != '' ): ?>
 												<div class="row np">
 														<div class="col-sm-5">
-																<strong>Adószám</strong>
+																<strong><?=__('Adószám')?></strong>
 															</div>
 															<div class="col-sm-7 right">
 																<?=$this->user['data']['szamlazas_adoszam']?>
@@ -133,7 +133,7 @@
 												<?php if ( $this->user['data']['szamlazas_kerulet'] != '' ): ?>
 												<div class="row np">
 													<div class="col-sm-5">
-															<strong>Kerület</strong>
+															<strong><?=__('Kerület')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_kerulet']?>
@@ -142,7 +142,7 @@
 												<?php endif; ?>
 												<div class="row np">
 													<div class="col-sm-5">
-															<strong>Település</strong>
+															<strong><?=__('Település')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_irsz']?> <?=$this->user['data']['szamlazas_city']?>
@@ -150,8 +150,8 @@
 												</div>
 												<div class="row np">
 													<div class="col-sm-7">
-														<strong>Cím</strong> <br>
-														<em>(közterület neve, közterület jellege, házszám)</em>
+														<strong><?=__('Cím')?></strong> <br>
+														<em><?=__('(közterület neve, közterület jellege, házszám)')?></em>
 													</div>
 													<div class="col-sm-5 right">
 														<?=$this->user['data']['szamlazas_kozterulet_nev']?> <?=$this->user['data']['szamlazas_kozterulet_jelleg']?> <?=$this->user['data']['szamlazas_hazszam']?>
@@ -160,7 +160,7 @@
 												<?php if ( $this->user['data']['szamlazas_epulet'] != '' ): ?>
 												<div class="row np">
 													<div class="col-sm-5">
-															<strong>Épület</strong>
+															<strong><?=__('Épület')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_epulet']?>
@@ -170,7 +170,7 @@
 												<?php if ( $this->user['data']['szamlazas_emelet'] != '' ): ?>
 												<div class="row np">
 													<div class="col-sm-5">
-															<strong>Emelet</strong>
+															<strong><?=__('Emelet')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_emelet']?>
@@ -180,7 +180,7 @@
 												<?php if ( $this->user['data']['szamlazas_ajto'] != '' ): ?>
 												<div class="row np">
 													<div class="col-sm-5">
-															<strong>Ajtó</strong>
+															<strong><?=__('Ajtó')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szamlazas_ajto']?>
@@ -190,7 +190,7 @@
 
 												<div class="row np">
 													<div class="col-sm-12 right">
-															<a href="/user/beallitasok/?return=/kosar/1/#szamlazas">Módosítás <i class="fa fa-gear"></i></a>
+															<a href="/user/beallitasok/?return=/kosar/1/#szamlazas"><?=__('Módosítás')?> <i class="fa fa-gear"></i></a>
 													</div>
 												</div>
 											</div>
@@ -199,14 +199,14 @@
 							</div>
 							<div class="szallitas_info">
 								<div class="wrapper">
-									<h3>Szállítási adatok</h3>
+									<h3><?=__('Szállítási adatok')?></h3>
 									<? if($this->orderExc && in_array(1, $this->orderMustFillStep)): ?>
-										<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!</span></div>
+										<div align="center" class="p10"><span class="mustSelect"><i class="fa fa-warning"></i> <?=__('Figyelem! Hiányoznak a számlázási adatok. Kérjük pótolja!')?></span></div>
 									<? else: ?>
 									<div class="order-contact-info">
 										<div class="row np">
 												<div class="col-sm-5">
-														<strong>Név</strong>
+														<strong><?=__('Név')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_nev']?>
@@ -215,7 +215,7 @@
 											<?php if ( $this->user['data']['szallitas_adoszam'] != '' ): ?>
 											<div class="row np">
 													<div class="col-sm-5">
-															<strong>Adószám</strong>
+															<strong><?=__('Adószám')?></strong>
 														</div>
 														<div class="col-sm-7 right">
 															<?=$this->user['data']['szallitas_adoszam']?>
@@ -225,7 +225,7 @@
 											<?php if ( $this->user['data']['szallitas_kerulet'] != '' ): ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Kerület</strong>
+														<strong><?=__('Kerület')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_kerulet']?>
@@ -234,7 +234,7 @@
 											<?php endif; ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Település</strong>
+														<strong><?=__('Település')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_irsz']?> <?=$this->user['data']['szallitas_city']?>
@@ -242,8 +242,8 @@
 											</div>
 											<div class="row np">
 												<div class="col-sm-7">
-													<strong>Cím</strong> <br>
-													<em>(közterület neve, közterület jellege, házszám)</em>
+													<strong><?=__('Cím')?></strong> <br>
+													<em><?=__('(közterület neve, közterület jellege, házszám)')?></em>
 												</div>
 												<div class="col-sm-5 right">
 													<?=$this->user['data']['szallitas_kozterulet_nev']?> <?=$this->user['data']['szallitas_kozterulet_jelleg']?> <?=$this->user['data']['szallitas_hazszam']?>
@@ -252,7 +252,7 @@
 											<?php if ( $this->user['data']['szallitas_epulet'] != '' ): ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Épület</strong>
+														<strong><?=__('Épület')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_epulet']?>
@@ -262,7 +262,7 @@
 											<?php if ( $this->user['data']['szallitas_emelet'] != '' ): ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Emelet</strong>
+														<strong><?=__('Emelet')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_emelet']?>
@@ -272,7 +272,7 @@
 											<?php if ( $this->user['data']['szallitas_ajto'] != '' ): ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Ajtó</strong>
+														<strong><?=__('Ajtó')?></strong>
 													</div>
 													<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_ajto']?>
@@ -281,7 +281,7 @@
 											<?php endif; ?>
 											<div class="row np">
 												<div class="col-sm-5">
-														<strong>Telefonszám</strong>
+														<strong><?=__('Telefonszám')?></strong>
 												</div>
 												<div class="col-sm-7 right">
 														<?=$this->user['data']['szallitas_phone']?>
@@ -289,7 +289,7 @@
 											</div>
 											<div class="row np">
 												<div class="col-sm-12 right">
-														<a href="/user/beallitasok/?return=/kosar/1/#szallitas">Módosítás <i class="fa fa-gear"></i></a>
+														<a href="/user/beallitasok/?return=/kosar/1/#szallitas"><?=__('Módosítás')?> <i class="fa fa-gear"></i></a>
 												</div>
 											</div>
 										</div>
@@ -297,41 +297,41 @@
 								</div>
 							</div>
 						</div>
-						<div class="head"><h2><i class="fa fa-truck"></i> Átvétel módja</h2></div>
+						<div class="head"><h2><i class="fa fa-truck"></i> <?=__('Átvétel módja')?></h2></div>
 						<div class="transmod <?=($this->user['data']['szallitas_mod_name'])?'':'not-valid'?>">
 							<div class="wrapper">
 								<?php if ($this->user['data']['szallitas_mod_name']): ?>
 								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
-								<div class="title"><?=$this->user['data']['szallitas_mod_name']['nev']?> <? if(!empty($this->user['data']['szallitas_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['szallitas_mod_name']['ido']?> munkanap</span><? endif; ?></div>
-								<div class="change"><a href="/user/beallitasok/?return=/kosar/1/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="title"><?=__($this->user['data']['szallitas_mod_name']['nev'])?> <? if(!empty($this->user['data']['szallitas_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['szallitas_mod_name']['ido']?> <?=__('munkanap')?></span><? endif; ?></div>
+								<div class="change"><a href="/user/beallitasok/?return=/kosar/1/#transmods"><?=__('Módosítás')?> <i class="fa fa-gear"></i> </a></div>
 								<?php else: ?>
 								<div class="st"><div class="wrap"><i class="fa fa-times"></i></div></div>
-								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
-								<div class="change"><a href="/user/beallitasok/?return=/kosar/1/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="title"><?=__('Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait')?> -----></div>
+								<div class="change"><a href="/user/beallitasok/?return=/kosar/1/#transmods"><?=__('Módosítás')?> <i class="fa fa-gear"></i> </a></div>
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="head"><h2><i class="fa fa-money"></i> Fizetés módja</h2></div>
+						<div class="head"><h2><i class="fa fa-money"></i> <?=__('Fizetés módja')?></h2></div>
 						<div class="transmod <?=($this->user['data']['fizetes_mod_name'])?'':'not-valid'?>">
 							<div class="wrapper">
 								<?php if ($this->user['data']['fizetes_mod_name']): ?>
 								<div class="st"><div class="wrap"><i class="fa fa-check"></i></div></div>
-								<div class="title"><?=$this->user['data']['fizetes_mod_name']['nev']?> <? if(!empty($this->user['data']['fizetes_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['fizetes_mod_name']['ido']?> munkanap</span><? endif; ?></div>
-								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="title"><?=__($this->user['data']['fizetes_mod_name']['nev'])?> <? if(!empty($this->user['data']['fizetes_mod_name']['ido'])): ?><span class="transtime">~ <?=$this->user['data']['fizetes_mod_name']['ido']?> <?=__('munkanap')?></span><? endif; ?></div>
+								<div class="change"><a href="/user/beallitasok/#transmods"><?=__('Módosítás')?> <i class="fa fa-gear"></i> </a></div>
 								<?php else: ?>
 								<div class="st"><div class="wrap"><i class="fa fa-times"></i></div></div>
-								<div class="title">Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait -----></div>
-								<div class="change"><a href="/user/beallitasok/#transmods">Módosítás <i class="fa fa-gear"></i> </a></div>
+								<div class="title"><?=__('Hiányos konfiguráció! Kérjük, hogy módosítsa a beállításait')?> -----></div>
+								<div class="change"><a href="/user/beallitasok/#transmods"><?=__('Módosítás')?> <i class="fa fa-gear"></i> </a></div>
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="head"><h2><i class="fa fa-comment-o"></i> Megjegyzés a megrendeléshez</h2></div>
+						<div class="head"><h2><i class="fa fa-comment-o"></i> <?=__('Megjegyzés a megrendeléshez')?></h2></div>
 						<div class="pre-before-order user-logged order-comment">
 							<div class="full-line">
-								<textarea name="comment" placeholder="A rendeléssel kapcsolatban ide írja kéréseit..." class="form-control"><?=$_POST['comment']?></textarea>
+								<textarea name="comment" placeholder="<?=__('A rendeléssel kapcsolatban ide írja kéréseit...')?>" class="form-control"><?=$_POST['comment']?></textarea>
 							</div>
 						</div>
-						<div class="head"><h2><i class="fa fa-inbox"></i> Megrendelendő termékek áttekintése</h2></div>
+						<div class="head"><h2><i class="fa fa-inbox"></i> <?=__('Megrendelendő termékek áttekintése')?></h2></div>
 					</div>
 				<?php endif; ?>
 
@@ -340,9 +340,9 @@
 						<table class="table table-bordered">
 						<thead>
 							<tr class="item-header">
-								<th class="center">Termék</th>
-								<th  width="120" class="center">Me.</th>
-								<th class="center" width="15%">Egységár</th>
+								<th class="center"><?=__('Termék')?></th>
+								<th  width="120" class="center"><?=__('Me')?>.</th>
+								<th class="center" width="15%"><?=__('Egységár')?></th>
 								<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':(($this->settings['price_show_brutto'] == 0)?'Nettó ár':'Bruttó ár')?></th>
 								<th class="center" width="10"></th>
 							</tr>
@@ -367,8 +367,8 @@
 										<div class="tinfo">
 											<div class="nev"><a href="<?=$d['url']?>"><?=$d['termekNev']?></a></div>
 											<div class="sel-types">
-												<? if($d['szin']): ?><em>Variáció:</em> <strong><?=$d['szin']?></strong><? endif;?>
-												<? if($d['meret']): ?><em>Kiszerelés:</em> <strong><?=$d['meret']?></strong><? endif;?>
+												<? if($d['szin']): ?><em><?=__('Variáció')?>:</em> <strong><?=$d['szin']?></strong><? endif;?>
+												<? if($d['meret']): ?><em><?=__('Kiszerelés')?>:</em> <strong><?=$d['meret']?></strong><? endif;?>
 											</div>
 											<div class="subLine">
 												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=$d['allapot']?></span> &nbsp;&nbsp;
@@ -378,33 +378,33 @@
 									</div>
 								</td>
 								<td class="center">
-									<strong><?=$d['me']?> db</strong>
+									<strong><?=$d['me']?> <?=__('db')?></strong>
 									<?php if ($d['me'] > $d['raktar_keszlet']): ?>
-										<div class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?'Nincs raktáron: Rendelhető.':$d['raktar_keszlet'].' db raktáron.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).' rendelhető.</span>'?></div>
+										<div class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?__('Nincs raktáron: Rendelhető.'):$d['raktar_keszlet'].' '.__('db raktáron').'.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).''.__('rendelhető').'.</span>'?></div>
 									<?php endif; ?>
 								</td>
 								<td class="center">
 								<?php if( $this->user ): ?>
 									<? if( $d['discounted'] ): ?>
-										<div><strike><?=Helper::cashFormat($d['prices']['old_each'])?> Ft</strike></div>
-										<div><strong><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</strong></div>
+										<div><strike><?=Helper::cashFormat($d['prices']['old_each'])?> <?=$this->valuta?></strike></div>
+										<div><strong><?=Helper::cashFormat($d['prices']['current_each'])?> <?=$this->valuta?></strong></div>
 									<? else: ?>
-									<span><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</span>
+									<span><?=Helper::cashFormat($d['prices']['current_each'])?> <?=$this->valuta?></span>
 									<? endif; ?>
 								<?php else: ?> 
-									<div class="login-for-price">Az Ár bejelentkezés után látható!</div>
+									<div class="login-for-price"><?=__('Az Ár bejelentkezés után látható!')?></div>
 								<?php endif; ?>
 								</td>
 								<td class="center">
 								<?php if( $this->user ): ?>
 									<? if( $d['discounted'] ): ?>
-										<div><strike><?=Helper::cashFormat($d['prices']['old_sum'])?> Ft</strike></div>
-										<div><strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong></div>
+										<div><strike><?=Helper::cashFormat($d['prices']['old_sum'])?> <?=$this->valuta?></strike></div>
+										<div><strong><?=Helper::cashFormat($d['prices']['current_sum'])?> <?=$this->valuta?></strong></div>
 									<? else: ?>
-									<strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong>
+									<strong><?=Helper::cashFormat($d['prices']['current_sum'])?> <?=$this->valuta?></strong>
 									<? endif; ?>									
 								<?php else: ?> 
-									<div class="login-for-price">Az Ár bejelentkezés után látható!</div>
+									<div class="login-for-price"><?=__('Az Ár bejelentkezés után látható!')?></div>
 								<?php endif; ?>
 								</td>
 								<td class="center action">
@@ -437,14 +437,14 @@
 							<?php if( $this->user ): ?>
 							<tr class="price-overview">
 								<td class="nocell"></td>
-								<td colspan="2" class="right">Termékek ára</td>
+								<td colspan="2" class="right"><?=__('Termékek ára')?></td>
 								<td colspan="2" class="center">
-									<strong><span class="ar"><?=($this->kosar['kedvezmeny'] > 0 && ($k['discount']['partner'] || $k['discount']['coupon'])) ? Helper::cashFormat($k['totalPrice_before_discount']) : Helper::cashFormat($k['totalPrice'])?></span> Ft</strong>
+									<strong><span class="ar"><?=($this->kosar['kedvezmeny'] > 0 && ($k['discount']['partner'] || $k['discount']['coupon'])) ? Helper::cashFormat($k['totalPrice_before_discount']) : Helper::cashFormat($k['totalPrice'])?></span> <?=$this->valuta?></strong>
 								</td>
 							</tr>
 							<tr class="price-overview">
 								<td class="nocell"></td>
-								<td colspan="2" class="right">Kedvezmény</td>
+								<td colspan="2" class="right"><?=__('Kedvezmény')?></td>
 								<td colspan="2" class="center">
 									<span class="a"><span class="ar"><?=($this->kosar['kedvezmeny']> 0)? '<span class="kedv">'.Helper::cashFormat($this->kosar['kedvezmeny']).' Ft</span>':'</span>&mdash;'?></span>
 								</td>
@@ -455,9 +455,9 @@
 							?>
 							<tr class="price-overview final">
 								<td class="nocell"></td>
-								<td colspan="2" class="right">Végösszeg</td>
+								<td colspan="2" class="right"><?=__('Végösszeg')?></td>
 								<td colspan="2" class="center finalpricetd">
-									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?></span> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> <span style="font-size: 0.9rem !important;">Ft</span></span></strong>
+									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?__('nettó'):__('bruttó'))?></span> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> <span style="font-size: 0.9rem !important;"><?=$this->valuta?></span></span></strong>
 									<input type="hidden" name="kedvezmeny" value="<?=($this->kosar['kedvezmeny'] > 0)?1:0?>" />
 									<input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 								</td>
@@ -472,8 +472,8 @@
 									<div class="empty-cart">
 										<i class="fa fa-shopping-cart ico"></i>
 										<br>
-										<strong>Az Ön kosarában nincsenek temékek!</strong>
-										<div>Böngésszen termékeink közül.</div>
+										<strong><?=__('Az Ön kosarában nincsenek temékek!')?></strong>
+										<div><?=__('Böngésszen termékeink közül')?>.</div>
 										<div class="searchform">
 				              <form class="" action="/termekek/<?=($this->gets[0] == 'termekek' && $this->gets[1] != '')?$this->gets[1]:''?>" method="get">
 				                <div class="wrapper">
@@ -498,7 +498,7 @@
 					if(count($k['items']) > 0): ?>
 						<?php if ($k['unstocked_items'] && $k['unstocked_items']['total'] != 0): ?>
 						<div class="alert alert-warning">
-							<i class="fa fa-exclamation-triangle"></i> A kosárban lévő termékeknél <strong><?=$k['unstocked_items']['total']?> db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.
+							<i class="fa fa-exclamation-triangle"></i> <?=__('A kosárban lévő termékeknél')?> <strong><?=$k['unstocked_items']['total']?> <?=__('db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.')?>
 						</div>
 						<?php endif; ?>
 						<? if( $this->not_reached_min_price_text ): ?>
@@ -508,33 +508,33 @@
 
 					<?php if ( $this->gets[1] == '1' ): ?>
 						<div class="order-stepper overview">
-							<div class="head"><h2><i class="fa fa-shield"></i> Adatvédelmi Tájékoztató és Szállítási feltételek elfogadása</h2></div>
+							<div class="head"><h2><i class="fa fa-shield"></i> <?=__('Adatvédelmi Tájékoztató és Szállítási feltételek elfogadása')?></h2></div>
 							<div class="pre-before-order transport-info-div user-logged">
 								<div class="wrapper">
 									<div class="transport-info">
 										<div class="group">
 											<div class="g">
 												<div class="gline">
-													<div class="h">Bruttó 10.000 Ft végösszeg alatt:</div>
-													<div class=""><u>Vásárlóknak:</u> <strong>+ 2 000 Ft + ÁFA</strong> utánvét költséggel.</div>
-													<div class=""><u>Szerződött partnerek esetében:</u> <strong>+ 1 200 Ft + ÁFA</strong>.</div>
+													<div class="h"><?=__('Bruttó 10.000 Ft végösszeg alatt')?>:</div>
+													<div class=""><u><?=__('Vásárlóknak')?>:</u> <strong><?=__('+ 2 000 Ft + ÁFA')?></strong> <?=__('utánvét költséggel')?>.</div>
+													<div class=""><u><?=__('Szerződött partnerek esetében')?>:</u> <strong><?=__('+ 1 200 Ft + ÁFA')?></strong>.</div>
 												</div>
 												<div class="gline">
-													<div class="h">Bruttó 10.000 Ft végösszeg felett:</div>
-													<div class="">A szállítási díj <strong>INGYENES!</strong></div>
+													<div class="h"><?=__('Bruttó 10.000 Ft végösszeg felett')?>:</div>
+													<div class=""><?=__('A szállítási díj')?> <strong><?=__('INGYENES')?>!</strong></div>
 												</div>
-												<div class="gls"><strong>Rendelését a GLS szállítja ki!</strong></div>
+												<div class="gls"><strong><?=__('Rendelését a GLS szállítja ki!')?></strong></div>
 											</div>
 											<div class="g">
 												<div class="aszflinks">
-													<div class="h">Kérjük, hogy figyelmesen olvassa át az alábbi tájékoztatókat:</div>
-													<div class=""><a target="_blank" href="/p/aszf">> Általános Szerződési Feltételek</a></div>
-													<div class=""><a target="_blank" href="/p/szallitas_feltetelek">> Szállítási Feltételek</a></div>
-													<div class=""><a target="_blank" href="/p/vasarlasi-feltetelek">> Vásárlási Feltételek</a></div>
-													<div class=""><a target="_blank" href="/p/adatvedelmi-tajekoztato">> Adatvédelmi Tájékoztató</a></div>
+													<div class="h"><?=__('Kérjük, hogy figyelmesen olvassa át az alábbi tájékoztatókat')?>:</div>
+													<div class=""><a target="_blank" href="/p/aszf">> <?=__('Általános Szerződési Feltételek')?></a></div>
+													<div class=""><a target="_blank" href="/p/szallitas_feltetelek">> <?=__('Szállítási Feltételek')?></a></div>
+													<div class=""><a target="_blank" href="/p/vasarlasi-feltetelek">> <?=__('Vásárlási Feltételek')?></a></div>
+													<div class=""><a target="_blank" href="/p/adatvedelmi-tajekoztato">> <?=__('Adatvédelmi Tájékoztató')?></a></div>
 												</div>
 												<div class="check">
-													<input type="checkbox" id="transferinfo_ok" name="transferinfo_ok"><label for="transferinfo_ok">* Elolvastam az Általános Szerződési Feltételeket, Szállítási és Adatvédelmi Tájékoztatót!</label>
+													<input type="checkbox" id="transferinfo_ok" name="transferinfo_ok"><label for="transferinfo_ok">* <?=__('Elolvastam az Általános Szerződési Feltételeket, Szállítási és Adatvédelmi Tájékoztatót!')?></label>
 												</div>
 											</div>
 										</div>
@@ -547,7 +547,7 @@
 						<div class="order-stepper overview">
 							<div class="pre-before-order finish-order user-logged">
 								<div class="nextbutton center">
-									<button type="submit" name="orderState" value="start">Megrendelés leadása</button>
+									<button type="submit" name="orderState" value="start"><?=__('Megrendelés leadása')?></button>
 								</div>
 							</div>
 						</div>
@@ -558,7 +558,7 @@
 						<div class="order-stepper">
 								<?php if(!$this->user): ?>
 								<div class="head">
-									<h2>Bejelentkezés szükséges a vásárláshoz</h2>
+									<h2><?=__('Bejelentkezés szükséges a vásárláshoz')?></h2>
 								</div>
 								<div class="pre-before-order user-not-logged">
 									<div class="user">
@@ -567,18 +567,18 @@
 												<div class="it">?</div>
 											</div>
 										</div>
-										<div class="login"><a href="/user/belepes?return=/<?=$this->gets[0]?>">Bejelentkezés</a></div>
-										<div class="sep">vagy</div>
-										<div class="register"><a href="/user/regisztracio?return=/<?=$this->gets[0]?>">Fiók regisztráció</a></div>
+										<div class="login"><a href="/user/belepes?return=/<?=$this->gets[0]?>"><?=__('Bejelentkezés')?></a></div>
+										<div class="sep"><?=__('vagy')?></div>
+										<div class="register"><a href="/user/regisztracio?return=/<?=$this->gets[0]?>"><?=__('Fiók regisztráció')?></a></div>
 									</div>
 									<div class="nextbutton">
-										<button type="submit" name="orderState" disabled="disabled" value="start">Tovább a megrendeléshez</button>
+										<button type="submit" name="orderState" disabled="disabled" value="start"><?=__('Tovább a megrendeléshez')?></button>
 									</div>
 								</div>
 								<?php else: ?>
 									<?php if (count($k['items']) > 0): ?>
 										<div class="head">
-											<h2>Bejelentkezve a következő fiókkal</h2>
+											<h2><?=__('Bejelentkezve a következő fiókkal')?></h2>
 										</div>
 										<div class="pre-before-order user-logged">
 											<div class="user">
@@ -597,12 +597,12 @@
 														<?=$this->user['data']['email']?>
 													</div>
 													<div class="action">
-														<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout">Kijelentkezés <i class="fa fa-sign-out"></i></a>
+														<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
 													</div>
 												</div>
 											</div>
 											<div class="nextbutton">
-												<button type="submit" name="orderState" value="start">Tovább a megrendeléshez</button>
+												<button type="submit" name="orderState" value="start"><?=__('Tovább a megrendeléshez')?></button>
 											</div>
 										</div>
 									<?php endif; ?>

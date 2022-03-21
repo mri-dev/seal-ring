@@ -29,26 +29,26 @@
         <? if( count( $missed_details ) > 0 ): ?>
             <?=Helper::makeAlertMsg('pError', 'Az Ön adatai hiányosak. Mielőtt bármit is tenne, kérjük, hogy pótolja ezeket!' );?>
         <? endif; ?>
-        <h1>Beállítások</h1>
+        <h1><?=__('Beállítások')?></h1>
         <div class="divider"></div>
-        <h4>Alapadatok</h4>
+        <h4><?=__('Alapadatok')?></h4>
         <?=$this->msg['alapadat']?>
         <div class="form-rows">
             <form action="#alapadat" method="post">
                 <div class="row">
-                    <div class="col-md-3"><strong>E-mail cím:</strong></div>
+                    <div class="col-md-3"><strong><?=__('E-mail cím')?>:</strong></div>
                     <div class="col-md-9"><?=$this->user[email]?></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Név</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Név')?></strong></div>
                     <div class="col-md-5"><input name="nev" type="text" class="form-control" value="<?=$this->user[data][nev]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"><strong>Utoljára belépve</strong></div>
+                    <div class="col-md-3"><strong><?=__('Utoljára belépve')?></strong></div>
                     <div class="col-md-5"><?=$this->user[data][utoljara_belepett]?> (<?=Helper::distanceDate($this->user[data][utoljara_belepett])?>)</div>
                 </div>
                 <div class="row ">
-                    <div class="col-md-3"><strong>Regisztráció</strong></div>
+                    <div class="col-md-3"><strong><?=__('Regisztráció')?></strong></div>
                     <div class="col-md-5"><?=$this->user[data][regisztralt]?> (<?=Helper::distanceDate($this->user[data][regisztralt])?>)</div>
                 </div>
                 <? if( false ): ?>
@@ -65,43 +65,43 @@
                 <? endforeach; ?>
                 <? endif; ?>
                 <div class="row">
-                    <div class="col-md-12 right"><button name="saveDefault" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+                    <div class="col-md-12 right"><button name="saveDefault" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
                 </div>
             </form>
         </div>
 
         <div class="divider"></div>
         <a name="transmods"></a>
-        <h4>Vásálási beállítások</h4>
+        <h4><?=__('Vásálási beállítások')?></h4>
         <?=$this->msg['transmods']?>
         <div class="form-rows">
           <form action="#transmods" method="post">
             <div class="row">
-              <div class="col-md-3 form-text-md"><strong>Átvétel módja:</strong></div>
+              <div class="col-md-3 form-text-md"><strong><?=__('Átvétel módja')?>:</strong></div>
               <div class="col-md-9">
                 <?php $fizmodstr = ''; ?>
                 <select class="form-control" name="szallitas_mod_id">
                   <?php foreach ((array)$this->atvetelek as $d): if ($this->user['data']['szallitas_mod_id'] == $d['ID']) {
                     $fizmodstr = $d['fizetesi_mod'];
                   } ?>
-                  <option value="<?=$d['ID']?>" <?=($this->user['data']['szallitas_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=$d['nev']?></option>
+                  <option value="<?=$d['ID']?>" <?=($this->user['data']['szallitas_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=__($d['nev'])?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 form-text-md"><strong>Fizetés módja:</strong></div>
+              <div class="col-md-3 form-text-md"><strong><?=__('Fizetés módja')?>:</strong></div>
               <div class="col-md-9">
                 <?php $fizetes_mods = ($fizmodstr == '') ? : explode(',', $fizmodstr ); ?>
                 <select class="form-control" name="fizetes_mod_id">
                   <?php foreach ((array)$this->fizetesek as $d): ?>
-                  <option value="<?=$d['ID']?>" <?=($this->user['data']['fizetes_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=$d['nev']?></option>
+                  <option value="<?=$d['ID']?>" <?=($this->user['data']['fizetes_mod_id'] == $d['ID'])?'selected="selected"':''?>><?=__($d['nev'])?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12 right"><button name="saveTransmods" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+              <div class="col-md-12 right"><button name="saveTransmods" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
             </div>
           </form>
         </div>
@@ -109,32 +109,32 @@
         <? if($this->user[data][user_group] != \PortalManager\Users::USERGROUP_USER): ?>
         <div class="divider"></div>
         <a name="ceg"></a>
-        <h4>Céges adatok</h4>
+        <h4><?=__('Céges adatok')?></h4>
         <?=$this->msg['ceg']?>
         <div class="form-rows">
             <form action="#ceg" method="post">
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Cég neve:</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Cég neve')?>:</strong></div>
                     <div class="col-md-9"><input name="company_name" type="text" class="form-control" value="<?=$this->user[data][company_name]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Cég címe:</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Cég címe')?>:</strong></div>
                     <div class="col-md-9"><input name="company_address" type="text" class="form-control" value="<?=$this->user[data][company_address]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Cég telephely:</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Cég telephely')?>:</strong></div>
                     <div class="col-md-9"><input name="company_hq" type="text" class="form-control" value="<?=$this->user[data][company_hq]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Cég adószám:</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Cég adószám')?>:</strong></div>
                     <div class="col-md-9"><input name="company_adoszam" type="text" class="form-control" value="<?=$this->user[data][company_adoszam]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-text-md"><strong>Cég bankszámlaszáma:</strong></div>
+                    <div class="col-md-3 form-text-md"><strong><?=__('Cég bankszámlaszáma')?>:</strong></div>
                     <div class="col-md-9"><input name="company_bankszamlaszam" type="text" class="form-control" value="<?=$this->user[data][company_bankszamlaszam]?>" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 right"><button name="saveCompany" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+                    <div class="col-md-12 right"><button name="saveCompany" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
                 </div>
             </form>
         </div>
@@ -145,7 +145,7 @@
             <?=Helper::makeAlertMsg('pWarning', '<BR><strong>HIÁNYZÓ ADAT:</strong><BR>Kérjük, hogy pótolja a hiányzó SZÁLLÍTÁSI adatait.' );?>
         <? endif; ?>
         <a name="szallitas"></a>
-        <h4>Szállítási adatok</h4>
+        <h4><?=__('Szállítási adatok')?></h4>
         <?=$this->msg['szallitasi']?>
         <div class="form-rows">
             <form action="#szallitasi" method="post">
@@ -154,7 +154,7 @@
             ?>
             <div class="row">
                 <div class="col-md-3 form-text-md">
-                  <strong><?=$szallnev[$dk]?></strong><?=(in_array($dk, $req_items))?' *':''?>
+                  <strong><?=__($szallnev[$dk])?></strong><?=(in_array($dk, $req_items))?' *':''?>
                 </div>
                 <div class="col-md-9 <?=($dk=='city')?'hint-holder-col':''?>">
                 <?php if ($dk == 'state'): ?>
@@ -168,7 +168,7 @@
                   </div>
                 <?php elseif( $dk == 'kozterulet_jelleg'): ?>
                 <select name="kozterulet_jelleg" class="form-control" id="szall_kozterulet_jelleg">
-                    <option value="" selected="selected">-- válasszon --</option>
+                    <option value="" selected="selected">-- <?=__('válasszon')?> --</option>
                     <? foreach( $this->kozterulet_jellege as $kj ): ?>
                     <option value="<?=$kj?>" <?=($val !='' && $val == $kj) ? 'selected="selected"' : ''?>><?=$kj?></option>
                     <? endforeach; ?>
@@ -177,13 +177,13 @@
                     <input name="<?=$dk?>" type="text" class="form-control" id="szall_<?=$dk?>" value="<?=$val?>" />
                 <?php endif; ?>
                 <?php if (in_array('szall_'.$dk, $missed_details)): ?>
-                  <div style="margin: 4px 0;"><span class="label label-danger">Hiányzó kötelező mező!</span></div>
+                  <div style="margin: 4px 0;"><span class="label label-danger"><?=__('Hiányzó kötelező mező!')?></span></div>
                 <?php endif; ?>
                 </div>
             </div>
             <? endforeach; ?>
             <div class="row">
-                <div class="col-md-12 right"><button name="saveSzallitasi" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+                <div class="col-md-12 right"><button name="saveSzallitasi" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
             </div>
             </form>
         </div>
@@ -194,7 +194,7 @@
             <?=Helper::makeAlertMsg('pWarning', '<BR><strong>HIÁNYZÓ ADAT:</strong><BR>Kérjük, hogy pótolja a hiányzó SZÁMLÁZÁSI adatait.' );?>
         <? endif; ?>
         <a name="szamlazas"></a>
-        <h4>Számlázási adatok</h4>
+        <h4><?=__('Számlázási adatok')?></h4>
         <?=$this->msg['szamlazasi']?>
         <div class="form-rows">
             <form action="#szamlazasi" method="post">
@@ -203,7 +203,7 @@
             ?>
 
             <div class="row">
-                <div class="col-md-3 form-text-md"><strong><?=$szmnev[$dk]?></strong><?=(in_array($dk, $req_items))?' *':''?></div>
+                <div class="col-md-3 form-text-md"><strong><?=__($szmnev[$dk])?></strong><?=(in_array($dk, $req_items))?' *':''?></div>
                 <div class="col-md-9 <?=($dk=='city')?'hint-holder-col':''?>">
                 <?php if ($dk == 'state'): ?>
                 <?php elseif( $dk == 'irsz'): ?>
@@ -216,7 +216,7 @@
                   </div>
                 <?php elseif( $dk == 'kozterulet_jelleg'): ?>
                 <select name="kozterulet_jelleg" class="form-control" id="szam_kozterulet_jelleg">
-                    <option value="" selected="selected">-- válasszon --</option>
+                    <option value="" selected="selected">-- <?=__('válasszon')?> --</option>
                     <? foreach( $this->kozterulet_jellege as $kj ): ?>
                     <option value="<?=$kj?>" <?=($val !='' && $val == $kj) ? 'selected="selected"' : ''?>><?=$kj?></option>
                     <? endforeach; ?>
@@ -226,13 +226,13 @@
                 <?php endif; ?>
 
                 <?php if (in_array('szam_'.$dk, $missed_details)): ?>
-                  <div style="margin: 4px 0;"><span class="label label-danger">Hiányzó kötelező mező!</span></div>
+                  <div style="margin: 4px 0;"><span class="label label-danger"><?=__('Hiányzó kötelező mező!')?></span></div>
                 <?php endif; ?>
                 </div>
             </div>
             <? endforeach; ?>
             <div class="row">
-                <div class="col-md-12 right"><button name="saveSzamlazasi" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> Változások mentése</button></div>
+                <div class="col-md-12 right"><button name="saveSzamlazasi" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
             </div>
             </form>
         </div>

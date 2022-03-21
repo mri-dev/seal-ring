@@ -5,7 +5,7 @@
 		</div>
 		<div class="grid-row grid-row-80">
 			<div class="login-form">
-					<h1>Bejelentkezés</h1>
+					<h1><?=__('Bejelentkezés')?></h1>
 					<?=$this->msg?>
 					<? echo $this->templates->get( 'user_login', array( 'clear' => true ) ); ?>
 			</div>

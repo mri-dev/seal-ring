@@ -36,17 +36,17 @@
             <div class="box orderpage">
                 <div class="head">
                     <div class="serial"><?=$o[azonosito]?></div>
-                    <h1><?=$o[nev]?> rendelése</h1>
+                    <h1><?=$o[nev]?> <?=__('rendelése')?></h1>
                     <div class="sub">
-                        <span><em>Megrendelés leadva:</em> <?=\PortalManager\Formater::dateFormat($o[idopont], $this->settings['date_format'])?></span>
+                        <span><em><?=__('Megrendelés leadva')?>:</em> <?=\PortalManager\Formater::dateFormat($o[idopont], $this->settings['date_format'])?></span>
                     </div>
                 </div>
                 <div class="divider"></div>
                 <div class="orderState">
                     <?=$this->rmsg?>
-                    <h5>Megrendelés állapota:</h5>
+                    <h5><?=__('Megrendelés állapota')?>:</h5>
                     <div class="orderStatus">
-                        <span style="color:<?=$this->orderAllapot[$o[allapot]][szin]?>;"><strong><?=$this->orderAllapot[$o[allapot]][nev]?></strong></span>
+                        <span style="color:<?=$this->orderAllapot[$o[allapot]][szin]?>;"><strong><?=__($this->orderAllapot[$o[allapot]][nev])?></strong></span>
                         <? // PayPal fizetés
                         if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$o[fizetesiModID])][nev] == 'PayPal' && $o[paypal_fizetve] == 0): ?>
                             <div style="padding:10px 0;">
@@ -65,18 +65,18 @@
                     </div>
                 </div> 
                 <div class="p10 divBtm items">
-                 <h4>Megrendelt termékek</h4>
+                 <h4><?=__('Megrendelt termékek')?></h4>
                  <div>
                     <div class="mobile-table-container overflowed">
                     <div class="items-table">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td>Termék</td>
-                                <td width="200" class="center">Állapot</td>
-                                <td width="80" class="center">Me.</td>
-                                <td width="120" class="center">Egységár</td>
-                                <td width="120" class="center">Ár</td>
+                                <td><?=__('Termék')?></td>
+                                <td width="200" class="center"><?=__('Állapot')?></td>
+                                <td width="80" class="center"><?=__('Me')?>.</td>
+                                <td width="120" class="center"><?=__('Egységár')?></td>
+                                <td width="120" class="center"><?=__('Ár')?></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,40 +105,40 @@
                                     </div>
                                 </td>
                                 <td class="center">
-                                  <span style="color:<?=$d[allapotSzin]?>;"><strong><?=$d[allapotNev]?></strong></span>
+                                  <span style="color:<?=$d[allapotSzin]?>;"><strong><?=__($d[allapotNev])?></strong></span>
                                   <div class="">
                                     <?php if ($d['keszleten'] >= $d['me']): ?>
-                                      <span style="color:#45c145;">Raktáron</span>
+                                      <span style="color:#45c145;"><?=__('Raktáron')?></span>
                                     <?php elseif($d['keszleten'] == 0): ?>
-                                      <span style="color:#e27828;">Nincs raktáron: rendelés alatt!</span>
+                                      <span style="color:#e27828;"><?=__('Nincs raktáron: rendelés alatt!')?></span>
                                     <?php elseif($d['keszleten'] <= $d['me']): ?>
-                                      <span style="color:#45c145;">Raktáron: <?=$d['keszleten']?> db.</span><br>
-                                      <span style="color:#e27828;"><?=$d['me']-$d['keszleten']?> db rendelés alatt!</span>
+                                      <span style="color:#45c145;"><?=__('Raktáron')?>: <?=$d['keszleten']?> <?=__('db')?>.</span><br>
+                                      <span style="color:#e27828;"><?=$d['me']-$d['keszleten']?> <?=__('db rendelés alatt')?>!</span>
                                     <?php endif; ?>
                                   </div>
                                 </td>
                                 <td class="center">
                                   <?=$d['me']?>
                                 </td>
-                                <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
-                                <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
                             </tr>
                             <? endforeach; ?>
                             <tr>
-                                <td class="right" colspan="4"><strong>Termékek ára összesen</strong></td>
-                                <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> Ft</span> <?=($o['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                <td class="right" colspan="4"><strong><?=__('Termékek ára összesen')?></strong></td>
+                                <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> <?php echo $this->valuta; ?></span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
                             </tr>
                             <tr>
-                                <td class="right" colspan="4"><div><strong>Szállítási költség</strong></div></td>
-                                <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> Ft</span></td>
+                                <td class="right" colspan="4"><div><strong><?=__('Szállítási költség')?></strong></div></td>
+                                <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> <?=$this->valuta?></span></td>
                             </tr>
                             <tr>
-                                <td class="right" colspan="4"><div><strong>Kedvezmény</strong></div></td>
-                                <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' Ft' : '-'?> </span></td>
+                                <td class="right" colspan="4"><div><strong><?=__('Kedvezmény')?></strong></div></td>
+                                <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' '.$this->valuta : '-'?> </span></td>
                             </tr>
                             <tr style="font-size:18px;">
-                                <td class="right" colspan="4"><strong>Végösszeg</strong></td>
-                                <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> Ft</strong></span></td>
+                                <td class="right" colspan="4"><strong><?=__('Végösszeg')?></strong></td>
+                                <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> <?php echo $this->valuta; ?></strong></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -149,17 +149,17 @@
                 <br>
                 <a name="pay"></a>
                 <div class="datas">
-                     <h4>Adatok</h4>
+                     <h4><?=__('Adatok')?></h4>
                      <div class="row np">
                         <div class="col-md-12">
-                            <div class="head"><strong>Kiválasztott szállítási mód:</strong></div>
+                            <div class="head"><strong><?=__('Kiválasztott szállítási mód')?>:</strong></div>
                             <div class="data">
-                            <?=$this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$o[szallitasiModID])][nev]?> <em><?=Product::transTime($o[szallitasiModID])?></em>
+                            <?=__($this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$o[szallitasiModID])][nev])?> <em><?=Product::transTime($o[szallitasiModID])?></em>
                             <?
                             // PickPackPont
                             if( $o[szallitasiModID] == $this->settings['flagkey_pickpacktransfer_id'] ): ?>
                             <div class="showSelectedPickPackPont">
-                                <div class="head">Kiválasztott <strong>Pick Pack</strong> átvételi pont:</div>
+                                <div class="head"><?=__('Kiválasztott')?> <strong><?=__('Pick Pack')?></strong> <?=__('átvételi pont')?>:</div>
                                 <div class="p5">
                                    <?=$o['pickpackpont_uzlet_kod']?>
                                 </div>
@@ -169,7 +169,7 @@
                             // PostaPont
                             if($o[szallitasiModID] == $this->settings['flagkey_postaponttransfer_id']): ?>
                             <div class="showSelectedPostaPont">
-                                <div class="head">Kiválasztott <strong>PostaPont</strong>:</div>
+                                <div class="head"><?=__('Kiválasztott')?> <strong><?=__('PostaPont')?></strong>:</div>
                                 <div class="p5">
                                     <div class="row np">
                                         <div class="col-md-12 center">
@@ -185,11 +185,11 @@
                      </div>
                      <div class="row np">
                         <div class="col-md-12">
-                            <div class="head"><strong>Kiválasztott fizetési mód:</strong></div>
+                            <div class="head"><strong><?=__('Kiválasztott fizetési mód')?>:</strong></div>
                             <div class="data">
 
                             <? if($o['fizetesiModID'] == $this->settings['flagkey_pay_cetelem']): ?> <img src="<?=IMG?>/cetelem_badge.png" alt="Cetelem" style="height: 32px; float: left; margin: -5px 10px 0 0;"> <? endif; ?>
-                            <?=$this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$o[fizetesiModID])][nev]; ?>
+                            <?=__($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$o[fizetesiModID])][nev])?>
                             <?
                             // PayU kártyás fizetés
                             if( $o['fizetesiModID'] == $this->settings['flagkey_pay_payu'] && $o['payu_fizetve'] == 0 ): ?>
@@ -197,9 +197,9 @@
                                 <?=$this->pay_btn?>
                             <? elseif( $o['fizetesiModID'] == $this->settings['flagkey_pay_payu'] && $o['payu_fizetve'] == 1 ): ?>
                                 <? if( $o['payu_teljesitve'] == 0 ): ?>
-                                <span class="payu-paidonly">Fizetve. Visszaigazolásra vár.</span>
+                                <span class="payu-paidonly"><?=__('Fizetve. Visszaigazolásra vár.')?></span>
                                 <? else: ?>
-                                <span class="payu-paid-done">Fizetve. Elfogadva.</span>
+                                <span class="payu-paid-done"><?=__('Fizetve. Elfogadva.')?></span>
                                 <? endif; ?>
                             <? endif; ?>
 
@@ -272,7 +272,7 @@
                     <? endif; ?>
                      <div class="row np">
                         <div class="col-sm-12">
-                            <div class="head"><strong>Vásárlói megjegyzés a megrendeléshez:</strong></div>
+                            <div class="head"><strong><?=__('Vásárlói megjegyzés a megrendeléshez')?>:</strong></div>
                             <div class="data">
                             <em><?=($o[comment] == '') ? '&mdash; nincs megjegyzés &mdash; ' : $o[comment]?></em>
                             </div>
@@ -280,21 +280,21 @@
                      </div>
                      <div class="row np">
                          <div class="col-sm-6 order-info">
-                            <div class="head"><strong>Számlázási adatok</strong></div>
+                            <div class="head"><strong><?=__('Számlázási adatok')?></strong></div>
                             <div class="inforows">
                                 <? $szam = json_decode($o[szamlazasi_keys],true); ?>
                                 <? foreach($szam as $h => $d): if($d == '') continue; ?>
-                                    <div class="col-md-4"><?=$nevek[$h]?></div>
+                                    <div class="col-md-4"><?=__($nevek[$h])?></div>
                                     <div class="col-md-8"><?=($d  != '')?$d:'&nbsp;'?></div>
                                 <? endforeach; ?>
                             </div>
                          </div>
                          <div class="col-sm-6 order-info">
-                            <div class="head"><strong>Szállítási adatok</strong></div>
+                            <div class="head"><strong><?=__('Szállítási adatok')?></strong></div>
                              <div class="inforows">
                                 <? $szall = json_decode($o[szallitasi_keys],true); ?>
                                 <? foreach($szall as $h => $d): if($d == '') continue; ?>
-                                    <div class="col-md-4"><?=$nevek[$h]?></div>
+                                    <div class="col-md-4"><?=__($nevek[$h])?></div>
                                     <div class="col-md-8"><?=($d  != '')?$d:'&nbsp;'?></div>
                                 <? endforeach; ?>
                             </div>
@@ -305,7 +305,7 @@
             <? else: ?>
             <div class="box">
                 <div class="noItem">
-                    <div>Hibás megrendelés azonosító</div>
+                    <div><?=__('Hibás megrendelés azonosító')?></div>
                 </div>
             </div>
             <? endif; ?>
