@@ -11,7 +11,6 @@ class test extends Controller
 
 			if ( isset($_GET['mailtest']))
 			{
-
 				$this->settings = $this->view->settings;
 				$mail = new Mailer(
 					$this->settings['page_title'],
@@ -41,6 +40,12 @@ class test extends Controller
 				}
 			}
 		}
+
+    public function mt()
+    {
+      $re = $this->User->sendActivationEmail( 'mistvan2014@gmail.com', 'xtrame' );
+      print_r($re);
+    }
 
 		function rtf()
 		{

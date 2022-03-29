@@ -11,9 +11,11 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
   $scope.accept_order_text = null;
   $scope.accept_order_title = 'Szerződési feltételek elfogadása';
 
+  
+  console.log('asd');
+
   $scope.productAddToFav = function( id, ev ){
     var infav = $scope.fav_ids.indexOf(id);
-
     if ( infav !== -1 ) {
       var confirmRemoveFav = $mdDialog.confirm()
           .title('Biztos, hogy eltávolítja a kedvencekből?')

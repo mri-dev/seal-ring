@@ -35,7 +35,7 @@
 <?=$this->addJS('user',false,false)?>
 <?=$this->addJS('jquery.cookie',false)?>
 <?=$this->addJS('angular.min',false)?>
-<?=$this->addJS('app',false,false)?>
+<? /*$this->addJS('app',false,false)*/ ?>
 <?=$this->addJS('upload',false,false)?>
 <?=$this->addJS('angular-cookies',false, false)?>
 <? //$this->addJS('jquery.cetelemCalculator',false, false); ?>
@@ -46,6 +46,7 @@
 <link rel="stylesheet" href="<?=SSTYLE?>all.min.css?ts=<?=TS?>" />
 <script type="text/javascript" src="<?=SJS?>all.min.js?ts=<?=TS?>"></script>
 <script type="text/javascript" src="<?=SJS?>master.min.js?ts=<?=TS?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.Marquee/1.5.0/jquery.marquee.min.js"></script>
 <?php endif; ?>
 <? if( !defined('CETELEM_HAS_ERROR') && false ): ?>
 <script src="//<?=(CETELEM_SANDBOX_MODE === true)?'ecomdemo':'ecom'?>.cetelem.hu/ecommerce/j/cetelem-ecommerce.js"></script>

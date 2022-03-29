@@ -76,10 +76,11 @@ class MailTemplates
 
 		$this->template_name = $template;
 
-		if( DLANG != \Lang::getLang())
-		{
-			$translates = $this->db->getTranslateContent( self::DB_TABLE, $template, \Lang::getLang() );
 
+		if( DLANG != \Lang::getLang() )
+		{
+			$translates = $this->db->getTranslateContent( self::DB_TABLE, $this->template_name, \Lang::getLang() );
+		
 			if( !$translates ) {
 				$content = $this->db->squery("SELECT content FROM ".self::DB_TABLE." WHERE elnevezes = :nev;",array('nev' => $template));
 				$content = $content->fetchColumn();

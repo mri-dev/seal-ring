@@ -32,7 +32,7 @@ class ajax extends Controller{
 							$ret['srclength'] = (int)strlen(trim($datas['search_keywords']));
 
 							if ($ret['srclength'] < 3) {
-								$err = $this->escape('Legalább 3 karaktert üssön be!', $ret);
+								$err = $this->escape(__('Legalább 3 karaktert üssön be!'), $ret);
 							}
 
 							if ( !$err ) {

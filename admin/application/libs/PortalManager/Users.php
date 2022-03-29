@@ -506,11 +506,12 @@ class Users
 		return true;
 	}
 
-	function resetPassword( $data ){
+	function resetPassword( $data )
+  {
 		$jelszo =  rand(1111111,9999999);
 
 		if(!$this->userExists('email',$data['email'])){
-			throw new \Exception('Hibás e-mail cím.',1001);
+			throw new \Exception(__('Hibás e-mail cím.'),1001);
 		}
 
 		$this->db->update(self::TABLE_NAME,
@@ -525,10 +526,10 @@ class Users
 		$mail->add( $data['email'] );
 		$arg = array(
 			'settings' 		=> $this->settings,
-			'infoMsg' 		=> 'Ezt az üzenetet a rendszer küldte. Kérjük, hogy ne válaszoljon rá!',
+			'infoMsg' 		=> __('Ezt az üzenetet a rendszer küldte. Kérjük, hogy ne válaszoljon rá!'),
 			'jelszo' 		=> $jelszo
 		);
-		$mail->setSubject( 'Elkészült új jelszava' );
+		$mail->setSubject( __('Elkészült új jelszava') );
 		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'user_password_reset', $arg ) );
 		$re = $mail->sendMail();
 		print_r($re); exit;
@@ -933,7 +934,7 @@ class Users
 		$re 	= array();
 
 		if(!$this->userExists('email',$data['email'])){
-			throw new \Exception('Ezzel az e-mail címmel nem regisztráltak még!',1001);
+			throw new \Exception(__('Ezzel az e-mail címmel nem regisztráltak még!'),1001);
 		}
 
 		if(!$this->validUser($data['email'],$data[pw])){
@@ -941,18 +942,18 @@ class Users
 			if($this->oldUser($data['email'])){
 				throw new \Exception('<h3>Weboldalunk megújult, ezért a régi jelszavát nem tudja használni tovább!</h3><br><strong>Jelszóemlékeztető segítségével kérhet új jelszót, amit az e-mail címére elküldünk!<br><a style="color:red;" href="/user/jelszoemlekezteto">ÚJ JELSZÓ MEAGADÁSÁHOZ KATTINTSON IDE!</a></strong>',9000);
 			}else {
-				throw new \Exception('Hibás bejelentkezési adatok!',9000);
+				throw new \Exception(__('Hibás bejelentkezési adatok!'),9000);
 			}
 		}
 
 		if(!$this->isActivated($data[email])){
-			$resendemailtext = '<form method="post" action=""><div class="text-form">Nem kapta meg az aktiváló e-mailt?<br><br><button name="activationEmailSendAgain" value="'.$data['email'].'" class="btn btn-sm btn-danger">Aktiváló e-mail újraküldése!</button></div></form>';
+			$resendemailtext = '<form method="post" action=""><div class="text-form">'.__('Nem kapta meg az aktiváló e-mailt?').'<br><br><button name="activationEmailSendAgain" value="'.$data['email'].'" class="btn btn-sm btn-danger">'.__('Aktiváló e-mail újraküldése!').'</button></div></form>';
 
-			throw new \Exception('<br>A fiók még nincs aktiválva!'.$resendemailtext ,1001);
+			throw new \Exception('<br>'.__('A fiók még nincs aktiválva!').' '.$resendemailtext ,1001);
 		}
 
 		if(!$this->isEnabled($data[email])){
-			throw new \Exception('A fiók felfüggesztésre került!',1001);
+			throw new \Exception(__('A fiók felfüggesztésre került!'),1001);
 		}
 
 		// Refresh
@@ -1158,20 +1159,20 @@ class Users
 			$is_activated = $this->isActivated( $data['email'] );
 
 			if ( !$is_activated ) {
-				$resendemailtext = '<form method="post" action=""><div class="text-form">Nem kapta meg az aktiváló e-mailt? <button name="activationEmailSendAgain" value="'.$data['email'].'" class="btn btn-sm btn-danger">Aktiváló e-mail újraküldése!</button></div></form>';
+				$resendemailtext = '<form method="post" action=""><div class="text-form">'.__('Nem kapta meg az aktiváló e-mailt?').' <button name="activationEmailSendAgain" value="'.$data['email'].'" class="btn btn-sm btn-danger">'.__('Aktiváló e-mail újraküldése!').'</button></div></form>';
 			}
 
-			throw new \Exception('Ezzel az e-mail címmel már regisztráltak! '.$resendemailtext,1002);
+			throw new \Exception(__('Ezzel az e-mail címmel már regisztráltak!').' '.$resendemailtext,1002);
 		}
 
 		if ( empty($user_group) )
 		{
-			throw new \Exception('Sikertelen regisztráció. A regisztrációs oldalon indítsa el a regisztrációt.', 0000);
+			throw new \Exception(__('Sikertelen regisztráció. A regisztrációs oldalon indítsa el a regisztrációt.'), 0000);
 		}
 
 		if ( !is_numeric($data['szall_phone']) )
 		{
-			throw new \Exception('A telefonszám megadásánál kérjük, hogy csak természetes számokat használjon. Pl.: 06102030400',1003);
+			throw new \Exception(__('A telefonszám megadásánál kérjük, hogy csak természetes számokat használjon. Pl.: 06102030400'),1003);
 		}
 
 		/* */
@@ -1180,10 +1181,10 @@ class Users
 		{
 			$user_group = $data['group'];
 
-			if( empty($data[self::USERGROUP_COMPANY]['company_name']) ) 		throw new \Exception('Kérjük, hogy adja meg a cég nevét!', 2001);
-			if( empty($data[self::USERGROUP_COMPANY]['company_hq']) ) 		throw new \Exception('Kérjük, hogy adja meg a cég székhelyét!', 2002);
-			if( empty($data[self::USERGROUP_COMPANY]['company_adoszam']) ) 	throw new \Exception('Kérjük, hogy adja meg a cég adószámát!', 2003);
-			if( empty($data[self::USERGROUP_COMPANY]['company_address']) ) 	throw new \Exception('Kérjük, hogy adja meg a cég postacímét!', 2004);
+			if( empty($data[self::USERGROUP_COMPANY]['company_name']) ) 		throw new \Exception(__('Kérjük, hogy adja meg a cég nevét!'), 2001);
+			if( empty($data[self::USERGROUP_COMPANY]['company_hq']) ) 		throw new \Exception(__('Kérjük, hogy adja meg a cég székhelyét!'), 2002);
+			if( empty($data[self::USERGROUP_COMPANY]['company_adoszam']) ) 	throw new \Exception(__('Kérjük, hogy adja meg a cég adószámát!'), 2003);
+			if( empty($data[self::USERGROUP_COMPANY]['company_address']) ) 	throw new \Exception(__('Kérjük, hogy adja meg a cég postacímét!'), 2004);
 		}
 		/* */
 
@@ -1197,9 +1198,9 @@ class Users
 			$this->db->insert(
 				self::TABLE_NAME,
 				array(
-					'email' => trim($data[email]),
-					'nev' => trim($data[nev]),
-					'jelszo' => \Hash::jelszo($data[pw2]),
+					'email' => trim($data['email']),
+					'nev' => trim($data['nev']),
+					'jelszo' => \Hash::jelszo($data['pw2']),
 					'user_group' => $user_group
 				)
 			);
@@ -1248,7 +1249,7 @@ class Users
 		//$this->subscribeToWebgalamb($user_group, $data);
 
 		// Aktiváló e-mail kiküldése
-		$this->sendActivationEmail( $data['email'], trim($data[pw2]) );
+		$this->sendActivationEmail( $data['email'], trim($data['pw2']) );
 
 		usleep(500);
 
@@ -1434,9 +1435,11 @@ class Users
 		);
 		$arg['mailtemplate'] = (new MailTemplates(array('db'=>$this->db)))->get('register_user_group_'.$data['user_group'], $arg);
 
-		$mail->setSubject( 'Sikeres regisztráció. Aktiválja fiókját!' );
+		$mail->setSubject( __('Sikeres regisztráció. Aktiválja fiókját!') );
 		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'register', $arg ) );
-		$re = $mail->sendMail();
+		//$re = $mail->sendMail();
+
+    return $mail;
 	}
 
 	public function sendAdminAcceptedRegisterEmail( $uid )
