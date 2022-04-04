@@ -204,7 +204,7 @@ $(function(){
             <div class="ico">
               <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
             </div>
-            <div class="cash"><span class="amount cart-item-prices">0</span> Ft <span class="badge" id="cart-item-num-v">0</span></div>
+            <div class="cash"><span class="amount cart-item-prices">0</span> <?=$valuta?> <span class="badge" id="cart-item-num-v">0</span></div>
             <div class="floating">
               <div id="cartContent" class="cartContent overflowed">
                 <div class="noItem"><div class="inf"><?=__('A kosár üres')?></div></div>

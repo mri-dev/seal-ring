@@ -397,7 +397,7 @@ class Database
 		return $db;
 	}
 
-	public function getLanguages()
+	public function getLanguages( $getlang = false )
 	{
 		$db = $this->newDB('HU');
 		$qry = $db->query("SELECT ID, langkey, title, active, changes, sorrend, valuta FROM languages");
@@ -405,6 +405,17 @@ class Database
 		if( $qry->rowCount() != 0 )
 		{
 			$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
+
+			if( $getlang && !empty($getlang) )
+			{
+				foreach($data as $d )
+				{
+					if( $d['langkey'] == $getlang )
+					{
+						return $d;
+					}
+				}
+			}
 
 			return $data;
 		}

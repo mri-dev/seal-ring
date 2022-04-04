@@ -24,13 +24,15 @@ class Products
 	public $item_ids = array();
 	public $settings = array();
 	private $crm = null;
+  private $lang = false;
 
 	public function __construct( $arg = array() ) {
 		$this->db = $arg[db];
 		$this->user = $arg[user];
 		$this->settings = $arg['settings'];
-
-		return $this;
+    $this->lang = $this->db->getLanguages( \Lang::getLang() );
+    
+    return $this;
 	}
 
 	public function setCRMHandler( $crm )
@@ -1193,11 +1195,22 @@ class Products
 					$d['profil_kep'] = $d['static']['images'];
 				}
 
+        // Valuta konverztió
+        if( $this->lang && $this->lang['changes'] > 1 )
+        {
+          $d['ar'] = $d['ar'] / $this->lang['changes'];
+          $d['netto_ar'] = $d['netto_ar'] / $this->lang['changes'];
+          $d['brutto_ar'] = $d['brutto_ar'] / $this->lang['changes'];
+          $d['beszerzes_netto'] = $d['beszerzes_netto'] / $this->lang['changes'];
+          $d['eredeti_ar'] = $d['eredeti_ar'] / $this->lang['changes'];
+        } 
+        
+
 				// CRM - incash
 				$d['crm'] = array();
 			}
 
-			$bdata[]	 			= $d;
+			$bdata[] = $d;
 		}
 
 		$this->products = $bdata;
@@ -1254,9 +1267,21 @@ class Products
 			if($net != 0 && !in_array($key, $groups['has'])) {
 				$groups['has'][] = $key;
 			}
+
+      $net = 
+      $br = ($this->settings['round_price_5'] == '1') ? round(($net * 1.27) / 5) * 5 : ($net * 1.27);
+
+      // Valuta konverzió
+      if( $this->lang && $this->lang['changes'] > 1 )
+      {
+        $net = $net / $this->lang['changes'];
+        $br = $br / $this->lang['changes'];
+      }
+
+
 			$groups['set'][$key] = array(
 				'netto' => $net,
-				'brutto' => ($this->settings['round_price_5'] == '1') ? round(($net * 1.27) / 5) * 5 : ($net * 1.27)
+				'brutto' => $br
 			);
 		}
 

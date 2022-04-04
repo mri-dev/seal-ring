@@ -247,7 +247,18 @@ class Controller {
 
       if(!$arg[hidePatern]){ $this->hidePatern = false; }
 
-       $this->view->valuta  = 'Ft';
+      $this->view->valuta  = 'Ft';
+
+      foreach( $this->languages as $lang )
+      {        
+        if( \Lang::getLang() == $lang['langkey'] )
+        {
+          $this->view->valuta  = $lang['valuta'];
+          $this->view->settings['valuta'] = $this->view->valuta;
+        }
+      }
+
+       
     }
 
     public function kozterulet_jellege()

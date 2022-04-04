@@ -23,12 +23,12 @@
           <?php if( $user ): ?>
           <?php if ( $akcios == '1' ): ?>
             <div class="ar akcios">
-              <div class="old"><?=Helper::cashFormat($eredeti_ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?></div>
-              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?></div>
+              <div class="old"><?=Helper::cashFormat($eredeti_ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ '.__('ÁFA').'</span>':''?></div>
+              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ '.__('ÁFA').'</span>':''?></div>
             </div>
           <?php else: ?>
             <div class="ar">
-              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ ÁFA</span>':''?> <? if($user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1) { echo '<span class="text">+ ÁFA</span>'; } ?></div>
+              <div class="current"><?=Helper::cashFormat($ar)?> <?=$valuta?> <?=($this->settings['price_show_brutto'] == 0)?'<span class="text">+ '.__('ÁFA').'</span>':''?> <? if($user['data']['price_group_data']['groupkey'] == 'beszerzes_netto' && $this->settings['price_show_brutto'] == 1) { echo '<span class="text">+ '.__('ÁFA').'</span>'; } ?></div>
             </div>
           <?php endif; ?>
           <?php else: ?>
@@ -50,7 +50,7 @@
         <input type="number" onchange="$('#btn-add-p<?=$product_id?>').attr('cart-me', $(this).val())" step="1" max="<?=($raktar_keszlet>0)?$raktar_keszlet:''?>" min="1" value="1">
       </div>
       <div class="add">
-        <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> <span class="t">Kosárba</span> <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
+        <button type="button" id="btn-add-p<?=$product_id?>" cart-data="<?=$product_id?>" cart-progress="btn-add-p<?=$product_id?>" cart-me="1" cart-remsg="cart-msg" class="cart tocart"> <span class="t"><?=__('Kosárba')?></span> <img src="<?=IMG?>shopcart-ico.svg" alt="Kosárba"></button>
       </div>
       <?php endif; ?>
     </div>

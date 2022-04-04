@@ -7,6 +7,10 @@ var translates = {
 		'this_already_in_fav': 'Ez a termék jelenleg a kedvencei közt szerepel.',
 		'cancel': 'Mégse',
 		'remove': 'Eltávolítás',
+		'db': 'db',
+		'more': 'Több',
+		'less': 'Kevesebb',
+		'adding_to_cart_progress': 'kosárba helyezés folyamatban...',
 	},
 	'en': {
 		'loadings': 'Loading...',
@@ -15,6 +19,10 @@ var translates = {
 		'this_already_in_fav': 'This products already marked as favorite.',
 		'cancel': 'Cancel',
 		'remove': 'Remove',
+		'db': 'pcs',
+		'more': 'More',
+		'less': 'Less',
+		'adding_to_cart_progress': 'Adding products to your cart...',
 	}
 };
 
@@ -491,7 +499,7 @@ function postFilterForm() {
 
 function Cart(){
 	this.content = ".cartContent";
-	this.push = function(i)
+	this.push = function(i, valuta = 'Ft')
 	{
 		var gr = $(this.content);
 
@@ -507,14 +515,14 @@ function Cart(){
 			'</div>'+
 			'<div class="info">'+
 				'<div class="adder">'+
-					'<i class="fa fa-minus-square" title="Kevesebb" onclick="Cart.removeItem('+i.termekID+')"></i>'+
-					'<i class="fa fa-plus-square" title="Több" onclick="Cart.addItem('+i.termekID+')"></i>'+
+					'<i class="fa fa-minus-square" title="'+_('less')+'" onclick="Cart.removeItem('+i.termekID+')"></i>'+
+					'<i class="fa fa-plus-square" title="'+_('more')+'" onclick="Cart.addItem('+i.termekID+')"></i>'+
 				'</div>'+
-				'<div class="remove"><i class="fa fa-times "  onclick="Cart.remove('+i.termekID+');" title="Eltávolítás"></i></div>'+
+				'<div class="remove"><i class="fa fa-times "  onclick="Cart.remove('+i.termekID+');" title="'+_('remove')+'"></i></div>'+
 				'<div class="name"><a href="'+i.url+'"><span class="in">'+i.me+'x</span> '+i.termekNev+'</a></div>'+
 				'<div class="sub">'+
 				/*'<div class="tipus">Variáció: <span class="val">'+((i.szin) ? i.szin+'</span>' : '')+''+( (i.meret)?', Kiszerelés: <span class="val">'+i.meret+'</span>':'')+'</div>'+*/
-				'<span class="ar">'+( (i.ar != '-1')? i.ar+' Ft / db' : 'Ár: érdeklődjön' )+'</span>'+
+				'<span class="ar">'+( (i.ar != '-1')? i.ar+' '+valuta+' / '+_('db') : 'Ár: érdeklődjön' )+'</span>'+
 				'</div>'+
 			'</div>'+
 			'<div class="clr"></div></div>';
@@ -724,7 +732,7 @@ function searchFilters(){
 			.html('Folyamatban <i class="fa fa-spin fa-spinner"></i>');
 		}
 
-		$('#'+rem).html('<div class="in-progress"><i class="fa fa-spin fa-spinner"></i> kosárba helyezés folyamatban...</div>');
+		$('#'+rem).html('<div class="in-progress"><i class="fa fa-spin fa-spinner"></i> '+_('adding_to_cart_progress')+'</div>');
 
 		addToCart(key, me, function(success, msg){
 			if (success == 1) {
@@ -751,11 +759,13 @@ function searchFilters(){
 function buildCartItems(c){
 	var i = c.items;
 
+	console.log(c);
+
 	if( !i ) return false;
 
 	for(var s = 0; s < i.length; s++){
 		var e = i[s];
-		Cart.push(e);
+		Cart.push(e, c.valuta);
 	}
 }
 function getCartInfo(callback){

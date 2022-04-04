@@ -343,7 +343,7 @@
 								<th class="center"><?=__('Termék')?></th>
 								<th  width="120" class="center"><?=__('Me')?>.</th>
 								<th class="center" width="15%"><?=__('Egységár')?></th>
-								<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':(($this->settings['price_show_brutto'] == 0)?'Nettó ár':'Bruttó ár')?></th>
+								<th class="center" width="15%"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'Nettó ár':(($this->settings['price_show_brutto'] == 0)?__('Nettó ár'):__('Bruttó ár'))?></th>
 								<th class="center" width="10"></th>
 							</tr>
 						</thead>
@@ -371,8 +371,8 @@
 												<? if($d['meret']): ?><em><?=__('Kiszerelés')?>:</em> <strong><?=$d['meret']?></strong><? endif;?>
 											</div>
 											<div class="subLine">
-												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=$d['allapot']?></span> &nbsp;&nbsp;
-												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> <?=$d['szallitasIdo']?></span>
+												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=__($d['allapot'])?></span> &nbsp;&nbsp;
+												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> <?=__($d['szallitasIdo'])?></span>
 											</div>
 										</div>
 									</div>
@@ -410,8 +410,8 @@
 								<td class="center action">
 									<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
 									<span>
-										<i class="fa fa-angle-up cart-adder asc" title="Több" onclick="Cart.addItem(<?=$d[termekID]?>)"></i>
-										<i class="fa fa-angle-down cart-adder desc" title="Kevesebb" onclick="Cart.removeItem(<?=$d[termekID]?>)"></i>
+										<i class="fa fa-angle-up cart-adder asc" title="<?=__("Több")?>" onclick="Cart.addItem(<?=$d[termekID]?>)"></i>
+										<i class="fa fa-angle-down cart-adder desc" title="<?=__("Kevesebb")?>" onclick="Cart.removeItem(<?=$d[termekID]?>)"></i>
 									</span>
 									<? endif; ?>
 								</td>
@@ -457,7 +457,7 @@
 								<td class="nocell"></td>
 								<td colspan="2" class="right"><?=__('Végösszeg')?></td>
 								<td colspan="2" class="center finalpricetd">
-									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?__('nettó'):__('bruttó'))?></span> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> <span style="font-size: 0.9rem !important;"><?=$this->valuta?></span></span></strong>
+									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?__('nettó'):(($this->settings['price_show_brutto'] == 0)?__('nettó'):__('bruttó'))?></span> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> <span style="font-size: 0.9rem !important;"><?=$this->valuta?></span></span></strong>
 									<input type="hidden" name="kedvezmeny" value="<?=($this->kosar['kedvezmeny'] > 0)?1:0?>" />
 									<input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 								</td>

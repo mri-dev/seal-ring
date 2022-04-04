@@ -12,12 +12,15 @@ class Cart
 	private $user = null;
 	private $machine_id = null;
 	private $settings = null;
+	private $lang = false;
 
 	function __construct( $machine_id, $arg = array() )
 	{
 		$this->db = $arg[db];
 		$this->user = $arg[user];
 		$this->machine_id = $machine_id;
+
+		$this->lang = $this->db->getLanguages( \Lang::getLang() );
 
 		if (isset($arg['settings'])) {
 			$this->settings = $arg['settings'];
@@ -85,9 +88,15 @@ class Cart
 				\PortalManager\Formater::discountPrice( $d[sum_ar], $this->user[kedvezmeny], true );
 			}
 
+			if( $this->lang && $this->lang['changes'] > 1 )
+			{
+				$d['ar'] = $d['ar'] / $this->lang['changes'];
+				$d['sum_ar'] = $d['sum_ar'] / $this->lang['changes'];
+			}
+
 			if ($this->settings['round_price_5'] == '1')
 			{
-				$d[ar] = round($d[ar] / 5) * 5;
+				$d['ar'] = round($d['ar'] / 5) * 5;
 			}
 
 			$itemNum 	+= $d[me];
@@ -105,10 +114,11 @@ class Cart
 			$dt[] = $d;
 		}
 
-		$re['itemNum']			= $itemNum;
-		$re['totalPrice']			= $totalPrice;
-		$re['totalPriceTxt']		= number_format($totalPrice,2,"."," ")." Ft";
-		$re['items'] 				= $dt;
+		$re['valuta'] = $this->settings['valuta'];
+		$re['itemNum']= $itemNum;
+		$re['totalPrice'] = $totalPrice;
+		$re['totalPriceTxt']= number_format($totalPrice,2,"."," ")." ".$this->settings['valuta'];
+		$re['items'] = $dt;
 
 		if( $uid == 0 )
 		{
