@@ -156,8 +156,8 @@ Megrendelések
                 <?=$this->fizetes[$d[fizetesiModID]][nev]?>
             </td>
             <td class="center"><?=$d[items][tetel]?></td>
-            <td class="center"><strong><?=Helper::cashFormat($d[items][total]+$d[szallitasi_koltseg]+($d[kedvezmeny]*-1))?> Ft</strong> </td>
-            <td class="center"><?=Helper::cashFormat($d['kedvezmeny'])?> Ft</td>
+            <td class="center"><strong><?=Helper::cashFormat($d[items][total]+$d[szallitasi_koltseg]+($d[kedvezmeny]*-1))?> <?=$d['valuta']?></strong> </td>
+            <td class="center"><?=Helper::cashFormat($d['kedvezmeny'])?> <?=$d["valuta"]?></td>
             <td class="center"><?=\PortalManager\Formater::dateFormat($d[idopont], $this->settings['date_format'])?></td>
             <td class="center"><button name="filterList" title="Részletek" mid="<?=$d[ID]?>" type="button" class="btn btn-default btn-sm watch"><i class="fa fa-eye"></i></button></td>
         </tr>
@@ -207,7 +207,7 @@ Megrendelések
 																			<input type="number" name="termekAr[<?=$d[ID]?>][<?=$item[ID]?>]" value="<?=$item[egysegAr]?>" min="0" class="form-control" />
                                       <input type="hidden" value="<?=$item[egysegAr]?>" name="prev_termekAr[<?=$d[ID]?>][<?=$item[ID]?>]" />
 									</td>
-                                    <td class="center"><?=Helper::cashFormat($item[subAr])?> Ft <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                    <td class="center"><?=Helper::cashFormat($item[subAr])?> <?=$d['valuta']?> <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
                                     <td class="center" width="200">
                                     <select class="form-control" name="termekAllapot[<?=$d[ID]?>][<?=$item[ID]?>]" style="max-width:200px;">
 										<? foreach((array)$this->allapotok[termek] as $m):  ?>
@@ -220,7 +220,7 @@ Megrendelések
                                 <? endforeach; ?>
                                 <tr style="background:#f3f3f3;">
                                     <td class="right" colspan="5">Termékek összesített ára:</td>
-                                    <td class="center"><strong><?=Helper::cashFormat($c_total)?> Ft</strong> <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
+                                    <td class="center"><strong><?=Helper::cashFormat($c_total)?> <?=$d["valuta"]?></strong> <?=($d['nettoar'] == '1')?'+ ÁFA':''?></td>
                                     <td class="right" colspan="2">
                                         <a href="javascript:void(0);" onclick="addNewItem(<?=$d[ID]?>);">termék hozzáadás <i class="fa fa-plus"></i></a>
                                     </td>
@@ -247,7 +247,7 @@ Megrendelések
                         <div class="referer-used">
                             <div class="row">
                                 <div class="col-sm-3 left">Felhasznált egyenleg:</div>
-                                <div class="col-sm-9 right"><strong><?=\Helper::cashFormat($d['used_cash'])?> Ft</strong></div>
+                                <div class="col-sm-9 right"><strong><?=\Helper::cashFormat($d['used_cash'])?> <?=$d["valuta"]?></strong></div>
                             </div>
                         </div>
                         <? endif; ?>
@@ -267,7 +267,7 @@ Megrendelések
                         </div>
 
                         <div class="row">
-                        	<div class="col-md-10 selectCol"><strong>Kedvezmény (Ft):</strong></div>
+                        	<div class="col-md-10 selectCol"><strong>Kedvezmény (<?=$d["valuta"]?>):</strong></div>
                             <div class="col-md-2">
                             <input type="number" class="form-control" name="kedvezmeny[<?=$d[ID]?>]" min="0" value="<?=$d[kedvezmeny]?>" />
                             <input type="hidden" value="<?=$d[kedvezmeny]?>" name="prev_kedvezmeny[<?=$d[ID]?>]" />
@@ -275,7 +275,7 @@ Megrendelések
                         </div>
 
                         <div class="row">
-                        	<div class="col-md-9 selectCol"><strong>Szállítási költség (Ft):</strong></div>
+                        	<div class="col-md-9 selectCol"><strong>Szállítási költség (<?=$d["valuta"]?>):</strong></div>
                             <div class="col-md-3">
                             <input type="number" class="form-control" name="szallitasi_koltseg[<?=$d[ID]?>]" min="0" value="<?=$d[szallitasi_koltseg]?>" />
                             <input type="hidden" value="<?=$d[szallitasi_koltseg]?>" name="prev_szallitasi_koltseg[<?=$d[ID]?>]" />

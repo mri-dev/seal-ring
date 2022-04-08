@@ -2092,6 +2092,18 @@ class Shop
 						$kedvezmeny_ft = $used_cash;
 					}
 
+          $langkey = 'hu';
+          $valuta = 'Ft';
+          $exchange_rate = 0;
+          $selected_language = $this->db->getLanguages(\Lang::getLang());
+
+          if( $selected_language )
+          {
+            $langkey = $selected_language['langkey'];
+            $valuta =  $selected_language['valuta'];
+            $exchange_rate = (float)$selected_language['changes'];
+          }
+
 					/**
 					 * Partner ajánló rendszer levonás
 					 * */
@@ -2178,7 +2190,10 @@ class Shop
 					if ($go) {
 						$szamlazasi_keys = $user['szamlazasi_adat'];
 						$szallitasi_keys = $user['szallitasi_adat'];
-						$iq = "INSERT INTO orders(nev,nettoar,azonosito,email,userID,gepID,szallitasiModID,fizetesiModID,kedvezmeny,szallitasi_koltseg,szamlazasi_keys,szallitasi_keys,pickpackpont_uzlet_kod,comment,postapont,referer_code,coupon_code, used_cash) VALUES(
+						$iq = "INSERT INTO orders(langkey, valuta, exchange_rate, nev,nettoar,azonosito,email,userID,gepID,szallitasiModID,fizetesiModID,kedvezmeny,szallitasi_koltseg,szamlazasi_keys,szallitasi_keys,pickpackpont_uzlet_kod,comment,postapont,referer_code,coupon_code, used_cash) VALUES(
+            '$langkey',
+            '$valuta',
+            $exchange_rate,
 						'$nev',
 						$nettoar,
 						nextOrderID(),
@@ -2261,6 +2276,11 @@ class Shop
 
 							// stock check
 							$d['keszleten'] = $keszleten;
+
+              if( $selected_language && $selected_language['changes'] > 1 )
+              {
+                $d['ar'] = $d['ar'] / $selected_language['changes'];
+              }
 
 							$this->db->insert(
 								'order_termekek',

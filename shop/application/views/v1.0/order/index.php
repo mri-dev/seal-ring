@@ -94,12 +94,12 @@
                                             <a href="<?=$d[url]?>" target="_blank"><?=$d[nev]?></a>
                                             <div class="sel-types">
                                               <?php if ($d['configs']): ?>
-                      													<i class="fa fa-gear" title="Kiválasztott konfiguráció"></i>
-                      													&nbsp;
-                      													<?php foreach ((array)$d['configs'] as $cid => $c): ?>
-                      														<em><?php echo $c['parameter']; ?>:</em> <strong><?php echo $c['value']; ?></strong>
-                      													<?php endforeach; ?>
-                      												<?php endif; ?>
+                                                <i class="fa fa-gear" title="Kiválasztott konfiguráció"></i>
+                                                &nbsp;
+                                                <?php foreach ((array)$d['configs'] as $cid => $c): ?>
+                                                    <em><?php echo $c['parameter']; ?>:</em> <strong><?php echo $c['value']; ?></strong>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -120,25 +120,25 @@
                                 <td class="center">
                                   <?=$d['me']?>
                                 </td>
-                                <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
-                                <td class="center"><span><?=Helper::cashFormat($d[subAr])?> Ft</span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($d[egysegAr])?> <?=$o["valuta"]?></span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($d[subAr])?> <?=$o["valuta"]?></span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
                             </tr>
                             <? endforeach; ?>
                             <tr>
                                 <td class="right" colspan="4"><strong><?=__('Termékek ára összesen')?></strong></td>
-                                <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> <?php echo $this->valuta; ?></span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
+                                <td class="center"><span><?=Helper::cashFormat($termek_ar_total)?> <?=$o["valuta"]?></span> <?=($o['nettoar'] == '1')?'+ '.__('ÁFA'):''?></td>
                             </tr>
                             <tr>
                                 <td class="right" colspan="4"><div><strong><?=__('Szállítási költség')?></strong></div></td>
-                                <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> <?=$this->valuta?></span></td>
+                                <td class="center"><span><?=Helper::cashFormat($o[szallitasi_koltseg])?> <?=$o["valuta"]?></span></td>
                             </tr>
                             <tr>
                                 <td class="right" colspan="4"><div><strong><?=__('Kedvezmény')?></strong></div></td>
-                                <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' '.$this->valuta : '-'?> </span></td>
+                                <td class="center"><span><?=($o[kedvezmeny] > 0)?'-'.Helper::cashFormat( $o[kedvezmeny] ) . ' '.$o["valuta"] : '-'?> </span></td>
                             </tr>
                             <tr style="font-size:18px;">
                                 <td class="right" colspan="4"><strong><?=__('Végösszeg')?></strong></td>
-                                <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> <?php echo $this->valuta; ?></strong></span></td>
+                                <td class="center"><span><strong><?=Helper::cashFormat($vegosszeg - $o[kedvezmeny])?> <?=$o["valuta"]?></strong></span></td>
                             </tr>
                         </tbody>
                     </table>
