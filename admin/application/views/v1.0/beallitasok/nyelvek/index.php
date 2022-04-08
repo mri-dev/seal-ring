@@ -16,7 +16,7 @@
       <?php foreach((array)$this->languages as $lang ): ?>
       <tr>
         <td>
-          <strong><a href="/beallitasok/nyelvek/?editor=<?=$lang['langkey']?>"><?=$lang['title']?></a></strong>
+          <img width="20" src="<?=IMG?>flags/<?=$lang['langkey']?>.gif" alt="<?=strtoupper($lang['langkey'])?>"> <strong><a href="/beallitasok/nyelvek/?editor=<?=$lang['langkey']?>"><?=$lang['title']?></a></strong>
         </td>
         <td>
          <?=strtoupper($lang['langkey'])?>

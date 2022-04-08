@@ -65,12 +65,12 @@
                                       <div class="divider-sm"></div>
                                       <div class="row">
                                           <div class="col-md-4 form-text"><strong><?=__('Irányítószám')?></strong> *</div>
-                                          <div class="col-md-8"><input autocomplete="off" required="required" type="text" ng-keyup="findCityByIrsz($event, 'szam_city')" id="szam_irsz" name="szam_irsz" class="form-control"/></div>
+                                          <div class="col-md-8"><input autocomplete="off" required="required" type="text" <? if(\Lang::getLang() == DLANG): ?>ng-keyup="findCityByIrsz($event, 'szam_city')"<? endif; ?> id="szam_irsz" name="szam_irsz" class="form-control"/></div>
                                       </div>
                                       <div class="divider-sm"></div>
                                       <div class="row">
                                           <div class="col-md-4 form-text"><strong><?=__('Település')?></strong> *</div>
-                                          <div class="col-md-8 hint-holder-col"><input required="required" placeholder="<?=__('Irányítószám megadása')?>..." readonly="readonly" type="text" id="szam_city" name="szam_city" class="form-control"/><div class="hint-holder" ng-show="findedCity['szam_city'] && findedCity['szam_city'].length != 0" id="szam_city">
+                                          <div class="col-md-8 hint-holder-col"><input required="required" placeholder="<?=(\Lang::getLang() == DLANG)?__('Irányítószám megadása').'...':''?>" <?=(\Lang::getLang() == DLANG)?'readonly="readonly"':''?> type="text" id="szam_city" name="szam_city" class="form-control"/><div class="hint-holder" ng-show="findedCity['szam_city'] && findedCity['szam_city'].length != 0" id="szam_city">
                                             <div class="hint-list">
                                               <div class="cityhint" ng-click="fillCityHint('szam_city', city)" ng-repeat="city in findedCity['szam_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
                                             </div>
@@ -137,12 +137,12 @@
                                       <div class="divider-sm"></div>
                                       <div class="row">
                                           <div class="col-md-4 form-text"><strong><?=__('Irányítószám')?></strong> *</div>
-                                          <div class="col-md-8"><input autocomplete="off" required="required" type="text" id="szall_irsz" ng-keyup="findCityByIrsz($event, 'szall_city')" name="szall_irsz" class="form-control"/></div>
+                                          <div class="col-md-8"><input autocomplete="off" required="required" type="text" id="szall_irsz" <? if(\Lang::getLang() == DLANG): ?>ng-keyup="findCityByIrsz($event, 'szall_city')"<? endif; ?> name="szall_irsz" class="form-control"/></div>
                                       </div>
                                       <div class="divider-sm"></div>
                                       <div class="row">
                                           <div class="col-md-4 form-text"><strong><?=__('Település')?></strong> *</div>
-                                          <div class="col-md-8 hint-holder-col"><input required="required" placeholder="<?=__('Irányítószám megadása')?>..." type="text" id="szall_city" readonly="readonly" name="szall_city" class="form-control"/><div class="hint-holder" ng-show="findedCity['szall_city'] && findedCity['szall_city'].length != 0" id="szall_city">
+                                          <div class="col-md-8 hint-holder-col"><input required="required" placeholder="<?=(\Lang::getLang() == DLANG)?__('Irányítószám megadása').'...':''?>" type="text" id="szall_city" <?=(\Lang::getLang() == DLANG)?'readonly="readonly"':''?> name="szall_city" class="form-control"/><div class="hint-holder" ng-show="findedCity['szall_city'] && findedCity['szall_city'].length != 0" id="szall_city">
                                             <div class="hint-list">
                                               <div class="cityhint" ng-click="fillCityHint('szall_city', city)" ng-repeat="city in findedCity['szall_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
                                             </div>

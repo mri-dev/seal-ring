@@ -159,9 +159,9 @@
                 <div class="col-md-9 <?=($dk=='city')?'hint-holder-col':''?>">
                 <?php if ($dk == 'state'): ?>
                 <?php elseif( $dk == 'irsz'): ?>
-                  <input autocomplete="off" type="text" ng-keyup="findCityByIrsz($event, 'szall_city')" id="szall_irsz" name="irsz" class="form-control" value="<?=$val?>"/>
+                  <input autocomplete="off" type="text" <? if(\Lang::getLang() == DLANG): ?>ng-keyup="findCityByIrsz($event, 'szall_city')"<? endif; ?> id="szall_irsz" name="irsz" class="form-control" value="<?=$val?>"/>
                 <?php elseif( $dk == 'city'): ?>
-                  <input autocomplete="off" readonly="readonly" type="text" id="szall_city" name="city" class="form-control" value="<?=$val?>"/><div class="hint-holder" ng-show="findedCity['szall_city'] && findedCity['szall_city'].length != 0" id="szall_city">
+                  <input autocomplete="off" <? if(\Lang::getLang() == DLANG): ?>readonly="readonly"<? endif; ?> type="text" id="szall_city" name="city" class="form-control" value="<?=$val?>"/><div class="hint-holder" ng-show="findedCity['szall_city'] && findedCity['szall_city'].length != 0" id="szall_city">
                     <div class="hint-list">
                       <div class="cityhint" ng-click="fillCityHint('szall_city', city)" ng-repeat="city in findedCity['szall_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
                     </div>
@@ -207,9 +207,9 @@
                 <div class="col-md-9 <?=($dk=='city')?'hint-holder-col':''?>">
                 <?php if ($dk == 'state'): ?>
                 <?php elseif( $dk == 'irsz'): ?>
-                  <input autocomplete="off" type="text" ng-keyup="findCityByIrsz($event, 'szam_city')" id="szam_irsz" name="irsz" class="form-control" value="<?=$val?>"/>
+                  <input autocomplete="off" type="text" <? if(\Lang::getLang() == DLANG): ?>ng-keyup="findCityByIrsz($event, 'szam_city')"<? endif; ?> id="szam_irsz" name="irsz" class="form-control" value="<?=$val?>"/>
                 <?php elseif( $dk == 'city'): ?>
-                  <input autocomplete="off" readonly="readonly" type="text" id="szam_city" name="city" class="form-control" value="<?=$val?>"/><div class="hint-holder" ng-show="findedCity['szam_city'] && findedCity['szam_city'].length != 0" id="szam_city">
+                  <input autocomplete="off" <? if(\Lang::getLang() == DLANG): ?>readonly="readonly"<? endif; ?> type="text" id="szam_city" name="city" class="form-control" value="<?=$val?>"/><div class="hint-holder" ng-show="findedCity['szam_city'] && findedCity['szam_city'].length != 0" id="szam_city">
                     <div class="hint-list">
                       <div class="cityhint" ng-click="fillCityHint('szam_city', city)" ng-repeat="city in findedCity['szam_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
                     </div>
