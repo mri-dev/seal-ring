@@ -166,7 +166,7 @@
                     <textarea name="meta_desc" class="no-editor form-control" id="meta_desc" maxlength="350"><?=($this->page ? $this->page->getMetaValue('desc') : '')?></textarea>
                 </div>
             </div>            
-            <?php if(count($this->languages) > 1): ?>
+            <?php if(count($this->languages) > 1 && $this->page): ?>
             <br>
             <h2>Nyelvi verziók</h2>
             <?php foreach((array)$this->languages as $langkey => $lang): if($langkey == DLANG) continue; 

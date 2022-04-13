@@ -68,7 +68,7 @@
 	</tr>
 </tbody>
 </table>
-
+<p style="margin: 10px 0; font-weight: bold; color: red;">A készlettel nem rendelkező termékek esetleges árváltozása, vagy elérhetősége esetén kollégáink keresni fogják Önöket!</p>
 <div class="" style="font-size: 10px;">
 	<p><u><span style="font-family: Arial, Helvetica, sans-serif; font-size: 18px;">SZÁLLÍTÁSI INFORMÁCIÓK:</span></u></p>
 	<p><strong>Rendelését a GLS szállítja ki.</strong></p>

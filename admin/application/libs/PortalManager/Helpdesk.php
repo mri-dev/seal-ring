@@ -187,6 +187,7 @@ class Helpdesk
       $get = $get->fetchAll(\PDO::FETCH_ASSOC);
       foreach ($get as $d) {
         $d['ID'] = (int)$d['ID'];
+        $d['cim'] = __($d['cim']);
         if ($get_articles) {
           if ( isset($arg['in_cat']) && !empty($arg['in_cat']) ) {
             if( in_array($d['ID'], $arg['in_cat'])){
@@ -244,6 +245,23 @@ class Helpdesk
         $d['ID'] = (int)$d['ID'];
         $d['kulcsszavak'] = $this->keywordTrimmer( $d['kulcsszavak'] );
 
+        if( DLANG !== \Lang::getLang())
+        {
+          $translates = $this->db->getTranslateContents( self::DB_LIST, $d['ID'], \Lang::getLang() );
+          
+          if( $translates )
+          {
+            $translate_keys = ['cim', 'szoveg', ];
+            foreach( $translate_keys as $tk )
+            {
+              if( isset($translates[$tk]['content']) && !empty($translates[$tk]['content']) )
+              {
+                $d[$tk] = $translates[$tk]['content'];
+              }
+            }				
+          }
+        }
+
         // Kulcsszó keresések
         if ( isset($arg['search']) ) {
           if ( !$this->searchByKeywords( $d, $arg['search'] ) ) {
@@ -259,6 +277,26 @@ class Helpdesk
 
     return $data;
   }
+
+  public function getTranslates( $article_id, $lang)
+  {
+    $translates = $this->db->getTranslateContents( self::DB_LIST, $article_id, $lang );
+		return $translates;
+  }
+
+  public function saveTranslates( $id, $langset )
+	{
+		if( $langset )
+		{
+			foreach( $langset as $langkey => $items )
+			{
+				foreach( (array)$items as $key => $i )
+				{
+					$this->db->createTranslateContent( $i, self::DB_LIST, $key, $langkey, $id );
+				}
+			}
+		}
+	}
 
   private function prepareArticlesContent( &$content )
   {
@@ -280,8 +318,8 @@ class Helpdesk
       $src = strtolower($src);
       if (
         in_array($src,$data['kulcsszavak']) ||
-        strpos($data['cim'], $src) !== false ||
-        strpos($data['szoveg'], $src) !== false
+        strpos(strtolower($data['cim']), $src) !== false ||
+        strpos(strtolower($data['szoveg']), $src) !== false
       ) {
         $valid[] = $src;
       }

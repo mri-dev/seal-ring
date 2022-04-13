@@ -60,6 +60,10 @@ class tudastar extends Controller{
 		{
 			try {
 				$re = $helpdesk->articleModifier( $_POST['articleModifier'], $_POST );
+				if( isset($_POST['translate']) )
+				{
+					$helpdesk->saveTranslates( $_POST['id'], $_POST['translate'] );
+				}
 				\Helper::reload('/tudastar/?type=Success&msg='.$re);
 			} catch (\Exception $e) {
 				$this->out('err', true);
@@ -95,6 +99,19 @@ class tudastar extends Controller{
 		if ( $_GET['del'] == 'article' || $_GET['edit'] == 'article' ) {
 			$edit_article_data = $helpdesk->getArticleData( $_GET['id'] );
 			$this->out( 'c', $edit_article_data );
+		}
+
+		// Load translates
+		if( $_GET['edit'] == 'article' && count($this->view->languages) > 1 )
+		{
+			$translates = [];
+			foreach($this->view->languages as $langkey => $lang )
+			{
+				$translates[$langkey] = $helpdesk->getTranslates( $_GET['id'], $langkey );
+			}
+
+			$this->out( 'translates', $translates );
+			
 		}
 
 		// Kategória lista view

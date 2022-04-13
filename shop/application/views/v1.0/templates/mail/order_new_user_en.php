@@ -69,6 +69,7 @@
 	</tr>
 </tbody>
 </table>
+<p style="margin: 10px 0; font-weight: bold; color: red;">We will make contact you if price or availability changes on products whick is out of stock</p>
 <div class="" style="font-size: 10px;">
 	<p><u><span style="font-family: Arial, Helvetica, sans-serif; font-size: 18px;">SHIPPING INFORMATIONS:</span></u></p>
 	<p><strong>Your transport partner: GLS!</strong></p>

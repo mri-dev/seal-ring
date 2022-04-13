@@ -155,7 +155,29 @@
             <textarea name="szoveg"><?=($this->err)?$_POST['szoveg']:$this->c[szoveg]?></textarea>
           </div>
         </div>
-        <br>
+        <?php if(count($this->languages) > 1 && $this->c): ?>
+          <?php foreach((array)$this->languages as $langkey => $lang): if($langkey == DLANG) continue; $translates = $this->translates[$langkey];?>
+          <br>                
+          <h3>[<?=$langkey?>] <u><?=$lang['title']?></u></h3>    
+          <div class="row">
+              <div class="col-md-12">
+                  <label for="cim_<?=$langkey?>">Cikk címe</label>
+                  <input type="text"class="form-control" name="translate[<?=$langkey?>][cim][content]" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
+                  <input type="hidden" name="translate[<?=$langkey?>][cim][id]" value="<?=$translates['cim']['id']?>">
+              </div>
+          </div>    
+          <br>        
+          <div class="row">
+              <div class="col-md-12">
+                  <label for="szoveg_<?=$langkey?>">Tartalom</label>
+                  <div style="background:#fff;"><textarea name="translate[<?=$langkey?>][szoveg][content]" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
+                  <input type="hidden" name="translate[<?=$langkey?>][szoveg][id]" value="<?=$translates['szoveg']['id']?>">
+              </div>
+          </div>
+          <?php endforeach; ?>
+          <br><br>
+        <?php endif; ?>
+
         <?php endif; ?>
         <div class="row">
           <div class="col-md-12 right">
