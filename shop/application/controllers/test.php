@@ -17,7 +17,7 @@ class test extends Controller
 					SMTP_USER,
 					"smtp"
 				);
-				$mail->setReplyTo( $this->settings['page_title'], $this->settings['email_noreply_address'] );
+				$mail->setReplyTo( 'smtp@web-pro.hu', $this->settings['page_title'] );
 				$mail->add( 'molnar.istvan@web-pro.hu' );
 
 				$arg = array(
@@ -34,8 +34,10 @@ class test extends Controller
 				$mail->setMsg( $msg );
 
 				if (isset($_GET['send'])) {
-					$re = $mail->sendMail();
-
+					echo '<pre>';
+					$re = $mail->sendMail([
+						'debug' => 3
+					]);
 					print_r($re);
 				}
 			}

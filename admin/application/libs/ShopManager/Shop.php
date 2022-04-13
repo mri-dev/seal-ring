@@ -2366,9 +2366,19 @@ class Shop
 						'orderID' 		=> $orderID,
 						'megjegyzes' 	=> $comment,
 						'nettoar' => $nettoar,
-						'userdata' => $arg['user']
+						'userdata' => $arg['user'],
+						'lang' => $this->db->getLanguages(\Lang::getLang())
 					);
-					$mail->setSubject('Értesítő: Új megrendelés (' . $szamlazasi_keys['nev'] . ')');
+
+					if( DLANG !== \Lang::getLang() )
+					{
+						$mail->setSubject('Értesítő: Új külföldi ('.strtoupper(\Lang::getLang()).') megrendelés érkezett (' . $szamlazasi_keys['nev'] . ')');
+					} 
+					else 
+					{						
+						$mail->setSubject('Értesítő: Új megrendelés (' . $szamlazasi_keys['nev'] . ')');
+					}
+
 					$mail->setMsg((new Template(VIEW . 'templates/mail/'))->get('order_new_admin', $arg));
 					$re = $mail->sendMail();
 

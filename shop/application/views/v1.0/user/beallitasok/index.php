@@ -37,19 +37,19 @@
             <form action="#alapadat" method="post">
                 <div class="row">
                     <div class="col-md-3"><strong><?=__('E-mail cím')?>:</strong></div>
-                    <div class="col-md-9"><?=$this->user[email]?></div>
+                    <div class="col-md-9"><?=$this->user['email']?></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Név')?></strong></div>
-                    <div class="col-md-5"><input name="nev" type="text" class="form-control" value="<?=$this->user[data][nev]?>" /></div>
+                    <div class="col-md-5"><input name="nev" type="text" class="form-control" value="<?=$this->user['data']['nev']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3"><strong><?=__('Utoljára belépve')?></strong></div>
-                    <div class="col-md-5"><?=$this->user[data][utoljara_belepett]?> (<?=Helper::distanceDate($this->user[data][utoljara_belepett])?>)</div>
+                    <div class="col-md-5"><?=$this->user['data']['utoljara_belepett']?> (<?=Helper::distanceDate($this->user['data']['utoljara_belepett'])?>)</div>
                 </div>
                 <div class="row ">
                     <div class="col-md-3"><strong><?=__('Regisztráció')?></strong></div>
-                    <div class="col-md-5"><?=$this->user[data][regisztralt]?> (<?=Helper::distanceDate($this->user[data][regisztralt])?>)</div>
+                    <div class="col-md-5"><?=$this->user['data']['regisztralt']?> (<?=Helper::distanceDate($this->user['data']['regisztralt'])?>)</div>
                 </div>
                 <? if( false ): ?>
                 <div class="row">
@@ -106,7 +106,7 @@
           </form>
         </div>
 
-        <? if($this->user[data][user_group] != \PortalManager\Users::USERGROUP_USER): ?>
+        <? if($this->user['data']['user_group'] != \PortalManager\Users::USERGROUP_USER): ?>
         <div class="divider"></div>
         <a name="ceg"></a>
         <h4><?=__('Céges adatok')?></h4>
@@ -115,23 +115,23 @@
             <form action="#ceg" method="post">
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Cég neve')?>:</strong></div>
-                    <div class="col-md-9"><input name="company_name" type="text" class="form-control" value="<?=$this->user[data][company_name]?>" /></div>
+                    <div class="col-md-9"><input name="company_name" type="text" class="form-control" value="<?=$this->user['data']['company_name']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Cég címe')?>:</strong></div>
-                    <div class="col-md-9"><input name="company_address" type="text" class="form-control" value="<?=$this->user[data][company_address]?>" /></div>
+                    <div class="col-md-9"><input name="company_address" type="text" class="form-control" value="<?=$this->user['data']['company_address']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Cég telephely')?>:</strong></div>
-                    <div class="col-md-9"><input name="company_hq" type="text" class="form-control" value="<?=$this->user[data][company_hq]?>" /></div>
+                    <div class="col-md-9"><input name="company_hq" type="text" class="form-control" value="<?=$this->user['data']['company_hq']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Cég adószám')?>:</strong></div>
-                    <div class="col-md-9"><input name="company_adoszam" type="text" class="form-control" value="<?=$this->user[data][company_adoszam]?>" /></div>
+                    <div class="col-md-9"><input name="company_adoszam" type="text" class="form-control" value="<?=$this->user['data']['company_adoszam']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-text-md"><strong><?=__('Cég bankszámlaszáma')?>:</strong></div>
-                    <div class="col-md-9"><input name="company_bankszamlaszam" type="text" class="form-control" value="<?=$this->user[data][company_bankszamlaszam]?>" /></div>
+                    <div class="col-md-9"><input name="company_bankszamlaszam" type="text" class="form-control" value="<?=$this->user['data']['company_bankszamlaszam']?>" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 right"><button name="saveCompany" class="btn btn-sec btn-sm"><i class="fa fa-save"></i> <?=__('Változások mentése')?></button></div>
@@ -150,7 +150,7 @@
         <div class="form-rows">
             <form action="#szallitasi" method="post">
             <? foreach($szallnev as $dk => $dv):
-                $val = ($this->user[szallitasi_adat]) ? $this->user[szallitasi_adat][$dk] : '';
+                $val = ($this->user['szallitasi_adat']) ? $this->user['szallitasi_adat'][$dk] : '';
             ?>
             <div class="row">
                 <div class="col-md-3 form-text-md">
@@ -199,7 +199,7 @@
         <div class="form-rows">
             <form action="#szamlazasi" method="post">
             <? foreach($szmnev  as $dk => $dv):  if($dk == 'phone') continue;
-             $val = ($this->user[szamlazasi_adat]) ? $this->user[szamlazasi_adat][$dk] : '';
+             $val = ($this->user['szamlazasi_adat']) ? $this->user['szamlazasi_adat'][$dk] : '';
             ?>
 
             <div class="row">

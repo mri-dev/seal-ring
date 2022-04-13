@@ -81,6 +81,14 @@ class Mailer extends PHPMailer
 			$this->Port 		= SMTP_PORT;
 			$this->Username 	= SMTP_USER;    // SMTP username
 			$this->Password 	= SMTP_PW;      // SMTP password
+			$this->CharSet = 'UTF-8';
+			$this->smtpConnect([
+					'ssl' => [
+							'verify_peer' => false,
+							'verify_peer_name' => false,
+							'allow_self_signed' => true
+					]
+			]);
 		}
 
 		// Küldő adatai

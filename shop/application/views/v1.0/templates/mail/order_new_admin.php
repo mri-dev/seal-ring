@@ -29,8 +29,8 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=number_format($d[ar], 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
-		<td align="center"><?=number_format(($d[ar]*$d[me]), 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format($d[ar], 2, ".", " ")?> <?=($lang)?$lang['valuta']:'Ft'?> <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format(($d[ar]*$d[me]), 2, ".", " ")?> <?=($lang)?$lang['valuta']:'Ft'?> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center">
 			<?php if ((float)$d['keszleten'] == 0): ?>
 				<strong style="color:red;">Nincs raktáron: Rendelés alatt!</strong>
@@ -48,23 +48,23 @@
 ?>
 	<tr>
 		<td colspan="4" align="right">Összesen:</td>
-		<td align="center"><?=number_format($total, 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format($total, 2, ".", " ")?> <?=($lang)?$lang['valuta']:'Ft'?> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 
 	<tr>
 		<td colspan="4" align="right">Szállítási költség:</td>
-		<td align="center"><?=$szallitasi_koltseg?> Ft</td>
+		<td align="center"><?=$szallitasi_koltseg?> <?=($lang)?$lang['valuta']:'Ft'?></td>
 	</tr>
 	<tr>
 		<td colspan="4" align="right">Kedvezmény:</td>
-			<td align="center"><?=( ( !$kedvezmeny && $kedvezmeny == '') ? '0' : round($kedvezmeny) )?> Ft</td>
+			<td align="center"><?=( ( !$kedvezmeny && $kedvezmeny == '') ? '0' : round($kedvezmeny) )?> <?=($lang)?$lang['valuta']:'Ft'?></td>
 	</tr>
 	<?
 	if($szallitasi_koltseg > 0) $total += $szallitasi_koltseg;
 	?>
 	<tr>
 		<td colspan="4" align="right"><strong>Végösszeg:</strong></td>
-		<td align="center"><strong><?=number_format($total-$kedvezmeny, 2, ".", " ")?> Ft</strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><strong><?=number_format($total-$kedvezmeny, 2, ".", " ")?> <?=($lang)?$lang['valuta']:'Ft'?></strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 </tbody>
 </table>
