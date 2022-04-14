@@ -188,7 +188,7 @@ class termekek extends Controller {
 			$SEO = null;
 			$desc = 'Minőségi termékek: '.strtolower($this->view->category->getName()) . ' kategória. A '.$this->view->settings['page_title'].'-től! Böngésszen termékeink közül!';
 			// Site info
-			$SEO .= $this->view->addMeta('description', desc);
+			$SEO .= $this->view->addMeta('description', $desc);
 			$SEO .= $this->view->addMeta('keywords','seal ring,tömítőgyűrűk,tömítéstechnika,'.$this->view->category->getName());
 			$SEO .= $this->view->addMeta('revisit-after','3 days');
 

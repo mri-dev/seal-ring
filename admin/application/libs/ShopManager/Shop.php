@@ -52,7 +52,7 @@ class Shop
 
 	public function listUjdonsagok($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -107,7 +107,7 @@ class Shop
 
 	public function listAkcios($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -165,7 +165,7 @@ class Shop
 
 	public function listTermekek($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$filtered 	= false;
@@ -439,7 +439,7 @@ class Shop
 	}
 	public function getHasonloTermekek($searchString, $arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$tures 		= 25;
@@ -514,7 +514,7 @@ class Shop
 	}
 	public function getFreshTermekek($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -564,7 +564,7 @@ class Shop
 	}
 	public function getSzuperakciosTermekek($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 		$q = "SELECT
 			t.ID,
@@ -606,7 +606,7 @@ class Shop
 	}
 	public function getTermekAdat($id, $arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$re = array();
@@ -676,7 +676,7 @@ class Shop
 	}
 	public function getAkciosTermekek($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -721,7 +721,7 @@ class Shop
 	}
 	public function getUjdonsagTermekek($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -791,7 +791,7 @@ class Shop
 	}
 	public function kereses($arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$back 	= array();
@@ -1724,7 +1724,7 @@ class Shop
 				'tema' 	=> 'Kapcsolat',
 				'from' 	=> $email,
 				'fromName' 	=> $name,
-				'sub' 	=> TITLE . ': Kapcsolat üzenet'
+				'sub' 	=> constant('TITLE') . ': Kapcsolat üzenet'
 			));
 		} else {
 			\Helper::smtpMail(array(
@@ -1732,7 +1732,7 @@ class Shop
 				'msg' 		=> 'Új kapcsolat üzenet érkezett.<br><br><a href="' . ADMIN . 'uzenetek">Üzenetek listája</a>',
 				'tema' 		=> 'Értesítő',
 				'from' 		=> NOREPLY_EMAIL,
-				'fromName'	=> TITLE,
+				'fromName'	=> constant('TITLE'),
 				'sub' 		=> 'Értesítő - Új kapcsolat üzenet'
 			));
 			$this->logMessage(array(
@@ -3034,7 +3034,7 @@ class Shop
 
 	function getArgepTermekek()
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 
@@ -3073,7 +3073,7 @@ class Shop
 
 	function getArukeresoTermekek()
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$back = array();
@@ -3228,7 +3228,7 @@ class Shop
 
 	function getLastViewedTermek($mID, $limit = 5, $arg = array())
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT
@@ -3260,7 +3260,7 @@ class Shop
 
 	function getMostViewedTermekek($limit = 10)
 	{
-		$akcios_plus_szaz = AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK;
+		$akcios_plus_szaz = constant('AKCIOS_BRUTTO_AR_PLUSZ_SZAZALEK');
 		$apsz = $akcios_plus_szaz / 100 + 1;
 
 		$q = "SELECT

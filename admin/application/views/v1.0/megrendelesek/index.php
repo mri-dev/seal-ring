@@ -463,7 +463,7 @@ Megrendelések
 
 <script type="text/javascript">
     $(function(){
-        $('*['mid']').click(function(){
+        $('*[mid]').click(function(){
             var e = $(this);
             var id = e.attr('mid');
 

@@ -1,7 +1,6 @@
 <?
 use PortalManager\News;
 use PortalManager\Template;
-use ProductManager\Products;
 
 class home extends Controller{
 		function __construct(){

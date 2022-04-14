@@ -94,7 +94,7 @@ class order extends Controller{
 			$SEO .= $this->view->addOG('type','website');
 			$SEO .= $this->view->addOG('url',DOMAIN);
 			$SEO .= $this->view->addOG('image',DOMAIN.substr(IMG,1).'noimg.jpg');
-			$SEO .= $this->view->addOG('site_name',TITLE);
+			$SEO .= $this->view->addOG('site_name', @constant('TITLE'));
 
 			$this->view->SEOSERVICE = $SEO;
 

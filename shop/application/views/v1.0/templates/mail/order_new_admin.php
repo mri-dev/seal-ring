@@ -2,6 +2,10 @@
 <div>Név: <strong><?=$nev?></strong></div>
 <div>E-mail: <strong><?=$email?></strong> (<?=(($uid == '')? 'Nem regisztrált':'Regisztrált')?>)</div>
 <div>Rendelés azonosító: <strong><?=$orderData['azonosito']?></strong></div>
+<?php if($lang && $lang['langkey'] != DLANG): ?>
+	<br>
+	<p style="color: red; font-weight: bold;">Figyelem! Ez a megrendelés külföldi ügyféltől érkezett! Nem fog szerepelni az inCash rendszerben! Megrendelés nyelve: <?=strtoupper($lang['langkey'])?> (<?=$lang['title']?>)</p>
+<?php endif; ?>
 <br>
 <table class="if" width="100%" border="1" style="border-collapse:collapse;" cellpadding="10" cellspacing="0">
 <thead>
@@ -66,6 +70,16 @@
 		<td colspan="4" align="right"><strong>Végösszeg:</strong></td>
 		<td align="center"><strong><?=number_format($total-$kedvezmeny, 2, ".", " ")?> <?=($lang)?$lang['valuta']:'Ft'?></strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
+	<?php if($lang && $lang['langkey'] != DLANG): ?>
+	<tr>
+		<td colspan="4" align="right">Árfolyam:</td>
+		<td align="center">1 <?=$lang['valuta']?> = <?=$lang['changes']?> Ft </td>
+	</tr>
+	<tr>
+		<td colspan="4" align="right">Forintosított végösszeg :</td>
+		<td align="center"><?=number_format($total-$kedvezmeny, 2, ".", " ")?> <?=$lang['valuta']?> x <?=$lang['changes']?> Ft = <strong><?=number_format(($total-$kedvezmeny) * $lang['changes'], 2, ".", " ")?> Ft</strong> </td>
+	</tr>
+	<?php endif; ?>
 </tbody>
 </table>
 <p style="margin: 10px 0; font-weight: bold; color: red;">A készlettel nem rendelkező termékek esetleges árváltozása, vagy elérhetősége esetén kollégáink keresni fogják Önöket!</p>

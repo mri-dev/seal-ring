@@ -893,7 +893,7 @@ class Products
 			}
 		}
 
-		if(count($arg['filters']) > 0){
+		if(count((array)$arg['filters']) > 0){
 			foreach($arg['filters'] as $key => $v){
 				switch($key)
 				{

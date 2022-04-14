@@ -268,7 +268,7 @@ $(function(){
   </div>
   <?php endif; ?>
 
-  <?php if ( $this->showslideshow && count($this->highlight_text) > 0 && false): ?>
+  <?php if ( $this->showslideshow && count((array)$this->highlight_text) > 0 && false): ?>
   <div class="bottom">
     <div class="pw">
       <div class="flex">
@@ -278,9 +278,9 @@ $(function(){
           <div class="clr"></div>
         </div>
         <div class="tudta-cont">
-          <? if( count($this->highlight_text) > 0 ): ?>
+          <? if( count((array)$this->highlight_text) > 0 ): ?>
         <div class="highlight-view">
-          <? if( count($this->highlight_text['data']) > 1 && false ): ?>
+          <? if( count((array)$this->highlight_text['data']) > 1 && false ): ?>
           <a href="javascript:void(0);" title="Előző" class="prev handler" key="prev"><i class="fa fa-arrow-circle-left"></i></a>
           <a href="javascript:void(0);" title="Következő" class="next handler" key="next"><i class="fa fa-arrow-circle-right"></i></a>
           <? endif; ?>

@@ -105,7 +105,7 @@
         </div>
         <?php endif; ?>
         <?php
-        if( count($this->product['hasonlo_termek_ids']['colors']) > 1 ):
+        if( count((array)$this->product['hasonlo_termek_ids']['colors']) > 1 ):
             $colorset = $this->product['hasonlo_termek_ids']['colors'];
         ?>
         <div class="divider"></div>
@@ -133,12 +133,12 @@
           <?php if (true): ?>
           <div class="group" >
             <?
-            if( count($this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
+            if( count((array)$this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set']) > 1 ):
                 $colorset = $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'];
                 //unset($colorset[$this->product['szin']]);
             ?>
             <div class="size-selector cart-btn dropdown-list-container">
-                <div class="dropdown-list-title"><span id=""><?=__('Kiszerelés')?>: <strong><?=$this->product['meret']?></strong></span> <? if( count( $this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'] ) > 0): ?> <i class="fa fa-angle-down"></i><? endif; ?></div>
+                <div class="dropdown-list-title"><span id=""><?=__('Kiszerelés')?>: <strong><?=$this->product['meret']?></strong></span> <? if( count((array)$this->product['hasonlo_termek_ids']['colors'][$this->product['szin']]['size_set'] ) > 0): ?> <i class="fa fa-angle-down"></i><? endif; ?></div>
 
                 <div class="number-select dropdown-list-selecting overflowed">
                 <? foreach ($colorset as $szin => $adat ) : ?>

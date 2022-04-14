@@ -8,7 +8,6 @@ use PortalManager\Users;
 use PortalManager\Redirector;
 use ShopManager\Shop;
 use ShopManager\Categories;
-use PortalManager\News;
 use ProductManager\Products;
 use PortalManager\Portal;
 use PortalManager\Helpdesk;
@@ -45,7 +44,7 @@ class Controller {
         $this->view = new View();
         $this->db = new Database();
         $this->installer = new Installer(array('db'=> $this->db));
-        //////////////////////////////////////////////////////
+        /* ////////////////////////////////////////////////////// */
         $this->view->settings = $this->getAllValtozo();
         $this->view->languages = $this->languages;
         $this->gets = Helper::GET();
@@ -66,11 +65,12 @@ class Controller {
 
         $this->Portal = new Portal( array( 'db' => $this->db, 'view' => $this->view )  );
         $this->Helpdesk = new Helpdesk( array( 'db' => $this->db )  );
+        /*
         $this->captcha = (new Captcha)
         ->init(
             $this->view->settings['recaptcha_public_key'],
             $this->view->settings['recaptcha_private_key']
-        );
+        );*/
 
         if (!$this->view->db) {  $this->out( 'db', $this->db ); }
         if (!$this->view->user) {

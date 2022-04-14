@@ -302,7 +302,7 @@
 					<div class="mail" style="margin:35px; background-color:#ffffff; border:2px solid #ffb007; padding:0; width:800px; color:#4f565a;">
 						<table class="mail" width="800" cellspacing="0" cellpadding="5">
 							<tr style="color:#5c5c5c;">
-								<td align="left"><a title="'.TITLE.'" href="'.DOMAIN.'"><img src="http://img.goldfishing.hu/i/Logo_250_white.png" alt="'.DOMAIN.'" /></a></td>
+								<td align="left"><a title="'.constant('TITLE').'" href="'.DOMAIN.'"><img src="http://img.goldfishing.hu/i/Logo_250_white.png" alt="'.DOMAIN.'" /></a></td>
 								<td align="right">
 									<div style="font-size:20px; font-weight:bold; color:#222;">{TEMA_NEV}</div>
 								</td>
@@ -355,7 +355,7 @@
 				'TEMA_NEV' 	=> $str['megnevezes']
 			));
 
-			$kuldo='=?utf-8?B?'.base64_encode(TITLE).'?= <'.$sender.'>';
+			$kuldo='=?utf-8?B?'.base64_encode(constant('TITLE')).'?= <'.$sender.'>';
 		  	$tema='=?utf-8?B?'.base64_encode($subj).'?=';
 		  	$fejlec = "FROM: ".$kuldo."\r\n";
 		  	$fejlec .= "MIME-Version: 1.0\r\n" . "Content-type: text/html; charset=utf-8\r\n";
@@ -426,7 +426,7 @@
 
 			$to 	= ALERT_EMAIL;
 
-			$kuldo='=?utf-8?B?'.base64_encode(TITLE.' értesítő').'?= <'.$sender.'>';
+			$kuldo='=?utf-8?B?'.base64_encode(constant('TITLE').' értesítő').'?= <'.$sender.'>';
 		  	$tema='=?utf-8?B?'.base64_encode($subj).'?=';
 		  	$fejlec = "FROM: ".$kuldo."\r\n";
 		  	$fejlec .= "MIME-Version: 1.0\r\n" . "Content-type: text/html; charset=utf-8\r\n";
@@ -954,7 +954,7 @@
 				$mail = new PHPMailer;
 				$news = ($arg['news']) ? true : false;
 				$from = ($arg['from']) ? $arg['from'] : EMAIL;
-				$fromName = ($arg['fromName']) ? $arg['fromName'] : TITLE;
+				$fromName = ($arg['fromName']) ? $arg['fromName'] : constant('TITLE');
 
 				$mail->isSMTP();                    // Set mailer to use SMTP
 				//$mail->Host 		= '';
@@ -1025,8 +1025,8 @@
                 $mail->SMTPAuth = true;
                 $mail->Username = SMTP_USER;
                 $mail->Password = SMTP_PW;
-                $mail->setFrom($from, TITLE);
-				$mail->addReplyTo($from, TITLE);
+                $mail->setFrom($from, constant('TITLE'));
+				$mail->addReplyTo($from, constant('TITLE'));
 				$inserted 			= array();
 				$err 				= array();
 				$ret 				= array();

@@ -11,7 +11,7 @@ use PortalManager\PartnerReferrer;
  */
 class AdminUser
 {
-	const LOGINHANDLE_MODE 				= LOGIN_MODE;
+	const LOGINHANDLE_MODE = 'session'; // session | cookie
 	const ORDER_STATUS_KEY_DONE 		= 4;
 	const ORDER_STATUS_KEY_DEFAULT 		= 1;
 	const ORDER_STATUS_KEY_DELETED 		= 13;

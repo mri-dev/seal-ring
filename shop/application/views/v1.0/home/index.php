@@ -17,7 +17,7 @@
 							<div class="items trackwidth">
 								<? foreach ( $this->ujdonsag_products_list as $p ) {
 										$p['itemhash'] = hash( 'crc32', microtime() );
-										$p['sizefilter'] = ( count($this->ujdonsag_products->getSelectedSizes()) > 0 ) ? true : false;
+										$p['sizefilter'] = ( count((array)$this->ujdonsag_products->getSelectedSizes()) > 0 ) ? true : false;
 										$p['show_variation'] = ($this->myfavorite) ? true : false;
 										$p = array_merge( $p, (array)$this );
 										echo $this->ptemplate->get( 'product_item', $p );
@@ -36,7 +36,7 @@
 							<div class="items trackwidth">
 								<? foreach ( $this->kiemelt_products_list as $p ) {
 										$p['itemhash'] = hash( 'crc32', microtime() );
-										$p['sizefilter'] = ( count($this->kiemelt_products->getSelectedSizes()) > 0 ) ? true : false;
+										$p['sizefilter'] = ( count((array)$this->kiemelt_products->getSelectedSizes()) > 0 ) ? true : false;
 										$p['show_variation'] = ($this->myfavorite) ? true : false;
 										$p = array_merge( $p, (array)$this );
 										echo $this->ptemplate->get( 'product_item', $p );
@@ -120,7 +120,7 @@
 		</div>
 	</div>
 
-	<?php if (count($this->factorylist) > 0 && false): ?>
+	<?php if (count((array)$this->factorylist) > 0 && false): ?>
 	<div class="factory-preview">
 		<div class="pw">
 			<div class="factories">
