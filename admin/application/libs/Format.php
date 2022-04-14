@@ -3,7 +3,7 @@ class Format{
     final public static function ora($ora_str){
         $formated = $ora_str;
             $exp = explode(':',$formated);
-            $formated = $exp[0].'<sup>'.$exp[1].'</sup>';
+            $formated = $exp['0'].'<sup>'.$exp['1'].'</sup>';
         return $formated;
     }
     final public static function timeAdd($time, $add){

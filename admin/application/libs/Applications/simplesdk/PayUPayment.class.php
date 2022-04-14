@@ -429,8 +429,8 @@ class PayUIpn extends PayUBase
     {
         $serverDate = date("YmdHis");
         $hashArray = array(
-            $this->postData['IPN_PID'][0],
-            $this->postData['IPN_PNAME'][0],
+            $this->postData['IPN_PID']['0'],
+            $this->postData['IPN_PNAME']['0'],
             $this->postData['IPN_DATE'],
             $serverDate
         );

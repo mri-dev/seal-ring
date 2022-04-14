@@ -96,8 +96,8 @@ class termekek extends Controller {
 
 			if( $_GET['order']) {
 				$xord = explode("_",$_GET['order']);
-				$order['by'] 	= $xord[0];
-				$order['how'] 	= $xord[1];
+				$order['by'] 	= $xord['0'];
+				$order['how'] 	= $xord['1'];
 			}
 
 			$arg = array(
@@ -113,7 +113,7 @@ class termekek extends Controller {
 
 			if(isset($_GET['order']) && $order['by'] == 'size') {
 				$arg['customorder']['by'] = $order['by'];
-				$arg['customorder']['how'] = $xord[1];
+				$arg['customorder']['how'] = $xord['1'];
 			}
 
 			if (isset($_GET['src']) && $_GET['src'] != '') {
@@ -131,11 +131,11 @@ class termekek extends Controller {
 				$arg['felhasznalasi_terulet'] = (int)$_GET['ft'];
 			}
 
-			if ( $this->gets[1] == 'akciok' ) {
+			if ( $this->gets['1'] == 'akciok' ) {
 				$arg['akcios'] = true;
 			}
 
-			if ( $this->gets[1] == 'kiemelt' ) {
+			if ( $this->gets['1'] == 'kiemelt' ) {
 				$arg['kiemelt'] = true;
 			}
 
@@ -157,12 +157,12 @@ class termekek extends Controller {
 
 			$get = $_GET;
 			unset($get['tag']);
-		// '/'.__CLASS__.'/'.$this->view->gets[1].($this->view->gets[2] ? '/'.$this->view->gets[2] : '/-');
+		// '/'.__CLASS__.'/'.$this->view->gets['1'].($this->view->gets['2'] ? '/'.$this->view->gets['2'] : '/-');
 			$get = http_build_query($get);
 			$this->out( 'cget', $get );
 			$root = '/'.__CLASS__;
-			if (isset($this->gets[1])) {
-				$root .= '/'.$this->gets[1];
+			if (isset($this->gets['1'])) {
+				$root .= '/'.$this->gets['1'];
 			} else {
 				$root .= '/-';
 			}

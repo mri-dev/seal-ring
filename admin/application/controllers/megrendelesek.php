@@ -16,67 +16,67 @@ class megrendelesek extends Controller
 
 			if($_GET['showarchive'] == '1')
 			{
-				setcookie('filter_archivalt',1,time()+60*24,'/'.$this->view->gets[0]);
+				setcookie('filter_archivalt',1,time()+60*24,'/'.$this->view->gets['0']);
 				Helper::reload('/megrendelesek');
 			}
 
 			if($_GET['cleararchive'] == '1')
 			{
-				setcookie('filter_archivalt',null,time()-60*24,'/'.$this->view->gets[0]);
+				setcookie('filter_archivalt',null,time()-60*24,'/'.$this->view->gets['0']);
 				Helper::reload('/megrendelesek');
 			}
 
 			if(Post::on('filterList')){
 				$filtered = false;
 
-				if($_POST[ID] != ''){
-					setcookie('filter_ID',$_POST[ID],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['ID'] != ''){
+					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[azonosito] != ''){
-					setcookie('filter_azonosito',$_POST[azonosito],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['azonosito'] != ''){
+					setcookie('filter_azonosito',$_POST['azonosito'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_azonosito','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_azonosito','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[access] != ''){
-					setcookie('filter_access',$_POST[access],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['access'] != ''){
+					setcookie('filter_access',$_POST['access'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_access','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_access','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[fallapot] != ''){
-					setcookie('filter_fallapot',$_POST[fallapot],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['fallapot'] != ''){
+					setcookie('filter_fallapot',$_POST['fallapot'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 				}else{
-					setcookie('filter_fallapot','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_fallapot','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[fszallitas] != ''){
-					setcookie('filter_fszallitas',$_POST[fszallitas],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['fszallitas'] != ''){
+					setcookie('filter_fszallitas',$_POST['fszallitas'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_fszallitas','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_fszallitas','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[ffizetes] != ''){
-					setcookie('filter_ffizetes',$_POST[ffizetes],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['ffizetes'] != ''){
+					setcookie('filter_ffizetes',$_POST['ffizetes'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_ffizetes','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_ffizetes','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 				}
 				Helper::reload( '/megrendelesek/-/1' );
 			}
 
 			if(Post::on('saveOrder')){
 				try{
-					$this->view->chg = $this->Admin->saveOrderData($_POST[saveOrder],$_POST);
+					$this->view->chg = $this->Admin->saveOrderData($_POST['saveOrder'],$_POST);
 					Helper::reload('/'.__CLASS__);
 				}catch(Exception $e){
 					$this->view->err = true;
@@ -86,16 +86,16 @@ class megrendelesek extends Controller
 
 			$this->view->fizetes = $this->AdminUser->getFizetesiModok();
 			$this->view->szallitas = $this->AdminUser->getSzallitasiModok();
-			$this->view->allapotok[order]= $this->AdminUser->getMegrendelesAllapotok();
-			$this->view->allapotok[termek]= $this->AdminUser->getMegrendeltTermekAllapotok();
+			$this->view->allapotok['order']= $this->AdminUser->getMegrendelesAllapotok();
+			$this->view->allapotok['termek']= $this->AdminUser->getMegrendeltTermekAllapotok();
 
 			$arg = array();
-			$arg[limit] = 50;
+			$arg['limit'] = 50;
 			$filters = Helper::getCookieFilter('filter',array('filtered'));
 
-			$arg[filters] 	= $filters;
-			if($_GET[ID]){
-				$arg[filters][ID] = $_GET[ID];
+			$arg['filters'] 	= $filters;
+			if($_GET['ID']){
+				$arg['filters']['ID'] = $_GET['ID'];
 			}
 
 			$arg['archivalt'] = (isset($_COOKIE['filter_archivalt'])) ? 1 : 0;
@@ -134,14 +134,14 @@ class megrendelesek extends Controller
 		}
 
 		function clearfilters(){
-			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_azonosito','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_access','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_fallapot','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_fszallitas','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_ffizetes','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
-			Helper::reload('/'.$this->view->gets[0]);
+			setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_azonosito','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_access','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_fallapot','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_fszallitas','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_ffizetes','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
+			Helper::reload('/'.$this->view->gets['0']);
 		}
 
 		function allapotok(){
@@ -167,7 +167,7 @@ class megrendelesek extends Controller
 
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delMegrendelesAllapot($this->view->gets[3]);
+					$this->AdminUser->delMegrendelesAllapot($this->view->gets['3']);
 					Helper::reload('/'.__CLASS__.'/'.__FUNCTION__);
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -176,7 +176,7 @@ class megrendelesek extends Controller
 			}
 
 			$this->view->o = $this->AdminUser->getMegrendelesAllapotok();
-			$this->view->sm = $this->view->o[Helper::getFromArrByAssocVal($this->view->o,'ID',$this->view->gets[3])];
+			$this->view->sm = $this->view->o[Helper::getFromArrByAssocVal($this->view->o,'ID',$this->view->gets['3'])];
 		}
 
 		function termek_allapotok(){
@@ -202,7 +202,7 @@ class megrendelesek extends Controller
 
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delMegrendelesTermekAllapot($this->view->gets[3]);
+					$this->AdminUser->delMegrendelesTermekAllapot($this->view->gets['3']);
 					Helper::reload('/'.__CLASS__.'/'.__FUNCTION__);
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -211,7 +211,7 @@ class megrendelesek extends Controller
 			}
 
 			$this->view->o = $this->AdminUser->getMegrendeltTermekAllapotok();
-			$this->view->sm = $this->view->o[Helper::getFromArrByAssocVal($this->view->o,'ID',$this->view->gets[3])];
+			$this->view->sm = $this->view->o[Helper::getFromArrByAssocVal($this->view->o,'ID',$this->view->gets['3'])];
 		}
 
 		function __destruct(){

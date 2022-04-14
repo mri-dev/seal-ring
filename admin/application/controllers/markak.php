@@ -21,7 +21,7 @@
 			$this->view->markak 	= $this->AdminUser->getMarkak();
 			$this->view->nagykerek 	= $this->AdminUser->getNagykerek();
 			
-			switch($this->view->gets[1]){
+			switch($this->view->gets['1']){
 				case 'szerkeszt':
 					if(Post::on('saveMarka')){
 						try{
@@ -33,12 +33,12 @@
 						}
 					}
 					
-					$this->view->marka 		= $this->AdminUser->getMarka($this->view->gets[2]);
-					$this->view->markaSavok = $this->AdminUser->getMarkaArresek($this->view->gets[2]); 
+					$this->view->marka 		= $this->AdminUser->getMarka($this->view->gets['2']);
+					$this->view->markaSavok = $this->AdminUser->getMarkaArresek($this->view->gets['2']); 
 				break;
 				case 'torles':
 					if(Post::on('delId')){
-						$this->AdminUser->delMarka($this->view->gets[2]);
+						$this->AdminUser->delMarka($this->view->gets['2']);
 						Helper::reload('/markak');
 					}
 				break;

@@ -18,23 +18,23 @@ class galeria extends Controller{
         $filtered = false;
 
         if($_POST['nev'] != ''){
-          setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets[0]);
+          setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets['0']);
           $filtered = true;
         }else{
-          setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+          setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
         }
 
         if($_POST['kategoria'] != ''){
-          setcookie('filter_kategoria',$_POST['kategoria'],time()+60*24,'/'.$this->view->gets[0]);
+          setcookie('filter_kategoria',$_POST['kategoria'],time()+60*24,'/'.$this->view->gets['0']);
           $filtered = true;
         }else{
-          setcookie('filter_kategoria','',time()-100,'/'.$this->view->gets[0]);
+          setcookie('filter_kategoria','',time()-100,'/'.$this->view->gets['0']);
         }
 
         if($filtered){
-          setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+          setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
         }else{
-          setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+          setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
         }
         Helper::reload('/galeria');
       }
@@ -46,7 +46,7 @@ class galeria extends Controller{
 
 
       $arg = array(
-				'page' => (isset($this->gets[1])) ? (int)str_replace('P','', $this->gets[1]) : 1
+				'page' => (isset($this->gets['1'])) ? (int)str_replace('P','', $this->gets['1']) : 1
 			);
 			$arg['limit'] = 25;
       if (isset($_COOKIE['filter_kategoria'])) {
@@ -99,7 +99,7 @@ class galeria extends Controller{
 
 			if (isset($_GET['rmsg'])) {
 				$xrmsg = explode('::', $_GET['rmsg']);
-				$this->out('msg', \Helper::makeAlertMsg('p'.ucfirst($xrmsg[0]), $xrmsg[1]));
+				$this->out('msg', \Helper::makeAlertMsg('p'.ucfirst($xrmsg['0']), $xrmsg['1']));
 			}
 
 			if(Post::on('add')){
@@ -112,7 +112,7 @@ class galeria extends Controller{
 				}
 			}
 
-			switch($this->view->gets[2]){
+			switch($this->view->gets['2']){
 				case 'szerkeszt':
 					if(Post::on('save')){
 						/* * /
@@ -123,34 +123,34 @@ class galeria extends Controller{
 						exit;
 						/* */
 						try{
-							$news->editSimpleGallery($this->view->gets[3], $_POST);
+							$news->editSimpleGallery($this->view->gets['3'], $_POST);
 							Helper::reload();
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'news', $news->getSimpleGaleria( $this->view->gets[3]) );
+					$this->out( 'news', $news->getSimpleGaleria( $this->view->gets['3']) );
 				break;
 				case 'torles':
 					if(Post::on('delId')){
 						try{
-							$news->deleteSimpleGallery( $this->view->gets[3] );
+							$news->deleteSimpleGallery( $this->view->gets['3'] );
 							Helper::reload('/galeria/');
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'news', $news->getSimpleGaleria( $this->view->gets[3]) );
+					$this->out( 'news', $news->getSimpleGaleria( $this->view->gets['3']) );
 				break;
 			}
 		}
 
     function clearfilters(){
-      setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
-      setcookie('filter_kategoria','',time()-100,'/'.$this->view->gets[0]);
-      setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+      setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
+      setcookie('filter_kategoria','',time()-100,'/'.$this->view->gets['0']);
+      setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
       Helper::reload('/galeria/');
     }
 

@@ -1,6 +1,6 @@
 <h1>Márkák</h1>
 <script type="text/javascript">
-	var earresmod = '<?=$this->marka[arres_mod]?>';
+	var earresmod = '<?=$this->marka['arres_mod']?>';
 	$(function(){
 		$('#markepz').bind('change',function(){
 			if($(this).val() == 0){
@@ -106,9 +106,9 @@
 		$('.e_ar_res_sor:last').after(elem);
 	}
 </script>
-<? if($this->gets[1] == 'torles'): ?>
+<? if($this->gets['1'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row">
 	<div class="col-md-12">
     	<div class="panel panel-danger">
@@ -128,19 +128,19 @@
 </form>
 <? else: ?>
 
-<? if($this->gets[1] == 'szerkeszt'): ?>
+<? if($this->gets['1'] == 'szerkeszt'): ?>
 <div class="row">
 	<div class="col-md-12">
     	<div class="con edit">
         	<form action="" method="post" >
-            	<input type="hidden" name="markaID" value="<?=$this->marka[ID]?>">
-	        	<div><h2>"<?=$this->marka[neve]?>" márka szerkesztése</h2></div>
+            	<input type="hidden" name="markaID" value="<?=$this->marka['ID']?>">
+	        	<div><h2>"<?=$this->marka['neve']?>" márka szerkesztése</h2></div>
 	            <br>
                 <?=$this->emsg?>
 	            <div class="row">
 	            	<div class="col-md-5">
 	                	<label for="enev">Márkanév</label>
-	                	<input type="text" name="enev" class="form-control" id="enev" value="<?=$this->marka[neve]?>">
+	                	<input type="text" name="enev" class="form-control" id="enev" value="<?=$this->marka['neve']?>">
 	                </div>
 	            </div>
                 <div class="row">
@@ -148,8 +148,8 @@
 	                	<label for="enb">Nettó/Bruttó</label>
 	                	<select class="form-control" name="enb" id="enb">
                         	<option value="" disabled>-- válasszon --</option>
-                        	<option value="0" <?=($this->marka[brutto] == '0')?'selected':''?>>Nettó</option>
-                            <option value="1" <?=($this->marka[brutto] == '1')?'selected':''?>>Bruttó</option>
+                        	<option value="0" <?=($this->marka['brutto'] == '0')?'selected':''?>>Nettó</option>
+                            <option value="1" <?=($this->marka['brutto'] == '1')?'selected':''?>>Bruttó</option>
                         </select>
 	                </div>
 	            </div>
@@ -159,13 +159,13 @@
 	                	<label for="earkepz">Árképzés</label>
 	                	<select class="form-control" name="earkepz" id="earkepz">
                         	<option value="" disabled>-- válasszon --</option>
-                        	<option value="0" <?=($this->marka[arres_mod] == '0')?'selected':''?>>Fix árrés</option>
-                            <option value="1" <?=($this->marka[arres_mod] == '1')?'selected':''?>>Sávos árrés</option>
+                        	<option value="0" <?=($this->marka['arres_mod'] == '0')?'selected':''?>>Fix árrés</option>
+                            <option value="1" <?=($this->marka['arres_mod'] == '1')?'selected':''?>>Sávos árrés</option>
                         </select>
 	                </div>
                     <div class="col-md-2" id="efixarkepz" style="display:none;">
 	                	<label for="earres">Fix árrés (%)</label>
-	                	<input type="number" step="any" id="earres" name="earres" value="<?=(is_null($this->marka[fix_arres]))?0:$this->marka[fix_arres]?>" min="0" class="form-control">
+	                	<input type="number" step="any" id="earres" name="earres" value="<?=(is_null($this->marka['fix_arres']))?0:$this->marka['fix_arres']?>" min="0" class="form-control">
 	                </div>
                 </div>
                 <br />
@@ -176,14 +176,14 @@
                         	<option value="">-- válasszon --</option>
                         	<option value="" disabled></option>
                         	<? foreach( $this->nagykerek as $nagyker ): ?>
-                        	<option value="<?=$nagyker[ID]?>" <?=($this->marka[nagyker_id] == $nagyker[ID])?'selected':''?>><?=$nagyker[nagyker_nev]?></option>
+                        	<option value="<?=$nagyker['ID']?>" <?=($this->marka['nagyker_id'] == $nagyker['ID'])?'selected':''?>><?=$nagyker['nagyker_nev']?></option>
                         	<? endforeach; ?>
 
                         </select>
 	                </div>
                     <div class="col-md-2" id="efixarkepz" style="display:none;">
 	                	<label for="earres">Fix árrés (%)</label>
-	                	<input type="number" step="any" id="earres" name="earres" value="<?=(is_null($this->marka[fix_arres]))?0:$this->marka[fix_arres]?>" min="0" class="form-control">
+	                	<input type="number" step="any" id="earres" name="earres" value="<?=(is_null($this->marka['fix_arres']))?0:$this->marka['fix_arres']?>" min="0" class="form-control">
 	                </div>
                 </div>
 				<br />
@@ -191,7 +191,7 @@
 				<div class="row">
                  	<div class="col-md-1" align="left">
 	                	<label for="elorend">Előrendelhető</label>
-	                	<input type="checkbox" class="form-control" id="elorend" name="elorendelheto" <?=($this->marka[elorendelheto] == '1')?'checked':''?> />
+	                	<input type="checkbox" class="form-control" id="elorend" name="elorendelheto" <?=($this->marka['elorendelheto'] == '1')?'checked':''?> />
 	                </div>
                 </div>
             	<? endif; ?>
@@ -201,30 +201,30 @@
                     	<h3>Árrés sávok</h3>
                         <div>
                         	<? foreach($this->markaSavok as $d): ?>
-                            <input type="hidden" name="esav_id[]" value="<?=$d[ID]?>">
+                            <input type="hidden" name="esav_id[]" value="<?=$d['ID']?>">
                             <div class="e_ar_res_sor">
 			                    <div class="row">
 				                    <div class="col-md-2">
 				                    	<div class="input-group">
-				                    	<input type="number" class="form-control" name="esav_start[]" min="0" value="<?=$d[ar_min]?>" step="any">
+				                    	<input type="number" class="form-control" name="esav_start[]" min="0" value="<?=$d['ar_min']?>" step="any">
 				                        <span class="input-group-addon">Ft-tól</span>
 				                        </div>
 				                    </div>
 				                    <div class="col-md-2">
 				                    	<div class="input-group">
-				                    	<input type="number" name="esav_end[]" class="form-control" min="0" value="<?=(is_null($d[ar_max]))? 0 : $d[ar_max]?>" step="any">
+				                    	<input type="number" name="esav_end[]" class="form-control" min="0" value="<?=(is_null($d['ar_max']))? 0 : $d['ar_max']?>" step="any">
 				                        <span class="input-group-addon">Ft-ig</span>
 				                        </div>
 				                    </div>
 				                    <div class="col-md-2">
 				                    	<div class="input-group">
-				                    	<input type="number" name="esav_arres[]" class="form-control" min="0" value="<?=$d[arres]?>" step="any">
+				                    	<input type="number" name="esav_arres[]" class="form-control" min="0" value="<?=$d['arres']?>" step="any">
 				                        <span class="input-group-addon">%</span>
 				                        </div>
 				                    </div>
                                     <div class="col-md-2">
 				                    	<div class="input-group">
-                                        törlés <input type="checkbox" name="esav_del[<?=$d[ID]?>]">
+                                        törlés <input type="checkbox" name="esav_del[<?=$d['ID']?>]">
 				                        </div>
 				                    </div>
 		                        </div>
@@ -291,7 +291,7 @@
                   	<option value="">-- válasszon --</option>
                   	<option value="" disabled></option>
                   	<? foreach( $this->nagykerek as $nagyker ): ?>
-                  	<option value="<?=$nagyker[ID]?>"><?=$nagyker[nagyker_nev]?></option>
+                  	<option value="<?=$nagyker['ID']?>"><?=$nagyker['nagyker_nev']?></option>
                   	<? endforeach; ?>
                   </select>
                 </div>
@@ -403,39 +403,39 @@
             	<? foreach($this->markak as $d): ?>
             	<div class="row markarow">
                 	<div class="col-md-3">
-                    	<h3>- <?=$d[neve]?></h3>
+                    	<h3>- <?=$d['neve']?></h3>
                     </div>
                     <div class="col-md-2">
-                    	<? if($d[arres_mod] == '0') :?>
+                    	<? if($d['arres_mod'] == '0') :?>
                         	Fix árrés
                         <? else: ?>
                         	Sávos árrés
                         <? endif;?>
                     </div>
                     <div class="col-md-1">
-                    	<? if($d[brutto] == '1') :?>
+                    	<? if($d['brutto'] == '1') :?>
                         	Bruttó
                         <? else: ?>
                         	Nettó
                         <? endif;?>
                     </div>
                     <div class="col-md-2">
-                    	<? if($d[arres_mod] == '0') :?>
-                        	<?=$d[fix_arres]?>%
+                    	<? if($d['arres_mod'] == '0') :?>
+                        	<?=$d['fix_arres']?>%
                         <? else: ?>
-                        	<a title="A árrés sávok részleteihez kattintson ide" href="javascript:void(0);" mkid="<?=$d[ID]?>">árrés sávok</a>
+                        	<a title="A árrés sávok részleteihez kattintson ide" href="javascript:void(0);" mkid="<?=$d['ID']?>">árrés sávok</a>
                         <? endif;?>
                     </div>
                     <div class="col-md-2" align="center">
-                    	<? if( is_null( $d[nagyker_id] ) ): ?>
+                    	<? if( is_null( $d['nagyker_id'] ) ): ?>
                     		<em style="color:#aaa;">-- nincs megadva --</em>
                     	<? else: ?>
-                    		<strong style="color:#222;"><?=$d[nagyker_nev]?></strong>
+                    		<strong style="color:#222;"><?=$d['nagyker_nev']?></strong>
                			<? endif; ?>
                     </div>
                     <? if( false ): ?>
 					<div class="col-md-1" align="center">
-                    	<? if($d[elorendelheto] == '0') :?>
+                    	<? if($d['elorendelheto'] == '0') :?>
                         	<i class="fa fa-times" style="color:red;"></i>
                         <? else: ?>
                         	<i class="fa fa-check" style="color:green;"></i>
@@ -443,18 +443,18 @@
                     </div>
                 	<? endif; ?>
                     <div class="col-md-2 actions" align="right">
-                    	<a href="/markak/szerkeszt/<?=$d[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                        <a href="/markak/torles/<?=$d[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    	<a href="/markak/szerkeszt/<?=$d['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                        <a href="/markak/torles/<?=$d['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
-                <? if($d[arres_mod] == '1'): ?>
-                <div class="row arresrow mk<?=$d[ID]?>" style="padding-right:0px;">
+                <? if($d['arres_mod'] == '1'): ?>
+                <div class="row arresrow mk<?=$d['ID']?>" style="padding-right:0px;">
                 	<div class="col-md-6 col-md-offset-6 box">
-                    	<? if(count($d[arres_savok]) > 0): foreach($d[arres_savok] as $s): ?>
+                    	<? if(count($d['arres_savok']) > 0): foreach($d['arres_savok'] as $s): ?>
                         	<div class="row">
-                            	<div class="col-md-3"><?=Helper::cashFormat($s[ar_min])?> Ft-tól</div>
-                                <div class="col-md-3"><?=($s[ar_max] > 0) ? Helper::cashFormat($s[ar_max]).' Ft-ig':'végtelenig'?></div>
-                                <div class="col-md-1"><?=Helper::cashFormat($s[arres])?>%</div>
+                            	<div class="col-md-3"><?=Helper::cashFormat($s['ar_min'])?> Ft-tól</div>
+                                <div class="col-md-3"><?=($s['ar_max'] > 0) ? Helper::cashFormat($s['ar_max']).' Ft-ig':'végtelenig'?></div>
+                                <div class="col-md-1"><?=Helper::cashFormat($s['arres'])?>%</div>
 
                             </div>
                         <? endforeach; else:?>

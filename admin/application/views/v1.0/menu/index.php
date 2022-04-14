@@ -1,14 +1,14 @@
 <h1>MENÜ</h1>
 <?=$this->msg?>
-<? if($this->gets[1] == 'torles'): ?>
+<? if($this->gets['1'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row">
 	<div class="col-md-12 con con-del">
         <h2></i> Menü elem törlése</h2>           
     	<div>
         	<div style="float:right;">
-            	<a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+            	<a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                 <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
             </div>
         	Biztos benne, hogy törli a kiválasztott menü elemet? A művelet nem visszavonható!
@@ -18,12 +18,12 @@
 </form>
 <? endif; ?>
 <? if( true ): ?>
-<? if($this->gets[1] != 'torles'): ?>
+<? if($this->gets['1'] != 'torles'): ?>
 <div class="row">
 	<div class="col-md-12">
-    	<div class="con <?=($this->gets[1] == 'szerkeszt')?'con-edit':''?>">
+    	<div class="con <?=($this->gets['1'] == 'szerkeszt')?'con-edit':''?>">
         	<form action="" method="post" enctype="multipart/form-data">
-        	<h2><? if($this->gets[1] == 'szerkeszt'): ?>Menü szerkesztése<? else: ?>Új menü hozzáadása<? endif; ?></h2>
+        	<h2><? if($this->gets['1'] == 'szerkeszt'): ?>Menü szerkesztése<? else: ?>Új menü hozzáadása<? endif; ?></h2>
             <br>
             <div class="row">
                 <div class="col-md-2">
@@ -166,9 +166,9 @@
                 </div>
                 <div class="col-md-3 right">
                     <br>
-                    <? if($this->gets[1] == 'szerkeszt'): ?>
-                    <input type="hidden" name="id" value="<?=$this->gets[2]?>" />
-                    <a href="/<?=$this->gets[0]?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
+                    <? if($this->gets['1'] == 'szerkeszt'): ?>
+                    <input type="hidden" name="id" value="<?=$this->gets['2']?>" />
+                    <a href="/<?=$this->gets['0']?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
                     <button name="save" class="btn btn-success">Változások mentése <i class="fa fa-check-square"></i></button>
                     <? else: ?>
                     <button name="add" class="btn btn-primary">Hozzáadás <i class="fa fa-check-square"></i></button>
@@ -223,29 +223,29 @@
                 while( $this->menus->walk() ): 
                 $menu = $this->menus->the_menu(); 
             ?>
-            <div class="row np markarow deep<?=$menu['deep']?> <?=($this->menu && $this->gets[1] == 'szerkeszt' && $this->menu->getId() == $menu['ID'] ? 'on-edit' : '')?> <?=($this->menu && $this->gets[1] == 'torles' && $this->menu->getId() == $menu['ID'] ? 'on-del' : '')?>">
+            <div class="row np markarow deep<?=$menu['deep']?> <?=($this->menu && $this->gets['1'] == 'szerkeszt' && $this->menu->getId() == $menu['ID'] ? 'on-edit' : '')?> <?=($this->menu && $this->gets['1'] == 'torles' && $this->menu->getId() == $menu['ID'] ? 'on-del' : '')?>">
             	<div class="col-md-5">
                     <? if($menu['kep']): ?>
                     <div class="img-thb"><img src="<?=$menu['kep']?>" alt=""></div>
                     <? endif; ?>
-                	<strong><?=$menu[nev]?></strong> 
+                	<strong><?=$menu['nev']?></strong> 
                     <div><em class="menu-type" title="menü típus">(<?=$this->menus->the_menu_type()['text']?>)</em></div>
                 </div>
                 <div class="col-md-1">
-                    <?=$menu[gyujto]?>
+                    <?=$menu['gyujto']?>
                 </div>
                 <div class="col-md-3">
-                	<em><?=$menu[url]?></em>
+                	<em><?=$menu['url']?></em>
                 </div>
                 <div class="col-md-1 center">
-                	<?=$menu[sorrend]?>
+                	<?=$menu['sorrend']?>
                 </div>
                  <div class="col-md-1 center">
-                    <?=($menu[lathato] == '1') ? '<i title="Látható" style="color:green;" class="fa fa-check"></i>':'<i title="Rejtve" style="color:red;" class="fa fa-times"></i>'?>
+                    <?=($menu['lathato'] == '1') ? '<i title="Látható" style="color:green;" class="fa fa-check"></i>':'<i title="Rejtve" style="color:red;" class="fa fa-times"></i>'?>
                 </div>
                 <div class="col-md-1 actions" align="right">
-                    	<a href="/<?=$this->gets[0]?>/szerkeszt/<?=$menu[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                        <a href="/<?=$this->gets[0]?>/torles/<?=$menu[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    	<a href="/<?=$this->gets['0']?>/szerkeszt/<?=$menu['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                        <a href="/<?=$this->gets['0']?>/torles/<?=$menu['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                     </div>
            	</div>
             <? endwhile; else:?>

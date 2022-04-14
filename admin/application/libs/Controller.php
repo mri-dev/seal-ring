@@ -34,7 +34,7 @@ class Controller {
     function __construct($arg = array())
     {
         $this->start_time = microtime(true);
-        $this->is_admin = $arg[admin];
+        $this->is_admin = $arg['admin'];
         Session::init();
         Helper::setMashineID();
         $this->gets = Helper::GET();
@@ -79,7 +79,7 @@ class Controller {
           $this->out( 'user', $this->User->get( self::$user_opt ) );
         }
 
-        if ($this->gets[0] != 'ajax')
+        if ($this->gets['0'] != 'ajax')
         {
           // Only admin
           if ( !defined('PRODUCTIONSITE') )
@@ -245,7 +245,7 @@ class Controller {
         ) );
 
 
-      if(!$arg[hidePatern]){ $this->hidePatern = false; }
+      if(!$arg['hidePatern']){ $this->hidePatern = false; }
 
       $this->view->valuta  = 'Ft';
 
@@ -691,7 +691,7 @@ class Controller {
         $d = $this->db->query("SELECT bErtek FROM beallitasok WHERE bKulcs = '$key'");
         $dt = $d->fetch(PDO::FETCH_ASSOC);
 
-        return $dt[bErtek];
+        return $dt['bErtek'];
     }
 
     function getAllValtozo(){
@@ -700,7 +700,7 @@ class Controller {
         $dt = $d->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($dt as $d){
-            $v[$d[bKulcs]] = $d[bErtek];
+            $v[$d['bKulcs']] = $d['bErtek'];
         }
 
         $protocol = ($_SERVER['HTTPS']) ? 'https://' : 'http://';

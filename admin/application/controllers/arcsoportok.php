@@ -26,9 +26,9 @@ class arcsoportok extends Controller{
 			}
 
 			// Szerkesztés
-			if ( $this->view->gets[1] == 'szerkeszt') {
+			if ( $this->view->gets['1'] == 'szerkeszt') {
 				// Kategória adatok
-				$item_data = new PriceGroup( $this->view->gets[2],  array( 'db' => $this->db )  );
+				$item_data = new PriceGroup( $this->view->gets['2'],  array( 'db' => $this->db )  );
 				$this->out( 'PriceGroup', $item_data );
 
 				// Változások mentése
@@ -45,9 +45,9 @@ class arcsoportok extends Controller{
 			}
 
 			// Törlés
-			if ( $this->view->gets[1] == 'torles') {
+			if ( $this->view->gets['1'] == 'torles') {
 				// Adatok
-				$item_data = new PriceGroup( $this->view->gets[2], array( 'db' => $this->db )  );
+				$item_data = new PriceGroup( $this->view->gets['2'], array( 'db' => $this->db )  );
 				$this->out( 'PriceGroup_d', $item_data );
 
 				// Törlése

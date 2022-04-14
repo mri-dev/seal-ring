@@ -1,11 +1,11 @@
 <div style="float:right;">
-	<a href="/<?=$this->gets[0]?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
+	<a href="/<?=$this->gets['0']?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
 </div>
 <h1>Termékek / Szállítási módok</h1>
 <?=$this->msg?>
-<? if($this->gets[2] == 'torles'): ?>
+<? if($this->gets['2'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row">
 	<div class="col-md-12">
     	<div class="panel panel-danger">
@@ -14,7 +14,7 @@
             </div>
         	<div class="panel-body">
             	<div style="float:right;">
-                	<a href="/<?=$this->gets[0]?>/<?=$this->gets[1]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                	<a href="/<?=$this->gets['0']?>/<?=$this->gets['1']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             	<strong>Biztos, hogy törli a szállítási módot?</strong>
@@ -26,28 +26,28 @@
 <? else: ?>
 <div class="row">
 	<div class="col-md-12">
-		<div class="con <?=($this->gets[2] == 'szerkeszt')?'edit':''?>">
+		<div class="con <?=($this->gets['2'] == 'szerkeszt')?'edit':''?>">
         	<form action="" method="post" enctype="multipart/form-data">
-        	<h2><? if($this->gets[2] == 'szerkeszt'): ?>Szerkesztése<? else: ?>Új szállítási mód hozzáadása<? endif; ?></h2>
+        	<h2><? if($this->gets['2'] == 'szerkeszt'): ?>Szerkesztése<? else: ?>Új szállítási mód hozzáadása<? endif; ?></h2>
             <?
                 $fizmod     = explode(",",$this->sm['fizetesi_mod']);
             ?>
             <br>
             <div class="row">
                 <div class="col-md-6">
-                    Megnevezés: <input type="text" class="form-control" name="nev" placeholder="pl.: Futár" value="<?=$this->sm[nev]?>">
+                    Megnevezés: <input type="text" class="form-control" name="nev" placeholder="pl.: Futár" value="<?=$this->sm['nev']?>">
                 </div>
                 <div class="col-md-1">
-                    Költség (Ft): <input type="number" class="form-control" name="koltseg" value="<?=$this->sm[koltseg]?>">
+                    Költség (Ft): <input type="number" class="form-control" name="koltseg" value="<?=$this->sm['koltseg']?>">
                 </div>
                 <div class="col-md-2">
-                    Ingyenes össz.határ (Ft): <input type="number" class="form-control" name="osszeghatar" value="<?=$this->sm[osszeghatar]?>">
+                    Ingyenes össz.határ (Ft): <input type="number" class="form-control" name="osszeghatar" value="<?=$this->sm['osszeghatar']?>">
                 </div>
                 <br>
                 <div class="col-md-3 right">
-                	<? if($this->gets[2] == 'szerkeszt'): ?>
-                    <input type="hidden" name="id" value="<?=$this->gets[3]?>" />
-                    <a href="/<?=$this->gets[0]?>/<?=$this->gets[1]?>/"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
+                	<? if($this->gets['2'] == 'szerkeszt'): ?>
+                    <input type="hidden" name="id" value="<?=$this->gets['3']?>" />
+                    <a href="/<?=$this->gets['0']?>/<?=$this->gets['1']?>/"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
                     <button name="save" class="btn btn-success">Változások mentése <i class="fa fa-check-square"></i></button>
                     <? else: ?>
                     <button name="add" class="btn btn-primary">Hozzáadás <i class="fa fa-check-square"></i></button>
@@ -85,13 +85,13 @@
             	<? foreach($this->n as $d): ?>
             	<div class="row markarow">
                 	<div class="col-md-3" style="line-height:32px;">
-                    	<strong><?=$d[nev]?></strong>
+                    	<strong><?=$d['nev']?></strong>
                     </div>
                     <div class="col-md-1">
-                        <?=$d[koltseg]?> Ft
+                        <?=$d['koltseg']?> Ft
                     </div>
                     <div class="col-md-2">
-                        <?=$d[osszeghatar]?> Ft
+                        <?=$d['osszeghatar']?> Ft
                     </div>
                     <div class="col-md-4">
                         <?
@@ -109,8 +109,8 @@
                         ?>
                     </div>
                     <div class="col-md-2 actions right">
-                    	<a href="/<?=$this->gets[0]?>/<?=$this->gets[1]?>/szerkeszt/<?=$d[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                        <a href="/<?=$this->gets[0]?>/<?=$this->gets[1]?>/torles/<?=$d[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    	<a href="/<?=$this->gets['0']?>/<?=$this->gets['1']?>/szerkeszt/<?=$d['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                        <a href="/<?=$this->gets['0']?>/<?=$this->gets['1']?>/torles/<?=$d['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
                 <? endforeach; ?>

@@ -8,7 +8,7 @@
         <ul>
             <li class="head"><?=$this->parent->getTitle()?> <i class="fa fa-angle-down"></i></li>
             <? while( $this->menu->walk() ): $menu = $this->menu->the_page(); ?>
-            <li class="<?=($menu['eleres'] == $this->gets[1])?'active':''?> <?=($menu['menu_fej'] == 1)?'head':''?> deep<?=$menu['deep']?> <?=($menu['gyujto'] == '1') ? 'textonly':''?>">
+            <li class="<?=($menu['eleres'] == $this->gets['1'])?'active':''?> <?=($menu['menu_fej'] == 1)?'head':''?> deep<?=$menu['deep']?> <?=($menu['gyujto'] == '1') ? 'textonly':''?>">
                 <? if($menu['gyujto'] == '0'): ?><a href="/p/<?=$menu['eleres']?>"><? endif; ?>
                     <?=$menu['cim']?>  <?=($menu['gyujto'] == '1') ? '<i class="fa fa-angle-down"></i>':''?>
                  <? if($menu['gyujto'] == '0'): ?></a><? endif; ?>

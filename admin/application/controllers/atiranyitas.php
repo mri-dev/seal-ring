@@ -33,12 +33,12 @@ class atiranyitas extends Controller
 
 		function del()
 		{
-			$this->out( 'redirect', $this->redirectors->get($this->gets[2]) );
+			$this->out( 'redirect', $this->redirectors->get($this->gets['2']) );
 
 			if (Post::on('delRedirect')) 
 			{
 				try{
-					$this->redirectors->delete($this->gets[2]);
+					$this->redirectors->delete($this->gets['2']);
 					Helper::reload('/atiranyitas/');
 				}
 				catch(Exception $e)
@@ -51,13 +51,13 @@ class atiranyitas extends Controller
 
 		function edit()
 		{
-			$this->out( 'redirect', $this->redirectors->get($this->gets[2]) );
+			$this->out( 'redirect', $this->redirectors->get($this->gets['2']) );
 
 			if (Post::on('editRedirect')) 
 			{
 				try{
 					unset($_POST['editRedirect']);
-					$this->redirectors->edit($this->gets[2], $_POST);
+					$this->redirectors->edit($this->gets['2'], $_POST);
 					Helper::reload();
 				}
 				catch(Exception $e)

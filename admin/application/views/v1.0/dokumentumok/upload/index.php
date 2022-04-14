@@ -16,19 +16,19 @@
 			</div>
 			<br>
 			<label for="cim">Megjelenő név</label>
-			<input type="text" id="cim" class="form-control" name="data[cim]" placeholder="A feltöltött fájl megjelenő neve..." value="<?=$this->file['cim']?>">
+			<input type="text" id="cim" class="form-control" name="data['cim']" placeholder="A feltöltött fájl megjelenő neve..." value="<?=$this->file['cim']?>">
 			<br>
 			<label for="keywords">Kulcsszavak</label>
-			<input type="text" id="keywords" class="form-control" name="data[keywords]" placeholder="kulcsszavak megadása..." value="<?=$this->file['keywords']?>">
+			<input type="text" id="keywords" class="form-control" name="data['keywords']" placeholder="kulcsszavak megadása..." value="<?=$this->file['keywords']?>">
 			<small>Vesszővel válassza le a kulcsszavakat. A későbbi keresés szempontjából fontos.</small>
 			<br>
 			<div style="display: block;" id="link_url">
 				<br>
 				<label for="filepath">Hivatkozás (URL)</label>
-				<input type="text" id="filepath" class="form-control" name="data[filepath]">
+				<input type="text" id="filepath" class="form-control" name="data['filepath']">
 			</div>
 			<br>
-			<input type="checkbox" checked="checked" name="data[lathato]" id="lathato"> <label for="lathato">legyen látható</label>
+			<input type="checkbox" checked="checked" name="data['lathato']" id="lathato"> <label for="lathato">legyen látható</label>
 			<div class="right">
 				<a href="/dokumentumok" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
 				<button class="btn btn-warning" name="uploadFile" value="1">Feltöltés <i class="fa fa-upload"></i></button>

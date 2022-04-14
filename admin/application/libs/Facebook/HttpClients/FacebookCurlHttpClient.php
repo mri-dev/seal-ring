@@ -181,18 +181,18 @@ class FacebookCurlHttpClient implements FacebookHttpable
     );
 
     if ($method !== "GET") {
-      $options[CURLOPT_POSTFIELDS] = $parameters;
+      $options['CURLOPT_POSTFIELDS'] = $parameters;
     }
     if ($method === 'DELETE' || $method === 'PUT') {
-      $options[CURLOPT_CUSTOMREQUEST] = $method;
+      $options['CURLOPT_CUSTOMREQUEST'] = $method;
     }
 
     if (!empty($this->requestHeaders)) {
-      $options[CURLOPT_HTTPHEADER] = $this->compileRequestHeaders();
+      $options['CURLOPT_HTTPHEADER'] = $this->compileRequestHeaders();
     }
 
     if (self::$disableIPv6) {
-      $options[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
+      $options['CURLOPT_IPRESOLVE'] = CURL_IPRESOLVE_V4;
     }
 
     self::$facebookCurl->init();
@@ -303,7 +303,7 @@ class FacebookCurlHttpClient implements FacebookHttpable
     if ( self::needsCurlProxyFix() ) {
       // Additional way to calculate the request body size.
       if (preg_match('/Content-Length: (\d+)/', $this->rawResponse, $m)) {
-          $headerSize = mb_strlen($this->rawResponse) - $m[1];
+          $headerSize = mb_strlen($this->rawResponse) - $m['1'];
       } elseif (stripos($this->rawResponse, self::CONNECTION_ESTABLISHED) !== false) {
           $headerSize += mb_strlen(self::CONNECTION_ESTABLISHED);
       }

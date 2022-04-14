@@ -1,6 +1,6 @@
 <div class="con">
-	<h2><?=$this->data[nagyker_nev]?> / <?=$this->data[file_name]?></h2>
-	<a href="<?=str_replace(array('http://','..src/'),array('http://src.',''),DOMAIN).$this->data[file_path]?>">Letöltés</a>
+	<h2><?=$this->data['nagyker_nev']?> / <?=$this->data['file_name']?></h2>
+	<a href="<?=str_replace(array('http://','..src/'),array('http://src.',''),DOMAIN).$this->data['file_path']?>">Letöltés</a>
 	<br><br><br>
 	<? $titles = array(); ?>
 	<? foreach( $this->csv->titles as $d ): $titles[] = trim($d); endforeach; ?>	

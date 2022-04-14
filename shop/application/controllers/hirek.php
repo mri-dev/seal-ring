@@ -21,8 +21,8 @@ class hirek extends Controller{
 		$temp = new Template( VIEW . __CLASS__.'/template/' );
 		$this->out( 'template', $temp );
 
-		if ( $this->view->gets[1] != '' && !is_numeric($this->view->gets[1]) ) {
-			$this->out( 'news', $news->get( $this->view->gets[1] ) );
+		if ( $this->view->gets['1'] != '' && !is_numeric($this->view->gets['1']) ) {
+			$this->out( 'news', $news->get( $this->view->gets['1'] ) );
 			$arg = array(
 				'limit' => 4,
 				'page' 	=> 1,

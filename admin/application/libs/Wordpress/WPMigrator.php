@@ -9,7 +9,7 @@ class WPMigrator
 
 	function __construct( $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 
 		return $this;
 	}

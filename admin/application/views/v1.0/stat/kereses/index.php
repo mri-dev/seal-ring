@@ -21,9 +21,9 @@ $(function() {
   });
 </script>
 <div style="float:right;">
-	<a href="/<?=$this->gets[0]?>" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> vissza</a>
-	<a href="/<?=$this->gets[0]?>/kategoria" class="btn btn-default"><i class="fa fa-bars"></i> Kategória aktivitás</a>
-	<a href="/<?=$this->gets[0]?>/termek" class="btn btn-default"><i class="fa fa-th"></i> Termék aktivitás</a>
+	<a href="/<?=$this->gets['0']?>" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> vissza</a>
+	<a href="/<?=$this->gets['0']?>/kategoria" class="btn btn-default"><i class="fa fa-bars"></i> Kategória aktivitás</a>
+	<a href="/<?=$this->gets['0']?>/termek" class="btn btn-default"><i class="fa fa-th"></i> Termék aktivitás</a>
 </div>
 <h1>Stat / Keresés aktivitás</h1>
 <div class="con">
@@ -32,12 +32,12 @@ $(function() {
     	<div class="col-md-1" style="line-height:35px;">
         	<strong>Idő intervallum:</strong>
         </div>
-        <div class="col-md-1 col-p-5"><input type="text" value="<?=$_GET[dateFrom]?>" placeholder="tól" class="form-control" id="dateFrom" name="dateFrom"></div>
-        <div class="col-md-1 col-p-5"><input type="text" value="<?=$_GET[dateTo]?>" placeholder="ig" class="form-control" id="dateTo" name="dateTo"></div>
+        <div class="col-md-1 col-p-5"><input type="text" value="<?=$_GET['dateFrom']?>" placeholder="tól" class="form-control" id="dateFrom" name="dateFrom"></div>
+        <div class="col-md-1 col-p-5"><input type="text" value="<?=$_GET['dateTo']?>" placeholder="ig" class="form-control" id="dateTo" name="dateTo"></div>
         <div class="col-md-1"><button class="btn btn-primary">Frissít</button></div>
         <div class="col-md-8 dateInfo" align="right">
-        	<? if($_GET[dateFrom] != '' && $_GET[dateTo] != ''): ?>
-            	<strong><?=$_GET[dateFrom]?></strong> &minus; <strong><?=$_GET[dateTo]?></strong>
+        	<? if($_GET['dateFrom'] != '' && $_GET['dateTo'] != ''): ?>
+            	<strong><?=$_GET['dateFrom']?></strong> &minus; <strong><?=$_GET['dateTo']?></strong>
             <? else: ?>
             	<strong><?=date('Y m')?>.</strong> hónap
             <? endif; ?>
@@ -54,11 +54,11 @@ $(function() {
         </tr>
 	</thead>
     <tbody>
-    	<? if(count($this->stats[data]) > 0): foreach($this->stats[data] as $d):  ?>
+    	<? if(count($this->stats['data']) > 0): foreach($this->stats['data'] as $d):  ?>
     	<tr>
-            <td align="center"><strong><?=$d[me]?>x</strong></td>
+            <td align="center"><strong><?=$d['me']?>x</strong></td>
             <td>
-            	<strong><?=$d[szoveg]?></strong>
+            	<strong><?=$d['szoveg']?></strong>
             </td>
     	</tr>
         <? endforeach; else: ?>

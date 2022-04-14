@@ -12,10 +12,10 @@
 	<a href="/termekek/uj" style="display: none;" class="btn btn-info"><i class="fa fa-plus-circle"></i> új termék</a>
 </div>
 <?php if (isset($_GET['article'])): ?>
-  <h1 class="fil-torzs"><strong><?=$_GET['article']?></strong> &mdash; törzstermékek <span><strong><?=Helper::cashFormat($this->products->getItemNumbers())?> db</strong> termék <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt termék listázás <a href="/termekek/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
+  <h1 class="fil-torzs"><strong><?=$_GET['article']?></strong> &mdash; törzstermékek <span><strong><?=Helper::cashFormat($this->products->getItemNumbers())?> db</strong> termék <? if($_COOKIE['filtered'] == '1'): ?><span class="filtered">Szűrt termék listázás <a href="/termekek/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
   <a href="/termekek"> <i class="fa fa-arrow-left"></i> vissza a teljes listára</a>
 <?php else: ?>
-  <h1>Termékek <span><strong><?=Helper::cashFormat($this->products->getItemNumbers())?> db</strong> termék <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt termék listázás <a href="/termekek/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
+  <h1>Termékek <span><strong><?=Helper::cashFormat($this->products->getItemNumbers())?> db</strong> termék <? if($_COOKIE['filtered'] == '1'): ?><span class="filtered">Szűrt termék listázás <a href="/termekek/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
 <?php endif; ?>
 
 <?=$this->rmsg?>
@@ -27,7 +27,7 @@
 	<span class="label label-default"><input type="checkbox" id="showKats" /> részletek mutatása</span>
 </div>
 <div class="clr"></div>
-<? if($this->gets[2] != 'del'): ?>
+<? if($this->gets['2'] != 'del'): ?>
 <form action="/termekek/1/" method="post">
 <div class="tbl-container overflowed">
 <table class="table termeklista table-bordered">
@@ -159,14 +159,14 @@
              </div>
             <? if( true ): ?>
             	<span class="modkat">
-                  <strong><a href="javascript:void(0);" title="Kategóriába listázva" class="itemInf" itemId="<?=$d['product_id']?>"><?=count($d[inKatList])?> <i class="fa fa-th-list"></i></a></strong><? if(count($d['hasonlo_termek_ids']['ids']) > 0): ?>&nbsp;&nbsp;&nbsp;<span title="Termék variáció kapcsolatok száma"><a href="/termekek/?article=<?=$d[raktar_articleid]?>"><?=count($d['hasonlo_termek_ids']['ids'])?> <i class="fa fa-th"></i></a></span><? endif;?>
+                  <strong><a href="javascript:void(0);" title="Kategóriába listázva" class="itemInf" itemId="<?=$d['product_id']?>"><?=count($d['inKatList'])?> <i class="fa fa-th-list"></i></a></strong><? if(count($d['hasonlo_termek_ids']['ids']) > 0): ?>&nbsp;&nbsp;&nbsp;<span title="Termék variáció kapcsolatok száma"><a href="/termekek/?article=<?=$d['raktar_articleid']?>"><?=count($d['hasonlo_termek_ids']['ids'])?> <i class="fa fa-th"></i></a></span><? endif;?>
               </span>
             <? endif; ?>
             </td>
             <td>
             	<select class="form-control  action"  mode="marka" tid="<?=$d['product_id']?>" style="max-width:120px;">
                 	<? foreach($this->markak as $m): ?>
-                    <option value="<?=$m[ID]?>" <?=($m['ID'] == $d['marka_id'])?'selected':''?>><?=$m['neve']?></option>
+                    <option value="<?=$m['ID']?>" <?=($m['ID'] == $d['marka_id'])?'selected':''?>><?=$m['neve']?></option>
                     <? endforeach; ?>
                 </select>
             </td>
@@ -175,45 +175,45 @@
             </td>
             <?php if (false): ?>
               <td>
-              	<input type="number" step="any" class="form-control action" mode="netto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d[netto_ar]?>" />
-                <? if($d[akcios] == '1'): ?>
-        				<input type="number" step="any" class="form-control action" mode="akcios_netto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d[akcios_netto_ar]?>" />
+              	<input type="number" step="any" class="form-control action" mode="netto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d['netto_ar']?>" />
+                <? if($d['akcios'] == '1'): ?>
+        				<input type="number" step="any" class="form-control action" mode="akcios_netto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d['akcios_netto_ar']?>" />
         				<? endif;?>
               </td>
               <td>
-              <input type="number" step="any" class="form-control action" mode="brutto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d[brutto_ar]?>" />
-              <? if($d[akcios] == '1'): ?>
-      				<input type="number" step="any" class="form-control action" mode="akcios_brutto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d[akcios_brutto_ar]?>" />
+              <input type="number" step="any" class="form-control action" mode="brutto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d['brutto_ar']?>" />
+              <? if($d['akcios'] == '1'): ?>
+      				<input type="number" step="any" class="form-control action" mode="akcios_brutto_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d['akcios_brutto_ar']?>" />
       				<? endif;?>
               </td>
               <td align="center">
-  				         <? if($d[akcios] == '0'): ?>
-  				             <?=Helper::cashFormat($d[ar])?> Ft
+  				         <? if($d['akcios'] == '0'): ?>
+  				             <?=Helper::cashFormat($d['ar'])?> Ft
                   <? else: ?>
-                  	<div><strike style="color:red;"><?=Helper::cashFormat($d[ar])?> Ft</strike></div>
-                      <div style="color:green;"><?=Helper::cashFormat($d[akcios_fogy_ar])?> Ft</div>
+                  	<div><strike style="color:red;"><?=Helper::cashFormat($d['ar'])?> Ft</strike></div>
+                      <div style="color:green;"><?=Helper::cashFormat($d['akcios_fogy_ar'])?> Ft</div>
                   <? endif; ?>
-                  <div class="arres">(<?=number_format(($d[ar] - $d[brutto_ar]) / ($d[ar] / 100),2,"."," ")?>%)</div>
+                  <div class="arres">(<?=number_format(($d['ar'] - $d['brutto_ar']) / ($d['ar'] / 100),2,"."," ")?>%)</div>
               </td>
             <?php endif; ?>
 
             <td align="center">
-		          <input type="number" step="any" class="form-control action" mode="egyedi_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d[egyedi_ar]?>" />
-            	<? if(!is_null($d[egyedi_ar])): ?>
-                <div class="arres">(<?=number_format(($d[egyedi_ar] - $d[brutto_ar]) / ($d[egyedi_ar] / 100),2,"."," ")?>%)</div>
+		          <input type="number" step="any" class="form-control action" mode="egyedi_ar" tid="<?=$d['product_id']?>" min="0" value="<?=$d['egyedi_ar']?>" />
+            	<? if(!is_null($d['egyedi_ar'])): ?>
+                <div class="arres">(<?=number_format(($d['egyedi_ar'] - $d['brutto_ar']) / ($d['egyedi_ar'] / 100),2,"."," ")?>%)</div>
                 <? endif; ?>
             </td>
 	          <td>
 		        <select class="form-control  action" mode="szallitasi_ido" tid="<?=$d['product_id']?>" style="max-width:150px;">
 		          <? foreach($this->szallitas as $sz): ?>
-              <option value="<?=$sz[ID]?>" <?=($sz[ID] == $d[szallitasID])?'selected':''?>><?=$sz[elnevezes]?></option>
+              <option value="<?=$sz['ID']?>" <?=($sz['ID'] == $d['szallitasID'])?'selected':''?>><?=$sz['elnevezes']?></option>
               <? endforeach; ?>
             </select>
             </td>
             <td>
             <select class="form-control  action" mode="allapot" tid="<?=$d['product_id']?>" style="max-width:150px;">
 		          <? foreach($this->keszlet as $k): ?>
-                <option value="<?=$k[ID]?>" <?=($k[ID] == $d[keszletID])?'selected':''?>><?=$k[elnevezes]?></option>
+                <option value="<?=$k['ID']?>" <?=($k['ID'] == $d['keszletID'])?'selected':''?>><?=$k['elnevezes']?></option>
               <? endforeach; ?>
             </select>
             </td>
@@ -257,12 +257,12 @@
                     </tr>
                     <?php endforeach; ?>
                   </table>
-                	<? if($d[akcios] == '1'): ?>
+                	<? if($d['akcios'] == '1'): ?>
                 	<h4>Akciós ár</h4>
                     <div class="list">
-                    	<div><strong>Nettó:</strong> <?=Helper::cashFormat($d[akcios_netto_ar])?> Ft</div>
-                        <div><strong>Bruttó:</strong> <?=Helper::cashFormat($d[akcios_brutto_ar])?> Ft <em class="arres">(-<?=Helper::cashFormat($d[brutto_ar]/($d[akcios_brutto_ar]/100)-100)?>%)</em></div>
-                        <div><strong>Akciós ár:</strong> <?=Helper::cashFormat($d[akcios_fogy_ar])?> Ft</div>
+                    	<div><strong>Nettó:</strong> <?=Helper::cashFormat($d['akcios_netto_ar'])?> Ft</div>
+                        <div><strong>Bruttó:</strong> <?=Helper::cashFormat($d['akcios_brutto_ar'])?> Ft <em class="arres">(-<?=Helper::cashFormat($d['brutto_ar']/($d['akcios_brutto_ar']/100)-100)?>%)</em></div>
+                        <div><strong>Akciós ár:</strong> <?=Helper::cashFormat($d['akcios_fogy_ar'])?> Ft</div>
                     </div>
                     <? endif; ?>
                 </div>
@@ -273,7 +273,7 @@
                 <div align="right" class="col-md-3">
                     <h4>Egyéb</h4>
                     <div class="list">
-                        <div><strong>PickPackPont-ra szállítás:</strong> <? if($d[pickpackszallitas] == '1'): ?><i class="fa fa-check"></i><? else: ?><i class="fa fa-times"></i><? endif; ?></div>
+                        <div><strong>PickPackPont-ra szállítás:</strong> <? if($d['pickpackszallitas'] == '1'): ?><i class="fa fa-check"></i><? else: ?><i class="fa fa-times"></i><? endif; ?></div>
                     </div>
                 </div>
             </div>
@@ -390,7 +390,7 @@
 						<option value="">-- új márka kiválasztása --</option>
 						<option value="" disabled></option>
 						<? foreach($this->markak as $d): ?>
-						<option value="<?=$d['ID']?>"><?=$d[neve]?></option>
+						<option value="<?=$d['ID']?>"><?=$d['neve']?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -401,7 +401,7 @@
 						<option value="">-- új szállítási idő kiválasztása --</option>
 						<option value="" disabled></option>
 						<? foreach($this->szallitas as $d): ?>
-						<option value="<?=$d['ID']?>"><?=$d[elnevezes]?></option>
+						<option value="<?=$d['ID']?>"><?=$d['elnevezes']?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -412,7 +412,7 @@
 						<option value="">-- új állapot kiválasztása --</option>
 						<option value="" disabled></option>
 						<? foreach($this->keszlet as $d): ?>
-						<option value="<?=$d['ID']?>"><?=$d[elnevezes]?></option>
+						<option value="<?=$d['ID']?>"><?=$d['elnevezes']?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -451,12 +451,12 @@
 				<div id="action_akcio_szaz" class="hided actionContainer">
 					<div class="input-group">
 						<div class="input-group-addon">-</div>
-						<input type="number" step="any"  class="form-control" name="action_akcio_szaz[percent]" >
+						<input type="number" step="any"  class="form-control" name="action_akcio_szaz['percent']" >
 						<div class="input-group-addon">%</div>
 					</div>
 					<br>
 					<div>
-						<select name="action_akcio_szaz[type]" class="form-control">
+						<select name="action_akcio_szaz['type']" class="form-control">
                             <option value="0" selected="selected">Akciós</option>
                             <option value="" disabled></option>
 							<option value="-1">Akciós jelzők eltávolítása</option>

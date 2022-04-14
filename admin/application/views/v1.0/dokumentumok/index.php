@@ -53,7 +53,7 @@
     	<tr class="color-schame">
 	    	<td>
 					<div style="font-weight: bold;">
-						<? if( !isset($d['doc_title'])): ?><i class="fa fa-info-circle"></i> <em><?=$d['name']?></em><? else: ?><?=$d['doc_title']?><? endif; ?> <a href="<?=($d['tipus'] == 'external')?$d['filepath']:DOMAIN.$d['filepath']?>" target="_blank">[megtekint]</a>
+						<? if( !isset($d['doc_title'])): ?><i class="fa fa-info-circle"></i> <em><?=$d['name']?></em><? else: ?><?=$d['doc_title']?><? endif; ?> <a href="<?=($d['tipus'] == 'external')?$d['filepath']:DOMAIN.$d['filepath']?>" target="_blank">['megtekint']</a>
 					</div>
 					<div class="keywords" title="Kulcsszavak">
 						<?php echo $d['keywords']; ?>
@@ -89,7 +89,7 @@
 	    		<? if( isset($d['doc_title']) ): ?>
 					<? if($d['lathato'] == '1'): ?><i class="fa fa-check vtgl" vmode="io" title="Aktív / Kattintson az inaktiváláshoz" tid="<?=$d['doc_id']?>"></i><? else: ?><i class="fa fa-times vtgl" vmode="io" title="Inaktív / Kattintson az aktiváláshoz" tid="<?=$d['doc_id']?>"></i><? endif; ?>
 	    		<? else: ?>
-	    		<a href="/dokumentumok/?reg=<?=base64_encode($d['name'])?>&p=<?=base64_encode($d['src_path'])?>">[mentés]</a>
+	    		<a href="/dokumentumok/?reg=<?=base64_encode($d['name'])?>&p=<?=base64_encode($d['src_path'])?>">['mentés']</a>
 	    		<? endif; ?>
 	    	</td>
 	    	<td align="center">

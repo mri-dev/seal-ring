@@ -524,7 +524,7 @@ class SMTP
          * headers.
          */
 
-        $field = substr($lines[0], 0, strpos($lines[0], ':'));
+        $field = substr($lines['0'], 0, strpos($lines['0'], ':'));
         $in_headers = false;
         if (!empty($field) && !strstr($field, ' ')) {
             $in_headers = true;

@@ -7,7 +7,7 @@ class Lookbooks
 {	
 	private $db = null;
 	function __construct( $arg = array() ) {
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 	}
 
 	public function add( $post )

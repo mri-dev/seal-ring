@@ -75,14 +75,14 @@ class dokumentumok extends Controller {
 				Helper::reload( '/dokumentumok' );	
 			}
 
-			$fq = $this->db->query("SELECT * FROM shop_documents WHERE ID = ".$this->gets[2]);
+			$fq = $this->db->query("SELECT * FROM shop_documents WHERE ID = ".$this->gets['2']);
 			$f 	= $fq->fetch(\PDO::FETCH_ASSOC);
 			$this->out( 'file', $f);
 		}
 
 		public function del()
 		{
-			$fq = $this->db->query("SELECT * FROM shop_documents WHERE ID = ".$this->gets[2]);
+			$fq = $this->db->query("SELECT * FROM shop_documents WHERE ID = ".$this->gets['2']);
 			
 			if ( $fq->rowCount() == 0 ) {
 				Helper::reload( '/dokumentumok' );	
@@ -128,7 +128,7 @@ class dokumentumok extends Controller {
 				$filename 	= $_FILES['file']['name'];
 				$path 		= 'src/uploaded_files/'.$filename;
 				$is_upload 	= false;
-				$sorrend 	= (isset($_POST[data][sorrend])) ? $_POST[data][sorrend] : 0;
+				$sorrend 	= (isset($_POST['data']['sorrend'])) ? $_POST['data']['sorrend'] : 0;
 
 				$_POST['data']['user_group_in'] = implode(",",$_POST['data']['user_group']);
 				unset($_POST['data']['user_group']);

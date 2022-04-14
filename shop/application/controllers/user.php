@@ -12,16 +12,16 @@ class user extends Controller{
 			$this->out('bodyclass', 'user');
 
 			if( !$this->view->user &&
-				$this->view->gets[1] != 'activate' &&
-				$this->view->gets[1] != 'belepes' &&
-				$this->view->gets[1] != 'regisztracio' &&
-				$this->view->gets[1] != 'jelszoemlekezteto'
+				$this->view->gets['1'] != 'activate' &&
+				$this->view->gets['1'] != 'belepes' &&
+				$this->view->gets['1'] != 'regisztracio' &&
+				$this->view->gets['1'] != 'jelszoemlekezteto'
 			){
 				Helper::reload('/user/belepes');
 			}
 
-			if($this->view->gets[1] == ''){
-				//Helper::reload('/'.$this->view->gets[0].'/megrendelesek');
+			if($this->view->gets['1'] == ''){
+				//Helper::reload('/'.$this->view->gets['0'].'/megrendelesek');
 			}
 
 			// Aktiváló újraküldése
@@ -42,7 +42,7 @@ class user extends Controller{
 
 			// Megrendelések
 			$arg = array();
-			$this->view->orders = $this->User->getOrders($this->view->user[data][ID],$arg);
+			$this->view->orders = $this->User->getOrders($this->view->user['data']['ID'],$arg);
 
 			// SEO Információk
 			// Site info
@@ -62,7 +62,7 @@ class user extends Controller{
 
 		function activate()
 		{
-			$key = base64_decode($this->view->gets[2]);
+			$key = base64_decode($this->view->gets['2']);
 			$key = explode('=',$key);
 
 			try{
@@ -95,7 +95,7 @@ class user extends Controller{
 			// Watercard reg
 			if(Post::on('addWatercard')){
 				try{
-					$re = $this->User->registerWaterCard( $_POST[watercard][email], $_POST[watercard][userid], $_POST[watercard][id], $_POST[watercard][egyesulet] );
+					$re = $this->User->registerWaterCard( $_POST['watercard']['email'], $_POST['watercard']['userid'], $_POST['watercard']['id'], $_POST['watercard']['egyesulet'] );
 					$this->view->msg['alapadat'] = Helper::makeAlertMsg('pSuccess',$re);
 					Helper::reload($reurl);
 				}catch(Exception $e){

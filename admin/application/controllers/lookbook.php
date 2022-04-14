@@ -54,7 +54,7 @@ class lookbook extends Controller{
 				try{
 					unset($_POST['saveContainer']);
 					$this->lookbook->addContainers( $_POST);	
-					Helper::reload('/lookbook/v/'.$this->view->gets[2].'/?msgkey=msg&msg=Változások sikeresen mentve lettek!');
+					Helper::reload('/lookbook/v/'.$this->view->gets['2'].'/?msgkey=msg&msg=Változások sikeresen mentve lettek!');
 				}catch(Exception $e){
 					$this->view->err 	= true;
 					$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
@@ -69,7 +69,7 @@ class lookbook extends Controller{
 
 			if(Post::on('edit')){
 				try{
-					$this->lookbook->edit( $this->view->gets[2], $_POST);	
+					$this->lookbook->edit( $this->view->gets['2'], $_POST);	
 					Helper::reload('/lookbook/?msgkey=msg&msg=Változások sikeresen mentve lettek!');
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -77,7 +77,7 @@ class lookbook extends Controller{
 				}
 			}
 
-			$this->out( 'edit', $this->lookbook->getAll( array( 'get' => $this->view->gets[2] ) ) );			
+			$this->out( 'edit', $this->lookbook->getAll( array( 'get' => $this->view->gets['2'] ) ) );			
 		}
 		
 		

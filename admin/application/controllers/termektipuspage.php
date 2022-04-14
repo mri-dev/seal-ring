@@ -26,9 +26,9 @@ class termektipuspage extends Controller {
 			}
 
 			// Szerkesztés
-			if ( $this->view->gets[1] == 'szerkeszt') {
+			if ( $this->view->gets['1'] == 'szerkeszt') {
 				// Kategória adatok
-				$cat_data = new TermekTipus( $this->view->gets[2],  array( 'db' => $this->db )  );
+				$cat_data = new TermekTipus( $this->view->gets['2'],  array( 'db' => $this->db )  );
 				$this->out( 'category', $cat_data );
 
 				// Változások mentése
@@ -45,9 +45,9 @@ class termektipuspage extends Controller {
 			}
 
 			// Törlés
-			if ( $this->view->gets[1] == 'torles') {
+			if ( $this->view->gets['1'] == 'torles') {
 				// Kategória adatok
-				$cat_data = new TermekTipus( $this->view->gets[2], array( 'db' => $this->db )  );
+				$cat_data = new TermekTipus( $this->view->gets['2'], array( 'db' => $this->db )  );
 				$this->out( 'category_d', $cat_data );
 
 				// Kategória törlése

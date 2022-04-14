@@ -14,49 +14,49 @@ class forgalom extends Controller{
 			if(Post::on('filterList')){
 				$filtered = false;
 				
-				if($_POST[forgalom] != ''){
-					setcookie('filter_forgalom',$_POST[forgalom],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['forgalom'] != ''){
+					setcookie('filter_forgalom',$_POST['forgalom'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_forgalom','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_forgalom','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[megnevezes] != ''){
-					setcookie('filter_megnevezes',$_POST[megnevezes],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['megnevezes'] != ''){
+					setcookie('filter_megnevezes',$_POST['megnevezes'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_megnevezes','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_megnevezes','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[itemid] != ''){
-					setcookie('filter_itemid',$_POST[itemid],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['itemid'] != ''){
+					setcookie('filter_itemid',$_POST['itemid'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_itemid','',time()-100,'/'.$this->view->gets[0]);
-				}
-				
-				if($_POST[tipus] != ''){
-					setcookie('filter_tipus',$_POST[tipus],time()+60*24,'/'.$this->view->gets[0]);
-					$filtered = true;
-				}else{
-					setcookie('filter_tipus','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_itemid','',time()-100,'/'.$this->view->gets['0']);
 				}
 				
-				if($_POST[dateFrom] != ''){
-					setcookie('filter_dateFrom',$_POST[dateFrom],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['tipus'] != ''){
+					setcookie('filter_tipus',$_POST['tipus'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_dateFrom','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_tipus','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[dateTo] != ''){
-					setcookie('filter_dateTo',$_POST[dateTo],time()+60*24,'/'.$this->view->gets[0]);
+				
+				if($_POST['dateFrom'] != ''){
+					setcookie('filter_dateFrom',$_POST['dateFrom'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_dateTo','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_dateFrom','',time()-100,'/'.$this->view->gets['0']);
+				}
+				if($_POST['dateTo'] != ''){
+					setcookie('filter_dateTo',$_POST['dateTo'],time()+60*24,'/'.$this->view->gets['0']);
+					$filtered = true;
+				}else{
+					setcookie('filter_dateTo','',time()-100,'/'.$this->view->gets['0']);
 				}
 				
 				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 				}				
 				Helper::reload();
 			}
@@ -66,11 +66,11 @@ class forgalom extends Controller{
 			$this->view->trafficInfo 	= $this->traffic->calcTrafficInfo();
 			
 			$arg = array();
-			$arg[limit] = 25;
+			$arg['limit'] = 25;
 			$filters 		= Helper::getCookieFilter('filter',array('filtered'));
-			$arg[filters] 	= $filters;
-			$arg[dateFrom] 	= $_COOKIE[filter_dateFrom];
-			$arg[dateTo] 	= $_COOKIE[filter_dateTo];
+			$arg['filters'] 	= $filters;
+			$arg['dateFrom'] 	= $_COOKIE['filter_dateFrom'];
+			$arg['dateTo'] 	= $_COOKIE['filter_dateTo'];
 			$this->view->allTraffic		= $this->traffic->getAll($arg);
 			
 			// SEO Információk
@@ -94,7 +94,7 @@ class forgalom extends Controller{
 				try{
 					$opt = array();
 					$this->traffic->add($opt);	
-					Helper::reload('/'.$this->view->gets[0]);
+					Helper::reload('/'.$this->view->gets['0']);
 				}catch(Exception $e){
 					$this->view->err 	= true;
 					$this->view->bmsg 	= Helper::makeAlertMsg('pError', $e->getMessage());
@@ -108,31 +108,31 @@ class forgalom extends Controller{
 			if(Post::on('add')){
 				try{
 					$this->traffic->addTipusKulcs($_POST);	
-					Helper::reload('/'.$this->view->gets[0].'/'.$this->view->gets[1]);
+					Helper::reload('/'.$this->view->gets['0'].'/'.$this->view->gets['1']);
 				}catch(Exception $e){
 					$this->view->err 	= true;
 					$this->view->bmsg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 				}
 			}
 			
-			switch($this->view->gets[2]){
+			switch($this->view->gets['2']){
 				case 'szerkeszt':
 					if(Post::on('save')){
 						try{
 							$this->traffic->saveTipusKulcs($_POST);	
-							Helper::reload('/'.$this->view->gets[0].'/'.$this->view->gets[1]);
+							Helper::reload('/'.$this->view->gets['0'].'/'.$this->view->gets['1']);
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->bmsg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->view->sm = $this->traffic->getTipusKulcsAdat($this->view->gets[3]);
+					$this->view->sm = $this->traffic->getTipusKulcsAdat($this->view->gets['3']);
 				break;
 				case 'torles':
 					if(Post::on('delId')){
 						try{
-							$this->traffic->delTipusKulcs($this->view->gets[3]);	
-							Helper::reload('/'.$this->view->gets[0].'/'.$this->view->gets[1]);
+							$this->traffic->delTipusKulcs($this->view->gets['3']);	
+							Helper::reload('/'.$this->view->gets['0'].'/'.$this->view->gets['1']);
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->bmsg 	= Helper::makeAlertMsg('pError', $e->getMessage());
@@ -145,14 +145,14 @@ class forgalom extends Controller{
 		}
 		
 		function clearfilters(){
-			setcookie('filter_forgalom','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_megnevezes','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_itemid','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_tipus','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_dateFrom','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_dateTo','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
-			Helper::reload('/'.$this->view->gets[0]);
+			setcookie('filter_forgalom','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_megnevezes','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_itemid','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_tipus','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_dateFrom','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_dateTo','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
+			Helper::reload('/'.$this->view->gets['0']);
 		}
 		
 		function __destruct(){

@@ -15,14 +15,14 @@
     <div class="cont">
      	<h4>Kapcsolódó termék</h4>
     	<div class="termek">
-        	<div class="i"><img src="<?=$this->t[data][profil_kep]?>" alt=""></div>	
+        	<div class="i"><img src="<?=$this->t['data']['profil_kep']?>" alt=""></div>	
             <div>
-				<?=$this->t[data][markaNev]?> <?=$this->t[data][nev]?>
+				<?=$this->t['data']['markaNev']?> <?=$this->t['data']['nev']?>
            	</div>
         </div>
         <div class="form">
         	<form action="" method="post">
-            <input type="hidden" name="tid" value="<?=$this->t[data][ID]?>" />
+            <input type="hidden" name="tid" value="<?=$this->t['data']['ID']?>" />
             <h4>Adatok megadása</h4>
                 <div class="row">
                     <div class="col-md-6">

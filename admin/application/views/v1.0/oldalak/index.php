@@ -1,8 +1,8 @@
 <h1>OLDALAK</h1>
 <?=$this->msg?>
-<? if($this->gets[1] == 'torles'): ?>
+<? if($this->gets['1'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row np">
 	<div class="col-md-12">
     	<div class="con con-del">
@@ -10,7 +10,7 @@
             Biztos, hogy törli a kiválasztott oldalt?
             <div class="row np">
                 <div class="col-md-12 right">
-                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             </div>
@@ -20,12 +20,12 @@
 </form>
 <? endif; ?>
 <? if( true ): ?>
-<? if($this->gets[1] != 'torles'): ?>
+<? if($this->gets['1'] != 'torles'): ?>
 <div class="row">
 	<div class="col-md-12">
-    	<div class="con <?=($this->gets[1] == 'szerkeszt')?'con-edit':''?>">
+    	<div class="con <?=($this->gets['1'] == 'szerkeszt')?'con-edit':''?>">
         	<form action="" method="post" enctype="multipart/form-data">
-        	<h2><? if($this->gets[1] == 'szerkeszt'): ?>Oldal szerkesztése<? else: ?>Új oldal hozzáadása<? endif; ?></h2>
+        	<h2><? if($this->gets['1'] == 'szerkeszt'): ?>Oldal szerkesztése<? else: ?>Új oldal hozzáadása<? endif; ?></h2>
             <br>
             <div class="row">
                 <div class="col-md-3">
@@ -65,9 +65,9 @@
                 </div>
                 <div class="col-md-3" align="right">
                 <br>
-                	<? if($this->gets[1] == 'szerkeszt'): ?>
-                    <input type="hidden" name="id" value="<?=$this->gets[2]?>" />
-                    <a href="/<?=$this->gets[0]?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
+                	<? if($this->gets['1'] == 'szerkeszt'): ?>
+                    <input type="hidden" name="id" value="<?=$this->gets['2']?>" />
+                    <a href="/<?=$this->gets['0']?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
                     <button name="save" class="btn btn-success">Változások mentése <i class="fa fa-check-square"></i></button>
                     <? else: ?>
                     <button name="add" class="btn btn-primary">Hozzáadás <i class="fa fa-check-square"></i></button>
@@ -177,29 +177,29 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label for="cim_<?=$langkey?>">Cím</label>
-                        <input type="text"class="form-control" name="translate[<?=$langkey?>][cim][content]" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
-                        <input type="hidden" name="translate[<?=$langkey?>][cim][id]" value="<?=$translates['cim']['id']?>">
+                        <input type="text"class="form-control" name="translate[<?=$langkey?>]['cim']['content']" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
+                        <input type="hidden" name="translate[<?=$langkey?>]['cim']['id']" value="<?=$translates['cim']['id']?>">
                     </div>
                 </div>    
                 <br>        
                 <div class="row">
                     <div class="col-md-12">
                         <label for="szoveg_<?=$langkey?>">Az oldal tartalma</label>
-                        <div style="background:#fff;"><textarea name="translate[<?=$langkey?>][szoveg][content]" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
-                        <input type="hidden" name="translate[<?=$langkey?>][szoveg][id]" value="<?=$translates['szoveg']['id']?>">
+                        <div style="background:#fff;"><textarea name="translate[<?=$langkey?>]['szoveg']['content']" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
+                        <input type="hidden" name="translate[<?=$langkey?>]['szoveg']['id']" value="<?=$translates['szoveg']['id']?>">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-6">
                         <label for="meta_title_<?=$langkey?>">Meta cím</label>
-                        <input type="text"class="form-control" name="translate[<?=$langkey?>][meta_title][content]" id="meta_title_<?=$langkey?>" value="<?=$translates['meta_title']['content']?>">
-                        <input type="hidden" name="translate[<?=$langkey?>][meta_title][id]" value="<?=$translates['meta_title']['id']?>">
+                        <input type="text"class="form-control" name="translate[<?=$langkey?>]['meta_title']['content']" id="meta_title_<?=$langkey?>" value="<?=$translates['meta_title']['content']?>">
+                        <input type="hidden" name="translate[<?=$langkey?>]['meta_title']['id']" value="<?=$translates['meta_title']['id']?>">
                     </div>
                     <div class="col-md-6">
                         <label for="meta_desc_<?=$langkey?>">Meta leírás</label>
-                        <textarea name="translate[<?=$langkey?>][meta_desc][content]" class="no-editor form-control" id="meta_desc" maxlength="350"><?=$translates['meta_desc']['content']?></textarea>
-                        <input type="hidden" name="translate[<?=$langkey?>][meta_desc][id]" value="<?=$translates['meta_desc']['id']?>">
+                        <textarea name="translate[<?=$langkey?>]['meta_desc']['content']" class="no-editor form-control" id="meta_desc" maxlength="350"><?=$translates['meta_desc']['content']?></textarea>
+                        <input type="hidden" name="translate[<?=$langkey?>]['meta_desc']['id']" value="<?=$translates['meta_desc']['id']?>">
                     </div>
                 </div> 
             <?php endforeach; ?>
@@ -255,45 +255,45 @@
             if( $this->pages->has_page() && false ):
             while( $this->pages->walk() ):
                 $page = $this->pages->the_page();
-                if( $page[hashkey] == '' ) continue;
+                if( $page['hashkey'] == '' ) continue;
             ?>
             <STRONG style="color:#2c3e50;">
             <?
-                if( strpos( $page[hashkey], 'WS_MERET_FERFI' ) !== false){
+                if( strpos( $page['hashkey'], 'WS_MERET_FERFI' ) !== false){
                     echo 'Férfi ruházat / Mérettáblázat / ';
-                } else if( strpos( $page[hashkey], 'WS_ANYAG_FERFI' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_ANYAG_FERFI' ) !== false){
                     echo 'Férfi ruházat / Anyagösszetétel / ';
-                } else if( strpos( $page[hashkey], 'WS_EGYEB_FERFI' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_EGYEB_FERFI' ) !== false){
                     echo 'Férfi ruházat / Egyéb / ';
-                } else  if( strpos( $page[hashkey], 'WS_MERET_NOI' ) !== false){
+                } else  if( strpos( $page['hashkey'], 'WS_MERET_NOI' ) !== false){
                     echo 'Női ruházat / Mérettáblázat / ';
-                } else if( strpos( $page[hashkey], 'WS_ANYAG_NOI' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_ANYAG_NOI' ) !== false){
                     echo 'Női ruházat / Anyagösszetétel / ';
-                } else if( strpos( $page[hashkey], 'WS_EGYEB_NOI' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_EGYEB_NOI' ) !== false){
                     echo 'Női ruházat / Egyéb / ';
-                } else if( strpos( $page[hashkey], 'WS_INFO_NOI' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_INFO_NOI' ) !== false){
                     echo 'Női ruházat / Információ / ';
-                } else  if( strpos( $page[hashkey], 'WS_MERET_FIU' ) !== false){
+                } else  if( strpos( $page['hashkey'], 'WS_MERET_FIU' ) !== false){
                     echo 'Fiú ruházat / Mérettáblázat / ';
-                } else if( strpos( $page[hashkey], 'WS_ANYAG_FIU' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_ANYAG_FIU' ) !== false){
                     echo 'Fiú ruházat / Anyagösszetétel / ';
-                } else if( strpos( $page[hashkey], 'WS_EGYEB_FIU' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_EGYEB_FIU' ) !== false){
                     echo 'Fiú ruházat / Egyéb / ';
-                } else  if( strpos( $page[hashkey], 'WS_MERET_LANY' ) !== false){
+                } else  if( strpos( $page['hashkey'], 'WS_MERET_LANY' ) !== false){
                     echo 'Lány ruházat / Mérettáblázat / ';
-                } else if( strpos( $page[hashkey], 'WS_ANYAG_LANY' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_ANYAG_LANY' ) !== false){
                     echo 'Lány ruházat / Anyagösszetétel / ';
-                } else if( strpos( $page[hashkey], 'WS_EGYEB_LANY' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_EGYEB_LANY' ) !== false){
                     echo 'Lány ruházat / Egyéb / ';
-                } else  if( strpos( $page[hashkey], 'WS_MERET_GYEREK' ) !== false){
+                } else  if( strpos( $page['hashkey'], 'WS_MERET_GYEREK' ) !== false){
                     echo 'Gyerek ruházat / Mérettáblázat / ';
-                } else if( strpos( $page[hashkey], 'WS_ANYAG_GYEREK' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_ANYAG_GYEREK' ) !== false){
                     echo 'Gyerek ruházat / Anyagösszetétel / ';
-                } else if( strpos( $page[hashkey], 'WS_EGYEB_GYEREK' ) !== false){
+                } else if( strpos( $page['hashkey'], 'WS_EGYEB_GYEREK' ) !== false){
                     echo 'Gyerek ruházat / Egyéb / ';
                 }
             ?>
-            <?=$page['cim']?></STRONG> <br> <SPAN STYLE="COLOR:#43a0de;"><?=$page[hashkey]?></SPAN><br><SPAN ><a target="_blank" STYLE="COLOR:#95a5a6;" href="<?=HOMEDOMAIN?>p/<?=$page['eleres']?>" class="page-url"><?=HOMEDOMAIN?>p/<strong><?=$page[eleres]?></strong></a></SPAN><BR>&mdash;<br>
+            <?=$page['cim']?></STRONG> <br> <SPAN STYLE="COLOR:#43a0de;"><?=$page['hashkey']?></SPAN><br><SPAN ><a target="_blank" STYLE="COLOR:#95a5a6;" href="<?=HOMEDOMAIN?>p/<?=$page['eleres']?>" class="page-url"><?=HOMEDOMAIN?>p/<strong><?=$page['eleres']?></strong></a></SPAN><BR>&mdash;<br>
 
             <? endwhile; endif; ?>
 
@@ -302,10 +302,10 @@
             while( $this->pages->walk() ):
                 $page = $this->pages->the_page();
             ?>
-            <div class="row np deep<?=$page['deep']?> markarow  <?=($this->page && $this->gets[1] == 'szerkeszt' && $this->page->getId() == $page['ID'] ? 'on-edit' : '')?> <?=($this->page && $this->gets[1] == 'torles' && $this->page->getId() == $page['ID'] ? 'on-del' : '')?>">
+            <div class="row np deep<?=$page['deep']?> markarow  <?=($this->page && $this->gets['1'] == 'szerkeszt' && $this->page->getId() == $page['ID'] ? 'on-edit' : '')?> <?=($this->page && $this->gets['1'] == 'torles' && $this->page->getId() == $page['ID'] ? 'on-del' : '')?>">
             	<div class="col-md-6">
-                	<strong><?=$page[cim]?></strong> <? if($page[hashkey]): ?><span class="hashkey">(<?=$page[hashkey]?>)</span><? endif; ?>
-                    <div><a target="_blank" href="<?=HOMEDOMAIN?>p/<?=$page['eleres']?>" class="page-url"><?=HOMEDOMAIN?>p/<strong><?=$page[eleres]?></strong></a></div>
+                	<strong><?=$page['cim']?></strong> <? if($page['hashkey']): ?><span class="hashkey">(<?=$page['hashkey']?>)</span><? endif; ?>
+                    <div><a target="_blank" href="<?=HOMEDOMAIN?>p/<?=$page['eleres']?>" class="page-url"><?=HOMEDOMAIN?>p/<strong><?=$page['eleres']?></strong></a></div>
                 </div>
                 <div class="col-md-2 center">
                 	<?=\PortalManager\Formater::dateFormat($page['idopont'], $this->settings['date_format'])?>
@@ -315,7 +315,7 @@
                     <?=($page['gyujto'] == '1')?'<i class="fa fa-check" style="color:green;"></i>':'<i class="fa fa-minus" style="color:lightgrey;"></i>'?>
                 </div>
                 <div class="col-md-1 center">
-                	<? if($page[lathato] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
+                	<? if($page['lathato'] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
                 </div>
 
                 <div class="col-md-1 center">
@@ -323,8 +323,8 @@
                     ]?>
                 </div>
                 <div class="col-md-1 actions" align="right">
-                    <a href="/<?=$this->gets[0]?>/szerkeszt/<?=$page[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                    <a href="/<?=$this->gets[0]?>/torles/<?=$page[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    <a href="/<?=$this->gets['0']?>/szerkeszt/<?=$page['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                    <a href="/<?=$this->gets['0']?>/torles/<?=$page['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                 </div>
            	</div>
             <? endwhile; else:?>

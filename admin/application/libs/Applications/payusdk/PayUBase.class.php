@@ -724,7 +724,7 @@ class PayUTransaction extends PayUBase
     public function processResponse($resp)
     {
         preg_match_all("/<EPAYMENT>(.*?)<\/EPAYMENT>/", $resp, $matches);
-        $data = explode("|", $matches[1][0]);
+        $data = explode("|", $matches['1']['0']);
         return $this->nameData($data);
     }
     

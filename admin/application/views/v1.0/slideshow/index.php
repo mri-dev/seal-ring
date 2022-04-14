@@ -86,28 +86,28 @@
             <br />
             <div class="row">
             	<form action="" method="post">
-                <input type="hidden" name="id" value="<?=$d[ID]?>" />
+                <input type="hidden" name="id" value="<?=$d['ID']?>" />
             	<div class="col-md-7">
-                	<img src="/<?=substr($d[kep],1)?>" alt="" style="width:100%;" class="<?=($d[lathato] == '1')?'showed':''?>" />
+                	<img src="/<?=substr($d['kep'],1)?>" alt="" style="width:100%;" class="<?=($d['lathato'] == '1')?'showed':''?>" />
                 </div>
                 <div class="col-md-5">
                     <div class="row np">
                          <div class="col-md-3">
                             <div class="form-group">
                                 <label for="group">Gyűjtő csoport</label>
-                                <input type="text" name="groups" id="group" class="form-control" value="<?=$d[groups]?>" />
+                                <input type="text" name="groups" id="group" class="form-control" value="<?=$d['groups']?>" />
                             </div>
                         </div>
                         <div class="col-md-7" style="padding-left:5px;">
                             <div class="form-group">
                                 <label for="url">Kép URL link</label>
-                                <input type="text" name="url" id="url" class="form-control" value="<?=$d[url]?>" />
+                                <input type="text" name="url" id="url" class="form-control" value="<?=$d['url']?>" />
                             </div>
                         </div>
                         <div class="col-md-2" style="padding-left:5px;">
                             <div class="form-group">
                                 <label for="sorrend">Sorrend</label>
-                                <input type="number" name="sorrend" id="sorrend" class="form-control" value="<?=$d[sorrend]?>" min="-100" max="100"  />
+                                <input type="number" name="sorrend" id="sorrend" class="form-control" value="<?=$d['sorrend']?>" min="-100" max="100"  />
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@
                         </span>
                     </div>                    
                     <div>
-                        <? $imgs = getimagesize(substr($d[kep],1)); ?>
-                        Kép méretei: <strong><?=$imgs[0].' x '.$imgs[1]?></strong>
+                        <? $imgs = getimagesize(substr($d['kep'],1)); ?>
+                        Kép méretei: <strong><?=$imgs['0'].' x '.$imgs['1']?></strong>
                     </div>
                     <div class="divider" style="margin:8px 0;"></div>
                     <h3>FELIRAT</h3>
@@ -149,7 +149,7 @@
                     <div class="divider" style="margin:8px 0;"></div>
                     <div class="form-group">
                         <label for="sorrend">Látható</label>
-                        <input type="checkbox" name="lathato" id="lathato" style="width:25px;" class="form-control" <?=($d[lathato] == '1')?'checked':''?> />
+                        <input type="checkbox" name="lathato" id="lathato" style="width:25px;" class="form-control" <?=($d['lathato'] == '1')?'checked':''?> />
                     </div>
                     <div align="right">
                     	
@@ -161,8 +161,8 @@
             <div class="row">
                 <div class="col-md-12">
                 <form action="" method="post">
-                    <input type="hidden" name="id" value="<?=$d[ID]?>" />
-                    <input type="hidden" name="img" value="<?=$d[kep]?>" />
+                    <input type="hidden" name="id" value="<?=$d['ID']?>" />
+                    <input type="hidden" name="img" value="<?=$d['kep']?>" />
                     <button name="delete" value="1"  class="btn btn-danger btn-sm">Törlés <i class="fa fa-times"></i></button>
                 </form>
                 </div>

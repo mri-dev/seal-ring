@@ -25,7 +25,7 @@
 	    	<td>
 	    		<?=$item->getTitle()?>
 	    		<? if($item->hasAuthor()): ?>
-	    		<div style="color:red;">Jegyzett kupon tulajdonos: <strong><? $author = $item->getAuthor(); echo $author[nev]; ?></strong> (<em><?=$author[email]?></em>)</div>
+	    		<div style="color:red;">Jegyzett kupon tulajdonos: <strong><? $author = $item->getAuthor(); echo $author['nev']; ?></strong> (<em><?=$author['email']?></em>)</div>
 	    		<? endif; ?>
 	    	</td>
 	    	<td class="center"><?=$item->limitLeft()?> db</td>

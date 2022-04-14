@@ -27,8 +27,8 @@ class Products
   private $lang = false;
 
 	public function __construct( $arg = array() ) {
-		$this->db = $arg[db];
-		$this->user = $arg[user];
+		$this->db = $arg['db'];
+		$this->user = $arg['user'];
 		$this->settings = $arg['settings'];
     $this->lang = $this->db->getLanguages( \Lang::getLang() );
     
@@ -163,7 +163,7 @@ class Products
 			}
 
 			// Képfeltöltés
-			if($_FILES[img][name][0] != '')
+			if($_FILES['img']['name']['0'] != '')
 			{
 				$dir 	= 'p'.$uploadedProductId;
 				$idir 	= 'src/products/'.$dir;
@@ -175,7 +175,7 @@ class Products
 
 				// Feltöltése
 				$mt 		= explode(" ",str_replace(".","",microtime()));
-				$imgName 	= \PortalManager\Formater::makeSafeUrl( $this->getManufacturName($marka).'-'.$nev.'__'.date('YmdHis').$mt[0] );
+				$imgName 	= \PortalManager\Formater::makeSafeUrl( $this->getManufacturName($marka).'-'.$nev.'__'.date('YmdHis').$mt['0'] );
 				$img 		= \Images::upload(array(
 					'src' => 'img',
 					'upDir' => $idir,
@@ -185,12 +185,12 @@ class Products
 				));
 
 				/*
-				$upDir 		= str_replace(array('../img/'),array(''),$img[dir]);
-				$upProfil 	= str_replace(array('../img/'),array(''),$img[file]);
+				$upDir 		= str_replace(array('../img/'),array(''),$img['dir']);
+				$upProfil 	= str_replace(array('../img/'),array(''),$img['file']);
 				*/
 
-				$upDir 		= $img[dir];
-				$upProfil 	= $img[file];
+				$upDir 		= $img['dir'];
+				$upProfil 	= $img['file'];
 
 				$this->db->update(
 					'shop_termekek',
@@ -530,7 +530,7 @@ class Products
 	{
 		$data = array();
 
-		$uid = (int)$this->user[data][ID];
+		$uid = (int)$this->user['data']['ID'];
 
 		$q = "SELECT
 			v.*,
@@ -549,7 +549,7 @@ class Products
 		ORDER BY v.idopont DESC
 		LIMIT 0,$limit";
 
-		$arg[multi] = '1';
+		$arg['multi'] = '1';
 		extract($this->db->q($q,$arg));
 
 		$bdata = array();
@@ -570,7 +570,7 @@ class Products
 	{
 		$data = array();
 
-		$uid = (int)$this->user[data][ID];
+		$uid = (int)$this->user['data']['ID'];
 
 		$q = "SELECT
 			v.*,
@@ -588,7 +588,7 @@ class Products
 		ORDER BY v.idopont DESC
 		LIMIT 0,$limit";
 
-		$arg[multi] = '1';
+		$arg['multi'] = '1';
 		extract($this->db->q($q,$arg));
 
 		$bdata = array();
@@ -620,7 +620,7 @@ class Products
 
 		$admin_listing = ( $arg['admin'] ) ? true : false;
 
-		$uid = (int)$this->user[data][ID];
+		$uid = (int)$this->user['data']['ID'];
 
 		/*==========  Lekérdezés  ==========*/
 		$qry = "
@@ -700,7 +700,7 @@ class Products
 			$whr .= $add;
 			$size_whr .= $add;
 
-			if(!empty($arg['meret']) && $arg['meret'][0] != ''){
+			if(!empty($arg['meret']) && $arg['meret']['0'] != ''){
 				$add = " and p.meret IN ('".trim(implode("','",$arg['meret']))."') ";
 				$whr .= $add;
 			} else {
@@ -818,7 +818,7 @@ class Products
 		}*/
 
 		if ( $arg['csoport_kategoria'] ) {
-			$add = " and p.csoport_kategoria = '{$arg[csoport_kategoria]}' ";
+			$add = " and p.csoport_kategoria = '{$arg['csoport_kategoria']}' ";
 			$whr .= $add;
 			$size_whr .= $add;
 		}
@@ -856,7 +856,7 @@ class Products
 			$size_whr .= $add;
 		}
 
-		if ( !empty($arg['meret']) && $arg['meret'][0] != '' ) {
+		if ( !empty($arg['meret']) && $arg['meret']['0'] != '' ) {
 			$this->selected_sizes = $arg['meret'];
 
 			$add = " and (";
@@ -964,7 +964,7 @@ class Products
 		// Paraméter filters
 		/* */
 		$paramFilter = array();
-    foreach ((array)$arg[paramfilters] as $fk => $fv) {
+    foreach ((array)$arg['paramfilters'] as $fk => $fv) {
         if ($fv) {
             $filtered = true;
         }
@@ -990,7 +990,7 @@ class Products
                 $fkq = rtrim($fkq, ' or ');
                 $fkq .= ") and ";
             } else {
-                $v = $pmfv[0];
+                $v = $pmfv['0'];
                 $fkq .= "isInMinMax(p.ID,'" . $key . "'," . $v . ") and ";
             }
         }
@@ -1064,7 +1064,7 @@ class Products
 				} else {
 					if ( $arg['search'] && is_array($arg['search']) && !empty($arg['search']) )
 					{
-						$srctxt = $arg['search'][0];
+						$srctxt = $arg['search']['0'];
 						//$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, CASTTextToINT(nev) ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
 						$add =  " ORDER BY TEXTDIFF(nev, '".$srctxt."') ASC, p.nev REGEXP '([0-9,.\/]+)( x ([0-9,.\/]+)( x ([0-9,.\/]+))?)' ASC ";
 					} else {
@@ -1366,13 +1366,13 @@ class Products
 
 				preg_match_all('/^([0-9+]) (db)$/i', $v, $fn);
 
-				if (isset($fn) && isset($fn[1][0])) {
-					$v = $fn[1][0];
+				if (isset($fn) && isset($fn['1']['0'])) {
+					$v = $fn['1']['0'];
 					$back[$d['paramID']]['is_range'] = true;
 				}
 
-				if (isset($fn) && isset($fn[2][0])) {
-					$back[$d['paramID']]['mertekegyseg'] = trim($fn[2][0]);
+				if (isset($fn) && isset($fn['2']['0'])) {
+					$back[$d['paramID']]['mertekegyseg'] = trim($fn['2']['0']);
 				}
 
 				if (!in_array($v, $back[$d['paramID']]['hints'])) {
@@ -1391,7 +1391,7 @@ class Products
 			foreach ($temp as $t) {
 				asort($t['hints']);
 				$t['type'] = $this->getParameterType($t, $t['hints']);
-				$t['minmax'] = $this->getParameterMinMax($t[type], $t['hints']);
+				$t['minmax'] = $this->getParameterMinMax($t['type'], $t['hints']);
 				$back[] = $t;
 			}
 
@@ -1428,8 +1428,8 @@ class Products
 
               } else if ($type == 'tartomany') {
                   $xn   = explode('-', $h);
-                  $xmin = (int) $xn[0];
-                  $xmax = (int) $xn[1];
+                  $xmin = (int) $xn['0'];
+                  $xmax = (int) $xn['1'];
 
                   if ($min == 0) {
                       $min = $xmin;
@@ -1451,8 +1451,8 @@ class Products
           }
       }
 
-      $re[min] = $min;
-      $re[max] = $max;
+      $re['min'] = $min;
+      $re['max'] = $max;
 
       return $re;
   }
@@ -1461,14 +1461,14 @@ class Products
   {
       $re = false;
 
-      if ($parameter[me] == '') {
+      if ($parameter['me'] == '') {
           $re = 'szoveg';
       } else {
           $re = 'szoveg';
           foreach ($hints as $h) {
               if (is_numeric($h)) {
                   $re = 'szoveg';
-                  if ($parameter[is_range] == 1) {
+                  if ($parameter['is_range'] == 1) {
                       $re = 'szam';
                   }
               } else {
@@ -1494,9 +1494,9 @@ class Products
 
 	private function getProductPriceCalculate($markaID, $bruttoAr){
 		$re 	  = array();
-		$re[info] =  array();
-		$re[arres] = 0;
-		$re[ar]   =  $bruttoAr;
+		$re['info'] =  array();
+		$re['arres'] = 0;
+		$re['ar']   =  $bruttoAr;
 
 		if (!$markaID) {
 			return $re;
@@ -1508,35 +1508,35 @@ class Products
 
 		if( !is_null($marka['fix_arres']) ) {
 			// Fix árrés
-			$re[info] 	= 'FIX : '.$marka[fix_arres].'%';
-			$re[arres] 	= $marka[fix_arres];
-			$re[ar] 	= round($bruttoAr * ($marka[fix_arres]/100+1));
+			$re['info'] 	= 'FIX : '.$marka['fix_arres'].'%';
+			$re['arres'] 	= $marka['fix_arres'];
+			$re['ar'] 	= round($bruttoAr * ($marka['fix_arres']/100+1));
 		} else {
 			// Sávos árrés
 			$savok = $this->db->query("SELECT ar_min, ar_max, arres FROM shop_marka_arres_savok WHERE markaID = $markaID ORDER BY ar_min ASC")->fetchAll(\PDO::FETCH_ASSOC);
 
 			foreach( $savok as $s ){
-				$min = $s[ar_min];
-				$max = $s[ar_max];
+				$min = $s['ar_min'];
+				$max = $s['ar_max'];
 				$max = (is_null($max)) ? 999999999999999 : $max;
 
 				if( $bruttoAr >= $min && $bruttoAr <= $max ) {
-					$re[info] 	= $min.' - '.$max.' : '.$s[arres].'%';
-					$re[arres] 	= $s[arres];
-					$re[ar] 	= round($bruttoAr * ($s[arres]/100+1));
+					$re['info'] 	= $min.' - '.$max.' : '.$s['arres'].'%';
+					$re['arres'] 	= $s['arres'];
+					$re['ar'] 	= round($bruttoAr * ($s['arres']/100+1));
 					break;
 				} else {
-					$re[info] 	= $min.' - '.$max.' : '.$s[arres].'%';
-					$re[arres] 	= $s[arres];
-					$re[ar] 	= round($bruttoAr * ($s[arres]/100+1));
+					$re['info'] 	= $min.' - '.$max.' : '.$s['arres'].'%';
+					$re['arres'] 	= $s['arres'];
+					$re['ar'] 	= round($bruttoAr * ($s['arres']/100+1));
 				}
 
 			}
 		}
 
 		// Kedvezményes ár csökkentés
-		if( $this->user && $this->user[kedvezmeny] > 0 ) {
-			\PortalManager\Formater::discountPrice( $re[ar], $this->user[kedvezmeny] );
+		if( $this->user && $this->user['kedvezmeny'] > 0 ) {
+			\PortalManager\Formater::discountPrice( $re['ar'], $this->user['kedvezmeny'] );
 		}
 
 		return $re;
@@ -1561,7 +1561,7 @@ class Products
 		extract($this->db->q($q,array('multi'=> '1')));
 		$back = array();
 		foreach($data as $d){
-			$back[$d[parameterID]] = $d;
+			$back[$d['parameterID']] = $d;
 		}
 		return $back;
 	}
@@ -1859,7 +1859,7 @@ class Products
 
 				// Color stack
 				if (!array_key_exists( $id['szin'], $color_set )) {
-					if( !$id[szin] ) continue;
+					if( !$id['szin'] ) continue;
 					$color_set[$id['szin']] = array(
 						'img' 	=> \PortalManager\Formater::productImage($id['profil_kep'],false, self::TAG_IMG_NOPRODUCT),
 						'sizes' => 1,
@@ -1867,7 +1867,7 @@ class Products
 						'link' 	=> DOMAIN.'termek/'.\PortalManager\Formater::makeSafeUrl($id['nev'],'_-'.$id['termek_to'])
 					);
 				} else {
-					if( !$id[szin] ) continue;
+					if( !$id['szin'] ) continue;
 					$color_set[$id['szin']]['sizes'] = (int)$color_set[$id['szin']]['sizes']+1;
 				}
 				$color_set[$id['szin']]['size_stack'] .= $id['meret'].', ';
@@ -2208,15 +2208,15 @@ class Products
 
 		$each = explode("||", $linkstr);
 
-		if ( $each[0] == '' ) {
+		if ( $each['0'] == '' ) {
 			return $links;
 		}
 
 		foreach ($each as $value) {
 			$link = explode("==>", $value);
 			$links[] = array(
-				'title' => $link[0],
-				'link' => $link[1]
+				'title' => $link['0'],
+				'link' => $link['1']
 			);
 		}
 
@@ -2413,7 +2413,7 @@ class Products
 
 		foreach ( $replaces as $search => $link ) {
 			$reptext =  $rep[$search];
-			$text = str_replace( $reptext, '<a href="'.$link[url].'" title="'.$link[title].'" target="_blank">'.ucwords($search).'</a>', $text );
+			$text = str_replace( $reptext, '<a href="'.$link['url'].'" title="'.$link['title'].'" target="_blank">'.ucwords($search).'</a>', $text );
 		}
 
 
@@ -2437,11 +2437,11 @@ class Products
 
 		$qq = $this->db->query( $q )->fetch(\PDO::FETCH_ASSOC);
 
-		if( $qq[eleres] == '' ) return false;
+		if( $qq['eleres'] == '' ) return false;
 
 		return array(
-			'url' => '/p/'.$qq[eleres] . ( $anchor != '' ? '#'.$anchor : ''),
-			'title' => $qq[cim]
+			'url' => '/p/'.$qq['eleres'] . ( $anchor != '' ? '#'.$anchor : ''),
+			'title' => $qq['cim']
 		);
 	}
 
@@ -2531,7 +2531,7 @@ class Products
 
 		// Képfeltöltés
 		//print_r($_FILES);
-		if($_FILES[img][name][0] != '')
+		if($_FILES['img']['name']['0'] != '')
 		{
 			$dir 	= 'p'.uniqid();
 			$idir 	= 'src/products/' . $dir;
@@ -2543,7 +2543,7 @@ class Products
 
 			// Feltöltése
 			$mt = explode(" ",str_replace(".","",microtime()));
-			$imgName = \PortalManager\Formater::makeSafeUrl( uniqid().'__'.date('YmdHis').$mt[0] );
+			$imgName = \PortalManager\Formater::makeSafeUrl( uniqid().'__'.date('YmdHis').$mt['0'] );
 			$img = \Images::upload(array(
 				'src' => 'img',
 				'upDir' => $idir,
@@ -2553,12 +2553,12 @@ class Products
 			));
 
 			/*
-			$upDir 		= str_replace(array('../img/'),array(''),$img[dir]);
-			$upProfil 	= str_replace(array('../img/'),array(''),$img[file]);
+			$upDir 		= str_replace(array('../img/'),array(''),$img['dir']);
+			$upProfil 	= str_replace(array('../img/'),array(''),$img['file']);
 			*/
 
-			$upDir 		= $img[dir];
-			$upProfil 	= $img[file];
+			$upDir 		= $img['dir'];
+			$upProfil 	= $img['file'];
 
 			$this->db->update(
 				'shop_termekek',

@@ -2,19 +2,19 @@
 	<? if(!$new): ?>
 		<div title="Eltávolítás" class="del"><i question-action="delete" question-hash="<?=$timestamp?>" class="fa fa-times"></i></div>
 	<? endif; ?>
-	<input type="hidden" name="question[<?=$timestamp?>][is_new]" value="<?=($new)?1:0?>" >
+	<input type="hidden" name="question[<?=$timestamp?>]['is_new']" value="<?=($new)?1:0?>" >
 	<div class="row">
 		<div class="col-md-1">
 			<label for="sort_<?=$timestamp?>">Sorrend</label>
-			<input type="text" value="<?=($order_sort)?$order_sort:$size_num?>" name="question[<?=$timestamp?>][sort]" id="sort_<?=$timestamp?>" class="form-control">			
+			<input type="text" value="<?=($order_sort)?$order_sort:$size_num?>" name="question[<?=$timestamp?>]['sort']" id="sort_<?=$timestamp?>" class="form-control">			
 		</div>
 		<div class="col-md-6">
 			<label for="question_<?=$timestamp?>">Kérdés</label>
-			<input type="text" value="<?=$question?>" name="question[<?=$timestamp?>][question]" id="question_<?=$timestamp?>" class="form-control">			
+			<input type="text" value="<?=$question?>" name="question[<?=$timestamp?>]['question']" id="question_<?=$timestamp?>" class="form-control">			
 		</div>	
 		<div class="col-md-3">
 			<label for="type_<?=$timestamp?>">Típus</label>
-			<select name="question[<?=$timestamp?>][type]" class="form-control itemtypeselect_<?=$timestamp?>" id="type_<?=$timestamp?>">
+			<select name="question[<?=$timestamp?>]['type']" class="form-control itemtypeselect_<?=$timestamp?>" id="type_<?=$timestamp?>">
 				<option value="" selected>-- válasszon --</option>
 				<option value="radio" <?=($item_type == 'radio')?'selected':''?>>Kiválasztós (egy érték)</option>
 				<option value="checkbox" <?=($item_type == 'checkbox')?'selected':''?>>Többlehetőségű (pipálós)</option>

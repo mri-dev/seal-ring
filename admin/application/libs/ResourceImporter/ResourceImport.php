@@ -3,7 +3,7 @@ namespace ResourceImporter;
 
 use ResourceImporter\ResourceImportInterface;
 
-/**
+/** 
  *
  */
 class ResourceImport extends ResourceImportBase implements ResourceImportInterface

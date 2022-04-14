@@ -28,8 +28,8 @@
 	    	<td><? if(!$shop->isActive() && !$shop->byAdmin()): ?> <em>(Engedélyre vár)</em> <? endif; ?><strong><?=$shop->getName()?></strong>
 				<span style="color: #acacac;">&mdash; <?=$shop->getAddress()?></span>
 	    	</td>
-	    	<td class="center"><?=$dists[0][telefon]?></td>
-	    	<td class="center"><?=$dists[0][email]?></td>
+	    	<td class="center"><?=$dists['0']['telefon']?></td>
+	    	<td class="center"><?=$dists['0']['email']?></td>
 	    	<td class="center"><?=$shop->getType()?></td>
 	    	<td class="center"><?=$shop->createFrom()?></td>
 	    	<td class="center">
@@ -91,7 +91,7 @@
 												<? endif; ?>
 												<div class="value">
 													<div class="image">
-														<label><img src="/<?=$dists[0][profilkep]?>"></label>
+														<label><img src="/<?=$dists['0']['profilkep']?>"></label>
 													</div>
 												</div>
 											</div>
@@ -134,7 +134,7 @@
 											</div>
 											<div class="col-sm-8">
 												<? $gps = $shop->getGPS(); ?>
-												<div class="value"><?=$gps[lat]?>,<?=$gps[lng]?></div>
+												<div class="value"><?=$gps['lat']?>,<?=$gps['lng']?></div>
 											</div>
 										</div>
 
@@ -177,7 +177,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('*[uploadID]').change(function(){
+		$('*['uploadID']').change(function(){
 			var form = $(this).attr('uploadID');
 
 			var reg=/(.jpg|.gif|.png)$/;

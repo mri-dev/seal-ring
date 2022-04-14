@@ -73,7 +73,7 @@ class Mailer extends PHPMailer
 		} else if( $this->mode == 'smtp' ) {
 			$this->isSMTP();                    // Set mailer to use SMTP
 			//$this->Host 		= '';
-			$this->SMTPDebug 	= ($arg[debug]) ? $arg[debug] : 0;
+			$this->SMTPDebug 	= ($arg['debug']) ? $arg['debug'] : 0;
 
 			$this->SMTPAuth 	= true;         // Enable SMTP authentication
 			$this->SMTPSecure 	= SMTP_MODE;    // Enable encryption, 'ssl' also accepted
@@ -114,9 +114,9 @@ class Mailer extends PHPMailer
 
 				/*
 				$msg = Helper::emailPatern(array(
-					'UZENET' 	=> $arg[msg],
-					'ALAIRAS' 	=> $arg[alairas],
-					'TEMA_NEV' 	=> $arg[tema],
+					'UZENET' 	=> $arg['msg'],
+					'ALAIRAS' 	=> $arg['alairas'],
+					'TEMA_NEV' 	=> $arg['tema'],
 					'NEWS' 		=> $news,
 					'EMAIL' 	=> $r
 				));

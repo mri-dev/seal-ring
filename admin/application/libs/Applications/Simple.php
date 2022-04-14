@@ -101,14 +101,14 @@ class Simple
 			}
 
 			$this->live->addProduct(array(
-				'name' 	=> $d[nev],				//product name [ string ]
-				'code' 	=> $d[raktar_variantid],//merchant systemwide unique product ID [ string ]
+				'name' 	=> $d['nev'],				//product name [ string ]
+				'code' 	=> $d['raktar_variantid'],//merchant systemwide unique product ID [ string ]
 				'info' 	=> $info,				//product description [ string ]
 				'price' => $price, 				//product price [ HUF: integer | EUR, USD decimal 0.00 ]
 				'vat' 	=> 0,					//product tax rate [ in case of gross price: 0 ] (percent)
-				'qty' 	=> $d[me]				//product quantity [ integer ] 
+				'qty' 	=> $d['me']				//product quantity [ integer ] 
 			));
-			$total += $price * $d[me];
+			$total += $price * $d['me'];
 		endforeach;
 
 		// Százalékos kedvezmény
@@ -119,37 +119,37 @@ class Simple
 		/**
 		 * Billing data
 		 */	
-		$nev = explode(" ", $this->datas[szamlazas_adat][nev] );
-		$this->live->setField("BILL_FNAME", $nev[0]);
-		$this->live->setField("BILL_LNAME", $nev[1]);
-		$this->live->setField("BILL_EMAIL", $this->datas[email]); 
-		$this->live->setField("BILL_PHONE", $this->datas[szallitas_adat][phone]);
-		/*if($this->datas[user_data][szam_company] != ''):
-			$this->live->setField("BILL_COMPANY", $this->datas[user_data][szam_company]);			// optional
-			$this->live->setField("BILL_FISCALCODE", $this->datas[user_data][szam_vat]);					// optional
+		$nev = explode(" ", $this->datas['szamlazas_adat']['nev'] );
+		$this->live->setField("BILL_FNAME", $nev['0']);
+		$this->live->setField("BILL_LNAME", $nev['1']);
+		$this->live->setField("BILL_EMAIL", $this->datas['email']); 
+		$this->live->setField("BILL_PHONE", $this->datas['szallitas_adat']['phone']);
+		/*if($this->datas['user_data']['szam_company'] != ''):
+			$this->live->setField("BILL_COMPANY", $this->datas['user_data']['szam_company']);			// optional
+			$this->live->setField("BILL_FISCALCODE", $this->datas['user_data']['szam_vat']);					// optional
 
 		endif;*/
 	//		
 		$this->live->setField("BILL_COUNTRYCODE", "HU");
-		$this->live->setField("BILL_STATE", $this->datas[szamlazas_adat][state]);
-		$this->live->setField("BILL_CITY", $this->datas[szamlazas_adat][city]); 
-		$this->live->setField("BILL_ADDRESS", $this->datas[szamlazas_adat][uhsz] ); 
+		$this->live->setField("BILL_STATE", $this->datas['szamlazas_adat']['state']);
+		$this->live->setField("BILL_CITY", $this->datas['szamlazas_adat']['city']); 
+		$this->live->setField("BILL_ADDRESS", $this->datas['szamlazas_adat']['uhsz'] ); 
 		//$this->live->setField("BILL_ADDRESS2", "Second line address");		// optional
-		$this->live->setField("BILL_ZIPCODE", $this->datas[szamlazas_adat][irsz]); 
+		$this->live->setField("BILL_ZIPCODE", $this->datas['szamlazas_adat']['irsz']); 
 			
 		/**
 		 * Delivery data
 		 */	
-		$this->live->setField("DELIVERY_FNAME", $nev[0]); 
-		$this->live->setField("DELIVERY_LNAME", $nev[1]); 
-		$this->live->setField("DELIVERY_EMAIL", $this->datas[email]); 
-		$this->live->setField("DELIVERY_PHONE", $this->datas[szallitas_adat][phone]); 
+		$this->live->setField("DELIVERY_FNAME", $nev['0']); 
+		$this->live->setField("DELIVERY_LNAME", $nev['1']); 
+		$this->live->setField("DELIVERY_EMAIL", $this->datas['email']); 
+		$this->live->setField("DELIVERY_PHONE", $this->datas['szallitas_adat']['phone']); 
 		$this->live->setField("DELIVERY_COUNTRYCODE", "HU");
-		$this->live->setField("DELIVERY_STATE", $this->datas[szallitas_adat][state]);
-		$this->live->setField("DELIVERY_CITY", $this->datas[szallitas_adat][city]);
-		$this->live->setField("DELIVERY_ADDRESS",  $this->datas[szallitas_adat][uhsz] ); 
+		$this->live->setField("DELIVERY_STATE", $this->datas['szallitas_adat']['state']);
+		$this->live->setField("DELIVERY_CITY", $this->datas['szallitas_adat']['city']);
+		$this->live->setField("DELIVERY_ADDRESS",  $this->datas['szallitas_adat']['uhsz'] ); 
 		//$this->live->setField("DELIVERY_ADDRESS2", "Second line address");	// optional
-		$this->live->setField("DELIVERY_ZIPCODE", $this->datas[szallitas_adat][irsz]); 
+		$this->live->setField("DELIVERY_ZIPCODE", $this->datas['szallitas_adat']['irsz']); 
 
 		$this->live->logger 	= $this->config['LOGGER'];
 		$this->live->log_path 	= $this->config['LOG_PATH'];

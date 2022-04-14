@@ -1,0 +1,127 @@
+table.ip5{
+  width:550px;
+}
+
+form{
+	height:1px;
+	margin:auto;
+	padding:0 0 0 0;
+	height:auto;
+}
+
+table.ip5 td {
+ padding:5px;
+  border-spacing:5px;
+  border-collapse:separate;
+ 
+}
+.ipd5{
+	padding:5px;
+	width:545px;
+}
+.p5{
+	padding:3px;
+}
+.nws{ font-size: 1.5em; }
+
+.nnews .cmt, .nnews .tm{ font-size:0.8em;}
+#alomhaltartalom *{font-size:0.92em;}
+#alomhaltartalom .pr .ea{ font-size: 1.05em;}
+#alomhaltartalom input.ssalom{ font-size: 1.5em;}
+.kosarInfo{
+	margin-left:155px;
+}
+#head .fake_logo .topMenuBar .ws_icon{
+	margin-left:-185px;
+}
+
+#bgwire{
+	background:#fff;
+	filter: alpha(opacity=1);
+	position:absolute;
+	z-index:0;
+	top:expression(body.scrollTop);
+	left:0;
+	height:100%;
+	width:100%;
+}
+
+.rtsd .modHead, .lfsd .modHead{
+	background-color:#9ee325;
+	padding:8px 0;
+}
+
+.tmLt{
+	font-size:0.85em;
+}
+.item .ar{
+	font-size:0.95em;
+}
+
+ul ul{ display:none; }
+li:hover ul{display:block;}
+.allBejegyzes .bejegyzes{
+	width:550px;
+	margin:5px;
+}
+.slides_container div.slide{
+	position:relative;
+	height:320px;
+}
+.pagination{
+	margin-left:5px;
+}
+input[type=text]{
+	table-laoyout:fixed;
+	padding:2px;
+	width:100%;
+	left:-1px;
+	position:relative;
+}
+input.green, input.green{
+	background:#a0f424;
+	background-color:#a0f424;
+	color:#37760f;
+	border:1px solid #70d41f;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+input.blue, input.blue{
+	background:#09b4f6;
+	background-color:#09b4f6;
+	color:#fff;
+	border:1px solid #1c67bb;
+	font-weight:bold;
+	cursor:pointer;
+}
+table#termLista{
+	font-size:0.74em;
+}
+.gp .head{ font-size:0.9em; padding:6px 4px; background-color:#dddddd; }
+.gp .head.blue{
+	background-color:#0780e7;
+}
+.gp .head.orange{
+	background-color:#ffa507;
+}
+
+.gp .head.green{
+	background-color:#64cc07;
+}
+.gp .head.red{
+	background-color:#ba1215;
+}
+table#inOrderTlist{font-size:0.98em;}
+.akciosW .akp{
+	margin-top:85px;
+}
+.ajtk td, .ajterm{font-size:0.75em;}
+.zommi{
+	margin-left:-248px;
+}
+.askfmtm{
+	font-size:1.5em;
+	padding:20px 0;
+}
+.termTul{font-size:0.72em;}

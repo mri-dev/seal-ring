@@ -9,7 +9,7 @@ class oldalak extends Controller{
 			$this->view->adm = $this->AdminUser;
 			$this->view->adm->logged = $this->AdminUser->isLogged();
 
-			$pages = new Pages( $this->view->gets[2], array( 'db' => $this->db )  );
+			$pages = new Pages( $this->view->gets['2'], array( 'db' => $this->db )  );
 			$pages->setAdmin( true );
 			
 			if(Post::on('add')){
@@ -21,31 +21,31 @@ class oldalak extends Controller{
 				}
 			}
 			
-			switch($this->view->gets[1]){
+			switch($this->view->gets['1']){
 				case 'szerkeszt':
 					if(Post::on('save')){
 						try{
 							$pages->save($_POST);	
-							$pages->saveTranslates( (int)$this->view->gets[2], $_POST['translate']);
+							$pages->saveTranslates( (int)$this->view->gets['2'], $_POST['translate']);
 							Helper::reload();
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'page', $pages->get( $this->view->gets[2]) );
+					$this->out( 'page', $pages->get( $this->view->gets['2']) );
 				break;
 				case 'torles':
 					if(Post::on('delId')){
 						try{
-							$pages->delete($this->view->gets[2]);	
+							$pages->delete($this->view->gets['2']);	
 							Helper::reload('/oldalak');
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'page', $pages->get( $this->view->gets[2]) );
+					$this->out( 'page', $pages->get( $this->view->gets['2']) );
 				break;
 			}
 

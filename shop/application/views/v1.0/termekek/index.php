@@ -42,9 +42,9 @@
                     <?php elseif($this->category->getName() != ''): ?>
                       <h1><?=__($this->category->getName())?></h1>
                     <?php else: ?>
-                      <?php if ($this->gets[1] == 'akciok'): ?>
+                      <?php if ($this->gets['1'] == 'akciok'): ?>
                       <h1><?=__('Akciós termékek')?></h1>
-                    <?php elseif($this->gets[1] == 'kiemelt'): ?>
+                    <?php elseif($this->gets['1'] == 'kiemelt'): ?>
                       <h1><?=__('Kiemelt termékek')?></h1>
                       <?php else: ?>
                       <h1><?=__('Termékek')?></h1>
@@ -79,7 +79,7 @@
                         unset($get['view']);
                         $qryget = http_build_query($get);
                         ?>
-                        <form class="" id="formfilter" action="/termekek/<?=$this->gets[1]?>" method="get">
+                        <form class="" id="formfilter" action="/termekek/<?=$this->gets['1']?>" method="get">
                           <input type="hidden" name="src" value="<?=$_GET['src']?>">
                           <div class="wrapper">
                             <div class="page-product-info">
@@ -90,8 +90,8 @@
                               <div class="input-group">
                                 <span class="input-group-addon"><?=__('Nézet')?></span>
                                 <div class="list-type-switch-holder">
-                                  <div title="Lista nézet" class="<?=($this->list_type=='list')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=list&'.$qryget?>"><i class="fa fa-list"></i></a></div>
-                                  <div title="Blokk nézet" class="<?=($this->list_type=='grid')?'active':''?>"><a href="/termekek/<?=$this->gets[1].'/'.(($this->gets[2]!='')?$this->gets[2]:'-').'/?st=1&view=grid&'.$qryget?>"><i class="fa fa-th"></i></a></div>
+                                  <div title="Lista nézet" class="<?=($this->list_type=='list')?'active':''?>"><a href="/termekek/<?=$this->gets['1'].'/'.(($this->gets['2']!='')?$this->gets['2']:'-').'/?st=1&view=list&'.$qryget?>"><i class="fa fa-list"></i></a></div>
+                                  <div title="Blokk nézet" class="<?=($this->list_type=='grid')?'active':''?>"><a href="/termekek/<?=$this->gets['1'].'/'.(($this->gets['2']!='')?$this->gets['2']:'-').'/?st=1&view=grid&'.$qryget?>"><i class="fa fa-th"></i></a></div>
                                 </div>
                               </div>
                             </div>

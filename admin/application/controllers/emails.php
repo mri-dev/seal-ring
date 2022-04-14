@@ -30,18 +30,18 @@ class emails extends Controller{
 
 		public function edit()
 		{
-			$mailtemplate = (new MailTemplates(array('db'=>$this->db)))->load($this->gets[2]);
+			$mailtemplate = (new MailTemplates(array('db'=>$this->db)))->load($this->gets['2']);
 			$this->out( 'mail', $mailtemplate->getData() );
-			$this->out( 'mailtranslates', $mailtemplate->getTranslates($this->gets[2]));
+			$this->out( 'mailtranslates', $mailtemplate->getTranslates($this->gets['2']));
 
 			if (Post::on('saveEmail') ) 
 			{
 				try {
-					$mailtemplate->save( $this->gets[2], $_POST['data'] );
+					$mailtemplate->save( $this->gets['2'], $_POST['data'] );
 
 					if(isset($_POST['translate']))
 					{
-						$mailtemplate->saveTranslates( $this->gets[2], $_POST['translate'] );
+						$mailtemplate->saveTranslates( $this->gets['2'], $_POST['translate'] );
 					}
 
 					Helper::reload();

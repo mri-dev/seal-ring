@@ -52,7 +52,7 @@
             <? endif; ?>
             </div>
             <h1><?=$this->product['nev']?></h1>
-            <div class="cat"><?=$this->product['in_cat_names'][0]?></div>
+            <div class="cat"><?=$this->product['in_cat_names']['0']?></div>
             <div class="divider"></div>
             <div class="rack">
                 <div class="grid-layout kpm">
@@ -136,7 +136,7 @@
                                     <div class="number-select dropdown-list-selecting overflowed">
                                         <?
                                         $maxi = 10;
-                                        if( $this->product[raktar_keszlet] < $maxi ) $maxi = (int)$this->product[raktar_keszlet];
+                                        if( $this->product['raktar_keszlet'] < $maxi ) $maxi = (int)$this->product['raktar_keszlet'];
 
                                         for ( $n = 1; $n <= $maxi; $n++ ) { if($n > 10) break; ?>
                                         <div num="<?=$n?>"><?=$n?></div>
@@ -308,11 +308,11 @@
         $('#addtocart').trigger('click');
         setTimeout( function(){ document.location.href='/kosar' }, 1000);
         <? endif; ?>
-        $('.number-select > div[num]').click( function (){
+        $('.number-select > div['num']').click( function (){
             $('#add_cart_num').val($(this).attr('num'));
             $('#item-count-num').text($(this).attr('num')+' db');
         });
-        $('.size-selector > .number-select > div[link]').click( function (){
+        $('.size-selector > .number-select > div['link']').click( function (){
             document.location.href = $(this).attr('link');
         });
 

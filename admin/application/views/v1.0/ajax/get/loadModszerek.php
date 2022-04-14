@@ -19,6 +19,6 @@
     <option value="">-- módszer kiválasztása --</option>
     <option value="" disabled></option>
     <? foreach($this->modszerek as $d): ?>
-    <option value="<?=$d[ID]?>"><?=Product::clear($d[neve])?></option>
+    <option value="<?=$d['ID']?>"><?=Product::clear($d['neve'])?></option>
     <? endforeach; ?>
 </select>

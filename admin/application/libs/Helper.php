@@ -2,8 +2,8 @@
 	class Helper {
 
 		static function GET(){
-			$b = explode("/",rtrim($_GET[tag],"/"));
-			if($b[0] == null){ $b[0] = 'home'; }
+			$b = explode("/",rtrim($_GET['tag'],"/"));
+			if($b['0'] == null){ $b['0'] = 'home'; }
 			return $b;
 		}
 		static function getArrayValueByMatch($data, $prefix){
@@ -114,7 +114,7 @@
 		static function getLastParam(){
 			$p = self::GET();
 			$p = array_reverse($p);
-			return $p[0];
+			return $p['0'];
 		}
 
 		static function welcomeEco(){
@@ -343,11 +343,11 @@
 
 		static function sendEmail($sender,$to,$subj,$str = array()){
 
-			if($str[msg] == ""){
+			if($str['msg'] == ""){
 				throw new Exception("Az email üzenet része üres!");
 			}
 
-			$text = nl2br($str[msg]);
+			$text = nl2br($str['msg']);
 
 			$text = self::emailPatern(array(
 				"UZENET" 	=> $text,
@@ -361,8 +361,8 @@
 		  	$fejlec .= "MIME-Version: 1.0\r\n" . "Content-type: text/html; charset=utf-8\r\n";
 		  	$fejlec .= "Reply-To:".$kuldo."\r\n";
 		  	$fejlec .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-			if(!empty($str[bcc])){
-				$fejlec .= 'BCC: '. implode(",", $str[bcc]) . "\r\n";
+			if(!empty($str['bcc'])){
+				$fejlec .= 'BCC: '. implode(",", $str['bcc']) . "\r\n";
 			}
 		  	$fejlec .= "X-Sender-IP: ".$_SERVER["REMOTE_ADDR"]."\r\n";
 		  	$fejlec .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
@@ -377,7 +377,7 @@
             $next = 1;
             $prev = 1;
 
-            $i = $info_arr[pages];
+            $i = $info_arr['pages'];
 
             if(!empty($i)){
                 extract($i);
@@ -394,8 +394,8 @@
                 }
             }
 
-            $data[next] = $next;
-            $data[prev] = $prev;
+            $data['next'] = $next;
+            $data['prev'] = $prev;
 
             return $data;
         }
@@ -410,7 +410,7 @@
 			$url = $_SERVER['REQUEST_URI'];
 			$xurl = explode("/",trim($url,"/"));
 			$xurl = array_reverse($xurl);
-			$url = str_replace($xurl[0].'/',"",$url);
+			$url = str_replace($xurl['0'].'/',"",$url);
 			return $url;
 		}
 
@@ -445,12 +445,12 @@
 		/**
          * Oldal listázást hoz létre.
          *
-         * @param array $page_arry A lekérdezés nyers "page" result tömb információja. Pl.: $result[info][pages]
+         * @param array $page_arry A lekérdezés nyers "page" result tömb információja. Pl.: $result['info']['pages']
          * @return void
 		*/
 		static function makeNavigator($page_arry){
-			$max 	= (int)$page_arry[max];
-			$c 		= (int)$page_arry[current];
+			$max 	= (int)$page_arry['max'];
+			$c 		= (int)$page_arry['current'];
 
 			echo '<ul class="navi">';
 			// Oldalak
@@ -465,9 +465,9 @@
 		}
 
 		static function pagePosition($page_arry){
-            $max = $page_arry[max];
+            $max = $page_arry['max'];
             if($max <=0) $max = 1;
-			echo '<strong>'.$page_arry[current].'</strong>. '.__('oldal').' / <strong>'.$max.' '.__('összesen').'</strong>';
+			echo '<strong>'.$page_arry['current'].'</strong>. '.__('oldal').' / <strong>'.$max.' '.__('összesen').'</strong>';
 		}
 
 
@@ -485,7 +485,7 @@
 
 			foreach($cut as $c){
 				$ec = explode(":",$c);
-				$ret[$ec[0]] = $ec[1];
+				$ret[$ec['0']] = $ec['1'];
 			}
 
 			return $ret;
@@ -892,13 +892,13 @@
 			return $ret;
 		}
 		static function getProfilImg($img = '', $arg = array()){
-			$arg[cache] = (!$arg[cache]) ? true : $arg[cache];
-			$arg[width] = (!$arg[width]) ? 50 : $arg[width];
-			$defi = ($arg[def]) ? $arg[def] : 'no-profil-img.jpg';
+			$arg['cache'] = (!$arg['cache']) ? true : $arg['cache'];
+			$arg['width'] = (!$arg['width']) ? 50 : $arg['width'];
+			$defi = ($arg['def']) ? $arg['def'] : 'no-profil-img.jpg';
 
 			$iroot = CLR_DOMAIN.IMG;
-			if($arg[stored]){
-				switch($arg[stored]){
+			if($arg['stored']){
+				switch($arg['stored']){
 					case 'ittettunk':
 						$iroot = PLACE_IMG;
 					break;
@@ -906,17 +906,17 @@
 			}
 
 			if(strpos($img,'facebook') !== false){
-				$arg[cache] = false;
+				$arg['cache'] = false;
 			}
 
 			if($img == '' || is_null($img)){
-				return 'http://images.weserv.nl/?url='.CLR_DOMAIN.IMG.$defi.'&w='.$arg[width].'&h='.$arg[width].'&t=square';
+				return 'http://images.weserv.nl/?url='.CLR_DOMAIN.IMG.$defi.'&w='.$arg['width'].'&h='.$arg['width'].'&t=square';
 			}
 
-			if($arg[cache]){
+			if($arg['cache']){
 				$img 	= str_replace('http://','',$img);
 				if(strpos($img,CLR_DOMAIN) !== 0) $img = $iroot.$img;
-				$re_img = 'http://images.weserv.nl/?url='.$img.'&w='.$arg[width].'&h='.$arg[width].'&t=square';
+				$re_img = 'http://images.weserv.nl/?url='.$img.'&w='.$arg['width'].'&h='.$arg['width'].'&t=square';
 			}else{
 				$re_img = $img;
 			}
@@ -928,14 +928,14 @@
 				echo '<ul class="pagenavi">';
 					echo '<li><a href="/">&nbsp;</a></li>';
 					foreach($eles as $elem):
-						echo '<li><a href="'.$elem[to].'">'.$elem[text].'</a></li>';
+						echo '<li><a href="'.$elem['to'].'">'.$elem['text'].'</a></li>';
 					endforeach;
 				echo '</ul>';
 			}else return false;
 		}
 
 		static function hashTag($str = '', $arg = array()){
-			$pre_tag = ($arg[pretag]) ? $arg[pretag] : 'ittettunk';
+			$pre_tag = ($arg['pretag']) ? $arg['pretag'] : 'ittettunk';
 			if($str == '') return '';
 			$fstr = '';
 			$xstr = explode(" ",trim($str));
@@ -947,24 +947,24 @@
 		}
 
 		static function smtpMail($arg = array()){
-			if(is_array($arg[recepiens]) && count($arg[recepiens]) > 0){
+			if(is_array($arg['recepiens']) && count($arg['recepiens']) > 0){
 
 				date_default_timezone_set('Europe/Budapest');
 
 				$mail = new PHPMailer;
-				$news = ($arg[news]) ? true : false;
-				$from = ($arg[from]) ? $arg[from] : EMAIL;
-				$fromName = ($arg[fromName]) ? $arg[fromName] : TITLE;
+				$news = ($arg['news']) ? true : false;
+				$from = ($arg['from']) ? $arg['from'] : EMAIL;
+				$fromName = ($arg['fromName']) ? $arg['fromName'] : TITLE;
 
 				$mail->isSMTP();                    // Set mailer to use SMTP
 				//$mail->Host 		= '';
-				$mail->SMTPDebug 	= ($arg[debug]) ? $arg[debug] : 0;
+				$mail->SMTPDebug 	= ($arg['debug']) ? $arg['debug'] : 0;
 
 
 				$mail->SMTPAuth 	= true;         // Enable SMTP authentication
-				$mail->SMTPSecure 	= ($arg[smtp_mode])?$arg[smtp_mode]:SMTP_MODE;    // Enable encryption, 'ssl' also accepted
+				$mail->SMTPSecure 	= ($arg['smtp_mode'])?$arg['smtp_mode']:SMTP_MODE;    // Enable encryption, 'ssl' also accepted
 				$mail->Host 		= SMTP_HOST;  	// Specify main and backup server
-				$mail->Port 		= ($arg[smtp_port])?$arg[smtp_port]:SMTP_PORT;
+				$mail->Port 		= ($arg['smtp_port'])?$arg['smtp_port']:SMTP_PORT;
 				$mail->Username 	= SMTP_USER;    // SMTP username
 				$mail->Password 	= SMTP_PW;      // SMTP password
 
@@ -977,20 +977,20 @@
 				$err 				= array();
 				$ret 				= array();
 
-				foreach($arg[recepiens] as $r){
+				foreach($arg['recepiens'] as $r){
 					$mail->addAddress($r);
 					$mail->WordWrap = 150;                                 // Set word wrap to 50 characters
 					$mail->isHTML(true);                                  // Set email format to HTML
 
 					$msg = Helper::emailPatern(array(
-						'UZENET' 	=> $arg[msg],
-						'ALAIRAS' 	=> $arg[alairas],
-						'TEMA_NEV' 	=> $arg[tema],
+						'UZENET' 	=> $arg['msg'],
+						'ALAIRAS' 	=> $arg['alairas'],
+						'TEMA_NEV' 	=> $arg['tema'],
 						'NEWS' 		=> $news,
 						'EMAIL' 	=> $r
 					));
 
-					$mail->Subject = $arg[sub];
+					$mail->Subject = $arg['sub'];
 					$mail->Body    = $msg;
 					$mail->AltBody = $mail->html2text($msg);
 
@@ -1005,18 +1005,18 @@
 					$mail->clearAddresses();
    					$mail->clearAttachments();
 				}
-				$ret[failed] 	= $err;
-				$ret[success] 	= $inserted;
+				$ret['failed'] 	= $err;
+				$ret['success'] 	= $inserted;
 				return $ret;
 			}else return false;
 		}
 
 		static function sendMail($arg = array()){
-			if(is_array($arg[recepiens]) && count($arg[recepiens]) > 0){
+			if(is_array($arg['recepiens']) && count($arg['recepiens']) > 0){
 
 				$mail = new PHPMailer;
-				$news = ($arg[news]) ? true : false;
-				$from = ($arg[from]) ? $arg[from] : EMAIL;
+				$news = ($arg['news']) ? true : false;
+				$from = ($arg['from']) ? $arg['from'] : EMAIL;
 
 				$mail->isSMTP();
 
@@ -1031,25 +1031,25 @@
 				$err 				= array();
 				$ret 				= array();
 
-				foreach($arg[recepiens] as $r){
+				foreach($arg['recepiens'] as $r){
 					$mail->addAddress($r);
 					$mail->WordWrap = 150;                                 // Set word wrap to 50 characters
 					$mail->isHTML(true);                                  // Set email format to HTML
 
 					$msg = Helper::emailPatern(array(
-						'UZENET' 	=> $arg[msg],
-						'ALAIRAS' 	=> $arg[alairas],
-						'TEMA_NEV' 	=> $arg[tema],
+						'UZENET' 	=> $arg['msg'],
+						'ALAIRAS' 	=> $arg['alairas'],
+						'TEMA_NEV' 	=> $arg['tema'],
 						'NEWS' 		=> $news,
 						'EMAIL' 	=> $r
 					));
 
-					$mail->Subject = $arg[sub];
+					$mail->Subject = $arg['sub'];
 					$mail->msgHtml($msg);
 					$mail->AltBody = $mail->html2text($msg);
 
-                    if($arg[file]){
-                        $mail->addAttachment($arg[file]);
+                    if($arg['file']){
+                        $mail->addAttachment($arg['file']);
                     }
 
 					if (!$mail->send()) {
@@ -1063,8 +1063,8 @@
 					$mail->clearAddresses();
    					$mail->clearAttachments();
 				}
-				$ret[failed] 	= $err;
-				$ret[success] 	= $inserted;
+				$ret['failed'] 	= $err;
+				$ret['success'] 	= $inserted;
 				//print_r($ret);
 				return $ret;
 			}else return false;
@@ -1109,20 +1109,20 @@
 
 			$reg 		= array();
 			$precut 	= explode('$', $str);
-			$register 	= trim($precut[0]).'_';
-            $root       = ($arg[path]) ? '/'.$arg[path] : '/';
+			$register 	= trim($precut['0']).'_';
+            $root       = ($arg['path']) ? '/'.$arg['path'] : '/';
 
-			if(strpos($precut[1],'=') === false){
+			if(strpos($precut['1'],'=') === false){
 				return false;
 			}
 
-			$prestr 	= rtrim($precut[1], '::');
+			$prestr 	= rtrim($precut['1'], '::');
 			$keycut 	= explode('::', $prestr);
 
 
 			foreach($keycut as $k){
 				$ck = explode('=', $k);
-				$reg[trim($ck[0])] = trim($ck[1]);
+				$reg[trim($ck['0'])] = trim($ck['1']);
 			}
 
 			// Reg
@@ -1132,7 +1132,7 @@
 
 			if($reload){
 				$reto = $_SERVER['REQUEST_URI'];
-				$reto = str_replace(str_replace($precut[0].'$','',$str),'',$reto);
+				$reto = str_replace(str_replace($precut['0'].'$','',$str),'',$reto);
 				header('Location: '.$reto);
 			}
 		}
@@ -1159,8 +1159,8 @@
 
             $keys = array_keys($list);
             $random = array();
-            if(is_array($arg[step]) && count($arg[step]) > 0){
-                foreach($arg[step] as $stp){
+            if(is_array($arg['step']) && count($arg['step']) > 0){
+                foreach($arg['step'] as $stp){
                     if($stp != '' && array_key_exists($stp,$list)){
                         $random[$stp] = $list[$stp];
                         unset($keys[$stp]);

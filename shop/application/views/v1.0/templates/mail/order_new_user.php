@@ -1,7 +1,7 @@
 <? require "head.php"; ?>
 <h2>Tisztelt <?=$nev?>!</h2>
 <h3>Köszönjük, hogy a(z) <?=$settings['page_title']?> webáruházat választotta!</h3>
-<div>A rendelés azonosítója: <strong><?=$orderData[azonosito]?></strong></div>
+<div>A rendelés azonosítója: <strong><?=$orderData['azonosito']?></strong></div>
 <br>
 <div><h3>Megrendelt termékek</h3></div>
 <table class="if" width="100%" border="1" style="border-collapse:collapse;" cellpadding="10" cellspacing="0">
@@ -16,12 +16,12 @@
 </thead>
 <tbody style="color:#888;">
 <? foreach($cart as $d){
-	$total += ($d[ar]*$d[me]);
+	$total += ($d['ar']*$d['me']);
 ?>
 	<tr>
-		<td align="center"><?=$d[me]?>x</td>
+		<td align="center"><?=$d['me']?>x</td>
 		<td>
-			<a href="<?=$d[url]?>"><?=$d[nev]?></a>
+			<a href="<?=$d['url']?>"><?=$d['nev']?></a>
 			<?php if ($d['configs']): ?>
 				<div class="config">
 					-> <?php foreach ((array)$d['configs'] as $cid => $c): ?>
@@ -30,8 +30,8 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=number_format($d[ar], 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
-		<td align="center"><?=number_format(($d[ar]*$d[me]), 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format($d['ar'], 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><?=number_format(($d['ar']*$d['me']), 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 		<td align="center">
 			<?php if ((float)$d['keszleten'] == 0): ?>
 				<strong style="color:red;">Rendelés alatt!</strong>
@@ -85,62 +85,62 @@
 	<tbody>
 		<tr>
 			<td width="150" align="left">Név</td>
-			<td align="left"><strong><?=$szamlazasi_keys[nev]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['nev']?></strong></td>
 		</tr>
-		<?php if ( $szamlazasi_keys[adoszam] != '' ): ?>
+		<?php if ( $szamlazasi_keys['adoszam'] != '' ): ?>
 		<tr>
 			<td width="150" align="left">Adószám</td>
-			<td align="left"><strong><?=$szamlazasi_keys[adoszam]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['adoszam']?></strong></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
 			<td align="left">Irányítószám</td>
-			<td align="left"><strong><?=$szamlazasi_keys[irsz]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['irsz']?></strong></td>
 		</tr>
-		<?php if ( $szamlazasi_keys[kerulet] != '' ): ?>
+		<?php if ( $szamlazasi_keys['kerulet'] != '' ): ?>
 		<tr>
 			<td align="left">Kerület</td>
-			<td align="left"><strong><?=$szamlazasi_keys[kerulet]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['kerulet']?></strong></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
 			<td align="left">Település</td>
-			<td align="left"><strong><?=$szamlazasi_keys[city]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['city']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Közterület neve</td>
-			<td align="left"><strong><?=$szamlazasi_keys[kozterulet_nev]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['kozterulet_nev']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Közterület jellege</td>
-			<td align="left"><strong><?=$szamlazasi_keys[kozterulet_jelleg]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['kozterulet_jelleg']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Házszám</td>
-			<td align="left"><strong><?=$szamlazasi_keys[hazszam]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['hazszam']?></strong></td>
 		</tr>
-		<?php if ( $szamlazasi_keys[epulet] != '' ): ?>
+		<?php if ( $szamlazasi_keys['epulet'] != '' ): ?>
 		<tr>
 			<td align="left">Épület</td>
-			<td align="left"><strong><?=$szamlazasi_keys[epulet]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['epulet']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szamlazasi_keys[lepcsohaz] != '' ): ?>
+		<?php if ( $szamlazasi_keys['lepcsohaz'] != '' ): ?>
 		<tr>
 			<td align="left">Lépcsőház</td>
-			<td align="left"><strong><?=$szamlazasi_keys[lepcsohaz]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['lepcsohaz']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szamlazasi_keys[szint] != '' ): ?>
+		<?php if ( $szamlazasi_keys['szint'] != '' ): ?>
 		<tr>
 			<td align="left">Szint</td>
-			<td align="left"><strong><?=$szamlazasi_keys[szint]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['szint']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szamlazasi_keys[ajto] != '' ): ?>
+		<?php if ( $szamlazasi_keys['ajto'] != '' ): ?>
 		<tr>
 			<td align="left">Ajtó</td>
-			<td align="left"><strong><?=$szamlazasi_keys[ajto]?></strong></td>
+			<td align="left"><strong><?=$szamlazasi_keys['ajto']?></strong></td>
 		</tr>
 		<?php endif; ?>
 	</tbody>
@@ -150,83 +150,83 @@
 	<tbody>
 		<tr>
 			<td width="150" align="left">Név</td>
-			<td align="left"><strong><?=$szallitasi_keys[nev]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['nev']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Irányítószám</td>
-			<td align="left"><strong><?=$szallitasi_keys[irsz]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['irsz']?></strong></td>
 		</tr>
-		<?php if ( $szallitasi_keys[kerulet] != '' ): ?>
+		<?php if ( $szallitasi_keys['kerulet'] != '' ): ?>
 		<tr>
 			<td align="left">Kerület</td>
-			<td align="left"><strong><?=$szallitasi_keys[kerulet]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['kerulet']?></strong></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
 			<td align="left">Település</td>
-			<td align="left"><strong><?=$szallitasi_keys[city]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['city']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Közterület neve</td>
-			<td align="left"><strong><?=$szallitasi_keys[kozterulet_nev]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['kozterulet_nev']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Közterület jellege</td>
-			<td align="left"><strong><?=$szallitasi_keys[kozterulet_jelleg]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['kozterulet_jelleg']?></strong></td>
 		</tr>
 		<tr>
 			<td align="left">Házszám</td>
-			<td align="left"><strong><?=$szallitasi_keys[hazszam]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['hazszam']?></strong></td>
 		</tr>
-		<?php if ( $szallitasi_keys[epulet] != '' ): ?>
+		<?php if ( $szallitasi_keys['epulet'] != '' ): ?>
 		<tr>
 			<td align="left">Épület</td>
-			<td align="left"><strong><?=$szallitasi_keys[epulet]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['epulet']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szallitasi_keys[lepcsohaz] != '' ): ?>
+		<?php if ( $szallitasi_keys['lepcsohaz'] != '' ): ?>
 		<tr>
 			<td align="left">Lépcsőház</td>
-			<td align="left"><strong><?=$szallitasi_keys[lepcsohaz]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['lepcsohaz']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szallitasi_keys[szint] != '' ): ?>
+		<?php if ( $szallitasi_keys['szint'] != '' ): ?>
 		<tr>
 			<td align="left">Szint</td>
-			<td align="left"><strong><?=$szallitasi_keys[szint]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['szint']?></strong></td>
 		</tr>
 		<?php endif; ?>
-		<?php if ( $szallitasi_keys[ajto] != '' ): ?>
+		<?php if ( $szallitasi_keys['ajto'] != '' ): ?>
 		<tr>
 			<td align="left">Ajtó</td>
-			<td align="left"><strong><?=$szallitasi_keys[ajto]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['ajto']?></strong></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
 			<td align="left">Telefonszám</td>
-			<td align="left"><strong><?=$szallitasi_keys[phone]?></strong></td>
+			<td align="left"><strong><?=$szallitasi_keys['phone']?></strong></td>
 		</tr>
 	</tbody>
 </table>
 <div><h3>Egyéb adatok</h3></div>
 <table class="if" width="100%" border="1" style="border-collapse:collapse;" cellpadding="10" cellspacing="0">
 <tbody>
-	<? if($orderData[used_cash] != 0): ?>
+	<? if($orderData['used_cash'] != 0): ?>
 	<tr>
 		<td width="150" align="left">Felhasznált egyenleg</td>
-		<td align="left"><strong><?=$orderData[used_cash]?> Ft</strong></td>
+		<td align="left"><strong><?=$orderData['used_cash']?> Ft</strong></td>
 	</tr>
 	<? endif; ?>
-	<? if( $orderData[coupon_code] ): ?>
+	<? if( $orderData['coupon_code'] ): ?>
 	<tr>
 		<td width="150" align="left">Felhasznált kuponkód</td>
-		<td align="left"><strong><?=$orderData[coupon_code]?></strong></td>
+		<td align="left"><strong><?=$orderData['coupon_code']?></strong></td>
 	</tr>
 	<? endif; ?>
-	<? if( $orderData[referer_code] ): ?>
+	<? if( $orderData['referer_code'] ): ?>
 	<tr>
 		<td width="150" align="left">Felhasznált ajánló partnerkód</td>
-		<td align="left"><strong><?=$orderData[referer_code]?></strong></td>
+		<td align="left"><strong><?=$orderData['referer_code']?></strong></td>
 	</tr>
 	<? endif; ?>
 	<tr>
@@ -269,7 +269,7 @@
 		</tr>
 		<tr>
 			<td align="left">Közleménybe:<br><em style="font-size:12px;">(megrendelés azonosító)</em></td>
-			<td align="left"><strong><strong><?=$orderData[azonosito]?></strong></td>
+			<td align="left"><strong><strong><?=$orderData['azonosito']?></strong></td>
 		</tr>
 	</tbody>
 	</table>

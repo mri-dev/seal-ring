@@ -13,7 +13,7 @@ class File{
             if($file->isDot()||$file->isDir()) continue;
             $src = $file->getPath().'/'.$file->getFilename();
             $size = getimagesize($src);
-            list($sinfo[sz],$sinfo[m]) = $size;
+            list($sinfo['sz'],$sinfo['m']) = $size;
             $ret[] = array(
                 "src" => '/'.$src,
                 "name" => $file->getFilename(),

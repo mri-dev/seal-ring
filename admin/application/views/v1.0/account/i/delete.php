@@ -1,5 +1,5 @@
 <? $data = $this->data; ?>
-<h1><?=$data[nev]?> <small><?=$data[email]?></small></h1>
+<h1><?=$data['nev']?> <small><?=$data['email']?></small></h1>
 <?=$this->msg?>
 <form action="" method="post">
 	<div style="margin: 0 -10px;">

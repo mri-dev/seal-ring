@@ -42,7 +42,7 @@ class Users
 	{
 		$this->db 		= $arg['db'];
 		$this->is_cp 	= $arg['admin'];
-		$this->settings = $arg[view]->settings;
+		$this->settings = $arg['view']->settings;
 
 		if( !$this->settings && isset( $arg['settings'] ) )
 		{
@@ -137,11 +137,11 @@ class Users
 		$ret['szamlazasi_adat'] = $this->getSzamlazasiAdatok($ret['data']['ID']);
 
 		// Ha hiányzik az adat
-		if( ( !$ret[szallitasi_adat] || !$ret[szamlazasi_adat] ) && !$this->is_cp && !$ajaxrequest) {
+		if( ( !$ret['szallitasi_adat'] || !$ret['szamlazasi_adat'] ) && !$this->is_cp && !$ajaxrequest) {
 			if( $_GET['safe'] !='1' ) {
 				$miss = '';
-				if( !($ret[szallitasi_adat]) ) $miss .= 'szallitasi,';
-				if( !($ret[szamlazasi_adat]) ) $miss .= 'szamlazasi,';
+				if( !($ret['szallitasi_adat']) ) $miss .= 'szallitasi,';
+				if( !($ret['szamlazasi_adat']) ) $miss .= 'szamlazasi,';
 				$miss = rtrim($miss,',');
 				if ($miss != "") {
 					\Helper::reload( '/user/beallitasok?safe=1&missed_details='.$miss );
@@ -154,24 +154,24 @@ class Users
 			if( $_GET['safe'] !='1' ) {
 				$miss = '';
 				// Szállítás
-				if ( $ret[szallitasi_adat] ) {
-					if( empty($ret[szallitasi_adat][nev]) ) $miss .= 'szall_nev,';
-					if( empty($ret[szallitasi_adat][phone]) ) $miss .= 'szall_phone,';
-					if( empty($ret[szallitasi_adat][irsz]) ) $miss .= 'szall_irsz,';
-					if( empty($ret[szallitasi_adat][city]) ) $miss .= 'szall_city,';
-					if( empty($ret[szallitasi_adat][kozterulet_nev]) ) $miss .= 'szall_kozterulet_nev,';
-					if( empty($ret[szallitasi_adat][kozterulet_jelleg]) ) $miss .= 'szall_kozterulet_jelleg,';
-					if( empty($ret[szallitasi_adat][hazszam]) ) $miss .= 'szall_hazszam,';
+				if ( $ret['szallitasi_adat'] ) {
+					if( empty($ret['szallitasi_adat']['nev']) ) $miss .= 'szall_nev,';
+					if( empty($ret['szallitasi_adat']['phone']) ) $miss .= 'szall_phone,';
+					if( empty($ret['szallitasi_adat']['irsz']) ) $miss .= 'szall_irsz,';
+					if( empty($ret['szallitasi_adat']['city']) ) $miss .= 'szall_city,';
+					if( empty($ret['szallitasi_adat']['kozterulet_nev']) ) $miss .= 'szall_kozterulet_nev,';
+					if( empty($ret['szallitasi_adat']['kozterulet_jelleg']) ) $miss .= 'szall_kozterulet_jelleg,';
+					if( empty($ret['szallitasi_adat']['hazszam']) ) $miss .= 'szall_hazszam,';
 				}
 
 				// Számlázás
-				if ( $ret[szamlazasi_adat] ) {
-					if( empty($ret[szamlazasi_adat][nev]) ) $miss .= 'szam_nev,';
-					if( empty($ret[szamlazasi_adat][irsz]) ) $miss .= 'szam_irsz,';
-					if( empty($ret[szamlazasi_adat][city]) ) $miss .= 'szam_city,';
-					if( empty($ret[szamlazasi_adat][kozterulet_nev]) ) $miss .= 'szam_kozterulet_nev,';
-					if( empty($ret[szamlazasi_adat][kozterulet_jelleg]) ) $miss .= 'szam_kozterulet_jelleg,';
-					if( empty($ret[szamlazasi_adat][hazszam]) ) $miss .= 'szam_hazszam,';
+				if ( $ret['szamlazasi_adat'] ) {
+					if( empty($ret['szamlazasi_adat']['nev']) ) $miss .= 'szam_nev,';
+					if( empty($ret['szamlazasi_adat']['irsz']) ) $miss .= 'szam_irsz,';
+					if( empty($ret['szamlazasi_adat']['city']) ) $miss .= 'szam_city,';
+					if( empty($ret['szamlazasi_adat']['kozterulet_nev']) ) $miss .= 'szam_kozterulet_nev,';
+					if( empty($ret['szamlazasi_adat']['kozterulet_jelleg']) ) $miss .= 'szam_kozterulet_jelleg,';
+					if( empty($ret['szamlazasi_adat']['hazszam']) ) $miss .= 'szam_hazszam,';
 				}
 
 				$miss = rtrim($miss,',');
@@ -184,8 +184,8 @@ class Users
 		// Kedvezmény - Viszonteladóknál
 		if( $ret['data']['user_group'] == self::USERGROUP_RESELLER )
 		{
-			$kedv = $this->getKedvezmeny($ret[data][ID]);
-			$torzsvasarloi_kedvezmeny = $kedv[szazalek];
+			$kedv = $this->getKedvezmeny($ret['data']['ID']);
+			$torzsvasarloi_kedvezmeny = $kedv['szazalek'];
 
 			$kedvezmenyek[] = array(
 				'nev' 			=> 'Viszonteladói kedvezmény',
@@ -216,7 +216,7 @@ class Users
 		SELECT 				SUM((o.me * o.egysegAr)) as ar,
 		 					(SELECT kedvezmeny FROM orders WHERE ID = o.orderKey)  as kedv
 		FROM 				`order_termekek` as o
-		WHERE 				o.userID = ".$ret[data][ID]." and (SELECT allapot FROM orders WHERE ID = o.orderKey) = ".$this->settings['flagkey_orderstatus_done'];
+		WHERE 				o.userID = ".$ret['data']['ID']." and (SELECT allapot FROM orders WHERE ID = o.orderKey) = ".$this->settings['flagkey_orderstatus_done'];
 
 		$ordpc = $this->db->query($q)->fetch(\PDO::FETCH_ASSOC);
 
@@ -234,8 +234,8 @@ class Users
 		$ret['casadashop'] 		= $casadashop;
 		$ret['kedvezmenyek'] 	= $kedvezmenyek;
 		$ret['torzsvasarloi_kedvezmeny'] = $torzsvasarloi_kedvezmeny;
-		$ret['torzsvasarloi_kedvezmeny_next_price_step'] = $kedv[next_price_step];
-		$ret['torzsvasarloi_kedvezmeny_price_steps'] = $kedv[price_steps];
+		$ret['torzsvasarloi_kedvezmeny_next_price_step'] = $kedv['next_price_step'];
+		$ret['torzsvasarloi_kedvezmeny_price_steps'] = $kedv['price_steps'];
 
 		$ret['kedvezmeny'] 	= $torzsvasarloi_kedvezmeny + $arena_water_card;
 
@@ -375,7 +375,7 @@ class Users
 			$ulid 		= array();
 			$ulist 		= array();
 
-			$userlist 	= $this->db->squery("SELECT user_id FROM ".self::TABLE_CONTAINERS_XREF. " WHERE container_id = :cid;", array('cid' => $d[ID]))->fetchAll(\PDO::FETCH_ASSOC);
+			$userlist 	= $this->db->squery("SELECT user_id FROM ".self::TABLE_CONTAINERS_XREF. " WHERE container_id = :cid;", array('cid' => $d['ID']))->fetchAll(\PDO::FETCH_ASSOC);
 
 			if(count($userlist) > 0) {
 				foreach ($userlist as $u )
@@ -607,9 +607,9 @@ class Users
 
 		foreach($data as $d){
 
-			$from 	= (int)$d[ar_from];
-			$to 	= (int)$d[ar_to];
-			$k 		= (float)$d[kedvezmeny];
+			$from 	= (int)$d['ar_from'];
+			$to 	= (int)$d['ar_to'];
+			$k 		= (float)$d['kedvezmeny'];
 
 			if($to === 0) $to = 999999999;
 
@@ -635,9 +635,9 @@ class Users
 
 		$next_step_price = $price_steps[$step];
 
-		$back[szazalek] = $kedv;
-		$back[next_price_step] = $next_step_price;
-		$back[price_steps] = $price_steps;
+		$back['szazalek'] = $kedv;
+		$back['next_price_step'] = $next_step_price;
+		$back['price_steps'] = $price_steps;
 
 		return $back;
 	}
@@ -670,9 +670,9 @@ class Users
 		extract($this->db->q($sv,array('multi' => '1')));
 
 		foreach($data as $d){
-			$from 	= (int)$d[ar_from];
-			$to 	= (int)$d[ar_to];
-			$k 		= (float)$d[kedvezmeny];
+			$from 	= (int)$d['ar_from'];
+			$to 	= (int)$d['ar_to'];
+			$k 		= (float)$d['kedvezmeny'];
 
 			if($to === 0) $to = 999999999;
 
@@ -732,8 +732,8 @@ class Users
 	}
 
 	private function getUser(){
-		if($_SESSION[user_email]){
-			$this->user = $_SESSION[user_email]	;
+		if($_SESSION['user_email']){
+			$this->user = $_SESSION['user_email']	;
 		}
 	}
 
@@ -784,7 +784,7 @@ class Users
 
 	function changeSzallitasiAdat($userID, $post){
 		extract($post);
-		unset($post[saveSzallitasi]);
+		unset($post['saveSzallitasi']);
 
 		if(
 			$nev == '' ||
@@ -805,7 +805,7 @@ class Users
 
 	function changeSzamlazasiAdat($userID, $post){
 		extract($post);
-		unset($post[saveSzamlazasi]);
+		unset($post['saveSzamlazasi']);
 
 		if($nev == '' ||
 		$city == '' ||
@@ -842,19 +842,19 @@ class Users
 
 		$q .= " ORDER BY o.allapot ASC, o.idopont ASC ";
 
-		$arg[multi] = '1';
+		$arg['multi'] = '1';
 		extract($this->db->q($q,$arg));
 
 		foreach($data as $d){
-			if( $d[kedvezmeny_szazalek] > 0) {
-				$d[totalPrice] = $d[totalPrice] / ( $d[kedvezmeny_szazalek] / 100 + 1 ) ;
-				\PortalManager\Formater::discountPrice( $d[totalPrice], $d[kedvezmeny_szazalek] );
+			if( $d['kedvezmeny_szazalek'] > 0) {
+				$d['totalPrice'] = $d['totalPrice'] / ( $d['kedvezmeny_szazalek'] / 100 + 1 ) ;
+				\PortalManager\Formater::discountPrice( $d['totalPrice'], $d['kedvezmeny_szazalek'] );
 			}
 
-			if($d[allapotNev] == 'Teljesítve'){
-				$back[done][] = $d;
+			if($d['allapotNev'] == 'Teljesítve'){
+				$back['done'][] = $d;
 			}else{
-				$back[progress][] = $d;
+				$back['progress'][] = $d;
 			}
 		}
 
@@ -937,7 +937,7 @@ class Users
 			throw new \Exception(__('Ezzel az e-mail címmel nem regisztráltak még!'),1001);
 		}
 
-		if(!$this->validUser($data['email'],$data[pw])){
+		if(!$this->validUser($data['email'],$data['pw'])){
 
 			if($this->oldUser($data['email'])){
 				throw new \Exception('<h3>Weboldalunk megújult, ezért a régi jelszavát nem tudja használni tovább!</h3><br><strong>Jelszóemlékeztető segítségével kérhet új jelszót, amit az e-mail címére elküldünk!<br><a style="color:red;" href="/user/jelszoemlekezteto">ÚJ JELSZÓ MEAGADÁSÁHOZ KATTINTSON IDE!</a></strong>',9000);
@@ -946,13 +946,13 @@ class Users
 			}
 		}
 
-		if(!$this->isActivated($data[email])){
+		if(!$this->isActivated($data['email'])){
 			$resendemailtext = '<form method="post" action=""><div class="text-form">'.__('Nem kapta meg az aktiváló e-mailt?').'<br><br><button name="activationEmailSendAgain" value="'.$data['email'].'" class="btn btn-sm btn-danger">'.__('Aktiváló e-mail újraküldése!').'</button></div></form>';
 
 			throw new \Exception('<br>'.__('A fiók még nincs aktiválva!').' '.$resendemailtext ,1001);
 		}
 
-		if(!$this->isEnabled($data[email])){
+		if(!$this->isEnabled($data['email'])){
 			throw new \Exception(__('A fiók felfüggesztésre került!'),1001);
 		}
 
@@ -961,22 +961,22 @@ class Users
 			array(
 				'utoljara_belepett' => NOW
 			),
-			"email = '".$data[email]."'"
+			"email = '".$data['email']."'"
 		);
 
-		$re[email] 	= $data[email];
-		$re[pw] 	= base64_encode( $data[pw] );
-		$re[remember] = ($data[remember_me] == 'on') ? true : false;
+		$re['email'] 	= $data['email'];
+		$re['pw'] 	= base64_encode( $data['pw'] );
+		$re['remember'] = ($data['remember_me'] == 'on') ? true : false;
 
-		\Session::set('user_email',$data[email]);
+		\Session::set('user_email',$data['email']);
 
 		return $re;
 	}
 
 	function activate( $activate_arr ){
-		$email 	= $activate_arr[0];
-		$userID = $activate_arr[1];
-		$pwHash = $activate_arr[2];
+		$email 	= $activate_arr['0'];
+		$userID = $activate_arr['1'];
+		$pwHash = $activate_arr['2'];
 
 		if($email == '' || $userID == '' || $pwHash == '') throw new \Exception('Hibás azonosító');
 
@@ -986,7 +986,7 @@ class Users
 
 		$d = $q->fetch(\PDO::FETCH_ASSOC);
 
-		if(!is_null($d[aktivalva]))  throw new \Exception('A fiók már aktiválva van!');
+		if(!is_null($d['aktivalva']))  throw new \Exception('A fiók már aktiválva van!');
 
 		$this->db->update(self::TABLE_NAME,
 			array(
@@ -1051,7 +1051,7 @@ class Users
 		}
 
 		// Képfeltöltés, csere
-		if ( isset($_FILES['profil']['tmp_name'][0]) && !empty($_FILES['profil']['name'][0]) )
+		if ( isset($_FILES['profil']['tmp_name']['0']) && !empty($_FILES['profil']['name']['0']) )
 		{
 			$profil = \Images::upload(array(
 				'src' 		=> 'profil',
@@ -1110,7 +1110,7 @@ class Users
 		$new_uid = $this->db->lastInsertId();
 
 		// Képfeltöltés
-		if ( isset($_FILES['profil']['tmp_name'][0]) )
+		if ( isset($_FILES['profil']['tmp_name']['0']) )
 		{
 			// Profilkép feltöltése
 			$profil = \Images::upload(array(
@@ -1132,7 +1132,7 @@ class Users
 		}
 
 		// E-mail értesítés
-		if ( isset($data[flag][alert_user]) )
+		if ( isset($data['flag']['alert_user']) )
 		{
 			$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
 			$mail->add( $data['data']['felhasznalok']['email'] );
@@ -1276,31 +1276,31 @@ class Users
 				$url 		= '';
 				$request 	= (new Request)->post( $url, array(
 					// E-mail cím
-					'subscr' 	=> trim($data[email]),
+					'subscr' 	=> trim($data['email']),
 					// Név
-					'f_1013' 	=> trim($data[nev]),
+					'f_1013' 	=> trim($data['nev']),
 					// Számlázási név
-					'f_1016' 	=> trim($szamlazasi_keys[nev]),
+					'f_1016' 	=> trim($szamlazasi_keys['nev']),
 					// Számlázási utca, házszám
-					'f_1017' 	=> trim($szamlazasi_keys[uhsz]),
+					'f_1017' 	=> trim($szamlazasi_keys['uhsz']),
 					// Számlázási Város
-					'f_1021' 	=> trim($szamlazasi_keys[city]),
+					'f_1021' 	=> trim($szamlazasi_keys['city']),
 					// Számlázási Irányítószám
-					'f_1018' 	=> trim($szamlazasi_keys[irsz]),
+					'f_1018' 	=> trim($szamlazasi_keys['irsz']),
 					// Számlázási Megye
-					'f_1019' 	=> trim($szamlazasi_keys[state]),
+					'f_1019' 	=> trim($szamlazasi_keys['state']),
 					// Szállítási név
-					'f_1020' 	=> trim($szallitasi_keys[nev]),
+					'f_1020' 	=> trim($szallitasi_keys['nev']),
 					// Szállítási utca, házszám
-					'f_1022' 	=> trim($szallitasi_keys[uhsz]),
+					'f_1022' 	=> trim($szallitasi_keys['uhsz']),
 					// Szállítási Város
-					'f_1023' 	=> trim($szallitasi_keys[city]),
+					'f_1023' 	=> trim($szallitasi_keys['city']),
 					// Szállítási Irányítószám
-					'f_1024' 	=> trim($szallitasi_keys[irsz]),
+					'f_1024' 	=> trim($szallitasi_keys['irsz']),
 					// Szállítási Megye
-					'f_1025' 	=> trim($szallitasi_keys[state]),
+					'f_1025' 	=> trim($szallitasi_keys['state']),
 					// (Szállítási) Telefonszám
-					'f_1027' 	=> trim($szallitasi_keys[phone]),
+					'f_1027' 	=> trim($szallitasi_keys['phone']),
 					'sub' 		=> 'Feliratkozás'
 				) )
 				->setDebug( false )
@@ -1312,9 +1312,9 @@ class Users
 				$url 		= '';
 				$request 	= (new Request)->post( $url, array(
 					// E-mail cím
-					'subscr' 	=> trim($data[email]),
+					'subscr' 	=> trim($data['email']),
 					// Név
-					'f_1030' 	=> trim($data[nev]),
+					'f_1030' 	=> trim($data['nev']),
 					// Cég Neve
 					'f_1033' 	=> trim($data['reseller']['company_name']),
 					// Cég Székhelye
@@ -1324,27 +1324,27 @@ class Users
 					// Cég Postacím
 					'f_1036' 	=> trim($data['reseller']['company_address']),
 					// Számlázási név
-					'f_1037' 	=> trim($szamlazasi_keys[nev]),
+					'f_1037' 	=> trim($szamlazasi_keys['nev']),
 					// Számlázási utca, házszám
-					'f_1038' 	=> trim($szamlazasi_keys[uhsz]),
+					'f_1038' 	=> trim($szamlazasi_keys['uhsz']),
 					// Számlázási Város
-					'f_1039' 	=> trim($szamlazasi_keys[city]),
+					'f_1039' 	=> trim($szamlazasi_keys['city']),
 					// Számlázási Irányítószám
-					'f_1040' 	=> trim($szamlazasi_keys[irsz]),
+					'f_1040' 	=> trim($szamlazasi_keys['irsz']),
 					// Számlázási Megye
-					'f_1041' 	=> trim($szamlazasi_keys[state]),
+					'f_1041' 	=> trim($szamlazasi_keys['state']),
 					// Szállítási név
-					'f_1042' 	=> trim($szallitasi_keys[nev]),
+					'f_1042' 	=> trim($szallitasi_keys['nev']),
 					// Szállítási utca, házszám
-					'f_1043' 	=> trim($szallitasi_keys[uhsz]),
+					'f_1043' 	=> trim($szallitasi_keys['uhsz']),
 					// Szállítási Város
-					'f_1044' 	=> trim($szallitasi_keys[city]),
+					'f_1044' 	=> trim($szallitasi_keys['city']),
 					// Szállítási Irányítószám
-					'f_1045' 	=> trim($szallitasi_keys[irsz]),
+					'f_1045' 	=> trim($szallitasi_keys['irsz']),
 					// Szállítási Megye
-					'f_1046' 	=> trim($szallitasi_keys[state]),
+					'f_1046' 	=> trim($szallitasi_keys['state']),
 					// (Szállítási) Telefonszám
-					'f_1047' 	=> trim($szallitasi_keys[phone]),
+					'f_1047' 	=> trim($szallitasi_keys['phone']),
 					'sub' 		=> 'Feliratkozás'
 				) )
 				->setDebug( false )
@@ -1526,9 +1526,9 @@ class Users
 	{
 		$referertimefilter = '';
 
-		if (isset($arg[referertime]))
+		if (isset($arg['referertime']))
 		{
-			$time = $arg[referertime];
+			$time = $arg['referertime'];
 
 			if(isset($time['from']) && !empty($time['from']))
 			{
@@ -1550,8 +1550,8 @@ class Users
 		// WHERE
 		$q .= " WHERE 1=1 ";
 
-		if(count($arg[filters]) > 0){
-			foreach($arg[filters] as $key => $v){
+		if(count($arg['filters']) > 0){
+			foreach($arg['filters'] as $key => $v){
 				switch($key)
 				{
 					case 'ID':
@@ -1595,18 +1595,18 @@ class Users
 
 		//echo $q;
 
-		$arg[multi] = "1";
+		$arg['multi'] = "1";
 		extract($this->db->q($q, $arg));
 
 		$B = array();
 		foreach($data as $d){
 			$d['user_group_name'] = $this->getUserGroupes( $d['user_group'] );
 			$d['price_group'] = $this->getPriceGroupes( $d['price_group'] );
-			$d[total_data] = $this->get(array( 'user' => $d['ID'], 'userby' => 'ID' ));
+			$d['total_data'] = $this->get(array( 'user' => $d['ID'], 'userby' => 'ID' ));
 			$B[] = $d;
 		}
 
-		$ret[data] = $B;
+		$ret['data'] = $B;
 
 		return $ret;
 	}

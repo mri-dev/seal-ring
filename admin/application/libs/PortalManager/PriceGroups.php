@@ -22,7 +22,7 @@ class PriceGroups implements InstallModules
 
   public function __construct( $arg = array() )
   {
-    $this->db = $arg[db];
+    $this->db = $arg['db'];
 
     if( !$this->checkInstalled() && strpos($_SERVER['REQUEST_URI'], '/install') !== 0) {
       \Helper::reload('/install?module='.__CLASS__);;

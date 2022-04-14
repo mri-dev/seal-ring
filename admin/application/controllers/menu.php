@@ -24,7 +24,7 @@ class menu extends Controller{
 				Helper::reload();
 			}
 
-			$menus = new Menus( $this->view->gets[2], array( 'db' => $this->db ) ); 
+			$menus = new Menus( $this->view->gets['2'], array( 'db' => $this->db ) ); 
 			if(isset($_COOKIE['flag_menu_type_filter'])) {
 				$menus->addFilter( 'menu_type', $_COOKIE['flag_menu_type_filter'] );
 			}
@@ -41,7 +41,7 @@ class menu extends Controller{
 				}
 			}
 
-			switch($this->view->gets[1]){
+			switch($this->view->gets['1']){
 				case 'szerkeszt':
 					if(Post::on('save')){
 						try{
@@ -52,7 +52,7 @@ class menu extends Controller{
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'menu', $menus->get($this->view->gets[2]) );
+					$this->out( 'menu', $menus->get($this->view->gets['2']) );
 				break;
 				case 'torles':
 					if(Post::on('delId')){
@@ -64,7 +64,7 @@ class menu extends Controller{
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'menu', $menus->get($this->view->gets[2]) );
+					$this->out( 'menu', $menus->get($this->view->gets['2']) );
 				break;
 			}
 

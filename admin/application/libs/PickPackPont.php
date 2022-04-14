@@ -7,12 +7,12 @@ class PickPackPont{
 	private $db		 		= false;
 	
 	public function __construct( $arg ){
-		$this->db = $arg[database];
+		$this->db = $arg['database'];
 		
 		$update = ($arg['update']) ? true : false;
 		
 		if(!$this->db){
-			echo __CLASS__.' LIBRARY: adatbázis kapcsolatot csatlakoztassa => arg[database]';
+			echo __CLASS__.' LIBRARY: adatbázis kapcsolatot csatlakoztassa => arg['database']';
 			return false;
 		}
 
@@ -39,7 +39,7 @@ class PickPackPont{
 	}
 	public function getList(){
 		$q = "SELECT *,IF(varos = 'Budapest',CONCAT(varos,' ',megye),megye) as megye FROM ".self::SQL_TABLE;
-		$arg[multi] = '1';
+		$arg['multi'] = '1';
 		extract($this->db->q($q,$arg));
 		
 		return $data;
@@ -49,8 +49,8 @@ class PickPackPont{
 		$megyek = array();
 		
 		foreach($ppp_data as $d){
-			if(!in_array($d[megye],$megyek)){
-				$megyek[] = $d[megye];
+			if(!in_array($d['megye'],$megyek)){
+				$megyek[] = $d['megye'];
 			}
 		}
 		
@@ -63,8 +63,8 @@ class PickPackPont{
 		$cities = array();
 		
 		foreach($ppp_data as $d){
-			if(!in_array($d[varos],$cities[$d[megye]])){
-				$cities[$d[megye]][] = $d[varos];
+			if(!in_array($d['varos'],$cities[$d['megye']])){
+				$cities[$d['megye']][] = $d['varos'];
 			}
 		}
 		
@@ -77,7 +77,7 @@ class PickPackPont{
 		$cities = array();
 		
 		foreach($ppp_data as $d){
-			$cities[$d[megye]][$d[varos]][] = $d;
+			$cities[$d['megye']][$d['varos']][] = $d;
 		}
 		
 		asort($cities);

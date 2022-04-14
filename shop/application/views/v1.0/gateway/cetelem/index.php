@@ -5,7 +5,7 @@
 	</div>
 	<div class="con">
 		<div class="whitebox">
-			<? echo $this->render('gateway/cetelem/'.$this->gets[2].'/index'); ?>
+			<? echo $this->render('gateway/cetelem/'.$this->gets['2'].'/index'); ?>
 		</div>
 	</div>	
 </div>

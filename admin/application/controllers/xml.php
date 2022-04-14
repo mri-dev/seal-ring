@@ -8,22 +8,22 @@ class xml extends Controller{
 		
 		public function postapont()
 		{
-			$orderKey 	= $this->view->gets[2];
+			$orderKey 	= $this->view->gets['2'];
 			$order 		= $this->AdminUser->getOrderData($orderKey);
 
-			if(!$order[azonosito]){
+			if(!$order['azonosito']){
 				return false;
 			}
 
 			$szolgaltatas = '';
 			$szolgaltatas .= 'KH_PM'; // Postán maradó
 			
-			$file_name = 'postapont'.'__'.Helper::makeSafeUrl($order[nev], '_-'.$order[azonosito].'-_-'.$order[email].'-__'.time());
+			$file_name = 'postapont'.'__'.Helper::makeSafeUrl($order['nev'], '_-'.$order['azonosito'].'-_-'.$order['email'].'-__'.time());
 						
-			$szall = json_decode($order[szallitasi_keys],true);
+			$szall = json_decode($order['szallitasi_keys'],true);
 
 			$pp = explode('(', $order['postapont']);
-			$postapont_nev = trim($pp[0]);
+			$postapont_nev = trim($pp['0']);
 			
 			// Utánvételes rendelés
 			$utanvet = "0";

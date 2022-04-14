@@ -6,13 +6,13 @@
 	<div class="divider"></div>	
 	<br>
 	<?=$this->msg?>
-	<? if( $this->gets[1] == 'uj' || $this->gets[1] == 'edit'): ?>
+	<? if( $this->gets['1'] == 'uj' || $this->gets['1'] == 'edit'): ?>
 	<br>
-	<div class="con <?=($this->gets[1] == 'edit')?'con-edit':''?>">
-		<h3><?=($this->gets[1] == 'edit')?'Lookbook szerkesztése':'Új lookbook létrehozása'?></h3>
+	<div class="con <?=($this->gets['1'] == 'edit')?'con-edit':''?>">
+		<h3><?=($this->gets['1'] == 'edit')?'Lookbook szerkesztése':'Új lookbook létrehozása'?></h3>
 		<?
 			if( $this->edit ){
-				$data = $this->edit['data'][0];
+				$data = $this->edit['data']['0'];
 			}
 		?>
 		<form action="" method="post">
@@ -53,12 +53,12 @@
 				</div>
 				<div class="row">
 					<div class="col-md-8 input-txt">
-						<? if($this->gets[1] == 'uj'): ?>
+						<? if($this->gets['1'] == 'uj'): ?>
 						<i class="fa fa-info-circle"></i> További beállítások elérhetőek létrehozás után.
 						<? endif; ?>
 					</div>
 					<div class="col-md-4 right">
-						<? if($this->gets[1] == 'uj'): ?>
+						<? if($this->gets['1'] == 'uj'): ?>
 						<button class="btn btn-primary" name="add" value="1">Létrehozás</button>
 						<? else: ?>
 						<button class="btn btn-success" name="edit" value="1">Változások mentése <i class="fa fa-save"></i></button>
@@ -86,7 +86,7 @@
 			</thead>
 		    <tbody>
 		    	<? if( count( $this->lookbooks['data']) > 0 ): foreach( $this->lookbooks['data'] as $d ): ?>
-		    	<tr class="<?=($this->gets[2] == $d['ID'] && $this->gets[1] == 'del')?'dellitem':''?>">
+		    	<tr class="<?=($this->gets['2'] == $d['ID'] && $this->gets['1'] == 'del')?'dellitem':''?>">
 			    	<td class="center"><?=$d['ID']?></td>
 			    	<td><strong><a title="Lookbook kezelése, részletek" href="/lookbook/v/<?=$d['ID']?>"><?=$d['nev']?></a></strong></td>
 			    	<td><a href="<?=HOMEDOMAIN?>lookbook/<?=$d['kulcs']?>" target="_blank"><em><?=HOMEDOMAIN?>lookbook/</em><strong><?=$d['kulcs']?></strong></a></td>
@@ -103,7 +103,7 @@
 			            </div>
 		            </td>
 		        </tr>
-		        <? if( $this->gets[1] == 'v' && $this->gets[2] == $d['ID'] ): ?>
+		        <? if( $this->gets['1'] == 'v' && $this->gets['2'] == $d['ID'] ): ?>
 		        <tr>
 		        	<td colspan="99">
 		        		<div class="container-viewer">
@@ -201,7 +201,7 @@
 	function add_product_to_container ( book_id, position, container, e, data ) {
 		console.log(data);
 
-		$('.products-set.book-'+book_id+'-'+position+'-'+container).append('<input type="hidden" name="new_container['+position+']['+container+'][products][]" value="'+data.id+'" /><div><i class="fa fa-times delp" onclick="$(this).parent().remove();"></i><div class="push-item">'+data.name+'</div></div>')
+		$('.products-set.book-'+book_id+'-'+position+'-'+container).append('<input type="hidden" name="new_container['+position+']['+container+']['products'][]" value="'+data.id+'" /><div><i class="fa fa-times delp" onclick="$(this).parent().remove();"></i><div class="push-item">'+data.name+'</div></div>')
 
 		$(e).remove();
 	}
@@ -228,7 +228,7 @@
 				type 	: 'lookbook_remove_container',
 				id 		: cont_id
 			}, function(d){
-				document.location.href = '/lookbook/v/<?=$this->gets[2]?>/?msgkey=msg&msg=Gyüjtő sikeresen törölve!';
+				document.location.href = '/lookbook/v/<?=$this->gets['2']?>/?msgkey=msg&msg=Gyüjtő sikeresen törölve!';
 			}, "html" );			
 		} else {
 			return false;
@@ -237,7 +237,7 @@
 
 	function add_more_image ( book_id, position, index ) {
 		var preve = $('.image-set.book-'+book_id+'-'+position+'-'+index+'').find('input[type=text]').size();
-		var ins =  '<div class="input-group" style="margin-top:4px;"><input type="text" name="new_container['+position+']['+index+'][kepek][]" id="img_'+book_id+'_'+position+'_'+index+'-'+(preve+1)+'" class="form-control"><span class="input-group-addon"><a title="Kép kiválasztása" href="<?=FILE_BROWSER_IMAGE?>&field_id=img_'+book_id+'_'+position+'_'+index+'-'+(preve+1)+'" data-fancybox-type="iframe" class="iframe-btn" type="button"><i class="fa fa-folder-open"></i></a></span></div>';
+		var ins =  '<div class="input-group" style="margin-top:4px;"><input type="text" name="new_container['+position+']['+index+']['kepek'][]" id="img_'+book_id+'_'+position+'_'+index+'-'+(preve+1)+'" class="form-control"><span class="input-group-addon"><a title="Kép kiválasztása" href="<?=FILE_BROWSER_IMAGE?>&field_id=img_'+book_id+'_'+position+'_'+index+'-'+(preve+1)+'" data-fancybox-type="iframe" class="iframe-btn" type="button"><i class="fa fa-folder-open"></i></a></span></div>';
 		$('.image-set.book-'+book_id+'-'+position+'-'+index).append( ins );				
 	}
 

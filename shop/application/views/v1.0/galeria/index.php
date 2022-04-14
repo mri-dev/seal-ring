@@ -81,7 +81,7 @@ if (isset($_GET['folder'])) {
         <?php foreach ((array)$this->gallery['images'] as $img): ?>
         <div class="image">
           <div class="wrapper autocorrett-height-by-width" data-image-ratio="4:3">
-            <a href="<?=UPLOADS.$img[2]?>" caption="<?=$this->gallery['neve']?>" rel="gallery" class="zoom"><img src="/render/thumbnail?i=<?=$img[2]?>&w=200" alt="<?=$this->gallery['neve']?>"></a>
+            <a href="<?=UPLOADS.$img['2']?>" caption="<?=$this->gallery['neve']?>" rel="gallery" class="zoom"><img src="/render/thumbnail?i=<?=$img['2']?>&w=200" alt="<?=$this->gallery['neve']?>"></a>
           </div>
         </div>
         <?php endforeach; ?>

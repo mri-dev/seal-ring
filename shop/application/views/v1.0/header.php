@@ -9,7 +9,7 @@
     <?php endif; ?>
     <? $this->render('meta'); ?>
 </head>
-<body class="<?=$this->bodyclass?><?=($this->showslideshow)?' slidered':''?>" ng-controller="App" ng-init="init(<?=($this->gets[0] == 'kosar' && $this->gets[1] == 4)?'true':'false'?>)">
+<body class="<?=$this->bodyclass?><?=($this->showslideshow)?' slidered':''?>" ng-controller="App" ng-init="init(<?=($this->gets['0'] == 'kosar' && $this->gets['1'] == 4)?'true':'false'?>)">
 <div ng-show="showed" ng-controller="popupReceiver" class="popupview" data-ng-init="init({'contentWidth': 1150, 'domain': '.seal-ring.web-pro.hu', 'receiverdomain' : '<?=POPUP_RECEIVER_URL?>', 'imageRoot' : '<?=POPUP_IMG_ROOT?>/'})"><ng-include src="'/<?=VIEW?>popupview.html'"></ng-include></div>
 <script>
 $(function(){
@@ -18,9 +18,9 @@ $(function(){
 </script>
 <? if(!empty($this->settings['google_analitics'])): ?>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i['r']=i['r']||function(){
+  (i['r'].q=i['r'].q||[]).push(arguments)},i['r'].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)['0'];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', ' <?=$this->settings['google_analitics']?>', 'auto');
@@ -29,7 +29,7 @@ $(function(){
 <? endif; ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
+  var js, fjs = d.getElementsByTagName(s)['0'];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.3";
@@ -173,7 +173,7 @@ $(function(){
           </div>
           <div class="search">
             <div class="searchform">
-              <form class="" action="/termekek/<?=($this->gets[0] == 'termekek' && $this->gets[1] != '')?$this->gets[1]:''?>" method="get">
+              <form class="" action="/termekek/<?=($this->gets['0'] == 'termekek' && $this->gets['1'] != '')?$this->gets['1']:''?>" method="get">
                 <div class="wrapper">
                   <div class="input">
                     <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="<?=__('TERMÉK NÉV / CIKKSZÁM')?>">
@@ -307,7 +307,7 @@ $(function(){
 <div class="website">
 		<?=$this->gmsg?>
 		<div class="general-sidebar"></div>
-		<div class="site-container <?=($this->gets[0]=='termek' || $this->gets[0]=='kosar' )?'productview':''?>">
+		<div class="site-container <?=($this->gets['0']=='termek' || $this->gets['0']=='kosar' )?'productview':''?>">
 			<div class="clr"></div>
 			<div class="inside-content">
 <?php endif; ?>

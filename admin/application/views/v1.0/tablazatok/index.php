@@ -6,9 +6,9 @@
 <?=$this->msg?>
 <br>
 
-<? if($this->gets[1] == 'del'): ?>
+<? if($this->gets['1'] == 'del'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row np">
 	<div class="col-md-12">
     	<div class="con con-del">
@@ -16,7 +16,7 @@
             Biztos, hogy törli a kiválasztott táblázatot?
             <div class="row np">
                 <div class="col-md-12 right">
-                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             </div>
@@ -26,9 +26,9 @@
 </form>
 <? endif; ?>
 
-<? if( $this->gets[1] == 'uj' || $this->gets[1] == 'edit' ): ?>
-<div class="con <?=($this->gets[1] == 'uj')?'':'con-edit'?>">
-	<h2><?=($this->gets[1] == 'uj')?'Új táblázat létrehozása':'Táblázat szerkesztése'?></h2>
+<? if( $this->gets['1'] == 'uj' || $this->gets['1'] == 'edit' ): ?>
+<div class="con <?=($this->gets['1'] == 'uj')?'':'con-edit'?>">
+	<h2><?=($this->gets['1'] == 'uj')?'Új táblázat létrehozása':'Táblázat szerkesztése'?></h2>
 	<form action="" method="post">
 		<div class="row">
 			<div class="col-md-4">
@@ -55,7 +55,7 @@
 		<div class="divider"></div>
 		<br>
 		<div id="size_items">
-			<? if($this->gets[1] == 'uj' || count( $this->selected_data['dataset'] ) == 0): ?>
+			<? if($this->gets['1'] == 'uj' || count( $this->selected_data['dataset'] ) == 0): ?>
 			<div id="no_size_items">Nincs táblázat elem beszúrva!</div>
 			<? else: ?>
 				<? 
@@ -89,7 +89,7 @@
 		<br>
 		<div class="row">
 			<div class="col-md-12 right">
-				<? if( $this->gets[1] == 'uj'): ?>
+				<? if( $this->gets['1'] == 'uj'): ?>
 				<button class="btn btn-primary" name="add" value="1">Létrehozás <i class="fa fa-check-square"></i></button>
 				<? else: ?>
 				<a class="btn btn-danger" href="/tablazatok/">Mégse <i class="fa fa-times"></i></a>
@@ -115,7 +115,7 @@
 		</thead>
 	    <tbody>
 	    	<? if( count( $this->sizetable['data']) > 0 ): foreach( $this->sizetable['data'] as $d ): ?>
-	    	<tr class="<?=($this->gets[2] == $d['ID'] && $this->gets[1] == 'del')?'dellitem':''?>">
+	    	<tr class="<?=($this->gets['2'] == $d['ID'] && $this->gets['1'] == 'del')?'dellitem':''?>">
 		    	<td align="center">
 					<?=$d['ID']?>
 				</td>
@@ -223,20 +223,20 @@
 		console.log(current_row);
 		current = parseInt(current);
 		// Head
-		$('#e'+eindex+"_row_head_items").append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+(eindex)+'][head][]">');
+		$('#e'+eindex+"_row_head_items").append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+(eindex)+']['head'][]">');
 		// Elem
 		if( current_row == 1 ){
-			$('#e'+eindex+"_row_row_items").find('div#e'+eindex+'_row_row'+current_row+'_c').append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+'][row][0][]">');
+			$('#e'+eindex+"_row_row_items").find('div#e'+eindex+'_row_row'+current_row+'_c').append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+']['row']['0'][]">');
 		} else {
 			for (var i = current_row; i >= 0; i--) {
-				$('#e'+eindex+"_row_row_items").find('div#e'+eindex+'_row_row'+i+'_c').append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+'][row]['+(i-1)+'][]">');
+				$('#e'+eindex+"_row_row_items").find('div#e'+eindex+'_row_row'+i+'_c').append('<input type="text" class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+']['row']['+(i-1)+'][]">');
 			};
 		}
 		
 		// Width
-		$('#e'+eindex+"_row_width_items").append('<select name="dataset['+eindex+'][width][]" class="inp col datatable-col-'+(current + 1)+'-row">'+$('#e'+eindex+"_row_width_items").find('select').html()+'</select>');
+		$('#e'+eindex+"_row_width_items").append('<select name="dataset['+eindex+']['width'][]" class="inp col datatable-col-'+(current + 1)+'-row">'+$('#e'+eindex+"_row_width_items").find('select').html()+'</select>');
 		// Style	
-		$('#e'+eindex+"_row_style_items").append('<input type="text" placeholder="font-weight:bold; ..." class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+'][style][]">');
+		$('#e'+eindex+"_row_style_items").append('<input type="text" placeholder="font-weight:bold; ..." class="inp col datatable-col-'+(current + 1)+'-row" name="dataset['+eindex+']['style'][]">');
 		// Delete 
 		$('#e'+eindex+"_row_del_items").append('<div class="del-col datatable-col-'+(current + 1)+'-row" col="'+(current + 1)+'"><a title="Oszlop törlése" href="javascript:void(0);" onclick="del_col('+(current + 1)+');"><i class="fa fa-times"></i></a></div>');
 		
@@ -247,7 +247,7 @@
 		current = parseInt(current);
 		var eleminsert = '<div style="margin-top:5px;" id="e'+eindex+'_row_row'+(current + 1)+'_c" class="item-row item-row-'+(current+1)+'">';
 		for (var i = 1; i <= col_num; i++) {
-			eleminsert += '<input type="text" class="inp col datatable-col-'+i+'-row" name="dataset['+eindex+'][row]['+(current)+'][]">';
+			eleminsert += '<input type="text" class="inp col datatable-col-'+i+'-row" name="dataset['+eindex+']['row']['+(current)+'][]">';
 		};
 
 		eleminsert += '</div><a href="javascript:void(0);" onclick="del_item_row('+(current+1)+');" class="del-row item-row item-row-'+(current+1)+'"><i class="fa fa-times"></i></a>';

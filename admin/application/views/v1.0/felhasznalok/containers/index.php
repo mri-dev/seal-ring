@@ -16,12 +16,12 @@
 	    <tbody>
 	    	<? if($this->containers): foreach($this->containers as $d):  ?>
 	    	<tr>
-		    	<td align="center"><?=$d[ID]?></td>
+		    	<td align="center"><?=$d['ID']?></td>
 		        <td>
-	          		<strong><?=$d[nev]?></strong>
+	          		<strong><?=$d['nev']?></strong>
 	            </td>   
 	            <td class="center">
-	            	<a href="javascript:void(0);" class="userToggler" mid="<?=$d[ID]?>"><?=$d[users_in]?> db</a>
+	            	<a href="javascript:void(0);" class="userToggler" mid="<?=$d['ID']?>"><?=$d['users_in']?> db</a>
 	            </td>         
 	            <td class="center">
 	                <div class="dropdown">               
@@ -33,20 +33,20 @@
 	                </div>
 	            </td>
 	        </tr>
-	        <tr class="oInfo<?=($_GET[s] != $d[ID])?'':' opened'?>" id="oid_<?=$d[ID]?>" style="<?=($_GET[s] != $d[ID])?'display:none;':''?>">
+	        <tr class="oInfo<?=($_GET['s'] != $d['ID'])?'':' opened'?>" id="oid_<?=$d['ID']?>" style="<?=($_GET['s'] != $d['ID'])?'display:none;':''?>">
 	        	<td colspan="4" style="background: #908F8F;">
 	        		<div class="user-list">
 		        		<div class="con adder">
 		        			<h3>Új felhasználó hozzáadása</h3>
 		        			<div class="row">
-		        				<form method="post" action="/felhasznalok/containers/?s=<?=$d[ID]?>">
-		        					<input type="hidden" name="container" value="<?=$d[ID]?>">
+		        				<form method="post" action="/felhasznalok/containers/?s=<?=$d['ID']?>">
+		        					<input type="hidden" name="container" value="<?=$d['ID']?>">
 			        				<div class="col-sm-10">
-			        					<input type="text" class="form-control userReceiver" cid="<?=$d[ID]?>" placeholder="Felhasználó keresése név vagy email szerint...">
-			        					<div class="userReceiver-list" id="userReceiver_list<?=$d[ID]?>"></div>
+			        					<input type="text" class="form-control userReceiver" cid="<?=$d['ID']?>" placeholder="Felhasználó keresése név vagy email szerint...">
+			        					<div class="userReceiver-list" id="userReceiver_list<?=$d['ID']?>"></div>
 			        				</div>
 			        				<div class="col-sm-1">
-			        					<input type="text" name="user_id" id="adder_<?=$d[ID]?>_uid" class="form-control" placeholder="ID">
+			        					<input type="text" name="user_id" id="adder_<?=$d['ID']?>_uid" class="form-control" placeholder="ID">
 			        				</div>
 			        				<div class="col-sm-1 right">
 			        					<button class="btn btn-success">Hozzáadás <i class="fa fa-plus"></i></button>
@@ -67,20 +67,20 @@
 							        </tr>
 								</thead>
 							    <tbody>
-							    	<? foreach($d[user_list] as $u):  ?>
+							    	<? foreach($d['user_list'] as $u):  ?>
 							    	<tr>
-								    	<td align="center"><?=$u[ID]?></td>
+								    	<td align="center"><?=$u['ID']?></td>
 								        <td>
-							          		<strong><?=$u[nev]?></strong>
+							          		<strong><?=$u['nev']?></strong>
 							            </td>   
 							            <td>
-							            	<?=$u[email]?>
+							            	<?=$u['email']?>
 							            </td>         
 							            <td class="center">
 							                <div class="dropdown">               
 							                    <i class="fa fa-gear dropdown-toggle" title="Beállítások" id="dm<?=$u['ID']?>" data-toggle="dropdown"></i>
 							                      <ul class="dropdown-menu" role="menu" aria-labelledby="dm<?=$u['ID']?>">  
-							                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/felhasznalok/containers/?t=delete_user&uid=<?=$u['ID']?>&cid=<?=$d[ID]?>">törlés <i class="fa fa-trash"></i></a></li>
+							                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/felhasznalok/containers/?t=delete_user&uid=<?=$u['ID']?>&cid=<?=$d['ID']?>">törlés <i class="fa fa-trash"></i></a></li>
 							                      </ul>
 							                </div>
 							            </td>
@@ -104,7 +104,7 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        $('.userToggler[mid]').click(function(){
+        $('.userToggler['mid']').click(function(){
             var e = $(this);
             var id = e.attr('mid');
             

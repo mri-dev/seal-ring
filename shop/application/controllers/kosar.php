@@ -71,7 +71,7 @@ class kosar extends Controller{
 				$this->view->canOrder = false;
 			}
 
-			if (!$this->view->user && $this->gets[1] == 1 ) {
+			if (!$this->view->user && $this->gets['1'] == 1 ) {
 				Helper::reload('/'.__CLASS__);
 			}
 			/**
@@ -112,7 +112,7 @@ class kosar extends Controller{
 
 			$this->view->kosar = $this->shop->cartInfo(Helper::getMachineID(), $arg);
 
-			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString[2][ppp_uzlet]);
+			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString['2']['ppp_uzlet']);
 
 			$min_price_order = $this->view->settings['order_min_price'];
 			if( $this->view->kosar['totalPrice'] < $min_price_order ) {
@@ -121,7 +121,7 @@ class kosar extends Controller{
 			}
 
 			// PostaPont szállítás esetén, ha nincs kiválasztva a PP, akkor nem lehet megrendelni
-			/*if($this->view->storedString[2][atvetel] == '5' && $this->view->storedString[2][pp_selected] == ''){
+			/*if($this->view->storedString['2']['atvetel'] == '5' && $this->view->storedString['2']['pp_selected'] == ''){
 				$this->view->canOrder = false;
 			}*/
 
@@ -182,13 +182,13 @@ class kosar extends Controller{
 		}
 
 		function done(){
-			$this->view->accessKey 		= $this->view->gets[2];
+			$this->view->accessKey 		= $this->view->gets['2'];
 			$this->view->orderAllapot 	= $this->shop->getMegrendelesAllapotok();
 			$this->view->szallitas 		= $this->shop->getSzallitasiModok();
 			$this->view->fizetes 		= $this->shop->getFizetesiModok();
 
 			$this->view->orderInfo 		= $this->shop->getOrderData($this->view->accessKey);
-			$this->view->order_user 	= $this->User->get( array( 'user' => $this->view->orderInfo[email] ) );
+			$this->view->order_user 	= $this->User->get( array( 'user' => $this->view->orderInfo['email'] ) );
 
 
 			/** PAYU FIZETÉS */

@@ -166,16 +166,16 @@ class Formater
 		if ( empty($list) ) {
 			$list[] = $value;
 
-			if($gets[2] != '' && !is_numeric($gets[2])){
-				$replace_key = urlencode($gets[2]);
+			if($gets['2'] != '' && !is_numeric($gets['2'])){
+				$replace_key = urlencode($gets['2']);
 				$temp = str_replace( $replace_key, $hashkey, $current_url );
-				$newurl = self::makeUrlStrlist( $key, $list ).'::'.$gets[2];
+				$newurl = self::makeUrlStrlist( $key, $list ).'::'.$gets['2'];
 				$newurl = trim($newurl,'::');
 				$url = str_replace($hashkey, $newurl , $temp);
 
-			} else if(is_numeric($gets[2]) || $gets[2] == '') {
+			} else if(is_numeric($gets['2']) || $gets['2'] == '') {
 
-				$replace_key =  urlencode( $gets[0].'/'.$gets[1]);
+				$replace_key =  urlencode( $gets['0'].'/'.$gets['1']);
 				$temp = str_replace($replace_key, $hashkey, $current_url );
 				$url = str_replace($hashkey, $replace_key.'/'.self::makeUrlStrlist( $key, $list ), $temp);
 			}
@@ -208,7 +208,7 @@ class Formater
 		$items = array();
 
 
-		if( $row[0] ) {
+		if( $row['0'] ) {
 			foreach ( $row as $r ) {
 				$i = explode($separator, $r);
 				if (reset($i) == $key) {

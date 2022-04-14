@@ -10,11 +10,11 @@
 			<? endif; ?>
 			<div class="box">
 
-				<?php if ($this->gets[1] != 'done'): ?>
+				<?php if ($this->gets['1'] != 'done'): ?>
 				<div class="cart-head">
 					<? if( count($k['items']) > 0 ): ?>
 					<div style="float:right;">
-						<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
+						<? if($this->gets['1'] == '' || $this->gets['1'] == '0'): ?>
 							<a href="/kosar/?clear=1" class="clear-cart" title="Kosár ürítése"><?=__('kosár üritése')?> <i class="fa fa-trash-o"></i></a>
 						<? endif; ?>
 					</div>
@@ -26,7 +26,7 @@
 				</div>
 				<?php endif; ?>
 
-				<?php if ($this->gets[1] == 'done'): ?>
+				<?php if ($this->gets['1'] == 'done'): ?>
 					<div class="box orderDone">
 						<a name="step" id="step"></a>
 						<div class="p10">
@@ -34,13 +34,13 @@
 						$vegosszeg 				= 0;
 						$orderedProducts 	= array();
 
-						foreach($this->orderInfo[items] as $d):
-							$vegosszeg 			+= $d[subAr];
-							$orderedProducts[] 	= $d[nev];
+						foreach($this->orderInfo['items'] as $d):
+							$vegosszeg 			+= $d['subAr'];
+							$orderedProducts[] 	= $d['nev'];
 						endforeach;
 
-						if($this->orderInfo[szallitasi_koltseg] > 0) $vegosszeg += $this->orderInfo[szallitasi_koltseg];
-						if($this->orderInfo[kedvezmeny] > 0) $vegosszeg -= $this->orderInfo[kedvezmeny];
+						if($this->orderInfo['szallitasi_koltseg'] > 0) $vegosszeg += $this->orderInfo['szallitasi_koltseg'];
+						if($this->orderInfo['kedvezmeny'] > 0) $vegosszeg -= $this->orderInfo['kedvezmeny'];
 
 					?>
 					<h1><i class="fa fa-check-circle"></i><br /><?=__('Megrendelés elküldve')?></h1>
@@ -55,13 +55,13 @@
 
 					<? if( $this->orderInfo['fizetesiModID'] == $this->settings['flagkey_pay_cetelem'] ): ?>
 						<br>
-						<a class="cetelem-startrans" href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>/?cetelem=1#start">
+						<a class="cetelem-startrans" href="<?=DOMAIN?>order/<?=$this->orderInfo['accessKey']?>/?cetelem=1#start">
 							Cetelem online hiteligénylés indítása <i class="fa fa-angle-right"></i>
 						</a>
 					<? endif; ?>
 
 					<? // PayPal fizetés
-					if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->orderInfo[fizetesiModID])][nev] == 'PayPal' && $this->orderInfo[paypal_fizetve] == 0):
+					if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->orderInfo['fizetesiModID'])]['nev'] == 'PayPal' && $this->orderInfo['paypal_fizetve'] == 0):
 
 
 					?>
@@ -72,14 +72,14 @@
 					<br />
 					<div align="center">
 						<br>
-						<a href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>" class="btn btn-pr"><?=__('Megrendelés adatlapja')?> <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="<?=DOMAIN?>order/<?=$this->orderInfo['accessKey']?>" class="btn btn-pr"><?=__('Megrendelés adatlapja')?> <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 							</div>
 					</div>
 				<?php endif; ?>
 				<a name="step"></a>
 				<?=$this->msg?>
-				<?php if ( $this->gets[1] == '1' ): ?>
+				<?php if ( $this->gets['1'] == '1' ): ?>
 					<div class="order-stepper overview">
 						<div class="head"><h2><i class="fa fa-user"></i> <?=__('Vásárlói fiók')?></h2></div>
 						<div class="pre-before-order user-logged">
@@ -99,7 +99,7 @@
 										<?=$this->user['data']['email']?>
 									</div>
 									<div class="action">
-										<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
+										<a href="/user/logout?safe=1&return=/<?=$this->gets['0']?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
 									</div>
 								</div>
 							</div>
@@ -408,16 +408,16 @@
 								<?php endif; ?>
 								</td>
 								<td class="center action">
-									<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
+									<? if($this->gets['1'] == '' || $this->gets['1'] == '0'): ?>
 									<span>
-										<i class="fa fa-angle-up cart-adder asc" title="<?=__("Több")?>" onclick="Cart.addItem(<?=$d[termekID]?>)"></i>
-										<i class="fa fa-angle-down cart-adder desc" title="<?=__("Kevesebb")?>" onclick="Cart.removeItem(<?=$d[termekID]?>)"></i>
+										<i class="fa fa-angle-up cart-adder asc" title="<?=__("Több")?>" onclick="Cart.addItem(<?=$d['termekID']?>)"></i>
+										<i class="fa fa-angle-down cart-adder desc" title="<?=__("Kevesebb")?>" onclick="Cart.removeItem(<?=$d['termekID']?>)"></i>
 									</span>
 									<? endif; ?>
 								</td>
 							</tr>
 							<? endforeach;
-								$szallias_informacio = $this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString[2][atvetel])];
+								$szallias_informacio = $this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString['2']['atvetel'])];
 								$szallitasiKoltseg = 0;
 								//$szallitasiKoltseg 	= (int)$szallias_informacio['koltseg'];
 								// Ingyenes szállítás, ha túlhalad az összeghatáron, amikortól már ingyenes a szállítás
@@ -432,7 +432,7 @@
 
 							// Végső ár kiszámolása
 							//$calc_final_total = $k['totalPrice'] - $szuperakcios_termekek_ara;
-							//$calc_final_total = ($calc_final_total -(($this->user[kedvezmeny]/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
+							//$calc_final_total = ($calc_final_total -(($this->user['kedvezmeny']/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
 							?>
 							<?php if( $this->user ): ?>
 							<tr class="price-overview">
@@ -475,7 +475,7 @@
 										<strong><?=__('Az Ön kosarában nincsenek temékek!')?></strong>
 										<div><?=__('Böngésszen termékeink közül')?>.</div>
 										<div class="searchform">
-				              <form class="" action="/termekek/<?=($this->gets[0] == 'termekek' && $this->gets[1] != '')?$this->gets[1]:''?>" method="get">
+				              <form class="" action="/termekek/<?=($this->gets['0'] == 'termekek' && $this->gets['1'] != '')?$this->gets['1']:''?>" method="get">
 				                <div class="wrapper">
 				                  <div class="input">
 				                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">
@@ -506,7 +506,7 @@
 						<? endif; ?>
 					<?php endif; ?>
 
-					<?php if ( $this->gets[1] == '1' ): ?>
+					<?php if ( $this->gets['1'] == '1' ): ?>
 						<div class="order-stepper overview">
 							<div class="head"><h2><i class="fa fa-shield"></i> <?=__('Adatvédelmi Tájékoztató és Szállítási feltételek elfogadása')?></h2></div>
 							<div class="pre-before-order transport-info-div user-logged">
@@ -554,7 +554,7 @@
 						<?php endif; ?>
 					<?php endif; ?>
 
-					<?php if ( empty($this->gets[1]) ): ?>
+					<?php if ( empty($this->gets['1']) ): ?>
 						<div class="order-stepper">
 								<?php if(!$this->user): ?>
 								<div class="head">
@@ -567,9 +567,9 @@
 												<div class="it">?</div>
 											</div>
 										</div>
-										<div class="login"><a href="/user/belepes?return=/<?=$this->gets[0]?>"><?=__('Bejelentkezés')?></a></div>
+										<div class="login"><a href="/user/belepes?return=/<?=$this->gets['0']?>"><?=__('Bejelentkezés')?></a></div>
 										<div class="sep"><?=__('vagy')?></div>
-										<div class="register"><a href="/user/regisztracio?return=/<?=$this->gets[0]?>"><?=__('Fiók regisztráció')?></a></div>
+										<div class="register"><a href="/user/regisztracio?return=/<?=$this->gets['0']?>"><?=__('Fiók regisztráció')?></a></div>
 									</div>
 									<div class="nextbutton">
 										<button type="submit" name="orderState" disabled="disabled" value="start"><?=__('Tovább a megrendeléshez')?></button>
@@ -597,7 +597,7 @@
 														<?=$this->user['data']['email']?>
 													</div>
 													<div class="action">
-														<a href="/user/logout?safe=1&return=/<?=$this->gets[0]?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
+														<a href="/user/logout?safe=1&return=/<?=$this->gets['0']?>" class="logout"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i></a>
 													</div>
 												</div>
 											</div>

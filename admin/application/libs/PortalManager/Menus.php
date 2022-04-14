@@ -102,8 +102,8 @@ class Menus
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$deep = $xparent[1]+1;
-			$parent = $xparent[0];
+			$deep = $xparent['1']+1;
+			$parent = $xparent['0'];
 		} else {
 			$parent = NULL;
 		}
@@ -172,8 +172,8 @@ class Menus
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$deep = $xparent[1]+1;
-			$parent = $xparent[0];
+			$deep = $xparent['1']+1;
+			$parent = $xparent['0'];
 		} else {
 			$parent = NULL;
 		}

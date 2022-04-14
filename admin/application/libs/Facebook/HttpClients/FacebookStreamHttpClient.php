@@ -184,7 +184,7 @@ class FacebookStreamHttpClient implements FacebookHttpable {
   public static function getStatusCodeFromHeader($header)
   {
     preg_match('|HTTP/\d\.\d\s+(\d+)\s+.*|', $header, $match);
-    return (int) $match[1];
+    return (int) $match['1'];
   }
 
 }

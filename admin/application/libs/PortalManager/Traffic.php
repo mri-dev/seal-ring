@@ -19,7 +19,7 @@ class Traffic
 	private $alape_tipus_kulcsok 	= array('income','outgo','income_by_buy','outgo_by_buy');
 	
 	function __construct( $arg = array() ){
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 		$this->loadTypes();
 	}
 	function isDefaultTypeKey($val){
@@ -39,7 +39,7 @@ class Traffic
 		// User defined keys
 		$load = $this->db->query("SELECT * FROM ".self::DB_TABLE_TYPE_KEY)->fetchAll(\PDO::FETCH_ASSOC);
 			foreach($load as $uk){
-				$types[$uk[kulcs]] = $uk[nev];
+				$types[$uk['kulcs']] = $uk['nev'];
 			}
 		
 		foreach($types as $tk => $tv){
@@ -122,10 +122,10 @@ class Traffic
 		
 		foreach($this->forgalom_tipusok as $k){
 			$arr = array();
-				$arr[key] 			= $k;
-				$arr[comment] 		= $this->forgalom_tipusok_txt[$k];
-				$arr[isDefault] 	= $this->isDefaultTypeKey($k);
-				$arr[trafficType] 	= $this->getTrafficType($k);
+				$arr['key'] 			= $k;
+				$arr['comment'] 		= $this->forgalom_tipusok_txt[$k];
+				$arr['isDefault'] 	= $this->isDefaultTypeKey($k);
+				$arr['trafficType'] 	= $this->getTrafficType($k);
 			$keys[] = $arr;
 		}
 		
@@ -138,14 +138,14 @@ class Traffic
 		// Havi forgalom számolása
 		$havi 	= "SELECT sum(bevetel) as bevetel, sum(kiadas) as kiadas FROM `forgalom` WHERE datum LIKE '$datum%'";	
 		$q 		= $this->db->query($havi)->fetch(\PDO::FETCH_ASSOC);
-			$re[latest][in] 	= $q[bevetel];
-			$re[latest][out] 	= $q[kiadas];
+			$re['latest']['in'] 	= $q['bevetel'];
+			$re['latest']['out'] 	= $q['kiadas'];
 			
 		// Teljes forgalom számolása
 		$all 	= "SELECT sum(bevetel) as bevetel, sum(kiadas) as kiadas FROM `forgalom`";	
 		$q 		= $this->db->query($all)->fetch(\PDO::FETCH_ASSOC);
-			$re[all][in] 	= $q[bevetel];
-			$re[all][out] 	= $q[kiadas];
+			$re['all']['in'] 	= $q['bevetel'];
+			$re['all']['out'] 	= $q['kiadas'];
 			
 		return $re;
 	}
@@ -159,38 +159,38 @@ class Traffic
 		";
 		
 			// FILTERS
-			if($arg[filters][forgalom]){
-				if($arg[filters][forgalom] == 'bevetel'){
+			if($arg['filters']['forgalom']){
+				if($arg['filters']['forgalom'] == 'bevetel'){
 					$q .= " and t.bevetel > 0";
 				}else{
 					$q .= " and t.kiadas > 0";
 				}
 			}
-			if($arg[filters][megnevezes]){
-				$q .= " and t.megnevezes LIKE '%".$arg[filters][megnevezes]."%'";
+			if($arg['filters']['megnevezes']){
+				$q .= " and t.megnevezes LIKE '%".$arg['filters']['megnevezes']."%'";
 			}
-			if($arg[filters][itemid]){
-				$q .= " and t.item_id = '".$arg[filters][itemid]."'";
+			if($arg['filters']['itemid']){
+				$q .= " and t.item_id = '".$arg['filters']['itemid']."'";
 			}
-			if($arg[filters][tipus]){
-				$q .= " and t.tipus_kulcs = '".$arg[filters][tipus]."'";
+			if($arg['filters']['tipus']){
+				$q .= " and t.tipus_kulcs = '".$arg['filters']['tipus']."'";
 			}
-			if($arg[filters][dateFrom]){
-				$q .= " and t.idopont >= '".$arg[filters][dateFrom]."'";
+			if($arg['filters']['dateFrom']){
+				$q .= " and t.idopont >= '".$arg['filters']['dateFrom']."'";
 			}
-			if($arg[filters][dateTo]){
-				$q .= " and t.idopont <= '".$arg[filters][dateTo]."'";
+			if($arg['filters']['dateTo']){
+				$q .= " and t.idopont <= '".$arg['filters']['dateTo']."'";
 			}
 		
 		// ORDER 
 		$q .= " ORDER BY t.idopont DESC";
 		
-		$arg[multi] = "1";
+		$arg['multi'] = "1";
 		extract($this->db->q($q, $arg));
 		
 		// Calc traffic
-		$dateFrom 	= $arg[dateFrom];
-		$dateTo 	= $arg[dateTo];
+		$dateFrom 	= $arg['dateFrom'];
+		$dateTo 	= $arg['dateTo'];
 		$tr = "SELECT sum(bevetel) as bevetel, sum(kiadas) as kiadas FROM `forgalom` WHERE ID IS NOT NULL ";
 			if($dateFrom || $dateTo){
 				if($dateFrom){
@@ -201,10 +201,10 @@ class Traffic
 				}
 			}
 			$trd = $this->db->query($tr)->fetch(\PDO::FETCH_ASSOC);
-			$traffic[income] 	= $trd[bevetel];
-			$traffic[outgo] 	= $trd[kiadas];
+			$traffic['income'] 	= $trd['bevetel'];
+			$traffic['outgo'] 	= $trd['kiadas'];
 		
-		$ret[traffic] = $traffic;
+		$ret['traffic'] = $traffic;
 		
 		return $ret;
 	}

@@ -14,11 +14,11 @@
 					<div class="row">
 						<div class="col-md-6">
 							<label for="raktar_articleid">Típus azonosító törzskód</label>
-							<input type="text" name="raktar_articleid" id="raktar_articleid" value="<?=$this->termek[raktar_articleid]?>" class="form-control">
+							<input type="text" name="raktar_articleid" id="raktar_articleid" value="<?=$this->termek['raktar_articleid']?>" class="form-control">
 						</div>
 						<div class="col-md-6">
 							<label for="raktar_variantid">Variáció azonosító</label>
-							<input type="text" name="raktar_variantid" id="raktar_variantid" value="<?=$this->termek[raktar_variantid]?>" class="form-control">
+							<input type="text" name="raktar_variantid" id="raktar_variantid" value="<?=$this->termek['raktar_variantid']?>" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -29,28 +29,28 @@
 							<input type="checkbox" id="lathato" name="lathato" <?=($this->termek['lathato'] == 1)?'checked':''?>/> <label for="lathato">Aktív / Látható</label>
 						</div>
 						<div class="">
-							<input type="checkbox" name="akcios" id="akciosTgl" onclick="javascript:if($(this).is(':checked')){$('#vakcios').show(0);}else{$('#vakcios').hide(0);}" <?=($_COOKIE[cr_akcios] == 'on' && false)?'checked':''?>/> <label for="akciosTgl">Akciós</label>
+							<input type="checkbox" name="akcios" id="akciosTgl" onclick="javascript:if($(this).is(':checked')){$('#vakcios').show(0);}else{$('#vakcios').hide(0);}" <?=($_COOKIE['cr_akcios'] == 'on' && false)?'checked':''?>/> <label for="akciosTgl">Akciós</label>
 						</div>
 						<div class="">
-							 <input type="checkbox" name="ujdonsag" id="ujdonsag" <?=($_COOKIE[cr_ujdonsag] == 'on')?'checked':''?> /> <label for="ujdonsag">Újdonság</label>
+							 <input type="checkbox" name="ujdonsag" id="ujdonsag" <?=($_COOKIE['cr_ujdonsag'] == 'on')?'checked':''?> /> <label for="ujdonsag">Újdonság</label>
 						</div>
 						<div class="">
-							<input type="checkbox" name="argep" id="argep" <?=($_COOKIE[cr_argep] == 'on')?'checked':'checked'?>/> <label for="argep">ÁRGÉP listába</label>
+							<input type="checkbox" name="argep" id="argep" <?=($_COOKIE['cr_argep'] == 'on')?'checked':'checked'?>/> <label for="argep">ÁRGÉP listába</label>
 						</div>
 						<div class="">
-							<input type="checkbox" name="arukereso" id="arukereso" <?=($_COOKIE[cr_arukereso] == 'on')?'checked':'checked'?> /> <label for="arukereso">ÁRUKERESŐ listába</label>
+							<input type="checkbox" name="arukereso" id="arukereso" <?=($_COOKIE['cr_arukereso'] == 'on')?'checked':'checked'?> /> <label for="arukereso">ÁRUKERESŐ listába</label>
 						</div>
 						<div class="">
-							<input type="checkbox" <?=($_COOKIE[cr_pickpackszallitas] == 'on')?'checked':'checked'?> name="pickpackszallitas" id="pickpackszallitas" /> <label for="pickpackszallitas">Pick Pack Pont-ra szállítható</label>
+							<input type="checkbox" <?=($_COOKIE['cr_pickpackszallitas'] == 'on')?'checked':'checked'?> name="pickpackszallitas" id="pickpackszallitas" /> <label for="pickpackszallitas">Pick Pack Pont-ra szállítható</label>
 						</div>
 						<div class="" style="display: none;">
-							<input type="checkbox" <?=($_COOKIE[cr_no_cetelem] == 'on')?'checked':''?> name="no_cetelem" id="no_cetelem" /> <label for="no_cetelem">Cetelem hitel alól KIZÁRVA</label>
+							<input type="checkbox" <?=($_COOKIE['cr_no_cetelem'] == 'on')?'checked':''?> name="no_cetelem" id="no_cetelem" /> <label for="no_cetelem">Cetelem hitel alól KIZÁRVA</label>
 						</div>
 						<div class="">
-							<input type="checkbox" <?=($_COOKIE[cr_kiemelt] == 'on')?'checked':'checked'?> name="kiemelt" id="kiemelt" /> <label for="kiemelt">Kiemelt termék</label>
+							<input type="checkbox" <?=($_COOKIE['cr_kiemelt'] == 'on')?'checked':'checked'?> name="kiemelt" id="kiemelt" /> <label for="kiemelt">Kiemelt termék</label>
 						</div>
 						<div class="">
-							<input type="checkbox" <?=($_COOKIE[cr_show_stock] == 'on')?'checked':'checked'?> name="show_stock" id="show_stock" /> <label for="show_stock">Készletmegjelenítés</label>
+							<input type="checkbox" <?=($_COOKIE['cr_show_stock'] == 'on')?'checked':'checked'?> name="show_stock" id="show_stock" /> <label for="show_stock">Készletmegjelenítés</label>
 						</div>
 					</div>
 				</div>
@@ -62,23 +62,23 @@
 					<div class="row">
 						<div class="form-group col-md-2">
 							<label for="nagyker_kod">Nagyker kód / Cikkszám</label>
-							<input type="text" class="form-control" name="nagyker_kod" id="nagyker_kod" value="<?=($this->err)?$_POST[nagyker_kod]:''?>">
+							<input type="text" class="form-control" name="nagyker_kod" id="nagyker_kod" value="<?=($this->err)?$_POST['nagyker_kod']:''?>">
 						</div>
-						<div class="form-group col-md-4 <?=($this->err && $_POST[nev] == '')?'has-error':''?>">
+						<div class="form-group col-md-4 <?=($this->err && $_POST['nev'] == '')?'has-error':''?>">
 							<label for="nev">Termék neve*</label>
-							<input type="text" class="form-control required reqInput" name="nev" id="nev" value="<?=($this->err)?$_POST[nev]:''?>">
+							<input type="text" class="form-control required reqInput" name="nev" id="nev" value="<?=($this->err)?$_POST['nev']:''?>">
 						</div>
 						<div class="form-group col-md-3">
 							<label for="csoport_kategoria">Termék alcíme</label>
-							<input type="text" class="form-control" name="csoport_kategoria" id="csoport_kategoria" value="<?=($this->err)?$_POST[csoport_kategoria]:''?>">
+							<input type="text" class="form-control" name="csoport_kategoria" id="csoport_kategoria" value="<?=($this->err)?$_POST['csoport_kategoria']:''?>">
 						</div>
-						<div class="form-group col-md-3 <?=($this->err && $_POST[marka] == '')?'has-error':''?>">
+						<div class="form-group col-md-3 <?=($this->err && $_POST['marka'] == '')?'has-error':''?>">
 							<label for="nev">Termék márka*</label>
 							<select name="marka" id="marka" class="form-control required reqInput">
 								<option value="">-- termék márka kiválasztása --</option>
 								<option value="" disabled></option>
 								<? foreach($this->markak as $d): ?>
-								<option value="<?=$d[ID]?>" <?=($this->err && $_POST[marka] == $d[ID])?'selected':''?> nb="<?=$d[brutto]?>"><?=$d[neve]?> (<?=($d[brutto] == '1')?'Bruttó':'Nettó'?>)</option>
+								<option value="<?=$d['ID']?>" <?=($this->err && $_POST['marka'] == $d['ID'])?'selected':''?> nb="<?=$d['brutto']?>"><?=$d['neve']?> (<?=($d['brutto'] == '1')?'Bruttó':'Nettó'?>)</option>
 								<? endforeach; ?>
 							</select>
 						</div>
@@ -87,12 +87,12 @@
 					<div class="row">
 						<div class="form-group col-md-3">
 							<label for="szin">Típus variácó <?=\PortalManager\Formater::tooltip('Több variáció esetén variációk hozhatóak létre, melyet ennél az értéknél lehet megadni. Azonos típus azonosító törzskód és eltérő variácó meghatározásánál a rendszer automatikusan összekapcsolja a termékeket és átjárást biztosít a termék adatlapokon.<br>Pl.: zöld, piros, 16mm, 10 fm, 2x4x10mm, stb...')?></label>
-							<input type="text" class="form-control" name="szin" id="szin" value="<?=($this->err)?$_POST[szin]:''?>">
+							<input type="text" class="form-control" name="szin" id="szin" value="<?=($this->err)?$_POST['szin']:''?>">
 						</div>
 						<? if(true): ?>
 						<div class="form-group col-md-3">
 							<label for="meret">Kiszerelés <?=\PortalManager\Formater::tooltip('Termékenkét termékkapcsolat hozható létre, amennyiben több fajta kiszerelés van egy-egy azonos termék esetében. Adjuk meg a kiszerelést és ez alapján a vásárló válogathat.<br>Pl.: 1 liter, 1 vödör, 1 zsák, 25 kg, 100 db / csomag, stb...')?></label>
-							<input type="text" class="form-control" name="meret" id="meret" value="<?=($this->err)?$_POST[meret]:''?>">
+							<input type="text" class="form-control" name="meret" id="meret" value="<?=($this->err)?$_POST['meret']:''?>">
 						</div>
 						<? endif; ?>
 						<div class="form-group col-md-2">
@@ -105,7 +105,7 @@
 						</div>
 						<div class="form-group col-md-2">
 							<label for="fotermek">Főtermék <?=\PortalManager\Formater::tooltip('Több variáció és kiszerelés esetén kijelölhetjük, hogy melyik legyen az alapértelmezett, ami megjelenjen a terméklistázásban. A Főtermék-nek NEM jelölt termékek nem fognak megjelenni a listában, hanem csak mint variáció a kapcsolódó terméklapon!')?></label>
-							<input type="checkbox" class="form-control" name="fotermek" value="1" id="fotermek" value="<?=($this->err && $_POST[fotermek] == 'on')?'checked="checked"':''?>">
+							<input type="checkbox" class="form-control" name="fotermek" value="1" id="fotermek" value="<?=($this->err && $_POST['fotermek'] == 'on')?'checked="checked"':''?>">
 						</div>
 					</div>
 
@@ -126,14 +126,14 @@
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label for="rovid_leiras">Termék rövid leírása</label>
-							<textarea name="rovid_leiras" class="form-control" id="rovid_leiras"><?=($this->err)?$_POST[rovid_leiras]:''?></textarea>
+							<textarea name="rovid_leiras" class="form-control" id="rovid_leiras"><?=($this->err)?$_POST['rovid_leiras']:''?></textarea>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label for="leiras">Termék leírása</label>
-							<textarea name="leiras" class="form-control" id="leiras"><?=($this->err)?$_POST[leiras]:''?></textarea>
+							<textarea name="leiras" class="form-control" id="leiras"><?=($this->err)?$_POST['leiras']:''?></textarea>
 						</div>
 					</div>
 				</div>
@@ -204,28 +204,28 @@
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label for="garancia">Garancia (hónap; -1 = élettartam)</label>
-							<input class="form-control" type="number" id="garancia" value="<?=($this->err)?$_POST[garancia_honap]:''?>" min="-1" name="garancia_honap">
+							<input class="form-control" type="number" id="garancia" value="<?=($this->err)?$_POST['garancia_honap']:''?>" min="-1" name="garancia_honap">
 						</div>
 					</div>
 					<div class="row np">
 						<div class="col-md-12">
-							<div class="form-group col-md-6 <?=($this->err && $_POST[szallitasID] == '')?'has-error':''?>">
+							<div class="form-group col-md-6 <?=($this->err && $_POST['szallitasID'] == '')?'has-error':''?>">
 								<label for="szall">Szállítási idő*</label>
-								<select name="szallitasID" id="szall" class="form-control <?=($_COOKIE[cr_szallitasID] == '')?'required':''?> reqInput">
+								<select name="szallitasID" id="szall" class="form-control <?=($_COOKIE['cr_szallitasID'] == '')?'required':''?> reqInput">
 									<option value="">-- válasszon --</option>
 									<option value="" disabled="disabled"></option>
 									<? foreach($this->szallitas as $sz): ?>
-									<option value="<?=$sz[ID]?>" <?=($_COOKIE[cr_szallitasID] == $sz[ID])?'selected':''?>><?=$sz[elnevezes]?></option>
+									<option value="<?=$sz['ID']?>" <?=($_COOKIE['cr_szallitasID'] == $sz['ID'])?'selected':''?>><?=$sz['elnevezes']?></option>
 									<? endforeach; ?>
 								</select>
 							</div>
-							<div class="form-group col-md-6 <?=($this->err && $_POST[keszletID] == '')?'has-error':''?>">
+							<div class="form-group col-md-6 <?=($this->err && $_POST['keszletID'] == '')?'has-error':''?>">
 								<label for="keszlet">Állapot*</label>
-								<select name="keszletID" id="keszlet" class="form-control <?=($_COOKIE[cr_keszletID] == '')?'required':''?> reqInput">
+								<select name="keszletID" id="keszlet" class="form-control <?=($_COOKIE['cr_keszletID'] == '')?'required':''?> reqInput">
 									<option value="">-- válasszon --</option>
 									<option value="" disabled="disabled"></option>
 									<? foreach($this->keszlet as $k): ?>
-									<option value="<?=$k[ID]?>" <?=($_COOKIE[cr_keszletID] == $k[ID])?'selected':''?>><?=$k[elnevezes]?></option>
+									<option value="<?=$k['ID']?>" <?=($_COOKIE['cr_keszletID'] == $k['ID'])?'selected':''?>><?=$k['elnevezes']?></option>
 									<? endforeach; ?>
 								</select>
 							</div>
@@ -380,7 +380,7 @@
 		$(e).insertAfter('.alink .link:last');
 	}
 	function checkSelectedImg(i){
-		var img 			= i[0].files;
+		var img 			= i['0'].files;
 		var wrongSizeNum 	= 0;
 		var wrongTypeNum 	= 0;
 

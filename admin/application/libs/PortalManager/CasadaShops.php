@@ -14,7 +14,7 @@
 		public function __construct( $arg = array() )
 		{
 			$this->arg 	= $arg;
-			$this->db 	= $arg[db];
+			$this->db 	= $arg['db'];
 
 			return $this;
 		}
@@ -34,11 +34,11 @@
 		public function setMyPosition($gps_array)
 		{
 			$this->myPosition = array(
-				'lat' => $gps_array[0],
-				'lng' => $gps_array[1]
+				'lat' => $gps_array['0'],
+				'lng' => $gps_array['1']
 			); 
 
-			if( empty($gps_array[0]) ||  empty($gps_array[1]) ) return $this;
+			if( empty($gps_array['0']) ||  empty($gps_array['1']) ) return $this;
 
 			$this->has_geolocation = true;
 
@@ -130,7 +130,7 @@
 
 			$shop = $this->db->squery( $qry, $binds )->fetchAll();
 
-			$shopobj = new CasadaShop( $shop[0]['ID'], $this->arg );
+			$shopobj = new CasadaShop( $shop['0']['ID'], $this->arg );
 
 			if(	$this->has_geolocation )
 			{

@@ -14,8 +14,8 @@
 	})
 </script>
 <div style="float:right;">
-	<a href="/<?=$this->gets[0]?>/" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> vissza</a>
-	<a href="/<?=$this->gets[0]?>/tipus_kulcsok" class="btn btn-default"><i class="fa fa-bars"></i> Forgalom típus kulcsok</a>
+	<a href="/<?=$this->gets['0']?>/" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> vissza</a>
+	<a href="/<?=$this->gets['0']?>/tipus_kulcsok" class="btn btn-default"><i class="fa fa-bars"></i> Forgalom típus kulcsok</a>
 </div>
 <h1>Új forgalom bejegyzése</h1>
 
@@ -28,7 +28,7 @@
 				<option value="" disabled></option>
 				<? $data = $this->kulcsok;
 				foreach($data as $d): ?>
-				<option value="<?=$d[key]?>"><?=(strpos($d[key],'income') === 0)?'BEVÉTEL:':'KIADÁS:'?> <?=$d[comment]?> - <?=$d[key]?></option>
+				<option value="<?=$d['key']?>"><?=(strpos($d['key'],'income') === 0)?'BEVÉTEL:':'KIADÁS:'?> <?=$d['comment']?> - <?=$d['key']?></option>
 				<? endforeach; ?>
 			</select>
 		</div>

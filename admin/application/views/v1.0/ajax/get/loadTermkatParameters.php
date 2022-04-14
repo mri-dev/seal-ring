@@ -45,21 +45,21 @@
 	<? foreach($this->parameterek as $d): ?>
     <div class="row">
 		<div class="col-md-2">
-        	<input type="hidden" name="paramId[]" value="<?=$d[ID]?>" />
-	    	<input type="text" name="paramNev[]" value="<?=$d[parameter]?>" class="form-control">
+        	<input type="hidden" name="paramId[]" value="<?=$d['ID']?>" />
+	    	<input type="text" name="paramNev[]" value="<?=$d['parameter']?>" class="form-control">
 	    </div>
 	    <div class="col-md-1">
-	    	<input type="text" name="paramMe[]" value="<?=$d[mertekegyseg]?>"  class="form-control">
+	    	<input type="text" name="paramMe[]" value="<?=$d['mertekegyseg']?>"  class="form-control">
 	    </div>
 		<div class="col-md-2">
-	    	<input type="number" name="paramPriority[<?=$d[ID]?>]" value="<?=$d[priority]?>" class="form-control">
+	    	<input type="number" name="paramPriority[<?=$d['ID']?>]" value="<?=$d['priority']?>" class="form-control">
 	    </div>
 	    <? if(false): ?>
         <div class="col-md-2">
-	    	<input type="checkbox" name="paramRange[<?=$d[ID]?>]" value="1" <?=($d[is_range] == '1')?'checked':''?> class="form-control">
+	    	<input type="checkbox" name="paramRange[<?=$d['ID']?>]" value="1" <?=($d['is_range'] == '1')?'checked':''?> class="form-control">
 	    </div>
         <div class="col-md-2">
-	    	<input type="checkbox" name="paramKulcs[<?=$d[ID]?>]" value="1" <?=($d[kulcs] == '1')?'checked':''?> class="form-control">
+	    	<input type="checkbox" name="paramKulcs[<?=$d['ID']?>]" value="1" <?=($d['kulcs'] == '1')?'checked':''?> class="form-control">
 	    </div>
 	    <? endif; ?>
 	</div>

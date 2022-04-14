@@ -46,7 +46,7 @@
       // No children?
       if(sizeof($this->children) == 0) return null;
       // First child not a control word?
-      $child = $this->children[0];
+      $child = $this->children['0'];
       if(get_class($child) != "RtfControlWord") return null;
       return $child->word;
     }    
@@ -56,7 +56,7 @@
       // No children?
       if(sizeof($this->children) == 0) return null;
       // First child not a control symbol?
-      $child = $this->children[0];
+      $child = $this->children['0'];
       if(get_class($child) != "RtfControlSymbol") return null;
       return $child->symbol == '*';
     }

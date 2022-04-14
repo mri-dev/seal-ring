@@ -3,9 +3,9 @@
 </div>
 <h1>Galéria</h1>
 <?=$this->msg?>
-<? if($this->gets[2] == 'torles'): ?>
+<? if($this->gets['2'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[3]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['3']?>" />
 <div class="row np">
 	<div class="col-md-12">
     	<div class="con con-del">
@@ -13,7 +13,7 @@
             Biztos, hogy törli a(z) <strong><?=$this->news['title']?></strong> galériát? A művelet nem visszavonható és véglegesen törli a képeket és adatokat.
             <div class="row np">
                 <div class="col-md-12 right">
-                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             </div>
@@ -22,7 +22,7 @@
 </div>
 </form>
 <? endif; ?>
-<? if($this->gets[2] != 'torles'): ?>
+<? if($this->gets['2'] != 'torles'): ?>
 <?php
 $catids = array();
 if ($this->news && $this->news['in_cats']) {
@@ -36,8 +36,8 @@ $scats['ids'] = $catids;
   <div class="row-neg">
     <div class="row">
     	<div class="col-md-12">
-        	<div class="con <?=($this->gets[2] == 'szerkeszt')?'con-edit':''?>">
-            <h2><? if($this->gets[2] == 'szerkeszt'): ?>Galéria szerkesztése<? else: ?>Új galéria hozzáadása<? endif; ?></h2>
+        	<div class="con <?=($this->gets['2'] == 'szerkeszt')?'con-edit':''?>">
+            <h2><? if($this->gets['2'] == 'szerkeszt'): ?>Galéria szerkesztése<? else: ?>Új galéria hozzáadása<? endif; ?></h2>
             <div class="row-neg">
               <div class="row">
                   <div class="col-md-6">
@@ -86,17 +86,17 @@ $scats['ids'] = $catids;
 												<div class="image">
 													<div class="wrapper">
 														<div class="img">
-															<input type="hidden" name="images[<?=$ix?>][0]" value="">
-															<input type="hidden" name="images[<?=$ix?>][1]" value="">
-															<input type="hidden" name="images[<?=$ix?>][2]" value="<?=$img[2]?>">
-															<img src="/src/uploads/<?=$img[2]?>" alt="">
+															<input type="hidden" name="images[<?=$ix?>]['0']" value="">
+															<input type="hidden" name="images[<?=$ix?>]['1']" value="">
+															<input type="hidden" name="images[<?=$ix?>]['2']" value="<?=$img['2']?>">
+															<img src="/src/uploads/<?=$img['2']?>" alt="">
 														</div>
 														<div class="hndler">
 															<div class="">
-																<input type="checkbox" id="im<?=md5($img[2])?>" name="image_delete[<?=$ix?>]" value="<?=$img[2]?>"> <label for="im<?=md5($img[2])?>">törlés</label>
+																<input type="checkbox" id="im<?=md5($img['2'])?>" name="image_delete[<?=$ix?>]" value="<?=$img['2']?>"> <label for="im<?=md5($img['2'])?>">törlés</label>
 															</div>
 															<div class="">
-																<input type="radio"  id="imr<?=md5($img[2])?>" <?=($img[2] == $this->news['belyeg_kep'])?'checked="checked"':''?> name="image_belyegkep" value="<?=$img[2]?>"> <label for="imr<?=md5($img[2])?>">bélyegkép</label>
+																<input type="radio"  id="imr<?=md5($img['2'])?>" <?=($img['2'] == $this->news['belyeg_kep'])?'checked="checked"':''?> name="image_belyegkep" value="<?=$img['2']?>"> <label for="imr<?=md5($img['2'])?>">bélyegkép</label>
 															</div>
 														</div>
 													</div>
@@ -113,9 +113,9 @@ $scats['ids'] = $catids;
               <br />
               <div class="row floating-buttons">
                 <div class="col-md-12 right">
-                  <? if($this->gets[2] == 'szerkeszt'): ?>
-                    <input type="hidden" name="id" value="<?=$this->gets[2]?>" />
-                    <a href="/<?=$this->gets[0]?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
+                  <? if($this->gets['2'] == 'szerkeszt'): ?>
+                    <input type="hidden" name="id" value="<?=$this->gets['2']?>" />
+                    <a href="/<?=$this->gets['0']?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
                     <button name="save" class="btn btn-success">Változások mentése <i class="fa fa-check-square"></i></button>
                     <? else: ?>
                     <button name="add" class="btn btn-primary">Hozzáadás <i class="fa fa-check-square"></i></button>
@@ -173,10 +173,10 @@ $scats['ids'] = $catids;
 				'<div class="row-neg">'+
 					'<div class="row">'+
 						'<div class="col-md-5"><i class="fa fa-arrows-v"></i>'+
-							'<input type="text" placeholder="Letöltés elnevezése" name="downloads[name][]" value="" class="form-control">'+
+							'<input type="text" placeholder="Letöltés elnevezése" name="downloads['name'][]" value="" class="form-control">'+
 						'</div>'+
 						'<div class="col-md-7">'+
-							'<input type="file" name="downloads[file][]" value="" class="form-control">'+
+							'<input type="file" name="downloads['file'][]" value="" class="form-control">'+
 						'</div>'+
 					'</div>'+
 				'</div>'+

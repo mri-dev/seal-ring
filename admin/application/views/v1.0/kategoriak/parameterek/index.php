@@ -20,9 +20,9 @@
 		},"html");
 	}
 </script>
-<? if($this->gets[2] == 'del'): ?>
+<? if($this->gets['2'] == 'del'): ?>
 <form action="" method="post">
-<input type="hidden" name="delParamId" value="<?=$this->gets[3]?>" />
+<input type="hidden" name="delParamId" value="<?=$this->gets['3']?>" />
 <div class="row">
 	<div class="col-md-12">
     	<div class="panel panel-danger">
@@ -50,7 +50,7 @@
             	<option value="">-- termék kategória kiválasztása --</option>
                 <option value="" disabled></option>
             	<? foreach($this->termekkategoriak as $d): ?>
-                <option value="<?=$d[ID]?>"><?=Product::clear($d[neve])?></option>
+                <option value="<?=$d['ID']?>"><?=Product::clear($d['neve'])?></option>
                 <? endforeach; ?>
             </select>
         </div>
@@ -77,13 +77,13 @@
 			Helper::arry($param,'parameter','ASC');
 			foreach($param as $p): ?>
 		    <div class="katparam param">
-            	<div style="float:right;"><a title="törlés" href="/kategoriak/parameterek/del/<?=$p[ID]?>"><i class="fa fa-times"></i></a></div>
-		    	<em title="Termék listázásban, paraméter megjelenés prioritás">(<?=$p[priority]?>)</em> &nbsp
-				<strong><?=$p[parameter]?> </strong>
-				<? if(!is_null($p[mertekegyseg]) && $p[mertekegyseg] != ''): ?>(<?=$p[mertekegyseg]?>) <? endif; ?>
+            	<div style="float:right;"><a title="törlés" href="/kategoriak/parameterek/del/<?=$p['ID']?>"><i class="fa fa-times"></i></a></div>
+		    	<em title="Termék listázásban, paraméter megjelenés prioritás">(<?=$p['priority']?>)</em> &nbsp
+				<strong><?=$p['parameter']?> </strong>
+				<? if(!is_null($p['mertekegyseg']) && $p['mertekegyseg'] != ''): ?>(<?=$p['mertekegyseg']?>) <? endif; ?>
                 &nbsp;&nbsp;&nbsp;
-				<? if($p[is_range] == 1): ?>&nbsp;<i class="fa fa-arrows-h" title="Csúszkás használat" style="color:black;"></i> <? endif; ?>
-                <? if($p[kulcs] == '1'): ?>&nbsp;<i title="Összehasonlító kulcs: hasonló termékeknél összevetendő paraméter, amit figyelembe vesz" class="fa fa-key" style="color:#ed3e2a; font-size:16px;"></i><? endif; ?>
+				<? if($p['is_range'] == 1): ?>&nbsp;<i class="fa fa-arrows-h" title="Csúszkás használat" style="color:black;"></i> <? endif; ?>
+                <? if($p['kulcs'] == '1'): ?>&nbsp;<i title="Összehasonlító kulcs: hasonló termékeknél összevetendő paraméter, amit figyelembe vesz" class="fa fa-key" style="color:#ed3e2a; font-size:16px;"></i><? endif; ?>
                 <div class="clr"></div>
 		   	</div>
 		    <? endforeach; ?>

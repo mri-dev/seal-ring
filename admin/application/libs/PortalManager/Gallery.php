@@ -328,7 +328,7 @@ class Gallery implements InstallModules
 
 
     // Feltöltése
-    if (isset($_FILES['images']) && !empty($_FILES['images']['name'][0]))
+    if (isset($_FILES['images']) && !empty($_FILES['images']['name']['0']))
     {
       $dir = 'g'.$id;
       $idir = 'src/uploads/galeriak/'.$dir;
@@ -339,7 +339,7 @@ class Gallery implements InstallModules
       }
 
       $mt = explode(" ",str_replace(".","",microtime()));
-      $imgName = \PortalManager\Formater::makeSafeUrl( $eleres.'__'.date('YmdHis').$mt[0] );
+      $imgName = \PortalManager\Formater::makeSafeUrl( $eleres.'__'.date('YmdHis').$mt['0'] );
       $img  = \Images::upload(array(
         'src' => 'images',
         'upDir' => $idir,
@@ -358,8 +358,8 @@ class Gallery implements InstallModules
         }
       }
 
-      if ( !$belyegkep && $image_set[0] != '' ) {
-        $belyegkep = $image_set[0][2];
+      if ( !$belyegkep && $image_set['0'] != '' ) {
+        $belyegkep = $image_set['0']['2'];
       }
     }
 
@@ -436,15 +436,15 @@ class Gallery implements InstallModules
     {
       foreach ((array)$data['images'] as $i) {
         $image_set[] = array(
-          $i[0],
-          $i[1],
-          $i[2]
+          $i['0'],
+          $i['1'],
+          $i['2']
         );
       }
     }
 
     // Feltöltése
-    if (isset($_FILES['images']) && !empty($_FILES['images']['name'][0]))
+    if (isset($_FILES['images']) && !empty($_FILES['images']['name']['0']))
     {
       $dir = 'g'.$id;
       $idir = 'src/uploads/galeriak/'.$dir;
@@ -455,7 +455,7 @@ class Gallery implements InstallModules
       }
 
       $mt = explode(" ",str_replace(".","",microtime()));
-      $imgName = \PortalManager\Formater::makeSafeUrl( $eleres.'__'.date('YmdHis').$mt[0] );
+      $imgName = \PortalManager\Formater::makeSafeUrl( $eleres.'__'.date('YmdHis').$mt['0'] );
       $img  = \Images::upload(array(
         'src' => 'images',
         'upDir' => $idir,
@@ -474,8 +474,8 @@ class Gallery implements InstallModules
         }
       }
 
-      if ( !$belyegkep && $image_set[0] != '' ) {
-        $belyegkep = $image_set[0][2];
+      if ( !$belyegkep && $image_set['0'] != '' ) {
+        $belyegkep = $image_set['0']['2'];
       }
     }
 
@@ -535,7 +535,7 @@ class Gallery implements InstallModules
     // Képek törlése
     if (!empty($data['images'])) {
       foreach ( (array)$data['images'] as $di => $path ) {
-        @unlink('src/uploads/'.$path[2]);
+        @unlink('src/uploads/'.$path['2']);
       }
     }
 

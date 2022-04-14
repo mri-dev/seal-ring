@@ -5,18 +5,18 @@
     A jövő bajnokai kártyák
     <span><strong><?=$this->cards['info']['total_num']?> db</strong> kártya
     <span>
-        <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt listázás <a href="/watercard/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?>
+        <? if($_COOKIE['filtered'] == '1'): ?><span class="filtered">Szűrt listázás <a href="/watercard/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?>
     </span>
 </h1>
 <?=$this->msg?>
-<? if( $this->gets[1] == 'check'):  ?>
-    <div style="color:#B95050; font-size:1.2em;">A lista jelenleg csak a <strong>"<?=$this->gets[2]?>"</strong> kártya számú rekordot mutatja! <a href="/watercard">[összes listázása]</a></div>
+<? if( $this->gets['1'] == 'check'):  ?>
+    <div style="color:#B95050; font-size:1.2em;">A lista jelenleg csak a <strong>"<?=$this->gets['2']?>"</strong> kártya számú rekordot mutatja! <a href="/watercard">[összes listázása]</a></div>
     <br>
 <? endif; ?>
 
-<? if($this->gets[1] == 'del'): ?>
+<? if($this->gets['1'] == 'del'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row np">
     <div class="col-md-12">
         <div class="con con-del">
@@ -24,7 +24,7 @@
             Biztos, hogy törli a kiválasztott kártya igényt?
             <div class="row np">
                 <div class="col-md-12 right">
-                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             </div>
@@ -51,28 +51,28 @@
             </tr>
         </thead>
         <tbody>
-        	<tr class="search <? if($_COOKIE[filtered] == '1'): ?>filtered<? endif;?>">
-        		<td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE[filter_ID]?>" /></td>
-        		<td><input type="text" name="uid" class="form-control" value="<?=$_COOKIE[filter_uid]?>" /></td>
-                <td><input type="text" name="nev" placeholder="" class="form-control" value="<?=$_COOKIE[filter_nev]?>" /></td>
-        		<td><input type="text" name="email" placeholder="" class="form-control" value="<?=$_COOKIE[filter_email]?>" /></td>
+        	<tr class="search <? if($_COOKIE['filtered'] == '1'): ?>filtered<? endif;?>">
+        		<td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE['filter_ID']?>" /></td>
+        		<td><input type="text" name="uid" class="form-control" value="<?=$_COOKIE['filter_uid']?>" /></td>
+                <td><input type="text" name="nev" placeholder="" class="form-control" value="<?=$_COOKIE['filter_nev']?>" /></td>
+        		<td><input type="text" name="email" placeholder="" class="form-control" value="<?=$_COOKIE['filter_email']?>" /></td>
         		
-        		<td><input type="text" name="kartya_szam" placeholder="" class="form-control" value="<?=$_COOKIE[filter_kartya_szam]?>" /></td>
-        		<td><input type="text" name="egyesulet" placeholder="" class="form-control" value="<?=$_COOKIE[filter_egyesulet]?>" /></td>
+        		<td><input type="text" name="kartya_szam" placeholder="" class="form-control" value="<?=$_COOKIE['filter_kartya_szam']?>" /></td>
+        		<td><input type="text" name="egyesulet" placeholder="" class="form-control" value="<?=$_COOKIE['filter_egyesulet']?>" /></td>
         		<td></td>
         		<td>
         			<select class="form-control"  name="aktivalva" style="max-width:200px;">
         				<option value="" selected="selected"># Mind</option>
-                        <option value="1" <?=($_COOKIE[filter_aktivalva] == '1')?'selected':''?>>Igen</option>
-        				<option value="0" <?=($_COOKIE[filter_aktivalva] == '0')?'selected':''?>>Nem</option>
+                        <option value="1" <?=($_COOKIE['filter_aktivalva'] == '1')?'selected':''?>>Igen</option>
+        				<option value="0" <?=($_COOKIE['filter_aktivalva'] == '0')?'selected':''?>>Nem</option>
                     </select>
         		</td>
         		<td align="center">
                 	<button name="filterList" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </td>
         	</tr>
-        	<? if(count($this->cards[data]) > 0): foreach($this->cards[data] as $d):  ?>
-        	<tr class="<? if($d[aktivalva] == 0): ?>want-activate<? endif; ?>">
+        	<? if(count($this->cards['data']) > 0): foreach($this->cards['data'] as $d):  ?>
+        	<tr class="<? if($d['aktivalva'] == 0): ?>want-activate<? endif; ?>">
             	<td class="center"><?=$d['ID']?></td>
             	<td class="center"><?=$d['uid']?></td>
             	<td><?=$d['neve']?></td>

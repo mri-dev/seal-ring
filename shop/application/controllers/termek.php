@@ -134,8 +134,8 @@ class termek extends Controller{
 			$SEO .= $this->view->addOG('title',addslashes($title).'Termékek | '.$this->view->settings['page_title']);
 			$SEO .= $this->view->addOG('description',addslashes($desc));
 			$SEO .= $this->view->addOG('type','product');
-			$SEO .= $this->view->addOG('url',$this->view->settings['page_url'].'/'.substr($_SERVER[REQUEST_URI],1));
-			$SEO .= $this->view->addOG('image',$product[profil_kep]);
+			$SEO .= $this->view->addOG('url',$this->view->settings['page_url'].'/'.substr($_SERVER['REQUEST_URI'],1));
+			$SEO .= $this->view->addOG('image',$product['profil_kep']);
 			$SEO .= $this->view->addOG('site_name', $this->view->settings['page_title']);
 
 			// FB - OG - PRODUCT

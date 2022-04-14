@@ -8,48 +8,48 @@
         <?php if ( !empty($this->productFilters) ): ?>
           <?php foreach ( $this->productFilters as $pf ):
 
-            if(count($pf[hints]) == 0): continue; endif;
-            if( ($pf[type] != 'tartomany' && $pf[type] != 'szam') &&  count($pf[hints]) <= 1) continue;
-            if( ($pf[type] == 'tartomany' || $pf[type] == 'szam') &&  count($pf[hints]) <= 1) continue;
+            if(count($pf['hints']) == 0): continue; endif;
+            if( ($pf['type'] != 'tartomany' && $pf['type'] != 'szam') &&  count($pf['hints']) <= 1) continue;
+            if( ($pf['type'] == 'tartomany' || $pf['type'] == 'szam') &&  count($pf['hints']) <= 1) continue;
           ?>
           <div class="section-group filter-row">
             <strong><?php echo $pf['parameter']; ?></strong> <?=($pf['me'] != '')?'('.$pf['me'].')':''?>
           </div>
-          <div class="section-wrapper type-<?=$pf[type]?>">
-              <input type="hidden" name="fil_p_<?=$pf[ID]?>" id="p_<?=$pf[ID]?>_v" />
-              <div id="pmf_<?=$pf[ID]?>">
-                 <? if($pf[type] == 'tartomany'): ?>
+          <div class="section-wrapper type-<?=$pf['type']?>">
+              <input type="hidden" name="fil_p_<?=$pf['ID']?>" id="p_<?=$pf['ID']?>_v" />
+              <div id="pmf_<?=$pf['ID']?>">
+                 <? if($pf['type'] == 'tartomany'): ?>
                  <div class="pos_rel">
-                    <input mode="minmax" id="r<?=$pf[ID]?>_range_min" type="hidden" name="fil_p_<?=$pf[ID]?>_min" value="<?=$_GET['fil_p_'.$pf[ID].'_min']?>" class="form-control <?=($_GET['fil_p_'.$pf[ID].'_min'])?'filtered':''?>" />
-                    <input mode="minmax" id="r<?=$pf[ID]?>_range_max" type="hidden" name="fil_p_<?=$pf[ID]?>_max" value="<?=$_GET['fil_p_'.$pf[ID].'_max']?>" class="form-control <?=($_GET['fil_p_'.$pf[ID].'_max'])?'filtered':''?>" />
-                    <div class="range" key="r<?=$pf[ID]?>" smin="<?=$_GET['fil_p_'.$pf[ID].'_min']?>" smax="<?=$_GET['fil_p_'.$pf[ID].'_max']?>" amin="<?=$pf[minmax][min]?>" amax="<?=$pf[minmax][max]?>"></div>
+                    <input mode="minmax" id="r<?=$pf['ID']?>_range_min" type="hidden" name="fil_p_<?=$pf['ID']?>_min" value="<?=$_GET['fil_p_'.$pf['ID'].'_min']?>" class="form-control <?=($_GET['fil_p_'.$pf['ID'].'_min'])?'filtered':''?>" />
+                    <input mode="minmax" id="r<?=$pf['ID']?>_range_max" type="hidden" name="fil_p_<?=$pf['ID']?>_max" value="<?=$_GET['fil_p_'.$pf['ID'].'_max']?>" class="form-control <?=($_GET['fil_p_'.$pf['ID'].'_max'])?'filtered':''?>" />
+                    <div class="range" key="r<?=$pf['ID']?>" smin="<?=$_GET['fil_p_'.$pf['ID'].'_min']?>" smax="<?=$_GET['fil_p_'.$pf['ID'].'_max']?>" amin="<?=$pf['minmax']['min']?>" amax="<?=$pf['minmax']['max']?>"></div>
                     <div class="rangeInfo">
-                       <div class="col-md-6 def"><em>(<?=$pf[minmax][min]?> - <?=$pf[minmax][max]?>)</em></div>
-                       <div class="col-md-6 sel" align="right"><span id="r<?=$pf[ID]?>_range_info_min"><?=$_GET['fil_p_'.$pf[ID].'_min']?></span> - <span id="r<?=$pf[ID]?>_range_info_max"><?=$_GET['fil_p_'.$pf[ID].'_max']?></span></div>
+                       <div class="col-md-6 def"><em>(<?=$pf['minmax']['min']?> - <?=$pf['minmax']['max']?>)</em></div>
+                       <div class="col-md-6 sel" align="right"><span id="r<?=$pf['ID']?>_range_info_min"><?=$_GET['fil_p_'.$pf['ID'].'_min']?></span> - <span id="r<?=$pf['ID']?>_range_info_max"><?=$_GET['fil_p_'.$pf['ID'].'_max']?></span></div>
                     </div>
                  </div>
-                 <? elseif($pf[type] == 'szam'): ?>
+                 <? elseif($pf['type'] == 'szam'): ?>
                  <div class="pos_rel">
-                    <input mode="minmax" id="r<?=$pf[ID]?>_range_min" type="hidden" name="fil_p_<?=$pf[ID]?>_min" value="<?=$_GET['fil_p_'.$pf[ID].'_min']?>" class="form-control <?=($_GET['fil_p_'.$pf[ID].'_min'])?'filtered':''?>" />
-                    <input mode="minmax" id="r<?=$pf[ID]?>_range_max" type="hidden" name="fil_p_<?=$pf[ID]?>_max" value="<?=$_GET['fil_p_'.$pf[ID].'_max']?>" class="form-control <?=($_GET['fil_p_'.$pf[ID].'_max'])?'filtered':''?>" />
-                    <div class="range" key="r<?=$pf[ID]?>" smin="<?=$_GET['fil_p_'.$pf[ID].'_min']?>" smax="<?=$_GET['fil_p_'.$pf[ID].'_max']?>" amin="<?=$pf[minmax][min]?>" amax="<?=$pf[minmax][max]?>"></div>
+                    <input mode="minmax" id="r<?=$pf['ID']?>_range_min" type="hidden" name="fil_p_<?=$pf['ID']?>_min" value="<?=$_GET['fil_p_'.$pf['ID'].'_min']?>" class="form-control <?=($_GET['fil_p_'.$pf['ID'].'_min'])?'filtered':''?>" />
+                    <input mode="minmax" id="r<?=$pf['ID']?>_range_max" type="hidden" name="fil_p_<?=$pf['ID']?>_max" value="<?=$_GET['fil_p_'.$pf['ID'].'_max']?>" class="form-control <?=($_GET['fil_p_'.$pf['ID'].'_max'])?'filtered':''?>" />
+                    <div class="range" key="r<?=$pf['ID']?>" smin="<?=$_GET['fil_p_'.$pf['ID'].'_min']?>" smax="<?=$_GET['fil_p_'.$pf['ID'].'_max']?>" amin="<?=$pf['minmax']['min']?>" amax="<?=$pf['minmax']['max']?>"></div>
                     <div class="rangeInfo">
-                       <div class="col-md-6 def"><em>(<?=$pf[minmax][min]?> - <?=$pf[minmax][max]?>)</em></div>
-                       <div class="col-md-6 sel" align="right"><span id="r<?=$pf[ID]?>_range_info_min"><?=$_GET['fil_p_'.$pf[ID].'_min']?></span> - <span id="r<?=$pf[ID]?>_range_info_max"><?=$_GET['fil_p_'.$pf[ID].'_max']?></span></div>
+                       <div class="col-md-6 def"><em>(<?=$pf['minmax']['min']?> - <?=$pf['minmax']['max']?>)</em></div>
+                       <div class="col-md-6 sel" align="right"><span id="r<?=$pf['ID']?>_range_info_min"><?=$_GET['fil_p_'.$pf['ID'].'_min']?></span> - <span id="r<?=$pf['ID']?>_range_info_max"><?=$_GET['fil_p_'.$pf['ID'].'_max']?></span></div>
                     </div>
                  </div>
                  <? else: ?>
                  <div class="selectors">
-                    <?php if (count($pf[hints]) > 0): ?>
+                    <?php if (count($pf['hints']) > 0): ?>
                     <div class="sel-item-n">
-                      <?=count($pf[hints])?>
+                      <?=count($pf['hints'])?>
                     </div>
                     <?php endif; ?>
-                    <div class="selector" key="p_<?=$pf[ID]?>" id="p_<?=$pf[ID]?>"><?=__('összes')?></div>
-                    <div class="selectorHint p_<?=$pf[ID]?>" style="display:none;">
+                    <div class="selector" key="p_<?=$pf['ID']?>" id="p_<?=$pf['ID']?>"><?=__('összes')?></div>
+                    <div class="selectorHint p_<?=$pf['ID']?>" style="display:none;">
                        <ul>
-                          <? foreach($pf[hints] as $h): ?>
-                          <li><label><input type="checkbox" <?=(in_array($h,$this->filters['fil_p_'.$pf[ID]]))?'checked':''?> for="p_<?=$pf[ID]?>" text="<?=$h?>" value="<?=$h?>" /> <?=$h?> <?=$pf[mertekegyseg]?></label></li>
+                          <? foreach($pf['hints'] as $h): ?>
+                          <li><label><input type="checkbox" <?=(in_array($h,$this->filters['fil_p_'.$pf['ID']]))?'checked':''?> for="p_<?=$pf['ID']?>" text="<?=$h?>" value="<?=$h?>" /> <?=$h?> <?=$pf['mertekegyseg']?></label></li>
                           <? endforeach;?>
                        </ul>
                     </div>
@@ -155,8 +155,8 @@
         <? } ?>
       </div>
       <div class="stock-info">
-        <?php if ($this->top_products_list[0][raktar_keszlet] > 0): ?>
-          Ebből a termékünkből már csak <?=$this->top_products_list[0][raktar_keszlet]?> db van!
+        <?php if ($this->top_products_list['0']['raktar_keszlet'] > 0): ?>
+          Ebből a termékünkből már csak <?=$this->top_products_list['0']['raktar_keszlet']?> db van!
         <?php else: ?>
           Ez a termékünk elfogyott!
         <?php endif; ?>

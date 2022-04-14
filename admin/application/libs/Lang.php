@@ -13,7 +13,7 @@
 			$a_str = explode(';;',rtrim($str,';;'));	
 			foreach($a_str as $as){
 				$b_str = explode('::',$as);
-				$arr[trim($b_str[0])] = trim($b_str[1]);
+				$arr[trim($b_str['0'])] = trim($b_str['1']);
 			}
 			
 			return $arr;

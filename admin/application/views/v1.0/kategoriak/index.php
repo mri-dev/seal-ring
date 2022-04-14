@@ -85,7 +85,7 @@
 										$hashkeys = $this->category->getPageHashkeys();
 									}
 								?>
-								<label class=" <?=(is_null($page[hashkey]))?'disabled':''?> "> <? if($page[deep] > 0 ) { for($e = $page[deep]; $e > 0; $e-- ){ echo '&mdash;'; } }?>  <input <?=(is_null($page[hashkey]))?'disabled="disabled"':''?> type="checkbox" <?=(in_array( $page[hashkey], $hashkeys)) ?'checked="checked"':''?> name="oldal_hashkeys[]" value="<?=$page[hashkey]?>"> <?=$page[cim]?></label>
+								<label class=" <?=(is_null($page['hashkey']))?'disabled':''?> "> <? if($page['deep'] > 0 ) { for($e = $page['deep']; $e > 0; $e-- ){ echo '&mdash;'; } }?>  <input <?=(is_null($page['hashkey']))?'disabled="disabled"':''?> type="checkbox" <?=(in_array( $page['hashkey'], $hashkeys)) ?'checked="checked"':''?> name="oldal_hashkeys[]" value="<?=$page['hashkey']?>"> <?=$page['cim']?></label>
 								<? endwhile; ?>
 							</div>
 						</div>
@@ -123,7 +123,7 @@
 				}
 
 			?>
-			<STRONG style="color:#2c3e50;"><?=$cat['neve']?></STRONG> &nbsp;&mdash;&nbsp; <SPAN STYLE="COLOR:#43a0de;"><?=$cat[hashkey]?></SPAN><BR>
+			<STRONG style="color:#2c3e50;"><?=$cat['neve']?></STRONG> &nbsp;&mdash;&nbsp; <SPAN STYLE="COLOR:#43a0de;"><?=$cat['hashkey']?></SPAN><BR>
 			<? endwhile; endif;  ?>
 
 			<div class="row np row-head">
@@ -139,7 +139,7 @@
 				<div class="row np deep<?=$cat['deep']?> <?=($this->category && $this->category->getId() == $cat['ID'] ? 'on-edit' : ( $this->category_d && $this->category_d->getId() == $cat['ID'] ? 'on-del':'') )?>">
 					<div class="col-md-9">
 						<a href="/kategoriak/szerkeszt/<?=$cat['ID']?>" title="Szerkesztés"><strong><?=$cat['neve']?></strong></a>
-						 <? if( $cat['oldal_hashkeys'] ): ?> | <span style="color: black;">Csatolt oldalak: <?=count(explode(",",$cat[oldal_hashkeys]))?> db</span><? endif; ?>
+						 <? if( $cat['oldal_hashkeys'] ): ?> | <span style="color: black;">Csatolt oldalak: <?=count(explode(",",$cat['oldal_hashkeys']))?> db</span><? endif; ?>
 						<div><? if($cat['hashkey']): ?> <span class="hashkey">#<?=$cat['hashkey']?></span> <? endif; ?></div>
 
 					</div>

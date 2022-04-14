@@ -718,34 +718,9 @@
 /* 0 - 640 px - SMARTPHONE */
 @media all and (max-width: 640px)
 {
-	.account .todo-after-reg{
-		width: 100%;
-	}
 	.galleries .folder-list > .folder,
 	.galleries .image-list > div{
 		flex-basis: calc(100% / 2);
-	}
-	.order-stepper .pre-before-order > .user .face .face-wrapper{
-		width: 50px;
-    height: 50px;
-	}
-
-	.order-stepper .pre-before-order > .nextbutton button{
-		margin: 10px 0 0 0;
-		font-size: 1.1rem;
-	}
-	.order-stepper .pre-before-order > .user .face .face-wrapper .it{
-		font-size: 1.4rem;
-	}
-	.order-stepper .pre-before-order > .user .useroverview {
-    font-size: 0.8rem;
-	}
-	.order-stepper .pre-before-order > .user .useroverview .name {
-    font-size: 1.1rem;
-    margin: 0 0 5px 0;
-	}
-	.order-stepper .pre-before-order.user-logged a.logout {
-    margin: 5px 0 0 0;
 	}
 	.kollega-list {
 

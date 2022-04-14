@@ -18,7 +18,7 @@
 
 			if(strpos($item,"::") !== false){
 				$ext 	= explode("::",$item);
-				$pl 	= $ext[0] .'/'. $ext[1].'.php';
+				$pl 	= $ext['0'] .'/'. $ext['1'].'.php';
 				$item 	= '';
 			}else{
 				$pl 	= '/index.php';
@@ -37,16 +37,16 @@
 				 $vw[] = $call;
 			}
 
-			$target = (file_exists($vw[2])) ? $vw[2] : false ;
+			$target = (file_exists($vw['2'])) ? $vw['2'] : false ;
 
 			if(!$target){
                 $step++;
-				$target = (file_exists($vw[0])) ? $vw[0] : false ;
+				$target = (file_exists($vw['0'])) ? $vw['0'] : false ;
 			}
 
 			if(!$target){
                 $step++;
-				$target = (file_exists($vw[1])) ? $vw[1] : false ;
+				$target = (file_exists($vw['1'])) ? $vw['1'] : false ;
 			}
 
 			if($target){
@@ -68,14 +68,14 @@
 			$ex 	= substr($fl,strpos($fl,$st)+strlen($st)+1);
 			$exi 	= explode("/",$ex);
 			$param 	= Helper::getParam();
-			$par 	= ($param[0] != null) ? $param[0].'.php' : 'index.php' ;
+			$par 	= ($param['0'] != null) ? $param['0'].'.php' : 'index.php' ;
 
-			$exp 	= VIEW . $exi[0] .'/'. $exi[1] .'/'.$par;
+			$exp 	= VIEW . $exi['0'] .'/'. $exi['1'] .'/'.$par;
 
 			if(file_exists($exp)){
 				@require $exp;
 			}else{
-				@require VIEW . $exi[0] .'/'. $exi[1].'/index.php';
+				@require VIEW . $exi['0'] .'/'. $exi['1'].'/index.php';
 			}
 		}
 
@@ -115,7 +115,7 @@
             $file = VIEW;
 
             if($inside){
-                $main = $this->gets[0].'/';
+                $main = $this->gets['0'].'/';
                 $file .= $main;
             }
 
@@ -127,8 +127,8 @@
         }
 
         function getPreferences($prefs = array(), $arg = array()){
-            $parent_path = VIEW.$this->gets[0].'/preferences/';
-            $css_file = ($arg[css] != '') ? $arg[css].'.' : 'main.';
+            $parent_path = VIEW.$this->gets['0'].'/preferences/';
+            $css_file = ($arg['css'] != '') ? $arg['css'].'.' : 'main.';
 
             if(!empty($prefs))
                 foreach($prefs as $pf){

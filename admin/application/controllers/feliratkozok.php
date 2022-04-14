@@ -22,45 +22,45 @@ class feliratkozok extends Controller{
 				$filtered = false;
 				
 				if($_POST['ID'] != ''){
-					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets[0]);
+					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 				if($_POST['email'] != ''){
-					setcookie('filter_email',$_POST['email'],time()+60*24,'/'.$this->view->gets[0]);
+					setcookie('filter_email',$_POST['email'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_email','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_email','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 
 				if($_POST['hely'] != ''){
-					setcookie('filter_hely',$_POST['hely'],time()+60*24,'/'.$this->view->gets[0]);
+					setcookie('filter_hely',$_POST['hely'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_hely','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_hely','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 				if($_POST['nev'] != ''){
-					setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets[0]);
+					setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 				if($_POST['leiratkozott'] != ''){
-					setcookie('filter_leiratkozott',$_POST['leiratkozott'],time()+60*24,'/'.$this->view->gets[0]);
+					setcookie('filter_leiratkozott',$_POST['leiratkozott'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_leiratkozott','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_leiratkozott','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 				}	
 
 				Helper::reload();
@@ -78,7 +78,7 @@ class feliratkozok extends Controller{
 			$arg = array(
 				'limit' => 50,
 				'filters' => $filters,
-				'page' => ($this->view->gets[1] == 'del' ? 1 : $this->view->gets[2])
+				'page' => ($this->view->gets['1'] == 'del' ? 1 : $this->view->gets['2'])
 			);
 			$this->out( 'feliratkozok', $portal->getFeliratkozok( $arg ) );
 			$this->out( 'navigator', (new Pagination(array(
@@ -185,12 +185,12 @@ class feliratkozok extends Controller{
 		}
 
 		function clearfilters(){
-			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_email','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filterhely','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_leiratkozott','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+			setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_email','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filterhely','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_leiratkozott','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 			Helper::reload('/feliratkozok/');
 		}
 

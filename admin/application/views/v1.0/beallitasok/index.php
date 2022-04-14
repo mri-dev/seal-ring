@@ -37,10 +37,10 @@
     <div class="row np">
         <div class="col-md-4" style="padding-right:8px;">
             <form action="#admins" method="post">
-                <div class="con <?=($this->gets[1] == 'admin_torles' ? 'con-del' : ($this->gets[1] == 'admin_szerkesztes'?'con-edit':''))?>">
-                    <h2><?=($this->gets[1] == 'admin_torles' ? 'Adminisztrátor törlése' : ($this->gets[1] == 'admin_szerkesztes'?'Adminisztrátor szerkesztése':'Új Adminisztrátor'))?></h2>
+                <div class="con <?=($this->gets['1'] == 'admin_torles' ? 'con-del' : ($this->gets['1'] == 'admin_szerkesztes'?'con-edit':''))?>">
+                    <h2><?=($this->gets['1'] == 'admin_torles' ? 'Adminisztrátor törlése' : ($this->gets['1'] == 'admin_szerkesztes'?'Adminisztrátor szerkesztése':'Új Adminisztrátor'))?></h2>
 
-                    <? if($this->gets[1] == 'admin_torles'): ?>
+                    <? if($this->gets['1'] == 'admin_torles'): ?>
                         Biztos benne, hogy törli a(z) <strong><u><?=$this->admin->getUsername()?></u></strong> azonosítójú adminisztrátort? A művelet nem visszavonható!
 
                         <div class="row np">
@@ -59,11 +59,11 @@
                     <br>
                     <div class="row np">
                         <div class="col-md-6" style="padding-right:5px;">
-                            <label for="admin_pw1"><?=($this->gets[1] == 'admin_szerkesztes')?'Jelszó csere':'Jelszó*'?></label>
+                            <label for="admin_pw1"><?=($this->gets['1'] == 'admin_szerkesztes')?'Jelszó csere':'Jelszó*'?></label>
                             <input type="password" id="admin_pw1" name="admin_pw1" value="" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <label for="admin_pw2"><?=($this->gets[1] == 'admin_szerkesztes')?'Jelszó csere (megerősít)':'Jelszó újra*'?></label>
+                            <label for="admin_pw2"><?=($this->gets['1'] == 'admin_szerkesztes')?'Jelszó csere (megerősít)':'Jelszó újra*'?></label>
                             <input type="password" id="admin_pw2" name="admin_pw2" value="" class="form-control">
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             <label for="admin_jog">Jogosultság<sup>2</sup></label>
                             <select name="admin_jog" id="admin_jog" class="form-control">
                                 <option value="1" selected="selected">Adminisztrátor</option>
-                                <option value="<?=\PortalManager\Admin::SUPER_ADMIN_PRIV_INDEX?>" <?=($this->gets[1] == 'admin_szerkesztes' && $this->admin->getPrivIndex() == \PortalManager\Admin::SUPER_ADMIN_PRIV_INDEX ? 'selected="selected"' : '')?>>Szuper Adminisztrátor</option>
+                                <option value="<?=\PortalManager\Admin::SUPER_ADMIN_PRIV_INDEX?>" <?=($this->gets['1'] == 'admin_szerkesztes' && $this->admin->getPrivIndex() == \PortalManager\Admin::SUPER_ADMIN_PRIV_INDEX ? 'selected="selected"' : '')?>>Szuper Adminisztrátor</option>
                             </select>
                          </div>
                          <div class="row np">
@@ -95,7 +95,7 @@
                     <br>
                     <div class="row np">
                         <div class="col-md-12 right">
-                             <? if($this->gets[1] == 'admin_szerkesztes'): ?>
+                             <? if($this->gets['1'] == 'admin_szerkesztes'): ?>
                              <a href="/beallitasok/#admins" class="btn btn-danger"><i class="fa fa-times"></i> mégse</a>
                              <button name="saveAdmin" value="1" class="btn btn-success">Változások mentése <i class="fa fa-save"></i></button>
                              <? else: ?>
@@ -784,10 +784,10 @@
                             </tr>
                         </thead>
                          <tbody>
-                        <? foreach ( $this->api_log[data] as $d ) { ?>
+                        <? foreach ( $this->api_log['data'] as $d ) { ?>
                             <tr>
                                 <td class="center"><?=\PortalManager\Formater::dateFormat($d['idopont'], $this->settings['date_format'])?></td>
-                                <td class="center"><?=$d[command]?></td>
+                                <td class="center"><?=$d['command']?></td>
                                 <td><div class="jsoncommand"><span class="st"><?=wordwrap($d['parancs_json'], 150, '<br>', true)?></span><span class="nl"><?=nl2br($d['parancs_json'])?></span></div></td>
                                 <td><div class="jsoncommand"><span class="st"><?=wordwrap($d['valasz_json'], 150, '<br>', true)?></span><span class="nl"><?=nl2br($d['valasz_json'])?></span></div></td>
                             </tr>

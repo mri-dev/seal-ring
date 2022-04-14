@@ -54,7 +54,7 @@ class tablazatok extends Controller
 
 			if(Post::on('edit')){
 				try{
-					$this->tables->edit( $this->view->gets[2], $_POST);	
+					$this->tables->edit( $this->view->gets['2'], $_POST);	
 					Helper::reload();
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -65,7 +65,7 @@ class tablazatok extends Controller
 			$temp = new Template( VIEW . 'templates/' );
 
 			$this->out( 'templates', $temp );
-			$this->out( 'selected_data', $this->tables->get( $this->view->gets[2], 'ID' ) );
+			$this->out( 'selected_data', $this->tables->get( $this->view->gets['2'], 'ID' ) );
 		}
 
 		public function del()

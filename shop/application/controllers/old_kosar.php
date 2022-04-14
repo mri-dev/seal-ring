@@ -114,49 +114,49 @@ class kosar extends Controller{
 			$this->view->storedString[] = Helper::getbackPOSTData('order_step_3');
 			$this->view->storedString[] = Helper::getbackPOSTData('order_step_4');
 
-			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString[2][ppp_uzlet]);
+			//$this->view->ppp->data 		= $this->ppp->getPointData($this->view->storedString['2']['ppp_uzlet']);
 
 
-			if ( $this->view->storedString[0][virtual_cash] != "0" && isset($this->view->storedString[0][virtual_cash]) && $this->view->storedString[0][virtual_cash] > $ckosar['totalPrice'] ) {
-				$temp = $this->view->storedString[0];
+			if ( $this->view->storedString['0']['virtual_cash'] != "0" && isset($this->view->storedString['0']['virtual_cash']) && $this->view->storedString['0']['virtual_cash'] > $ckosar['totalPrice'] ) {
+				$temp = $this->view->storedString['0'];
 				$temp['virtual_cash'] = $ckosar['totalPrice'];
 				setcookie( '__order_step_1poststr', json_encode($temp, JSON_UNESCAPED_UNICODE), time() + 3600 * 48, '/' );
 				Helper::reload('/kosar/');
 			}
 
-			if($this->view->gets[1] == '5'){
-				Helper::reload('/kosar/done/'.$_COOKIE[lastOrderedKey]);
+			if($this->view->gets['1'] == '5'){
+				Helper::reload('/kosar/done/'.$_COOKIE['lastOrderedKey']);
 			}
 
 			if(
-				!empty($this->view->storedString[0]) &&
-				!empty($this->view->storedString[1]) &&
-				!empty($this->view->storedString[2]) &&
-				!empty($this->view->storedString[3])
+				!empty($this->view->storedString['0']) &&
+				!empty($this->view->storedString['1']) &&
+				!empty($this->view->storedString['2']) &&
+				!empty($this->view->storedString['3'])
 			){
 				$this->view->canOrder = true;
 			}else{
-				if(empty($this->view->storedString[0])) $this->view->orderMustFillStep[] = 0;
-				if(empty($this->view->storedString[1])) $this->view->orderMustFillStep[] = 1;
-				if(empty($this->view->storedString[2])) $this->view->orderMustFillStep[] = 2;
-				if(empty($this->view->storedString[3])) $this->view->orderMustFillStep[] = 3;
+				if(empty($this->view->storedString['0'])) $this->view->orderMustFillStep[] = 0;
+				if(empty($this->view->storedString['1'])) $this->view->orderMustFillStep[] = 1;
+				if(empty($this->view->storedString['2'])) $this->view->orderMustFillStep[] = 2;
+				if(empty($this->view->storedString['3'])) $this->view->orderMustFillStep[] = 3;
 			}
 
 			// PickPackPont szállítás esetén, ha nincs kiválasztva a PPP, akkor nem lehet megrendelni
-			if( $this->view->storedString[2][atvetel] == $this->view->settings['flagkey_pickpacktransfer_id'] &&
-				$this->view->storedString[2][ppp_uzlet_n] == ''
+			if( $this->view->storedString['2']['atvetel'] == $this->view->settings['flagkey_pickpacktransfer_id'] &&
+				$this->view->storedString['2']['ppp_uzlet_n'] == ''
 			){
 				$this->view->canOrder = false;
 			}
 
-			$min_price_order = $this->view->settings[order_min_price];
-			if( $this->view->kosar[totalPrice] < $min_price_order ) {
+			$min_price_order = $this->view->settings['order_min_price'];
+			if( $this->view->kosar['totalPrice'] < $min_price_order ) {
 				$this->view->canOrder = false;
 				$this->view->not_reached_min_price_text = 'Minimális vásárlási érték <strong>'.Helper::cashFormat($min_price_order).' Ft</strong>! A kosarában található termékek összesített értéke nem haladja meg ezt az értéket!';
 			}
 
 			// PostaPont szállítás esetén, ha nincs kiválasztva a PP, akkor nem lehet megrendelni
-			/*if($this->view->storedString[2][atvetel] == '5' && $this->view->storedString[2][pp_selected] == ''){
+			/*if($this->view->storedString['2']['atvetel'] == '5' && $this->view->storedString['2']['pp_selected'] == ''){
 				$this->view->canOrder = false;
 			}*/
 
@@ -165,19 +165,19 @@ class kosar extends Controller{
 				* Virtuálos egyenleg felhasználás
 				* */
 				// Ha a beírt cash nagyobb mint a rendelkezésre álló
-				if ( $_POST[virtual_cash] > $this->view->user[data][cash]  )
+				if ( $_POST['virtual_cash'] > $this->view->user['data']['cash']  )
 				{
-					$_POST[virtual_cash] = $this->view->user[data][cash];
+					$_POST['virtual_cash'] = $this->view->user['data']['cash'];
 				}
 
 				// Ha a beírt cash nagyobb, mint a kosár összértéke
-				if ( $_POST[virtual_cash] > $this->view->kosar[totalPrice] )
+				if ( $_POST['virtual_cash'] > $this->view->kosar['totalPrice'] )
 				{
-					$_POST[virtual_cash] = $this->view->kosar[totalPrice];
+					$_POST['virtual_cash'] = $this->view->kosar['totalPrice'];
 				}
 
 				// Kupon és partnerkód eltávolítása
-				if ( isset($_POST[virtual_cash]) && $_POST[virtual_cash] > 0 )
+				if ( isset($_POST['virtual_cash']) && $_POST['virtual_cash'] > 0 )
 				{
 					setcookie("coupon_code", 	null, time()-3600, "/kosar");
 					setcookie("partner_code", 	null, time()-3600, "/kosar");
@@ -195,11 +195,11 @@ class kosar extends Controller{
 			$this->view->orderStep = (!$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP]) ? 0 : (int)$_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP];
 
 
-			if($_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP] && $this->view->gets[1] > $this->view->orderStep){
+			if($_COOKIE[\ShopManager\Shop::ORDER_COOKIE_KEY_STEP] && $this->view->gets['1'] > $this->view->orderStep){
 				Helper::reload('/kosar/'.$this->view->orderStep);
 			}
 
-			if($this->view->orderStep == 0 && $this->view->gets[1] != ''){
+			if($this->view->orderStep == 0 && $this->view->gets['1'] != ''){
 				Helper::reload('/kosar/');
 			}
 
@@ -223,13 +223,13 @@ class kosar extends Controller{
 		}
 
 		function done(){
-			$this->view->accessKey 		= $this->view->gets[2];
+			$this->view->accessKey 		= $this->view->gets['2'];
 			$this->view->orderAllapot 	= $this->shop->getMegrendelesAllapotok();
 			$this->view->szallitas 		= $this->shop->getSzallitasiModok();
 			$this->view->fizetes 		= $this->shop->getFizetesiModok();
 
 			$this->view->orderInfo 		= $this->shop->getOrderData($this->view->accessKey);
-			$this->view->order_user 	= $this->User->get( array( 'user' => $this->view->orderInfo[email] ) );
+			$this->view->order_user 	= $this->User->get( array( 'user' => $this->view->orderInfo['email'] ) );
 
 
 			/** PAYU FIZETÉS */

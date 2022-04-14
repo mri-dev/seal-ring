@@ -35,7 +35,7 @@ class gateway extends Controller
 			$this->hidePatern = true;
 
 			$this->Admin = new Admin( false, array( 'db' => $this->db ));
-			switch ( $this->view->gets[2] ) {
+			switch ( $this->view->gets['2'] ) {
 				case 'img':
 					//echo realpath(__FILE__);
 					$this->Admin->autoProductImageConnecter( array( 'image_path' => '../../admin/src/products/all' ));	
@@ -260,7 +260,7 @@ class gateway extends Controller
 				->setSecretKey( 'HUF', $this->view->settings['payu_secret'] )
 				->setCurrency( 	'HUF' );
 				
-			switch ( $this->view->gets[2] ) {
+			switch ( $this->view->gets['2'] ) {
 				case 'ipn':
 					$this->hidePatern = true;
 					$ipn = $this->simple->getIPN();
@@ -305,7 +305,7 @@ class gateway extends Controller
 				case 'idn':
 
 					exit;
-					$order = $this->shop->getOrderData( $this->view->gets[3] );
+					$order = $this->shop->getOrderData( $this->view->gets['3'] );
 
 					/**
 					 * Get IDN
@@ -373,7 +373,7 @@ class gateway extends Controller
 								array(
 									'payu_fizetve' => 1
 								),
-								"ID = ".$order[ID]
+								"ID = ".$order['ID']
 							);
 						}
 
@@ -483,16 +483,16 @@ class gateway extends Controller
 			$this->db->insert(
 				'gateway_cetelem_ipn',
 				array(
-					'megrendeles' => $this->view->gets[3],
-					'statusz' => $this->view->gets[2],
+					'megrendeles' => $this->view->gets['3'],
+					'statusz' => $this->view->gets['2'],
 					'datastr' => json_encode($_REQUEST)
 				)
 			);
 
 			// Megrendelés adatok
-			$this->view->order 		= $this->shop->getOrderData($this->view->gets[3]);
+			$this->view->order 		= $this->shop->getOrderData($this->view->gets['3']);
 
-			switch ($this->view->gets[2]) 
+			switch ($this->view->gets['2']) 
 			{
 				// Tranzakció elkezdése
 				case 'start':
@@ -502,23 +502,23 @@ class gateway extends Controller
 					$name = explode(" ", $this->view->szamlazas['nev']);
 
 					$data = array(
-						'firstName' => $name[0],
-						'lastName' 	=> $name[1],
-						'pcode' 	=> $this->view->szamlazas[irsz],
-						'city' 		=> $this->view->szamlazas[city],
-						'address' 	=> $this->view->szamlazas[uhsz],
-						'email'  	=> $this->view->order[email],
+						'firstName' => $name['0'],
+						'lastName' 	=> $name['1'],
+						'pcode' 	=> $this->view->szamlazas['irsz'],
+						'city' 		=> $this->view->szamlazas['city'],
+						'address' 	=> $this->view->szamlazas['uhsz'],
+						'email'  	=> $this->view->order['email'],
 						'articleId' => 335,
 					);
 
-					$datalist = $cetelem->prepareDataJSON($this->view->gets[3], $data);
+					$datalist = $cetelem->prepareDataJSON($this->view->gets['3'], $data);
 
 					$total = 0;
 
-					if(is_array($this->view->order[items]))
-					foreach ( $this->view->order[items] as $i ) 
+					if(is_array($this->view->order['items']))
+					foreach ( $this->view->order['items'] as $i ) 
 					{
-						$total += $i[subAr];
+						$total += $i['subAr'];
 					}
 					
 					if($this->view->order['kedvezmeny'] > 0) {

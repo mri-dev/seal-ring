@@ -17,7 +17,7 @@
 	<div class="col-md-3">
 		<select class="form-control" name="new_product_allapot[]">
 			<? foreach($this->allapotok as $m):  ?>
-            <option style="color:<?=$m[szin]?>;" value="<?=$m[ID]?>"><?=$m[nev]?></option>
+            <option style="color:<?=$m['szin']?>;" value="<?=$m['ID']?>"><?=$m['nev']?></option>
             <? endforeach; ?>
         </select>
 	</div>

@@ -1,1 +1,1 @@
-<?=$_GET[me]?> vagyok!
+<?=$_GET['me']?> vagyok!

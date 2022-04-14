@@ -15,7 +15,7 @@ class app extends Controller{
 
 		private function authAccess()
 		{
-			if($_SERVER[PHP_AUTH_USER] !== $this->AUTH_USER && $_SERVER[PHP_AUTH_PW] !== $this->AUTH_PW){
+			if($_SERVER['PHP_AUTH_USER'] !== $this->AUTH_USER && $_SERVER['PHP_AUTH_PW'] !== $this->AUTH_PW){
 
 				/*header("WWW-Authenticate: Basic realm=\"GOLDFISHING\"");
 				header("HTTP\ 1.0 401 Unauthorized");
@@ -29,7 +29,7 @@ class app extends Controller{
 		public function generateOrderCSV()
 		{
 			$arg = array();
-			$arg[limit] = 999999;
+			$arg['limit'] = 999999;
 			$arg['archivalt'] = 0;
 			$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(13); // 13 = törölve
@@ -182,11 +182,11 @@ class app extends Controller{
 		public function dev_generateOrderCSV()
 		{
 			$arg = array();
-			$arg[limit] = 999999;
+			$arg['limit'] = 999999;
 			$arg['archivalt'] = 0;
 			//$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(13); // 13 = törölve
-			$arg['filters']['azonosito'] = 'SLR19110146';
+			$arg['filters']['azonosito'] = 'SLR20070191';
 			$orders = $this->AdminUser->getMegrendelesek($arg);
 			$fiz_mods = array(
 				'Készpénz' => 1,
@@ -618,12 +618,12 @@ class app extends Controller{
 				$xml .= "<!DOCTYPE ORDERS>\n";
 			}
 
-			switch($this->view->gets[2]){
+			switch($this->view->gets['2']){
 				// Megrendelések
 				case 'orders':
 
 				$arg = array();
-				$arg[excInProgress] = '1';
+				$arg['excInProgress'] = '1';
 				$order = $this->admin->listAllOrder($arg);
 
 				if(!$show){
@@ -633,20 +633,20 @@ class app extends Controller{
 				if($show):
 				$xml .= "<ORDERS>\n";
 					foreach($order as $o):
-					$szamlazasi_adat 	= json_decode($o[szamlazasi_keys],true);
-					$szallitasi_adat 	= json_decode($o[szallitasi_keys],true);
-					$verified 			= ($o[allapot] == 4) ? 1 : 0;
-					$szallitas_ar 		= $o[szallitasi_koltseg];
-					$kedvezmeny 		= ($o[kedvezmeny] > 0) ? ($o[kedvezmeny] * -1) : 0;
+					$szamlazasi_adat 	= json_decode($o['szamlazasi_keys'],true);
+					$szallitasi_adat 	= json_decode($o['szallitasi_keys'],true);
+					$verified 			= ($o['allapot'] == 4) ? 1 : 0;
+					$szallitas_ar 		= $o['szallitasi_koltseg'];
+					$kedvezmeny 		= ($o['kedvezmeny'] > 0) ? ($o['kedvezmeny'] * -1) : 0;
 					$xml .= "<ORDER>\n";
-						$xml .= "<ORDERHEAD_CODE>".$o[ID]."</ORDERHEAD_CODE>\n";
-						$xml .= "<ORDERHEAD_TIMESTAMP>".$o[idopont]."</ORDERHEAD_TIMESTAMP>\n";
+						$xml .= "<ORDERHEAD_CODE>".$o['ID']."</ORDERHEAD_CODE>\n";
+						$xml .= "<ORDERHEAD_TIMESTAMP>".$o['idopont']."</ORDERHEAD_TIMESTAMP>\n";
 
-						$xml .= "<ORDERHEAD_PARTNER_CODE>".$o[userID]."</ORDERHEAD_PARTNER_CODE>\n";
-						$xml .= "<ORDERHEAD_PARTNER_NAME>".$o[nev]."</ORDERHEAD_PARTNER_NAME>\n";
-						$xml .= "<ORDERHEAD_PARTNER_ZIP>".$szamlazasi_adat[irsz]."</ORDERHEAD_PARTNER_ZIP>\n";
-						$xml .= "<ORDERHEAD_PARTNER_CITY>".$szamlazasi_adat[city]."</ORDERHEAD_PARTNER_CITY>\n";
-						$xml .= "<ORDERHEAD_PARTNER_ADDRESS>".$szamlazasi_adat[uhsz]."</ORDERHEAD_PARTNER_ADDRESS>\n";
+						$xml .= "<ORDERHEAD_PARTNER_CODE>".$o['userID']."</ORDERHEAD_PARTNER_CODE>\n";
+						$xml .= "<ORDERHEAD_PARTNER_NAME>".$o['nev']."</ORDERHEAD_PARTNER_NAME>\n";
+						$xml .= "<ORDERHEAD_PARTNER_ZIP>".$szamlazasi_adat['irsz']."</ORDERHEAD_PARTNER_ZIP>\n";
+						$xml .= "<ORDERHEAD_PARTNER_CITY>".$szamlazasi_adat['city']."</ORDERHEAD_PARTNER_CITY>\n";
+						$xml .= "<ORDERHEAD_PARTNER_ADDRESS>".$szamlazasi_adat['uhsz']."</ORDERHEAD_PARTNER_ADDRESS>\n";
 
 						$xml .= "<ORDERHEAD_PARTNER_COUNTRY_INTERNATIONAL_CODE>HU</ORDERHEAD_PARTNER_COUNTRY_INTERNATIONAL_CODE>\n";
 
@@ -655,14 +655,14 @@ class app extends Controller{
 						$xml .= "<ORDERHEAD_PARTNER_OTHER_DATA></ORDERHEAD_PARTNER_OTHER_DATA>\n";
 
 						$xml .= "<ORDERHEAD_PARTNER_MAIL_IS_SAME>0</ORDERHEAD_PARTNER_MAIL_IS_SAME>\n";
-						$xml .= "<ORDERHEAD_PARTNER_MAIL_NAME>".$szallitasi_adat[nev]."</ORDERHEAD_PARTNER_MAIL_NAME>\n";
-						$xml .= "<ORDERHEAD_PARTNER_MAIL_ZIP>".$szallitasi_adat[irsz]."</ORDERHEAD_PARTNER_MAIL_ZIP>\n";
-						$xml .= "<ORDERHEAD_PARTNER_MAIL_CITY>".$szallitasi_adat[city]."</ORDERHEAD_PARTNER_MAIL_CITY>\n";
-						$xml .= "<ORDERHEAD_PARTNER_MAIL_ADDRESS>".$szallitasi_adat[uhsz]."</ORDERHEAD_PARTNER_MAIL_ADDRESS>\n";
+						$xml .= "<ORDERHEAD_PARTNER_MAIL_NAME>".$szallitasi_adat['nev']."</ORDERHEAD_PARTNER_MAIL_NAME>\n";
+						$xml .= "<ORDERHEAD_PARTNER_MAIL_ZIP>".$szallitasi_adat['irsz']."</ORDERHEAD_PARTNER_MAIL_ZIP>\n";
+						$xml .= "<ORDERHEAD_PARTNER_MAIL_CITY>".$szallitasi_adat['city']."</ORDERHEAD_PARTNER_MAIL_CITY>\n";
+						$xml .= "<ORDERHEAD_PARTNER_MAIL_ADDRESS>".$szallitasi_adat['uhsz']."</ORDERHEAD_PARTNER_MAIL_ADDRESS>\n";
 
 						$xml .= "<ORDERHEAD_PARTNER_MAIL_COUNTRY_INTERNATIONAL_CODE>HU</ORDERHEAD_PARTNER_MAIL_COUNTRY_INTERNATIONAL_CODE>\n";
 
-						$xml .= "<ORDERHEAD_PAYMENTMETHOD_CODE>".$o[fizetesMod]."</ORDERHEAD_PAYMENTMETHOD_CODE>\n";
+						$xml .= "<ORDERHEAD_PAYMENTMETHOD_CODE>".$o['fizetesMod']."</ORDERHEAD_PAYMENTMETHOD_CODE>\n";
 
 						//$xml .= "<ORDERHEAD_DATE_SHIPPED>".date('Y-m-d')."</ORDERHEAD_DATE_SHIPPED>\n";
 						//$xml .= "<ORDERHEAD_DATE_PAYMENT_DUE>".date('Y-m-d')."</ORDERHEAD_DATE_PAYMENT_DUE>\n";
@@ -673,22 +673,22 @@ class app extends Controller{
 
 						$xml .= "<ORDERHEAD_CURRENCY_ABBREVIATION>HUF</ORDERHEAD_CURRENCY_ABBREVIATION>\n";
 
-						$xml .= "<ORDERHEAD_SUBJECT>GOLDFISHING.HU - ".$o[azonosito]."</ORDERHEAD_SUBJECT>\n";
+						$xml .= "<ORDERHEAD_SUBJECT>GOLDFISHING.HU - ".$o['azonosito']."</ORDERHEAD_SUBJECT>\n";
 						$xml .= "<ORDERHEAD_EXTRA_COMMENT></ORDERHEAD_EXTRA_COMMENT>\n";
 
 						$xml .= "<ORDERHEAD_PAID>0</ORDERHEAD_PAID>\n";
 
 						$xml .= "<ORDERHEAD_VERIFIED>".$verified."</ORDERHEAD_VERIFIED>\n";
 
-						foreach($o[items][data] as $i):
-							$ar = number_format($i[egysegAr]/1.27,2,".","");
+						foreach($o['items']['data'] as $i):
+							$ar = number_format($i['egysegAr']/1.27,2,".","");
 						$xml .= "<ORDERITEM>\n";
-							$xml .= "<ORDERITEM_CODE>".$i[ID]."</ORDERITEM_CODE>\n";
+							$xml .= "<ORDERITEM_CODE>".$i['ID']."</ORDERITEM_CODE>\n";
 
-							$xml .= "<ORDERITEM_PRODUCT_CODE>".$i[termekID]."</ORDERITEM_PRODUCT_CODE>\n";
+							$xml .= "<ORDERITEM_PRODUCT_CODE>".$i['termekID']."</ORDERITEM_PRODUCT_CODE>\n";
 							//$xml .= "<ORDERITEM_STAT_NO>VTSZ 12345</ORDERITEM_STAT_NO>\n";
 							//$xml .= "<ORDERITEM_PART_NO>abc123</ORDERITEM_PART_NO>\n";
-							$xml .= "<ORDERITEM_NAME>".$i[termekNev]."</ORDERITEM_NAME>\n";
+							$xml .= "<ORDERITEM_NAME>".$i['termekNev']."</ORDERITEM_NAME>\n";
 							//$xml .= "<ORDERITEM_NAME_TRANSLATION>Online Product 1</ORDERITEM_NAME_TRANSLATION>\n";
 							$xml .= "<ORDERITEM_COMMENT></ORDERITEM_COMMENT>\n";
 							$xml .= "<ORDERITEM_COMMENT_TRANSLATION></ORDERITEM_COMMENT_TRANSLATION>\n";
@@ -700,7 +700,7 @@ class app extends Controller{
 
 							$xml .= "<ORDERITEM_LIST_PRICE>".$ar."</ORDERITEM_LIST_PRICE>\n";
 							$xml .= "<ORDERITEM_PRICE>".$ar."</ORDERITEM_PRICE>\n";
-							$xml .= "<ORDERITEM_QTY>".$i[me]."</ORDERITEM_QTY>\n";
+							$xml .= "<ORDERITEM_QTY>".$i['me']."</ORDERITEM_QTY>\n";
 
 							$xml .= "<ORDERITEM_DISCOUNT_TYPE>0</ORDERITEM_DISCOUNT_TYPE>\n";
 							$xml .= "<ORDERITEM_DISCOUNT_PERCENT></ORDERITEM_DISCOUNT_PERCENT>\n";

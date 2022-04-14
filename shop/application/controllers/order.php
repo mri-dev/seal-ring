@@ -9,17 +9,17 @@ class order extends Controller{
 
 			$this->out('bodyclass', 'orderpage');
 
-			if($this->view->gets[1] == ''){
+			if($this->view->gets['1'] == ''){
 				Helper::reload('/');
 			}
 
 			// PayPal befizetés logolás
-			if($this->view->gets[2] == 'paid_via_paypal'){
-				if(!$this->shop->orderAlreadyPaidViaPayPal($this->view->gets[1])){
-					$this->shop->setOrderPaidByPayPal($this->view->gets[1]);
-					Helper::reload('/'.__CLASS__.'/'.$this->view->gets[1]);
+			if($this->view->gets['2'] == 'paid_via_paypal'){
+				if(!$this->shop->orderAlreadyPaidViaPayPal($this->view->gets['1'])){
+					$this->shop->setOrderPaidByPayPal($this->view->gets['1']);
+					Helper::reload('/'.__CLASS__.'/'.$this->view->gets['1']);
 				}else{
-					Helper::reload('/'.__CLASS__.'/'.$this->view->gets[1]);
+					Helper::reload('/'.__CLASS__.'/'.$this->view->gets['1']);
 				}
 			}
 
@@ -27,10 +27,10 @@ class order extends Controller{
 			$this->view->szallitas 	= $this->shop->getSzallitasiModok();
 			$this->view->fizetes 	= $this->shop->getFizetesiModok();
 
-			$this->view->order = $this->shop->getOrderData($this->view->gets[1]);
-			$this->view->order_user = $this->User->get( array( 'user' => $this->view->order[email] ) );
+			$this->view->order = $this->shop->getOrderData($this->view->gets['1']);
+			$this->view->order_user = $this->User->get( array( 'user' => $this->view->order['email'] ) );
 
-			if(empty($this->view->order[items])){
+			if(empty($this->view->order['items'])){
 				Helper::reload('/');
 			}
 

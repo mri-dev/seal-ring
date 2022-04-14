@@ -25,103 +25,12 @@ class app extends Controller{
 
 		public function sync()
 		{
-			$mode = $this->view->gets[2];
+			$mode = $this->view->gets['2'];
+
 			$resources = new ResourceImport( array( 'db' => $this->db ) );
 
 			switch ( $mode )
 			{
-				case 'test':
-
-					try
-					{
-						$this->db->db->beginTransaction();
-
-						$sql = "INSERT INTO test(product_id, name, nickname) VALUES(?,?,?);";
-				    $stmt = $this->db->db->prepare( $sql );
-
-						$this->db->db->commit();
-					}
-					catch ( \Exception $e )
-					{
-						echo $e->getMessage();
-				    $this->db->db->rollBack();
-					}
-
-				break;
-				case 'autodata':
-					include $_SERVER['DOCUMENT_ROOT'].'admin/application/libs/Applications/DOCXReader.php';
-
-					$docroot = $_SERVER['DOCUMENT_ROOT'] . 'admin/src/static/';
-					$sql = "SELECT 
-						ID,
-						shopgroup,
-						kulcsszavak,
-						leiras,
-						profil_kep						
-					FROM shop_termekek WHERE shopgroup IS NOT NULL and shopgroup != '' and shopgroup = 'ONBR70'";
-
-					$db = $this->db->db->query( $sql );
-					$data = $db->fetchAll(\PDO::FETCH_ASSOC);
-
-					$groups = [];
-					
-					if( $data )
-					{
-						foreach( (array)$data as $d )
-						{
-							$groups[$d['shopgroup']][] = $d['ID'];
-						}
-					}
-
-					unset($d, $sql, $data, $db);
-
-					if( $groups )
-					{
-						$doc = new \Docx_reader();
-						$updates = [];
-						foreach($groups as $gk => $gids )
-						{
-							$file = $gk.'.docx';
-							$img = $gk.'.png';
-
-							// check desc
-							if( file_exists( $docroot.'desc/'.$file ) )
-							{
-								echo $docroot.'desc/'.$file; echo "<br>";
-								$doc->setFile( $docroot.'desc/'.$file );
-
-								if(!$doc->get_errors()) 
-								{
-									$html = $doc->to_html();
-									echo $html;
-								} else {
-										echo implode(', ',$doc->get_errors());
-								}
-							
-								//$updates[$gk]['leiras'] = $formater->Format($rtf->root);
-							}
-
-							// check keywords
-							if( file_exists( $docroot.'keywords/'.$file ) )
-							{
-								echo $docroot.'keywords/'.$file; echo "<br>";
-								$updates[$gk]['kulcsszavak'] = 1;
-							}
-
-							// check images
-							if( file_exists( $docroot.'images/'.$img ) )
-							{
-								echo $docroot.'images/'.$img; echo "<br>";
-								$updates[$gk]['profil_kep'] = 1;
-							}
-
-							$updates[$gk]['ids'] = $gids;
-						}
-						echo '<pre>';
-						print_r($updates);
-					}
-
-				break;
 				case 'downloads':
 					// Seal Ring inCash
 					$originid = 1;
@@ -129,6 +38,7 @@ class app extends Controller{
 					$comparer = $resources->getColumnComparerKeys( $originid );
 					$context = $resources->prepareContext( $context );
 					$resources->importToTemp( $originid, $context, $comparer );
+
 					//unset($context);
 					//$group = $resources->groupCat( $content );
 				break;
@@ -137,6 +47,14 @@ class app extends Controller{
 					// Seal Ring inCash
 					$originid = 1;
 					$resources->pushToTermekek( $originid );
+				break;
+
+				case 'push_test':
+					// Seal Ring inCash
+					$originid = 1;
+
+					// dev mode
+					$resources->pushToTermekek( $originid, true );
 				break;
 
 				case 'cat':
@@ -186,7 +104,7 @@ class app extends Controller{
 		 * */
 		public function dcl()
 		{
-			$hashkey 	= $this->view->gets[2];
+			$hashkey 	= $this->view->gets['2'];
 			$uid 		= \Helper::getMachineID();
 
 			// Get doc
@@ -294,16 +212,16 @@ class app extends Controller{
 					if ( count( $t['hasonlo_termek_ids']['colors']) > 1 )  {
 						$leiras .= " További ".count( $t['hasonlo_termek_ids']['colors']).' db színvariáció elérhető!';
 					}
-					$szall 	= ( $osszeghatar == 0 || ( $osszeghatar > 0 && $t[ar] > $osszeghatar ) ) ? 'ingyenes' : $szallitas['koltseg'];
+					$szall 	= ( $osszeghatar == 0 || ( $osszeghatar > 0 && $t['ar'] > $osszeghatar ) ) ? 'ingyenes' : $szallitas['koltseg'];
 
 					$wire .= '<product>';
 						$wire .= '<manufacturer><![CDATA[ Arena ]]></manufacturer>';
-						$wire .= '<category><![CDATA[ Sport és Fitness > Úszás > '.$t[alap_kategoria].' ]]></category>';
-						$wire .= '<image_url><![CDATA[ '.$t[profil_kep].' ]]></image_url>';
+						$wire .= '<category><![CDATA[ Sport és Fitness > Úszás > '.$t['alap_kategoria'].' ]]></category>';
+						$wire .= '<image_url><![CDATA[ '.$t['profil_kep'].' ]]></image_url>';
 						$wire .= '<description><![CDATA[ '.$leiras.' ]]></description>';
-						$wire .= '<name><![CDATA[ '.$t[product_nev].' ]]></name>';
-						$wire .= '<price>'.$t[ar].'</price>';
-						$wire .= '<product_url><![CDATA[ '.$this->view->settings['domain'].'/termek/'.\PortalManager\Formater::makeSafeUrl($t[product_nev],'_-'.$t[product_id]).' ]]></product_url>';
+						$wire .= '<name><![CDATA[ '.$t['product_nev'].' ]]></name>';
+						$wire .= '<price>'.$t['ar'].'</price>';
+						$wire .= '<product_url><![CDATA[ '.$this->view->settings['domain'].'/termek/'.\PortalManager\Formater::makeSafeUrl($t['product_nev'],'_-'.$t['product_id']).' ]]></product_url>';
 						$wire .= '<delivery_cost><![CDATA[ '.$szall.' ]]></delivery_cost>';
 
 					$wire .= '</product>';
@@ -340,15 +258,15 @@ class app extends Controller{
 					if ( count( $t['hasonlo_termek_ids']['colors']) > 1 )  {
 						$leiras .= " További ".count( $t['hasonlo_termek_ids']['colors']).' db színvariáció elérhető!';
 					}
-					$szall 	= ( $osszeghatar == 0 || ( $osszeghatar > 0 && $t[ar] > $osszeghatar ) ) ? 'ingyenes' : $szallitas['koltseg'];
+					$szall 	= ( $osszeghatar == 0 || ( $osszeghatar > 0 && $t['ar'] > $osszeghatar ) ) ? 'ingyenes' : $szallitas['koltseg'];
 
 					$wire .= '<termek>';
-						$wire .= '<cikkszam><![CDATA[ '.$t[cikkszam].' ]]></cikkszam>';
-						$wire .= '<nev><![CDATA[ '.$t[product_nev].' ]]></nev>';
+						$wire .= '<cikkszam><![CDATA[ '.$t['cikkszam'].' ]]></cikkszam>';
+						$wire .= '<nev><![CDATA[ '.$t['product_nev'].' ]]></nev>';
 						$wire .= '<leiras><![CDATA[ '.$leiras.' ]]></leiras>';
-						$wire .= '<ar>'.$t[ar].'</ar>';
-						$wire .= '<fotolink><![CDATA[ '.$t[profil_kep].' ]]></fotolink>';
-						$wire .= '<termeklink><![CDATA[ '.$this->view->settings['domain'].'/termek/'.\PortalManager\Formater::makeSafeUrl($t[product_nev],'_-'.$t[product_id]).' ]]></termeklink>';
+						$wire .= '<ar>'.$t['ar'].'</ar>';
+						$wire .= '<fotolink><![CDATA[ '.$t['profil_kep'].' ]]></fotolink>';
+						$wire .= '<termeklink><![CDATA[ '.$this->view->settings['domain'].'/termek/'.\PortalManager\Formater::makeSafeUrl($t['product_nev'],'_-'.$t['product_id']).' ]]></termeklink>';
 						$wire .= '<szallitas>'.$szall.'</szallitas>';
 					$wire .= '</termek>';
 				endforeach;
@@ -360,7 +278,7 @@ class app extends Controller{
 
 		function templates()
 		{
-			$type = $this->view->gets[2];
+			$type = $this->view->gets['2'];
 			$this->view->render(__CLASS__.'/'.__FUNCTION__.'/'.$type, true);
 		}
 

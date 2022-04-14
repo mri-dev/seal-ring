@@ -25,7 +25,7 @@ class Categories
 
 	function __construct( $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 		if (isset($arg['authorid'])) {
 			$this->authorid = $arg['authorid'];
 		}
@@ -76,8 +76,8 @@ class Categories
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$parent = (int)$xparent[0];
-			$deep = (int)$xparent[1] + 1;
+			$parent = (int)$xparent['0'];
+			$deep = (int)$xparent['1'] + 1;
 		}
 
 		if ( !$name ) {
@@ -126,8 +126,8 @@ class Categories
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$parent = (int)$xparent[0];
-			$deep = (int)$xparent[1] + 1;
+			$parent = (int)$xparent['0'];
+			$deep = (int)$xparent['1'] + 1;
 		}
 
 		if ( !$name ) {

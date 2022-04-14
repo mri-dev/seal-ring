@@ -22,7 +22,7 @@
 						<strong>Induljon</strong>
 					</div>
 					<div class="col-md-5">
-						<input type="date" name="time[start]" class="form-control">
+						<input type="date" name="time['start']" class="form-control">
 					</div>
 				</div>
 				<div class="row">
@@ -30,7 +30,7 @@
 						<strong>Befejeződjön</strong>
 					</div>
 					<div class="col-md-5">
-						<input type="date" name="time[end]" class="form-control">
+						<input type="date" name="time['end']" class="form-control">
 					</div>
 				</div>
 				<div class="row">
@@ -53,7 +53,7 @@
 				<tbody>
 					<? if( count($this->votes) > 0 ): foreach( $this->votes as $v ): ?>
 					<tr>
-						<td><a href="/facebook_szavazas/edit/<?=$v['ID']?>"><?=$v['name']?></a><?=($this->gets[2] == $v['ID'] && $this->gets[1] == 'edit')?'<div style="color:red; font-size:10px;">(szerkesztés alatt)</div>':''?> </td>
+						<td><a href="/facebook_szavazas/edit/<?=$v['ID']?>"><?=$v['name']?></a><?=($this->gets['2'] == $v['ID'] && $this->gets['1'] == 'edit')?'<div style="color:red; font-size:10px;">(szerkesztés alatt)</div>':''?> </td>
 						<td class="center">
 							<a href="/facebook_szavazas/stat/<?=$v['ID']?>"><i class="fa fa-pie-chart"></i></a>							
 						</td>
@@ -74,12 +74,12 @@
 	<div class="col-md-8">
 		<? 
 		// Statisztika
-		if($this->gets[1] == 'stat'): ?>
+		if($this->gets['1'] == 'stat'): ?>
 			<div style="float:left; margin-left:25px;">
 				<a title='vissza' href="/facebook_szavazas/" class="btn btn-default btn-sm"><i class="fa fa-level-down fa-rotate-90"></i></a>
-				<a title='szerkesztő nézet' href="/facebook_szavazas/edit/<?=$this->gets[2]?>" class="btn btn-default btn-sm">szerkesztés <i class="fa fa-gear"></i></a>
+				<a title='szerkesztő nézet' href="/facebook_szavazas/edit/<?=$this->gets['2']?>" class="btn btn-default btn-sm">szerkesztés <i class="fa fa-gear"></i></a>
 			</div>
-			<h2 style="text-align:center;"><?=$this->vote[data][name]?></h2>
+			<h2 style="text-align:center;"><?=$this->vote['data']['name']?></h2>
 			<h4 style="text-align:center;">szavazás statisztika</h4>
 			<div class="con vote-edit" style="margin-left:25px;">
 				<div class="questions stat">
@@ -93,7 +93,7 @@
 							</div>
 						</div>						
 					</div>
-				<? foreach ( $this->vote[questions] as $question ) { ?>
+				<? foreach ( $this->vote['questions'] as $question ) { ?>
 					<div class="question">
 						<div class="row">
 							<div class="col-md-12 center">
@@ -108,7 +108,7 @@
 									}
 								}
 								?>
-								<h4><?=$question[question]?></h4>
+								<h4><?=$question['question']?></h4>
 								<div class="item-type-hint">
 									<?
 									switch($question['item_type']) {
@@ -193,10 +193,10 @@
 		<? else: 
 			// Szerkesztés
 		?>
-		<? if($this->gets[1] != ''): ?>
+		<? if($this->gets['1'] != ''): ?>
 		<div style="float:left; margin-left:25px;">
 			<a title='vissza' href="/facebook_szavazas/" class="btn btn-default btn-sm"><i class="fa fa-level-down fa-rotate-90"></i></a>
-			<a title='statisztika nézet' href="/facebook_szavazas/stat/<?=$this->gets[2]?>" class="btn btn-default btn-sm">statisztika <i class="fa fa-pie-chart"></i></a>
+			<a title='statisztika nézet' href="/facebook_szavazas/stat/<?=$this->gets['2']?>" class="btn btn-default btn-sm">statisztika <i class="fa fa-pie-chart"></i></a>
 		</div>
 		<? endif; ?>
 		<h3 style="text-align:center;">Szavazás szerkesztése</h3>
@@ -325,7 +325,7 @@
 
 	$(function(){
 
-		if( '<?=$this->gets[1]?>' == 'edit'  ){
+		if( '<?=$this->gets['1']?>' == 'edit'  ){
 			getAllQuestions();
 		}
 

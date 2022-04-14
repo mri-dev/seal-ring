@@ -14,7 +14,7 @@ class PriceGroup
 
 	function __construct( $elem_id, $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 		$this->id = $elem_id;
 
 		$this->get();

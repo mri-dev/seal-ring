@@ -28,9 +28,9 @@ class kategoriak extends Controller {
 			}
 	
 			// Szerkesztés
-			if ( $this->view->gets[1] == 'szerkeszt') {
+			if ( $this->view->gets['1'] == 'szerkeszt') {
 				// Kategória adatok
-				$cat_data = new Category( $this->view->gets[2],  array( 'db' => $this->db )  );
+				$cat_data = new Category( $this->view->gets['2'],  array( 'db' => $this->db )  );
 				$this->out( 'category', $cat_data );
 
 				// Változások mentése
@@ -47,9 +47,9 @@ class kategoriak extends Controller {
 			}
 
 			// Törlés
-			if ( $this->view->gets[1] == 'torles') {
+			if ( $this->view->gets['1'] == 'torles') {
 				// Kategória adatok
-				$cat_data = new Category( $this->view->gets[2], array( 'db' => $this->db )  );
+				$cat_data = new Category( $this->view->gets['2'], array( 'db' => $this->db )  );
 				$this->out( 'category_d', $cat_data );
 
 				// Kategória törlése
@@ -100,12 +100,12 @@ class kategoriak extends Controller {
 					Helper::reload();
 				}catch(Exception $e){
 					$this->view->err 			= true;
-					$this->view->bmsg[termkat] 	= Helper::makeAlertMsg('pError', $e->getMessage()); 
+					$this->view->bmsg['termkat'] 	= Helper::makeAlertMsg('pError', $e->getMessage()); 
 				}
 			}
 			
 			if(Post::on('delParamId')){
-				$this->model->db->query("DELETE FROM shop_termek_kategoria_parameter WHERE ID = {$_POST[delParamId]}");
+				$this->model->db->query("DELETE FROM shop_termek_kategoria_parameter WHERE ID = {$_POST['delParamId']}");
 				Helper::reload('/kategoriak/parameterek/');
 			}
 			

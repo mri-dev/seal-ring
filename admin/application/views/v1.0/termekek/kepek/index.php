@@ -1,5 +1,5 @@
 <div style="float:right;">
-	<a href="/<?=$this->gets[0]?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
+	<a href="/<?=$this->gets['0']?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
 </div>
 <h1>Termékképek szinkronizálása</h1>
 

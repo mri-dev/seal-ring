@@ -20,7 +20,7 @@ class install extends Controller{
         if ( !empty($module) && !class_exists($module, false) )
         {
           $x = explode("\\", $module);
-          $inc = LIBS. $x[0].'/'.$x[1].'.php';
+          $inc = LIBS. $x['0'].'/'.$x['1'].'.php';
           $exists = file_exists($inc);
 
           if ( $exists )

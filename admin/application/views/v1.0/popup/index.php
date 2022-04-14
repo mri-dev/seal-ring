@@ -17,7 +17,7 @@
 			<div class="inside">
 			<?
 				if ($_GET['p']) {
-					$view = $_GET[p];
+					$view = $_GET['p'];
 				}
 			?>
 				<? echo $this->render('popup/view/'.$view); ?>

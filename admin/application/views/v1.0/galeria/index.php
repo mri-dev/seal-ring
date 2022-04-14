@@ -6,7 +6,7 @@
 		<a href="/galeria/creator" class="btn btn-primary"><i class="fa fa-plus"></i> új galéria</a>
 	</div>
 </form>
-<h1>Galéria <?php if ($_COOKIE[filtered] == '1'): ?><span style="color: red;">Szűrt lista</span><? endif; ?></h1>
+<h1>Galéria <?php if ($_COOKIE['filtered'] == '1'): ?><span style="color: red;">Szűrt lista</span><? endif; ?></h1>
 <? if( true ): ?>
 <div class="row">
 	<div class="col-md-12">
@@ -51,7 +51,7 @@
 							<?php endif; ?>
               <div class="col-md-6 center"></div>
               <div class="col-md-1 right">
-								<?php if ($_COOKIE[filtered] == '1'): ?>
+								<?php if ($_COOKIE['filtered'] == '1'): ?>
 								<a href="/galeria/clearfilters" class="btn btn-danger" title="Szűrőfeltételek törlése"><i class="fa fa-times"></i></a>
 								<?php endif; ?>
               	<button name="filterList" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -72,9 +72,9 @@
             <div class="row markarow">
             	<div class="col-md-5">
                   <div class="img-thb">
-                    <a href="<?=$news['belyeg_kep']?>" class="zoom"><img src="<?=$news['belyeg_kep']?>" alt="<?=$news[title]?>"></a>
+                    <a href="<?=$news['belyeg_kep']?>" class="zoom"><img src="<?=$news['belyeg_kep']?>" alt="<?=$news['title']?>"></a>
                   </div>
-                	<strong><?=$news[title]?></strong>
+                	<strong><?=$news['title']?></strong>
                   <div class="subline"><a target="_blank" class="url" href="<?=HOMEDOMAIN?><?=$url?>" class="news-url"><i title="<?=HOMEDOMAIN?>" class="fa fa-home"></i> <?=$url?></a></div>
                 </div>
 								<?php if (false): ?>
@@ -96,14 +96,14 @@
                     <?=\PortalManager\Formater::dateFormat($news['uploaded'], $this->settings['date_format'])?>
                 </div>
                 <div class="col-md-1 center">
-                	<?php echo $news[sorrend]; ?>
+                	<?php echo $news['sorrend']; ?>
                 </div>
                  <div class="col-md-1 center">
-                	<? if($news[lathato] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
+                	<? if($news['lathato'] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
                 </div>
                 <div class="col-md-1 actions" align="right">
-                    <a href="/<?=$this->gets[0]?>/creator/szerkeszt/<?=$news[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                    <a href="/<?=$this->gets[0]?>/creator/torles/<?=$news[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    <a href="/<?=$this->gets['0']?>/creator/szerkeszt/<?=$news['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                    <a href="/<?=$this->gets['0']?>/creator/torles/<?=$news['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                 </div>
            	</div>
             <? endforeach; else:?>

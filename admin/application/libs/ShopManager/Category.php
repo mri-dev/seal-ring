@@ -15,7 +15,7 @@ class Category
 
 	function __construct( $category_id, $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 		$this->id = $category_id;
 
 		$this->get();

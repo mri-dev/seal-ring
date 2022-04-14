@@ -11,7 +11,7 @@
 			foreach($url as $u){
 				if(strpos($u,'_-') > 0){
 					$x 	= explode('_-',$u);
-					$id = (int)$x[1];
+					$id = (int)$x['1'];
 					 	
 					break;
 				}
@@ -45,8 +45,8 @@
 			foreach($cut as $c){
 				$ic = explode("==>",trim($c));
 				$ret[] = array(
-					'nev' => trim($ic[0]),
-					'url' => trim($ic[1])
+					'nev' => trim($ic['0']),
+					'url' => trim($ic['1'])
 				);	
 			}	
 					

@@ -21,9 +21,9 @@
         </tr>
 	</thead>
     <tbody>
-        <tr class="search <? if($_COOKIE[filtered] == '1'): ?>filtered<? endif;?>">
-            <td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE[filter_ID]?>" /></td>
-            <td><input type="text" name="nev" class="form-control" placeholder="felhasználó neve..." value="<?=$_COOKIE[filter_nev]?>" /></td>
+        <tr class="search <? if($_COOKIE['filtered'] == '1'): ?>filtered<? endif;?>">
+            <td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE['filter_ID']?>" /></td>
+            <td><input type="text" name="nev" class="form-control" placeholder="felhasználó neve..." value="<?=$_COOKIE['filter_nev']?>" /></td>
             <td></td>
             <td></td>
             <td></td>
@@ -36,9 +36,9 @@
                 <button name="filterList" class="btn btn-default"><i class="fa fa-search"></i></button>
             </td>
         </tr>
-    	<? if(count($this->users[data]) > 0): foreach($this->users[data] as $d):  ?>
+    	<? if(count($this->users['data']) > 0): foreach($this->users['data'] as $d):  ?>
     	<tr>
-	    	<td align="center"><?=$d[ID]?></td>
+	    	<td align="center"><?=$d['ID']?></td>
 	        <td>
           		<strong><?=$d['nev']?></strong> <br>
                 <?=$d['email']?>
@@ -76,20 +76,20 @@
             </td>
             <td class="center">
                 <?php if ($d['totalReferredOrderPrices']): ?>
-                    <a target="_blank" href="/partnerSale?partner=<?=$d[total_data][data][refererID]?>"><?=Helper::cashFormat($d['totalReferredOrderPrices'])?> Ft</a>
+                    <a target="_blank" href="/partnerSale?partner=<?=$d['total_data']['data']['refererID']?>"><?=Helper::cashFormat($d['totalReferredOrderPrices'])?> Ft</a>
                 <? else: ?>
                 n.a.
                 <?php endif; ?>
               </td>
-            <td align="center"><?=($d[engedelyezve] == 1)?'<i title="Engedélyezve" mode="engedelyezve" class="fa fa-check vtgl" fid="'.$d[ID].'"></i>':'<i mode="engedelyezve" class="fa fa-times vtgl" fid="'.$d[ID].'" title="Tiltva"></i>'?></td>
-            <td align="center"><?=(!is_null($d[aktivalva]))?'<i title="Aktiválva" class="fa fa-check"></i>':'<i class="fa fa-times" title="Nincs aktiválva"></i>'?></td>
-            <td align="center"><?=Helper::softDate($d[utoljara_belepett])?>	<br><em>(<?=Helper::distanceDate($d[utoljara_belepett])?>)</em></td>
-            <td align="center"><?=Helper::softDate($d[regisztralt])?> <br><em>(<?=Helper::distanceDate($d[regisztralt])?>)</em></td>
+            <td align="center"><?=($d['engedelyezve'] == 1)?'<i title="Engedélyezve" mode="engedelyezve" class="fa fa-check vtgl" fid="'.$d['ID'].'"></i>':'<i mode="engedelyezve" class="fa fa-times vtgl" fid="'.$d['ID'].'" title="Tiltva"></i>'?></td>
+            <td align="center"><?=(!is_null($d['aktivalva']))?'<i title="Aktiválva" class="fa fa-check"></i>':'<i class="fa fa-times" title="Nincs aktiválva"></i>'?></td>
+            <td align="center"><?=Helper::softDate($d['utoljara_belepett'])?>	<br><em>(<?=Helper::distanceDate($d['utoljara_belepett'])?>)</em></td>
+            <td align="center"><?=Helper::softDate($d['regisztralt'])?> <br><em>(<?=Helper::distanceDate($d['regisztralt'])?>)</em></td>
             <td>
                 <div class="dropdown">
                     <i class="fa fa-gear dropdown-toggle" title="Beállítások" id="dm<?=$d['ID']?>" data-toggle="dropdown"></i>
                       <ul class="dropdown-menu" role="menu" aria-labelledby="dm<?=$d['ID']?>">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$d['ID']?>&ret=<?=$_SERVER[REQUEST_URI]?>">Szerkesztés <i class="fa fa-pencil"></i></a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$d['ID']?>&ret=<?=$_SERVER['REQUEST_URI']?>">Szerkesztés <i class="fa fa-pencil"></i></a></li>
                       </ul>
                 </div>
             </td>

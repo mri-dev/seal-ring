@@ -58,7 +58,7 @@
 	                  	<? if($distributor['alapertelmezett'] == '0'): ?> 
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="/uzletek/distributor/<?=$this->shop->getID()?>/?detuserdefault=1&uid=<?=$distributor['user_id']?>">Legyen alapértelmezett <i class="fa fa-asterisk"></i></a></li>
 	              		<? endif; ?>  
-	              		<li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$distributor['user_id']?>&ret=<?=$_SERVER[REQUEST_URI]?>">Felhasználó szerkesztése <i class="fa fa-pencil"></i></a></li>	                		                  	
+	              		<li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$distributor['user_id']?>&ret=<?=$_SERVER['REQUEST_URI']?>">Felhasználó szerkesztése <i class="fa fa-pencil"></i></a></li>	                		                  	
 	                  	<li role="separator" class="divider"></li>
 					    <li role="presentation"><a role="menuitem" tabindex="-1" href="/uzletek/distributor/<?=$this->shop->getID()?>/?remove=1&uid=<?=$distributor['user_id']?>">Törlés <i class="fa fa-trash"></i></a></li>
 					  </ul>

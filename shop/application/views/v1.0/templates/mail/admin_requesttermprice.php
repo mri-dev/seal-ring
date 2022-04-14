@@ -1,6 +1,6 @@
 <? require "head.php"; ?>
 <h1>Termék ár kérés érkezett!</h1>
-<strong>Tájékoztatjuk, hogy a(z) <?=$settings[page_title]?> rendszerén keresztül <u><?=$targy?></u> érkezett.</strong>
+<strong>Tájékoztatjuk, hogy a(z) <?=$settings['page_title']?> rendszerén keresztül <u><?=$targy?></u> érkezett.</strong>
 
 <h3>Az igénylő által beírt adatok:</h3>
 <table class="if">

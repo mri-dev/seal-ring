@@ -31,11 +31,11 @@
         <div class="row">
           <div class="col-md-8">
             <label for="cat_cim">Témakör címe *</label>
-            <input type="text" class="form-control" name="cim" value="<?=($this->err)?$_POST['cim']:$this->c[cim]?>" id="cat_cim">
+            <input type="text" class="form-control" name="cim" value="<?=($this->err)?$_POST['cim']:$this->c['cim']?>" id="cat_cim">
           </div>
           <div class="col-md-4">
             <label for="cat_sorrend">Sorrend</label>
-            <input type="text" class="form-control" name="sorrend" value="<?=($this->err)?$_POST['sorrend']:(($this->c)?$this->c[sorrend]:100)?>" id="cat_sorrend">
+            <input type="text" class="form-control" name="sorrend" value="<?=($this->err)?$_POST['sorrend']:(($this->c)?$this->c['sorrend']:100)?>" id="cat_sorrend">
           </div>
         </div>
         <br>
@@ -59,7 +59,7 @@
     <?php endif; ?>
     <div class="con">
       <div class="pull-right"><a href="/tudastar/?add=category"><i class="fa fa-plus"></i> új hozzáadása</a></div>
-      <h2>Témakörök (<?=count($this->cats[data])?>)</h2>
+      <h2>Témakörök (<?=count($this->cats['data'])?>)</h2>
       <br>
       <div class="row np row-head">
 				<div class="col-md-9"><em>Témakör</em></div>
@@ -67,7 +67,7 @@
 				<div class="col-md-1"></div>
 			</div>
       <div class="categories">
-        <?php if (count($this->cats[data]) == 0): ?>
+        <?php if (count($this->cats['data']) == 0): ?>
           Nincsenek témakörök létrehozva.
         <?php else: ?>
         <?php foreach ( $this->cats['data'] as $c ): ?>
@@ -117,11 +117,11 @@
         <div class="row">
           <div class="col-md-8">
             <label for="art_cim">Cikk címe *</label>
-            <input type="text" class="form-control" name="cim" value="<?=($this->err)?$_POST['cim']:$this->c[cim]?>" id="art_cim">
+            <input type="text" class="form-control" name="cim" value="<?=($this->err)?$_POST['cim']:$this->c['cim']?>" id="art_cim">
           </div>
           <div class="col-md-2">
             <label for="art_sorrend">Sorrend</label>
-            <input type="text" class="form-control" name="sorrend" value="<?=($this->err)?$_POST['sorrend']:(($this->c)?$this->c[sorrend]:100)?>" id="art_sorrend">
+            <input type="text" class="form-control" name="sorrend" value="<?=($this->err)?$_POST['sorrend']:(($this->c)?$this->c['sorrend']:100)?>" id="art_sorrend">
           </div>
           <div class="col-md-2">
             <label for="art_kiemelt">Kiemelt <?=\PortalManager\Formater::tooltip('A kiemeltnek jelölt cikkek megjelennek a láblécben.')?></label>
@@ -145,14 +145,14 @@
         <div class="row">
           <div class="col-md-12">
             <label for="art_kulcsszavak">Kulcsszavak, vesszővel elválasztva</label>
-            <input type="text" name="kulcsszavak" class="form-control" value="<?=($this->err)?$_POST['kulcsszavak']:$this->c[kulcsszavak]?>" id="art_kulcsszavak">
+            <input type="text" name="kulcsszavak" class="form-control" value="<?=($this->err)?$_POST['kulcsszavak']:$this->c['kulcsszavak']?>" id="art_kulcsszavak">
           </div>
         </div>
         <br>
         <div class="row">
           <div class="col-md-12">
             <label for="art_kulcsszavak">Tartalom</label>
-            <textarea name="szoveg"><?=($this->err)?$_POST['szoveg']:$this->c[szoveg]?></textarea>
+            <textarea name="szoveg"><?=($this->err)?$_POST['szoveg']:$this->c['szoveg']?></textarea>
           </div>
         </div>
         <?php if(count($this->languages) > 1 && $this->c): ?>
@@ -162,16 +162,16 @@
           <div class="row">
               <div class="col-md-12">
                   <label for="cim_<?=$langkey?>">Cikk címe</label>
-                  <input type="text"class="form-control" name="translate[<?=$langkey?>][cim][content]" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
-                  <input type="hidden" name="translate[<?=$langkey?>][cim][id]" value="<?=$translates['cim']['id']?>">
+                  <input type="text"class="form-control" name="translate[<?=$langkey?>]['cim']['content']" id="cim_<?=$langkey?>" value="<?=$translates['cim']['content']?>">
+                  <input type="hidden" name="translate[<?=$langkey?>]['cim']['id']" value="<?=$translates['cim']['id']?>">
               </div>
           </div>    
           <br>        
           <div class="row">
               <div class="col-md-12">
                   <label for="szoveg_<?=$langkey?>">Tartalom</label>
-                  <div style="background:#fff;"><textarea name="translate[<?=$langkey?>][szoveg][content]" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
-                  <input type="hidden" name="translate[<?=$langkey?>][szoveg][id]" value="<?=$translates['szoveg']['id']?>">
+                  <div style="background:#fff;"><textarea name="translate[<?=$langkey?>]['szoveg']['content']" id="szoveg_<?=$langkey?>" class="form-control"><?=$translates['szoveg']['content']?></textarea></div>
+                  <input type="hidden" name="translate[<?=$langkey?>]['szoveg']['id']" value="<?=$translates['szoveg']['id']?>">
               </div>
           </div>
           <?php endforeach; ?>
@@ -215,7 +215,7 @@
               </select>
             </div>
             <div class="col-md-2 right">
-              <? if($_COOKIE[filtered] == '1'): ?><a class="btn btn-danger" href="/tudastar/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a><? endif; ?>
+              <? if($_COOKIE['filtered'] == '1'): ?><a class="btn btn-danger" href="/tudastar/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a><? endif; ?>
               <button name="filterList" class="btn btn-default">szűrés <i class="fa fa-filter"></i></button>
             </div>
           </div>

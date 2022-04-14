@@ -1,7 +1,7 @@
 <?php
 namespace ResourceImporter;
 
-class ResourceImportBase
+class ResourceImportBase 
 {
   const DB_SOURCE = 'xml_origins';
   const DB_COMPARER = 'xml_origins_column_xref';
@@ -197,7 +197,7 @@ class ResourceImportBase
     ));
 
     if (!empty($data)) {
-      return $data[0];
+      return $data['0'];
     } return false;
   }
 
@@ -517,7 +517,7 @@ class ResourceImportBase
 
       // Energo
       case 10:
-        $row = $raw_xml->{$comparer['rootkey']}[0];
+        $row = $raw_xml->{$comparer['rootkey']}['0'];
 
         $sample['compare'] = array(
           $comparer['prod_id'] =>  array(
@@ -608,10 +608,10 @@ class ResourceImportBase
     }
   }
 
-  public function pushToTermekek( $originid )
+  public function pushToTermekek( $originid, $dev = false )
   {
-	$data = null;
-	$insert_row = null;
+    $data = null;
+    $insert_row = null;
 
     $q = "SELECT
       tp.ID,
@@ -619,7 +619,8 @@ class ResourceImportBase
       tp.termek_nev,
       tp.termek_leiras,
       tp.termek_keszlet,
-      tp.beszerzes_netto
+      tp.beszerzes_netto,
+      tp.kategoria_kulcs
     FROM `xml_temp_products` as tp
     WHERE 1=1 and
     tp.origin_id = {$originid}";
@@ -637,7 +638,7 @@ class ResourceImportBase
     {
       $data = $data->fetchAll(\PDO::FETCH_ASSOC);
 
-      $insert_header = array('cikkszam', 'nagyker_kod', 'nev', 'leiras', 'keszletID', 'szallitasID', 'beszerzes_netto', 'netto_ar', 'brutto_ar', 'xml_import_origin', 'xml_import_res_id', 'xml_import_done', 'lathato', 'garancia_honap', 'raktar_keszlet');
+      $insert_header = array('cikkszam', 'nagyker_kod', 'shopgroup', 'nev', 'leiras', 'keszletID', 'szallitasID', 'beszerzes_netto', 'netto_ar', 'brutto_ar', 'xml_import_origin', 'xml_import_res_id', 'xml_import_done', 'lathato', 'garancia_honap', 'raktar_keszlet', 'marka');
       $this->prePushInsertHeaderModifier($originid, $insert_header);
       $insert_row = array();
 
@@ -648,6 +649,7 @@ class ResourceImportBase
         $irow = array(
           $d['prod_id'],
           $d['prod_id'],
+          trim($d['kategoria_kulcs']),
           addslashes($d['termek_nev']),
           addslashes($d['termek_leiras']),
           $keszlet_id,
@@ -660,7 +662,8 @@ class ResourceImportBase
           1,
           0,
           0,
-          (int)$d['termek_keszlet']
+          (int)$d['termek_keszlet'],
+          0
         );
 
         $insert_row[] = $irow;
@@ -670,19 +673,33 @@ class ResourceImportBase
       //print_r($insert_header);
       //print_r($insert_row);
 
+      if( $dev === true ) 
+      {
+        echo '<pre>';
+        print_r($insert_row);
+        echo '</pre>';
+      }
+
       if (!empty($insert_row)) {
         /* */
+        $debugging = ($dev === true) ? true : false;
+
         $debug = $this->db->multi_insert(
           'shop_termekek',
           $insert_header,
           $insert_row,
           array(
-            'debug' => false
+            'debug' => $debugging
           )
         );
+        
         unset($insert_header);
         unset($insert_row);
-        //echo $debug;
+
+        if($dev === true){
+          echo $debug;
+        }
+       
         /* */
       }
       //return count($insert_row);
@@ -802,11 +819,12 @@ class ResourceImportBase
           szallitasID,
           raktar_keszlet,
           beszerzes_netto,
-          akcios
+          akcios,
+          shopgroup
         FROM shop_termekek
         WHERE 1=1 and
         xml_import_origin = {$originid} and
-        xml_import_res_id = {$d[ID]}")->fetch(\PDO::FETCH_ASSOC);
+        xml_import_res_id = {$d['ID']}")->fetch(\PDO::FETCH_ASSOC);
         //if($current_data['ID'] != 2421) continue;
 
         /* * /
@@ -905,6 +923,14 @@ class ResourceImportBase
       $wupdate['field']['nev'] = array(
         'new' => $tempdata['termek_nev'],
         'old' => $current_data['nev']
+      );
+    }
+
+    if ($current_data['shopgroup'] != $tempdata['kategoria_kulcs']) {
+      $wupdate['what'][] = 'shopgroup';
+      $wupdate['field']['shopgroup'] = array(
+        'new' => $tempdata['kategoria_kulcs'],
+        'old' => $current_data['shopgroup']
       );
     }
 
@@ -1165,9 +1191,9 @@ class ResourceImportBase
       **/
       case 3:
         // nagyker Nettó ár kiszámolása a közölt fogy. árból
-        $row[5] = round($data['nagyker_ar_netto'] * 0.625 * 0.7874);
+        $row['5'] = round($data['nagyker_ar_netto'] * 0.625 * 0.7874);
         // nagyker Bruttó ár kiszámolása a közölt fogy. árból
-        $row[6] = round($data['nagyker_ar_netto'] * 0.625);
+        $row['6'] = round($data['nagyker_ar_netto'] * 0.625);
         // fogy. ár az egyedi árba, mint értékesítési ár
         $row[] = $data['nagyker_ar_netto'];
       break;
@@ -1390,7 +1416,10 @@ class ResourceImportBase
     /* */
 
     // Fix xml_import_res_id if redownloaded temp data
+    /*
     $this->db->query("UPDATE shop_termekek as t SET t.xml_import_res_id = (SELECT ID  FROM `xml_temp_products` WHERE `origin_id` = {$originid} AND `prod_id` = t.nagyker_kod) WHERE 1=1 and t.xml_import_res_id != (SELECT ID  FROM `xml_temp_products` WHERE `origin_id` = {$originid} AND `prod_id` = t.nagyker_kod)");
+    */
+
 
     $this->db->update(
       self::DB_SOURCE,

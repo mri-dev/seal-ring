@@ -2,8 +2,8 @@
 <br>
 <h3>GMAIL SMTP teszt üzenet küldése:</h3>
 <form method="post">
-	<input type="text" style="padding:10px;" name="cimzett" placeholder="címzett e-mail" value="<?=$_POST[cimzett]?>"><br>
-    <input type="text" style="padding:10px;" name="tema" placeholder="Téma" value="<?=$_POST[tema]?>"><br>
+	<input type="text" style="padding:10px;" name="cimzett" placeholder="címzett e-mail" value="<?=$_POST['cimzett']?>"><br>
+    <input type="text" style="padding:10px;" name="tema" placeholder="Téma" value="<?=$_POST['tema']?>"><br>
     <div>
         <div><em>SSL:</em> Be</div>
         <div><em>SMTP Auth:</em> Be</div>

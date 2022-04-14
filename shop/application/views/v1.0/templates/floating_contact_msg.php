@@ -2,14 +2,14 @@
 	$shop 	= $casadashops->getNearofMe();
 	$dist 	= $shop->getDistributors();
 
-	$nev 	= $dist[0]['nev'];
-	$image 	= $dist[0]['profilkep'];
-	$titulus= $dist[0]['titulus'];
-	$email 	= $dist[0]['email'];
+	$nev 	= $dist['0']['nev'];
+	$image 	= $dist['0']['profilkep'];
+	$titulus= $dist['0']['titulus'];
+	$email 	= $dist['0']['email'];
 	$hely 	= $shop->getName();
 	$cim 	= $shop->getAddress();
 	$nyitvatartas= $shop->getOpensASString();
-	$telefon= $dist[0][telefon];
+	$telefon= $dist['0']['telefon'];
 ?>
 <? if(!empty($dist)): ?>
 <div class="floating-box contact-msg">
@@ -36,7 +36,7 @@
 		<div><strong>Segíthetek?</strong></div>
 		<div class="clt">Küldjön üzenetet nekem</div>
 		<form method="post" action="/">
-			<input type="hidden" name="side_contact_msg" value="<?=md5($dist[0][user_id])?>">
+			<input type="hidden" name="side_contact_msg" value="<?=md5($dist['0']['user_id'])?>">
 			<div><input type="text" class="form-control" name="name" placeholder="Név"></div>
 			<div><input type="email" class="form-control" name="email" placeholder="Email"></div>
 			<div><textarea name="msg" class="form-control" placeholder="Üzenete"></textarea></div>

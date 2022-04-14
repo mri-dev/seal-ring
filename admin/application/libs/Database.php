@@ -326,7 +326,7 @@ DELIMITER ;";
 			$f .= "DROP FUNCTION IF EXISTS CASTTextToINT;
 				DELIMITER $$
 				CREATE FUNCTION CASTTextToINT(in_string text)
-					RETURNS INT
+					RETURNS BIGINT
 				BEGIN
 					DECLARE test TEXT;
 					DECLARE ctrNumber VARCHAR(50);
@@ -547,11 +547,11 @@ DELIMITER ;";
 		$back 		= array();
 		$pages 		= array();
 		$total_num 	= 0;
-		$return_str = ($arg[ret_str]) ? $arg[ret_str] : 'ret';
+		$return_str = ($arg['ret_str']) ? $arg['ret_str'] : 'ret';
 		$current_page = Helper::getLastParam();
 		$get 		= count(Helper::GET());
 		if($get <= 2) $current_page = 1;
-			$pages[current] = (is_numeric($current_page) && $current_page > 0) ? $current_page : 1;
+			$pages['current'] = (is_numeric($current_page) && $current_page > 0) ? $current_page : 1;
 		$limit 		= 50;
 		$data 		= array();
 		//////////////////////
@@ -559,11 +559,11 @@ DELIMITER ;";
 
 
 		// LIMIT
-		if($arg[limit]){
+		if($arg['limit']){
 			$query = rtrim($query,";");
-			$limit = (is_numeric($arg[limit]) && $arg[limit] > 0 && $arg[limit] != '') ? $arg[limit] : $limit;
+			$limit = (is_numeric($arg['limit']) && $arg['limit'] > 0 && $arg['limit'] != '') ? $arg['limit'] : $limit;
 			$l_min = 0;
-			$l_min = $pages[current] * $limit - $limit;
+			$l_min = $pages['current'] * $limit - $limit;
 			$query .= " LIMIT $l_min, $limit";
 			$query .= ";";
 		}
@@ -573,12 +573,12 @@ DELIMITER ;";
 
 		if(!$q){
 			error_log($query);
-			//$back[$return_str][info][query][error] = $q->errorInfo();
+			//$back[$return_str]['info']['query']['error'] = $q->errorInfo();
 		}
 
-		if($q->rowCount() == 1 && !$arg[multi]){
+		if($q->rowCount() == 1 && !$arg['multi']){
 			$data = $q->fetch(PDO::FETCH_ASSOC);
-		}else if($q->rowCount() > 1 || $arg[multi]){
+		}else if($q->rowCount() > 1 || $arg['multi']){
 			$data = $q->fetchAll(PDO::FETCH_ASSOC);
 		}
 
@@ -586,18 +586,18 @@ DELIMITER ;";
 		$return_num = $q->rowCount();
 
 		///
-			$pages[max] 	= ($total_num == 0) ? 0 : ceil($total_num / $limit);
-			$pages[limit] 	= ($arg[limit]) ? $limit : false;
+			$pages['max'] 	= ($total_num == 0) ? 0 : ceil($total_num / $limit);
+			$pages['limit'] 	= ($arg['limit']) ? $limit : false;
 
-		$back[$return_str][info][input][arg] 	= $arg;
-		$back[$return_str][info][query][str] 	= $query;
-		$back[$return_str][info][total_num] 	= (int)$total_num;
-		$back[$return_str][info][return_num] 	= (int)$return_num;
-		$pages[current] = 1;
-		$back[$return_str][info][pages] 		= $pages;
+		$back[$return_str]['info']['input']['arg'] 	= $arg;
+		$back[$return_str]['info']['query']['str'] 	= $query;
+		$back[$return_str]['info']['total_num'] 	= (int)$total_num;
+		$back[$return_str]['info']['return_num'] 	= (int)$return_num;
+		$pages['current'] = 1;
+		$back[$return_str]['info']['pages'] 		= $pages;
 
-		$back[$return_str][data] 	= $data;
-		$back[data] 				= $data;
+		$back[$return_str]['data'] 	= $data;
+		$back['data'] 				= $data;
 		return $back;
 	}
 
@@ -608,46 +608,46 @@ DELIMITER ;";
 				throw new Exception(__('Nincs ilyen művelet végrehajtó').': '.$type);
 			break;
 			case 'insert':
-				$rows 	= $data[rows];
+				$rows 	= $data['rows'];
 				$rows 	= explode(',', $rows);
-				$values = $data[values];
+				$values = $data['values'];
 				$values = explode('::', $values);
 
 				if(empty($data)) throw new Exception(__('Művelet nem hajtódott végre. Nincs elküldött feldolgozandó adat!'));
-				if(empty($data[table])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
+				if(empty($data['table'])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
 				if(empty($rows)) throw new Exception(__('Művelet nem hajtódott végre. Nincs elküldött rekordkulcs azonosító!'));
 
-				$back = $this->insert($data[table], $rows, $values);
+				$back = $this->insert($data['table'], $rows, $values);
 			break;
 
 			case 'update':
-				$udata 	= $data[data];
+				$udata 	= $data['data'];
 				$udata 	= explode('::', $udata);
 				$xdata 	= array();
 					foreach($udata as $ud){
 						$cdt = explode('=',$ud);
-						$xdata[trim($cdt[0])] = trim($cdt[1]);
+						$xdata[trim($cdt['0'])] = trim($cdt['1']);
 					}
 				if(empty($data)) throw new Exception(__('Művelet nem hajtódott végre. Nincs elküldött feldolgozandó adat!'));
-				if(empty($data[table])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
+				if(empty($data['table'])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
 				if(empty($xdata)) throw new Exception(__('Művelet nem hajtódott végre. Nincsennek megadva a cserélendő rekordok!'));
 
-				$back = $this->update($data[table],$xdata,$data[where]);
+				$back = $this->update($data['table'],$xdata,$data['where']);
 			break;
 
 			case 'delete':
 			break;
 
 			case 'select':
-				if(empty($data[table])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
-				if($data[rows] == '') throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva visszatérő rekord!'));
-				$rows = explode(',',$data[rows]);
+				if(empty($data['table'])) throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva cél táblázat!'));
+				if($data['rows'] == '') throw new Exception(__('Művelet nem hajtódott végre. Nincs kiválasztva visszatérő rekord!'));
+				$rows = explode(',',$data['rows']);
 
 				$loop = false;
-				if($data[loop] || count($rows) > 1) $loop = true;
+				if($data['loop'] || count($rows) > 1) $loop = true;
 
 
-				$back = $this->select($data[table],$rows,$data[where], $loop);
+				$back = $this->select($data['table'],$rows,$data['where'], $loop);
 			break;
 		}
 		return $back;

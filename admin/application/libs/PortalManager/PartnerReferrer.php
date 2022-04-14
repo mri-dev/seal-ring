@@ -16,7 +16,7 @@
 		public function __construct( $code, $arg = array() )
 		{
 			$this->arg 	= $arg;
-			$this->db 	= $arg[db];
+			$this->db 	= $arg['db'];
 			$this->code = $code;
 
 			if( !isset($this->arg['settings']) ) {
@@ -116,7 +116,7 @@
 			if( $hashed ) {
 				$xnev = explode(" ", $name);
 
-				$name = substr($xnev[0],0,1).str_repeat("*",strlen($xnev[0])-1) ." ".end($xnev);
+				$name = substr($xnev['0'],0,1).str_repeat("*",strlen($xnev['0'])-1) ." ".end($xnev);
 			}
 
 			return $name;

@@ -20,23 +20,23 @@ class tudastar extends Controller{
 			$filtered = false;
 
 			if($_POST['filter_search'] != ''){
-				setcookie('filter_search',$_POST['filter_search'],time()+60*24,'/'.$this->view->gets[0]);
+				setcookie('filter_search',$_POST['filter_search'],time()+60*24,'/'.$this->view->gets['0']);
 				$filtered = true;
 			}else{
-				setcookie('filter_search','',time()-100,'/'.$this->view->gets[0]);
+				setcookie('filter_search','',time()-100,'/'.$this->view->gets['0']);
 			}
 
 			if($_POST['filter_temakor'] != ''){
-				setcookie('filter_temakor',$_POST['filter_temakor'], time()+60*24,'/'.$this->view->gets[0]);
+				setcookie('filter_temakor',$_POST['filter_temakor'], time()+60*24,'/'.$this->view->gets['0']);
 				$filtered = true;
 			}else{
-				setcookie('filter_temakor','',time()-100,'/'.$this->view->gets[0]);
+				setcookie('filter_temakor','',time()-100,'/'.$this->view->gets['0']);
 			}
 
 			if($filtered){
-				setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+				setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 			}else{
-				setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+				setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 			}
 			Helper::reload('/tudastar/');
 		}
@@ -124,9 +124,9 @@ class tudastar extends Controller{
 
 	function clearfilters()
 	{
-		setcookie('filter_search','',time()-100,'/'.$this->view->gets[0]);
-		setcookie('filter_temakor','',time()-100,'/'.$this->view->gets[0]);
-		setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+		setcookie('filter_search','',time()-100,'/'.$this->view->gets['0']);
+		setcookie('filter_temakor','',time()-100,'/'.$this->view->gets['0']);
+		setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 		Helper::reload('/tudastar/');
 	}
 

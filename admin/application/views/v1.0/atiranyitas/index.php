@@ -1,7 +1,7 @@
 <div style="float: right;">
 	<a href="/atiranyitas/create" class="btn btn-primary"> <i class="fa fa-plus"></i> új átirányítás</a>
 </div>
-<h1>Átirányítások <span><strong><?=$this->redirectors[info][total_num]?> db átirányítás.</strong> nem létező, korábbi domain alcímek átirányítása új címre</span></h1>
+<h1>Átirányítások <span><strong><?=$this->redirectors['info']['total_num']?> db átirányítás.</strong> nem létező, korábbi domain alcímek átirányítása új címre</span></h1>
 <?=$this->msg?>
 <table class="table termeklista table-bordered">
 	<thead>
@@ -14,12 +14,12 @@
         </tr>
 	</thead>
     <tbody>    	
-    	<? if(count($this->redirectors[data]) > 0): foreach($this->redirectors[data] as $d):  ?>
+    	<? if(count($this->redirectors['data']) > 0): foreach($this->redirectors['data'] as $d):  ?>
     	<tr>
-	    	<td align="center"><?=$d[ID]?></td>
-	    	<td align="center"><?=$d[site]?></td>
-	    	<td align="left"><em style="color: #aaa;"><?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?></em><strong><?=$d[watch]?></strong>  <a href="<?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?><?=$d[watch]?>" target="_blank">Link <i class="fa fa-external-link"></i></a></td>
-	    	<td align="left"><? if(strpos($d[redirect_to],'http://') !== 0 && strpos($d[redirect_to],'https://') !== 0): ?><em style="color: #aaa;"><?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?></em><? endif; ?><strong><?=$d[redirect_to]?></strong></td>
+	    	<td align="center"><?=$d['ID']?></td>
+	    	<td align="center"><?=$d['site']?></td>
+	    	<td align="left"><em style="color: #aaa;"><?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?></em><strong><?=$d['watch']?></strong>  <a href="<?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?><?=$d['watch']?>" target="_blank">Link <i class="fa fa-external-link"></i></a></td>
+	    	<td align="left"><? if(strpos($d['redirect_to'],'http://') !== 0 && strpos($d['redirect_to'],'https://') !== 0): ?><em style="color: #aaa;"><?=($d['site']=='shop') ? HOMEDOMAIN : $this->settings['blog_url'].'/' ?></em><? endif; ?><strong><?=$d['redirect_to']?></strong></td>
             <td align="center">
                 <div class="dropdown">               
                     <i class="fa fa-gear dropdown-toggle" title="Beállítások" id="dm<?=$d['ID']?>" data-toggle="dropdown"></i>

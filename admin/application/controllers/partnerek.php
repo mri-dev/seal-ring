@@ -11,29 +11,29 @@ class partnerek extends Controller
 			if(Post::on('filterList')){
 				$filtered = false;
 				
-				if($_POST[ID] != ''){
-					setcookie('filter_ID',$_POST[ID],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['ID'] != ''){
+					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[nev] != ''){
-					setcookie('filter_nev',$_POST[nev],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['nev'] != ''){
+					setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
 				}
 				
 				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 				}				
 				Helper::reload();
 			}
 
 			$arg 		= array();
-			$arg[limit] = 99999;
+			$arg['limit'] = 99999;
 			
 			$filters = Helper::getCookieFilter('filter',array('filtered'));
 			$filters['user_group'] 	= array('reseller','sales','partner');
@@ -42,7 +42,7 @@ class partnerek extends Controller
 				$filters['ID'] = $_GET['ID'];
 			}
 			
-			$arg[filters] = $filters;
+			$arg['filters'] = $filters;
 						
 			$this->view->users = $this->User->getUserList($arg);
 			$this->out('user_groupes', $this->User->getUserGroupes());
@@ -64,11 +64,11 @@ class partnerek extends Controller
 		}
 
 		function clearfilters(){
-			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+			setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
 			
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
-			Helper::reload('/'.$this->view->gets[0]);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
+			Helper::reload('/'.$this->view->gets['0']);
 		}
 			
 		function __destruct(){

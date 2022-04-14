@@ -635,7 +635,7 @@ class SMTP
          * process all lines before a blank line as headers.
          */
 
-        $field = substr($lines[0], 0, strpos($lines[0], ':'));
+        $field = substr($lines['0'], 0, strpos($lines['0'], ':'));
         $in_headers = false;
         if (!empty($field) && strpos($field, ' ') === false) {
             $in_headers = true;
@@ -674,7 +674,7 @@ class SMTP
             //Send the lines to the server
             foreach ($lines_out as $line_out) {
                 //RFC2821 section 4.5.2
-                if (!empty($line_out) and $line_out[0] == '.') {
+                if (!empty($line_out) and $line_out['0'] == '.') {
                     $line_out = '.' . $line_out;
                 }
                 $this->client_send($line_out . self::CRLF);
@@ -749,12 +749,12 @@ class SMTP
             if (!empty($fields)) {
                 if (!$n) {
                     $name = $type;
-                    $fields = $fields[0];
+                    $fields = $fields['0'];
                 } else {
                     $name = array_shift($fields);
                     switch ($name) {
                         case 'SIZE':
-                            $fields = ($fields ? $fields[0] : 0);
+                            $fields = ($fields ? $fields['0'] : 0);
                             break;
                         case 'AUTH':
                             if (!is_array($fields)) {
@@ -865,8 +865,8 @@ class SMTP
         // Fetch SMTP code and possible error code explanation
         $matches = array();
         if (preg_match("/^([0-9]{3})[ -](?:([0-9]\\.[0-9]\\.[0-9]) )?/", $this->last_reply, $matches)) {
-            $code = $matches[1];
-            $code_ex = (count($matches) > 2 ? $matches[2] : null);
+            $code = $matches['1'];
+            $code_ex = (count($matches) > 2 ? $matches['2'] : null);
             // Cut off error code from each response line
             $detail = preg_replace(
                 "/{$code}[ -]".($code_ex ? str_replace('.', '\\.', $code_ex).' ' : '')."/m",
@@ -1066,7 +1066,7 @@ class SMTP
             $this->edebug("SMTP -> get_lines(): \$str is  \"$str\"", self::DEBUG_LOWLEVEL);
             $data .= $str;
             // If 4th character is a space, we are done reading, break the loop, micro-optimisation over strlen
-            if ((isset($str[3]) and $str[3] == ' ')) {
+            if ((isset($str['3']) and $str['3'] == ' ')) {
                 break;
             }
             // Timed-out? Log and break

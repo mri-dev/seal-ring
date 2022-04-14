@@ -18,12 +18,12 @@ class Youtube{
 		
 		preg_match_all("#((http://|https://)?(www.)?youtube\.com/watch\?[=a-z0-9&_;]+)#i",$str,$m);
 		
-		$vURL = $m[0];
+		$vURL = $m['0'];
 				
 		$vid = array();
 		foreach($vURL as $link){
 			$str = str_replace(
-			"[yt]".$link."[/yt]",
+			"['yt']".$link."[/yt]",
 			'<div style="padding:10px;"><center><iframe width="'.$vw.'" height="'.$vh.'" src="http://www.youtube.com/embed/'.self::getVideoId($link).'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>',
 			$str);
 		}

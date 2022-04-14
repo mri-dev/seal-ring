@@ -4,7 +4,7 @@
 	<form method="get" action="">
 		<input type="hidden" name="f" value="1">
 		<? if(isset($_GET['g'])): ?>
-		<input type="hidden" name="g" value="<?=$_GET[g]?>">
+		<input type="hidden" name="g" value="<?=$_GET['g']?>">
 		<? endif; ?>
 		<div class="row">
 			<div class="col-sm-7">
@@ -50,27 +50,27 @@
     <tbody>
     	<? 
     	$i = 0;
-    	if(count($this->users[data]) > 0): foreach($this->users[data] as $d):  
+    	if(count($this->users['data']) > 0): foreach($this->users['data'] as $d):  
     		$i++;
     	?>
     	<tr>
     		<td align="center"><?=$i?></td>
-	    	<td align="center"><?=$d[ID]?></td>
+	    	<td align="center"><?=$d['ID']?></td>
 	        <td>
-          		<strong><?=$d[nev]?></strong>
+          		<strong><?=$d['nev']?></strong>
           		<div style="color: #aaa;">(<?=$this->user_groupes[$d['user_group']]?>)</div>
             </td>
-            <td align="center"><?=$d[email]?></td>
+            <td align="center"><?=$d['email']?></td>
            
             <td align="center">
-            	<?=Helper::cashFormat($d[totalOrderPrices])?> Ft
+            	<?=Helper::cashFormat($d['totalOrderPrices'])?> Ft
             </td>
             <td align="center">
                 <?=Helper::cashFormat($d['totalRefererOrderNum'])?> db
             </td>
             <td align="center">
                 <?php if ($d['totalReferredOrderPrices']): ?>
-                    <a target="_blank" title="Megrendelések listája" href="/partnerSale?partner=<?=$d[total_data][data][refererID]?>"><?=Helper::cashFormat($d['totalReferredOrderPrices'])?> Ft</a>           
+                    <a target="_blank" title="Megrendelések listája" href="/partnerSale?partner=<?=$d['total_data']['data']['refererID']?>"><?=Helper::cashFormat($d['totalReferredOrderPrices'])?> Ft</a>           
                 <? else: ?>
                 n.a.
                 <?php endif; ?>
@@ -79,13 +79,13 @@
             	<strong><?=Helper::cashFormat($d['totalReferredOrderPrices'] / $d['totalRefererOrderNum'])?></strong> 
             	Ft / megrendelés 	
             </td>
-            <td align="center"><?=Helper::softDate($d[utoljara_belepett])?>	<br><em>(<?=Helper::distanceDate($d[utoljara_belepett])?>)</em></td>
-            <td align="center"><?=Helper::softDate($d[regisztralt])?> <br><em>(<?=Helper::distanceDate($d[regisztralt])?>)</em></td>
+            <td align="center"><?=Helper::softDate($d['utoljara_belepett'])?>	<br><em>(<?=Helper::distanceDate($d['utoljara_belepett'])?>)</em></td>
+            <td align="center"><?=Helper::softDate($d['regisztralt'])?> <br><em>(<?=Helper::distanceDate($d['regisztralt'])?>)</em></td>
             <td class="center">
                 <div class="dropdown">               
                     <i class="fa fa-gear dropdown-toggle" title="Beállítások" id="dm<?=$d['ID']?>" data-toggle="dropdown"></i>
                       <ul class="dropdown-menu" role="menu" aria-labelledby="dm<?=$d['ID']?>">  
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$d['ID']?>&ret=<?=$_SERVER[REQUEST_URI]?>">Szerkesztés <i class="fa fa-pencil"></i></a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/?t=edit&ID=<?=$d['ID']?>&ret=<?=$_SERVER['REQUEST_URI']?>">Szerkesztés <i class="fa fa-pencil"></i></a></li>
                       </ul>
                 </div>
             </td>

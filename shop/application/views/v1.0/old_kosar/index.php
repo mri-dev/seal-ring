@@ -3,7 +3,7 @@
 	<div class="row np" id="cart">
     <div class="col-sm-12">
     	<div class="responsive-view full-width">
-    		<? if($this->gets[1] != 'done'): ?>
+    		<? if($this->gets['1'] != 'done'): ?>
 	    	<form method="post" action="">
 	            <div class="cartItems">
 	            	<?
@@ -12,9 +12,9 @@
 					?>
 					<div class="box">
 						<div class="p10 cart-head">
-							<? if( count($k[items]) > 0 ): ?>
+							<? if( count($k['items']) > 0 ): ?>
 							<div style="float:right;">
-								<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
+								<? if($this->gets['1'] == '' || $this->gets['1'] == '0'): ?>
 									<a href="/kosar/?clear=1" class="clear-cart" title="Kosár ürítése">kosár üritése <i class="fa fa-trash-o"></i></a>
 								<? endif; ?>
 							</div>
@@ -26,7 +26,7 @@
 						<div class="right">
 							<button class="btn btn-danger btn-sm mustReload" onclick="document.location.reload(true);">A kosár tartalma megváltozott. <strong>Kattintson</strong> a frissítéshez!</button>
 						</div>
-						<? if( count($k[items]) > 0 ): ?>
+						<? if( count($k['items']) > 0 ): ?>
 						<div class="mobile-table-container overflowed">
 						<table class="table table-bordered">
 							<thead>
@@ -39,66 +39,66 @@
 								</tr>
 							</thead>
 							<tbody>
-								<? foreach($k[items] as $d):
-									if($d[szuper_akcios] == 1){
-										$szuperakcios_termekek_ara += $d[sum_ar];
+								<? foreach($k['items'] as $d):
+									if($d['szuper_akcios'] == 1){
+										$szuperakcios_termekek_ara += $d['sum_ar'];
 									}
-									if($d[pickpackszallitas] == 0) $no_ppp_itemNum++;
-									if($d[elorendelheto] == 1) $preOrder_item++;
+									if($d['pickpackszallitas'] == 0) $no_ppp_itemNum++;
+									if($d['elorendelheto'] == 1) $preOrder_item++;
 								?>
 								<tr class="item">
 									<td class="main">
-										<div class="img img-thb" onclick="document.location.href='<?=$d[url]?>'">
+										<div class="img img-thb" onclick="document.location.href='<?=$d['url']?>'">
 											<span class="helper"></span>
-											<a href="<?=$d[url]?>"><img src="<?=$d['profil_kep']?>" alt="<?=$d[termekNev]?>" /></a>
+											<a href="<?=$d['url']?>"><img src="<?=$d['profil_kep']?>" alt="<?=$d['termekNev']?>" /></a>
 										</div>
 										<div class="tinfo">
-											<div class="nev"><a href="<?=$d[url]?>"><?=$d[termekNev]?></a></div>
+											<div class="nev"><a href="<?=$d['url']?>"><?=$d['termekNev']?></a></div>
 											<div class="sel-types">
 												<? if($d['szin']): ?><em>Variáció:</em> <strong><?=$d['szin']?></strong><? endif;?>
 												<? if($d['meret']): ?><em>Kiszerelés:</em> <strong><?=$d['meret']?></strong><? endif;?>
 											</div>
 											<div class="subLine">
-												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=$d[allapot]?></span> &nbsp;&nbsp;
-												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> <?=$d[szallitasIdo]?></span>
+												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> <?=$d['allapot']?></span> &nbsp;&nbsp;
+												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> <?=$d['szallitasIdo']?></span>
 											</div>
 										</div>
 									</td>
 									<td class="center">
-										<strong><?=$d[me]?> db</strong>
+										<strong><?=$d['me']?> db</strong>
 										<?php if ($d['me'] > $d['raktar_keszlet']): ?>
 											<div class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?'Nincs raktáron: Rendelhető.':$d['raktar_keszlet'].' db raktáron.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).' rendelhető.</span>'?></div>
 										<?php endif; ?>
 									</td>
 									<td class="center">
 										<? if( $d['discounted'] ): ?>
-											<div><strike><?=Helper::cashFormat($d[prices][old_each])?> Ft</strike></div>
-											<div><strong><?=Helper::cashFormat($d[prices][current_each])?> Ft</strong></div>
+											<div><strike><?=Helper::cashFormat($d['prices']['old_each'])?> Ft</strike></div>
+											<div><strong><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</strong></div>
 										<? else: ?>
-										<span><?=Helper::cashFormat($d[prices][current_each])?> Ft</span>
+										<span><?=Helper::cashFormat($d['prices']['current_each'])?> Ft</span>
 										<? endif; ?>
 									</td>
 									<td class="center">
 										<? if( $d['discounted'] ): ?>
-											<div><strike><?=Helper::cashFormat($d[prices][old_sum])?> Ft</strike></div>
-											<div><strong><?=Helper::cashFormat($d[prices][current_sum])?> Ft</strong></div>
+											<div><strike><?=Helper::cashFormat($d['prices']['old_sum'])?> Ft</strike></div>
+											<div><strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong></div>
 										<? else: ?>
-										<strong><?=Helper::cashFormat($d[prices][current_sum])?> Ft</strong>
+										<strong><?=Helper::cashFormat($d['prices']['current_sum'])?> Ft</strong>
 										<? endif; ?>
 									</td>
 									<td class="center action">
-										<? if($this->gets[1] == '' || $this->gets[1] == '0'): ?>
+										<? if($this->gets['1'] == '' || $this->gets['1'] == '0'): ?>
 										<span>
-											<i class="fa fa-minus-square cart-adder desc" title="Kevesebb" onclick="Cart.removeItem(<?=$d[termekID]?>)"></i>
-											<i class="fa fa-plus-square cart-adder asc" title="Több" onclick="Cart.addItem(<?=$d[termekID]?>)"></i>
+											<i class="fa fa-minus-square cart-adder desc" title="Kevesebb" onclick="Cart.removeItem(<?=$d['termekID']?>)"></i>
+											<i class="fa fa-plus-square cart-adder asc" title="Több" onclick="Cart.addItem(<?=$d['termekID']?>)"></i>
 										</span>
 										<? endif; ?>
 									</td>
 								</tr>
 								<? endforeach;
 								// Végső ár kiszámolása
-								$calc_final_total = $k[totalPrice] - $szuperakcios_termekek_ara;
-								//$calc_final_total = ($calc_final_total -(($this->user[kedvezmeny]/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
+								$calc_final_total = $k['totalPrice'] - $szuperakcios_termekek_ara;
+								//$calc_final_total = ($calc_final_total -(($this->user['kedvezmeny']/100)*$calc_final_total)) + $szuperakcios_termekek_ara;
 								?>
 								</div>
 							</tbody>
@@ -124,13 +124,13 @@
 						$vegosszeg 				= 0;
 						$orderedProducts 	= array();
 
-						foreach($this->orderInfo[items] as $d):
-							$vegosszeg 			+= $d[subAr];
-							$orderedProducts[] 	= $d[nev];
+						foreach($this->orderInfo['items'] as $d):
+							$vegosszeg 			+= $d['subAr'];
+							$orderedProducts[] 	= $d['nev'];
 						endforeach;
 
-						if($this->orderInfo[szallitasi_koltseg] > 0) $vegosszeg += $this->orderInfo[szallitasi_koltseg];
-						if($this->orderInfo[kedvezmeny] > 0) $vegosszeg -= $this->orderInfo[kedvezmeny];
+						if($this->orderInfo['szallitasi_koltseg'] > 0) $vegosszeg += $this->orderInfo['szallitasi_koltseg'];
+						if($this->orderInfo['kedvezmeny'] > 0) $vegosszeg -= $this->orderInfo['kedvezmeny'];
 
 					?>
 	            	<h1><i class="fa fa-check-circle"></i><br />Megrendelés elküldve</h1>
@@ -145,13 +145,13 @@
 
 					<? if( $this->orderInfo['fizetesiModID'] == $this->settings['flagkey_pay_cetelem'] ): ?>
 						<br>
-						<a class="cetelem-startrans" href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>/?cetelem=1#start">
+						<a class="cetelem-startrans" href="<?=DOMAIN?>order/<?=$this->orderInfo['accessKey']?>/?cetelem=1#start">
 							Cetelem online hiteligénylés indítása <i class="fa fa-angle-right"></i>
 						</a>
 					<? endif; ?>
 
 					<? // PayPal fizetés
-					if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->orderInfo[fizetesiModID])][nev] == 'PayPal' && $this->orderInfo[paypal_fizetve] == 0):
+					if($this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->orderInfo['fizetesiModID'])]['nev'] == 'PayPal' && $this->orderInfo['paypal_fizetve'] == 0):
 
 
 					?>
@@ -162,35 +162,35 @@
 					<br />
 					<div align="center">
 						<br>
-						<a href="<?=DOMAIN?>order/<?=$this->orderInfo[accessKey]?>" class="btn btn-pr">Megrendelés adatlapja <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="<?=DOMAIN?>order/<?=$this->orderInfo['accessKey']?>" class="btn btn-pr">Megrendelés adatlapja <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 	            </div>
 	        </div>
 	       	<? endif; ?>
 					<a name="step"></a>
-	        <? if(count($k[items]) > 0): ?>
-					<?php if ($k[unstocked_items] && $k[unstocked_items][total] != 0): ?>
+	        <? if(count($k['items']) > 0): ?>
+					<?php if ($k['unstocked_items'] && $k['unstocked_items']['total'] != 0): ?>
 					<div class="alert alert-warning">
-						<i class="fa fa-exclamation-triangle"></i> A kosárban lévő termékeknél <strong><?=$k[unstocked_items][total]?> db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.
+						<i class="fa fa-exclamation-triangle"></i> A kosárban lévő termékeknél <strong><?=$k['unstocked_items']['total']?> db tétel nincs raktáron!</strong> Kérjük, vegye  figyelembe, hogy ezen tételeket hosszabb határidővel, gyártás / beszerzés után tudjuk teljesíteni.
 					</div>
 					<?php endif; ?>
 					<div class="nextOrded">
 	            <div class="box">
 	                <h2 class="title">Termékek megrendelése</h2>
 	                <input type="hidden" name="no_ppp_itemNum" value="<?=$no_ppp_itemNum?>" />
-	                <? if($this->gets[1] != '' && $this->gets[1] != '0'): ?>
+	                <? if($this->gets['1'] != '' && $this->gets['1'] != '0'): ?>
 	                	<div class="allStepView">
 	                    	<ul>
-	                   		  <li class="<?=((int)$this->gets[1] == 1)?'active':(((int)$this->gets[1] > 1)?'done':'')?> <?=(in_array(1,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/1"><span class="p1">Számlázási/Szállítási adatok</span></a></li>
-	                          <li class="<?=((int)$this->gets[1] == 2)?'active':(((int)$this->gets[1] > 2)?'done':'')?> <?=(in_array(2,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/2"><span class="p2">Átvételi mód</span></a></li>
-	                          <li class="<?=((int)$this->gets[1] == 3)?'active':(((int)$this->gets[1] > 3)?'done':'')?> <?=(in_array(3,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/3"><span class="p3">Fizetési mód</span></a></li>
-	                          <li class="<?=((int)$this->gets[1] == 4)?'active':(((int)$this->gets[1] > 4)?'done':'')?> <?=(in_array(4,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/4"><span class="p4">Megrendelés leadása</span></a></li>
+	                   		  <li class="<?=((int)$this->gets['1'] == 1)?'active':(((int)$this->gets['1'] > 1)?'done':'')?> <?=(in_array(1,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/1"><span class="p1">Számlázási/Szállítási adatok</span></a></li>
+	                          <li class="<?=((int)$this->gets['1'] == 2)?'active':(((int)$this->gets['1'] > 2)?'done':'')?> <?=(in_array(2,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/2"><span class="p2">Átvételi mód</span></a></li>
+	                          <li class="<?=((int)$this->gets['1'] == 3)?'active':(((int)$this->gets['1'] > 3)?'done':'')?> <?=(in_array(3,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/3"><span class="p3">Fizetési mód</span></a></li>
+	                          <li class="<?=((int)$this->gets['1'] == 4)?'active':(((int)$this->gets['1'] > 4)?'done':'')?> <?=(in_array(4,$this->orderMustFillStep) && $this->orderStep)?'want':''?>"><a href="/kosar/4"><span class="p4">Megrendelés leadása</span></a></li>
 	                    	</ul>
 	                    	<div class="clr"></div>
 	                    </div>
 	                <? endif; ?>
 	                <!--ORDER STEP 0.-->
-	                <div class="steps step0 <?=($this->gets[1] == '0' || $this->gets[1] == '')?'on':''?>">
+	                <div class="steps step0 <?=($this->gets['1'] == '0' || $this->gets['1'] == '')?'on':''?>">
 									<?php if (false): ?>
 	                <div class="row">
 	                	<div class="col-sm-6">
@@ -256,11 +256,11 @@
 	                        <div class="offline">
 	                        	<div class="p10">
 	                            	<div class="head"><strong>Alapadatok megadása</strong></div>
-	                            	<input type="text" class="form-control" name="nev" value="<?=($this->orderExc)?$_POST[nev]:$this->storedString[0][nev]?>"  placeholder="Az Ön neve" />
-	                                <? if($this->orderExc && in_array('nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+	                            	<input type="text" class="form-control" name="nev" value="<?=($this->orderExc)?$_POST['nev']:$this->storedString['0']['nev']?>"  placeholder="Az Ön neve" />
+	                                <? if($this->orderExc && in_array('nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 	                                <br />
-	                                <input type="text" class="form-control" name="email" value="<?=($this->orderExc)?$_POST[email]:$this->storedString[0][email]?>" placeholder="Az Ön e-mail címe" />
-	                                <? if($this->orderExc && in_array('email',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+	                                <input type="text" class="form-control" name="email" value="<?=($this->orderExc)?$_POST['email']:$this->storedString['0']['email']?>" placeholder="Az Ön e-mail címe" />
+	                                <? if($this->orderExc && in_array('email',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 	                                <div class="regInfo">vagy jelentkezzen be <br> <i class="fa fa-angle-down"></i></div>
 	                            </div>
 	                        </div>
@@ -283,20 +283,20 @@
 	                        </div>
 	                        <? else: ?>
 	                       		<div class="online" align="center">
-	                            	<div class="head orange">Bejelentkezve mint, <strong><?=$this->user[data][nev]?></strong>!</div>
+	                            	<div class="head orange">Bejelentkezve mint, <strong><?=$this->user['data']['nev']?></strong>!</div>
 	                                <div class="p10">
 	                                    <div class="head"><strong>Alapadatok</strong></div>
-	                                    <input type="text" class="form-control" name="nev" value="<?=($this->orderExc)?$_POST[nev]:$this->user[data][nev]?>" readonly="readonly"  placeholder="Az Ön neve" />
-	                                    <? if($this->orderExc && in_array('nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+	                                    <input type="text" class="form-control" name="nev" value="<?=($this->orderExc)?$_POST['nev']:$this->user['data']['nev']?>" readonly="readonly"  placeholder="Az Ön neve" />
+	                                    <? if($this->orderExc && in_array('nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 	                                    <br />
-	                                    <input type="text" class="form-control" name="email" value="<?=($this->orderExc)?$_POST[email]:$this->user[data][email]?>" readonly="readonly" placeholder="Az Ön e-mail címe" />
-	                                    <? if($this->orderExc && in_array('email',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+	                                    <input type="text" class="form-control" name="email" value="<?=($this->orderExc)?$_POST['email']:$this->user['data']['email']?>" readonly="readonly" placeholder="Az Ön e-mail címe" />
+	                                    <? if($this->orderExc && in_array('email',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 	                                    <? if($this->user['data']['cash'] != 0): ?>
 	                                    <div class="cash">
 	                                   		<div class="head"><strong>Virtuális egyenleg felhasználás</strong></div>
 	                                   		<div class="input-group">
 	                                   			<span class="input-group-addon"><strong><?=Helper::cashFormat($this->user['data']['cash'])?></strong> &nbsp; /</span>
-	                                   			<input type="number" name="virtual_cash"  class="form-control" min="0" value="<?=($this->orderExc) ? 0 : ( ($this->storedString[0][virtual_cash]) ? $this->storedString[0][virtual_cash] : 0 )?>" max="<?=$this->user['data']['cash']?>">
+	                                   			<input type="number" name="virtual_cash"  class="form-control" min="0" value="<?=($this->orderExc) ? 0 : ( ($this->storedString['0']['virtual_cash']) ? $this->storedString['0']['virtual_cash'] : 0 )?>" max="<?=$this->user['data']['cash']?>">
 	                                   			<span class="input-group-addon"> Ft</span>
 	                                   			<span class="input-group-btn">
 		                            	 			<button class="btn btn-sec" name="save_vr_cash" value="1">frissít <i class="fa fa-refresh"></i></button>
@@ -321,7 +321,7 @@
 	                                            	</div>
 	                                            	<div class="col-sm-6 center">
 	                                            		<strong>Az Ön kedvezménye:</strong>
-			                                            <div class="dc-num"><?=$this->user[kedvezmeny]?>%</div>
+			                                            <div class="dc-num"><?=$this->user['kedvezmeny']?>%</div>
 	                                            	</div>
 	                                            </div>
 
@@ -381,22 +381,22 @@
 									<?php if($this->user): ?>
 									<div class="stepzerostarter">
 											<div class="cartInfo">
-												<? $vcash = $this->storedString[0][virtual_cash]; ?>
+												<? $vcash = $this->storedString['0']['virtual_cash']; ?>
 
-													<span class="tetel"><?=$k[itemNum]?> db tétel</span>
+													<span class="tetel"><?=$k['itemNum']?> db tétel</span>
 													<span class="totalPrice">
-														<? if($this->kosar[kedvezmeny] > 0 || (is_numeric($vcash) && $vcash != "0" && isset($vcash))): ?>
+														<? if($this->kosar['kedvezmeny'] > 0 || (is_numeric($vcash) && $vcash != "0" && isset($vcash))): ?>
 															<?
 																if((is_numeric($vcash) && $vcash != "0" && isset($vcash))) {
-																	$this->kosar[totalPrice_before_discount]= $this->kosar['totalPrice'];
+																	$this->kosar['totalPrice_before_discount']= $this->kosar['totalPrice'];
 																	$calc_final_total = $this->kosar['totalPrice'] - (int)$vcash;
-																	$this->kosar[kedvezmeny] = $vcash;
+																	$this->kosar['kedvezmeny'] = $vcash;
 																}
 
 															?>
-															<span class="standardPrice">Eredeti ár: <strong><?=Helper::cashFormat($this->kosar[totalPrice_before_discount])?> Ft</strong></span>
+															<span class="standardPrice">Eredeti ár: <strong><?=Helper::cashFormat($this->kosar['totalPrice_before_discount'])?> Ft</strong></span>
 																<span class="kedvPrice">kedvezményesen <strong><?=Helper::cashFormat($calc_final_total)?> Ft</strong></span>
-																<span class="discountPrice"><span>(-<?=Helper::cashFormat($this->kosar[kedvezmeny])?> Ft)</span></span>
+																<span class="discountPrice"><span>(-<?=Helper::cashFormat($this->kosar['kedvezmeny'])?> Ft)</span></span>
 															<? else: ?>
 																<?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?>
 																 <strong><?=Helper::cashFormat($calc_final_total)?></strong> Ft
@@ -412,75 +412,75 @@
 	            	</div>
 	                <!--/ORDER STEP 0.-->
 	                <!--ORDER STEP 1.-->
-	                <div class="steps step1 <?=($this->gets[1] == '1')?'on':''?>">
+	                <div class="steps step1 <?=($this->gets['1'] == '1')?'on':''?>">
 	                	<div class="row np">
 											<div class="col-sm-6 col1">
 														<div class="head">Számlázási adatok</div>
 															<div class="p10 input-fields">
 																<div class="row">
 																	<div class="col-sm-8">
-																			 <input type="text" class="form-control" name="szam_nev" value="<?=($this->orderExc)?$_POST[szam_nev]:(($this->storedString[1])?$this->storedString[1][szam_nev]:$this->user[szamlazasi_adat][nev])?>" placeholder="* Név" />
-																			 <? if($this->orderExc && in_array('szam_nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																			 <input type="text" class="form-control" name="szam_nev" value="<?=($this->orderExc)?$_POST['szam_nev']:(($this->storedString['1'])?$this->storedString['1']['szam_nev']:$this->user['szamlazasi_adat']['nev'])?>" placeholder="* Név" />
+																			 <? if($this->orderExc && in_array('szam_nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-4">
-																			 <input type="text" class="form-control" name="szam_adoszam" value="<?=($this->orderExc)?$_POST[szam_adoszam]:(($this->storedString[1])?$this->storedString[1][szam_adoszam]:$this->user[data][company_adoszam])?>" placeholder="Adószám" />
-																			 <? if($this->orderExc && in_array('szam_adoszam',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																			 <input type="text" class="form-control" name="szam_adoszam" value="<?=($this->orderExc)?$_POST['szam_adoszam']:(($this->storedString['1'])?$this->storedString['1']['szam_adoszam']:$this->user['data']['company_adoszam'])?>" placeholder="Adószám" />
+																			 <? if($this->orderExc && in_array('szam_adoszam',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																</div>
 																<div class="row">
 																	<div class="col-sm-3">
-																			 <input type="text" class="form-control" autocomplete="off" name="szam_irsz" value="<?=($this->orderExc)?$_POST[szam_irsz]:(($this->storedString[1])?$this->storedString[1][szam_irsz]:$this->user[szamlazasi_adat][irsz])?>" placeholder="* Irányítószám" ng-keyup="findCityByIrsz($event, 'szam_city')" />
-																			 <? if($this->orderExc && in_array('szam_irsz',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																			 <input type="text" class="form-control" autocomplete="off" name="szam_irsz" value="<?=($this->orderExc)?$_POST['szam_irsz']:(($this->storedString['1'])?$this->storedString['1']['szam_irsz']:$this->user['szamlazasi_adat']['irsz'])?>" placeholder="* Irányítószám" ng-keyup="findCityByIrsz($event, 'szam_city')" />
+																			 <? if($this->orderExc && in_array('szam_irsz',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_kerulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szam_kerulet]:(($this->storedString[1])?$this->storedString[1][szam_kerulet]:$this->user[szamlazasi_adat][kerulet])?>" placeholder="Kerület" />
-																		<? if($this->orderExc && in_array('szam_kerulet',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_kerulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szam_kerulet']:(($this->storedString['1'])?$this->storedString['1']['szam_kerulet']:$this->user['szamlazasi_adat']['kerulet'])?>" placeholder="Kerület" />
+																		<? if($this->orderExc && in_array('szam_kerulet',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-6 hint-holder-col">
-																		<input type="text" readonly="readonly" class="form-control" name="szam_city" value="<?=($this->orderExc)?$_POST[szam_city]:(($this->storedString[1])?$this->storedString[1][szam_city]:$this->user[szamlazasi_adat][city])?>" placeholder="Város: adja meg az irányítószámot..." id="szam_city" />
+																		<input type="text" readonly="readonly" class="form-control" name="szam_city" value="<?=($this->orderExc)?$_POST['szam_city']:(($this->storedString['1'])?$this->storedString['1']['szam_city']:$this->user['szamlazasi_adat']['city'])?>" placeholder="Város: adja meg az irányítószámot..." id="szam_city" />
 																		<div class="hint-holder" ng-show="findedCity['szam_city'] && findedCity['szam_city'].length != 0" id="szam_city">
 																			<div class="hint-list">
 																				<div class="cityhint" ng-click="fillCityHint('szam_city', city)" ng-repeat="city in findedCity['szam_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
 																			</div>
 																		</div>
-																		<? if($this->orderExc && in_array('szam_city',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<? if($this->orderExc && in_array('szam_city',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																</div>
 																<div class="row">
 																	<div class="col-sm-6">
-																		<input type="text" class="form-control" name="szam_kozterulet_nev" value="<?=($this->orderExc)?$_POST[szam_kozterulet_nev]:(($this->storedString[1])?$this->storedString[1][szam_kozterulet_nev]:$this->user[szamlazasi_adat][kozterulet_nev])?>" placeholder="* Közterület neve" />
-																		<? if($this->orderExc && in_array('szam_kozterulet_nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_kozterulet_nev" value="<?=($this->orderExc)?$_POST['szam_kozterulet_nev']:(($this->storedString['1'])?$this->storedString['1']['szam_kozterulet_nev']:$this->user['szamlazasi_adat']['kozterulet_nev'])?>" placeholder="* Közterület neve" />
+																		<? if($this->orderExc && in_array('szam_kozterulet_nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-3">
 																		<select name="szam_kozterulet_jelleg" class="form-control" id="szam_kozterulet_jelleg">
 																				<option value="">* Közterület jellege</option>
 																				<option value="" disabled="disabled"></option>
 																				<? foreach( $this->kozterulet_jellege as $s ): ?>
-																				<option value="<?=$s?>" <?=( ( $this->storedString[1][szam_kozterulet_jelleg] == $s ) || ( $this->orderExc && $_POST['szam_kozterulet_jelleg'] == $s) || ($this->user && $this->user['szamlazasi_adat']['kozterulet_jelleg'] == $s) ) ? 'selected="selected"' : ''?>><?=$s?></option>
+																				<option value="<?=$s?>" <?=( ( $this->storedString['1']['szam_kozterulet_jelleg'] == $s ) || ( $this->orderExc && $_POST['szam_kozterulet_jelleg'] == $s) || ($this->user && $this->user['szamlazasi_adat']['kozterulet_jelleg'] == $s) ) ? 'selected="selected"' : ''?>><?=$s?></option>
 																				<? endforeach; ?>
 																			</select>
 																	</div>
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_hazszam" value="<?=($this->orderExc)?$_POST[szam_hazszam]:(($this->storedString[1])?$this->storedString[1][szam_hazszam]:$this->user[szamlazasi_adat][hazszam])?>" placeholder="* Házszám" />
-																		<? if($this->orderExc && in_array('szam_hazszam',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_hazszam" value="<?=($this->orderExc)?$_POST['szam_hazszam']:(($this->storedString['1'])?$this->storedString['1']['szam_hazszam']:$this->user['szamlazasi_adat']['hazszam'])?>" placeholder="* Házszám" />
+																		<? if($this->orderExc && in_array('szam_hazszam',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																</div>
 																<div class="row">
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_epulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szam_epulet]:(($this->storedString[1])?$this->storedString[1][szam_epulet]:$this->user[szamlazasi_adat][epulet])?>" placeholder="Épület" />
-																		<? if($this->orderExc && in_array('szam_epulet',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_epulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szam_epulet']:(($this->storedString['1'])?$this->storedString['1']['szam_epulet']:$this->user['szamlazasi_adat']['epulet'])?>" placeholder="Épület" />
+																		<? if($this->orderExc && in_array('szam_epulet',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_lepcsohaz" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szam_lepcsohaz]:(($this->storedString[1])?$this->storedString[1][szam_lepcsohaz]:$this->user[szamlazasi_adat][lepcsohaz])?>" placeholder="Lépcsőház" />
-																		<? if($this->orderExc && in_array('szam_lepcsohaz',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_lepcsohaz" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szam_lepcsohaz']:(($this->storedString['1'])?$this->storedString['1']['szam_lepcsohaz']:$this->user['szamlazasi_adat']['lepcsohaz'])?>" placeholder="Lépcsőház" />
+																		<? if($this->orderExc && in_array('szam_lepcsohaz',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_szint" value="<?=($this->orderExc)?$_POST[szam_szint]:(($this->storedString[1])?$this->storedString[1][szam_szint]:$this->user[szamlazasi_adat][szint])?>" placeholder="Szint" />
-																		<? if($this->orderExc && in_array('szam_szint',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_szint" value="<?=($this->orderExc)?$_POST['szam_szint']:(($this->storedString['1'])?$this->storedString['1']['szam_szint']:$this->user['szamlazasi_adat']['szint'])?>" placeholder="Szint" />
+																		<? if($this->orderExc && in_array('szam_szint',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																	<div class="col-sm-3">
-																		<input type="text" class="form-control" name="szam_ajto" value="<?=($this->orderExc)?$_POST[szam_ajto]:(($this->storedString[1])?$this->storedString[1][szam_ajto]:$this->user[szamlazasi_adat][ajto])?>" placeholder="Ajtó" />
-																		<? if($this->orderExc && in_array('szam_ajto',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																		<input type="text" class="form-control" name="szam_ajto" value="<?=($this->orderExc)?$_POST['szam_ajto']:(($this->storedString['1'])?$this->storedString['1']['szam_ajto']:$this->user['szamlazasi_adat']['ajto'])?>" placeholder="Ajtó" />
+																		<? if($this->orderExc && in_array('szam_ajto',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																	</div>
 																</div>
 																<div class="row">
@@ -495,74 +495,74 @@
 			                            <div class="p10 input-fields">
 																		<div class="row">
 			                            		<div class="col-sm-8">
-		                                       <input type="text" class="form-control" name="szall_nev" value="<?=($this->orderExc)?$_POST[szall_nev]:(($this->storedString[1])?$this->storedString[1][szall_nev]:$this->user[szallitasi_adat][nev])?>" placeholder="* Név" />
-		                                       <? if($this->orderExc && in_array('szall_nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+		                                       <input type="text" class="form-control" name="szall_nev" value="<?=($this->orderExc)?$_POST['szall_nev']:(($this->storedString['1'])?$this->storedString['1']['szall_nev']:$this->user['szallitasi_adat']['nev'])?>" placeholder="* Név" />
+		                                       <? if($this->orderExc && in_array('szall_nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 		                                  </div>
 																			<div class="col-sm-4">
-		                                       <input type="text" class="form-control" name="szall_adoszam" value="<?=($this->orderExc)?$_POST[szall_adoszam]:(($this->storedString[1])?$this->storedString[1][szall_adoszam]:$this->user[data][company_adoszam])?>" placeholder="Adószám" />
-		                                       <? if($this->orderExc && in_array('szall_adoszam',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+		                                       <input type="text" class="form-control" name="szall_adoszam" value="<?=($this->orderExc)?$_POST['szall_adoszam']:(($this->storedString['1'])?$this->storedString['1']['szall_adoszam']:$this->user['data']['company_adoszam'])?>" placeholder="Adószám" />
+		                                       <? if($this->orderExc && in_array('szall_adoszam',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 		                                  </div>
 			                            	</div>
 																		<div class="row">
 																			<div class="col-sm-3">
-																					 <input type="text" class="form-control" autocomplete="off" name="szall_irsz" value="<?=($this->orderExc)?$_POST[szall_irsz]:(($this->storedString[1])?$this->storedString[1][szall_irsz]:$this->user[szallitasi_adat][irsz])?>" placeholder="* Irányítószám" ng-keyup="findCityByIrsz($event, 'szall_city')" />
-																					 <? if($this->orderExc && in_array('szall_irsz',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																					 <input type="text" class="form-control" autocomplete="off" name="szall_irsz" value="<?=($this->orderExc)?$_POST['szall_irsz']:(($this->storedString['1'])?$this->storedString['1']['szall_irsz']:$this->user['szallitasi_adat']['irsz'])?>" placeholder="* Irányítószám" ng-keyup="findCityByIrsz($event, 'szall_city')" />
+																					 <? if($this->orderExc && in_array('szall_irsz',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																				<div class="col-sm-3">
-																					<input type="text" class="form-control" name="szall_kerulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szall_kerulet]:(($this->storedString[1])?$this->storedString[1][szall_kerulet]:$this->user[szallitasi_adat][kerulet])?>" placeholder="Kerület" />
-																					<? if($this->orderExc && in_array('szall_kerulet',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																					<input type="text" class="form-control" name="szall_kerulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szall_kerulet']:(($this->storedString['1'])?$this->storedString['1']['szall_kerulet']:$this->user['szallitasi_adat']['kerulet'])?>" placeholder="Kerület" />
+																					<? if($this->orderExc && in_array('szall_kerulet',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																				</div>
 																			<div class="col-sm-6 hint-holder-col">
-																				<input type="text" readonly="readonly" class="form-control" name="szall_city" value="<?=($this->orderExc)?$_POST[szall_city]:(($this->storedString[1])?$this->storedString[1][szall_city]:$this->user[szallitasi_adat][city])?>" placeholder="Város: adja meg az irányítószámot..." id="szall_city" />
+																				<input type="text" readonly="readonly" class="form-control" name="szall_city" value="<?=($this->orderExc)?$_POST['szall_city']:(($this->storedString['1'])?$this->storedString['1']['szall_city']:$this->user['szallitasi_adat']['city'])?>" placeholder="Város: adja meg az irányítószámot..." id="szall_city" />
 																				<div class="hint-holder" ng-show="findedCity['szall_city'] && findedCity['szall_city'].length != 0" id="szall_city">
 																					<div class="hint-list">
 																						<div class="cityhint" ng-click="fillCityHint('szall_city', city)" ng-repeat="city in findedCity['szall_city']">{{city.varos}} <span ng-show="city.megye" class="megye">({{city.megye}} megye)</span></div>
 																					</div>
 																				</div>
-																				<? if($this->orderExc && in_array('szall_city',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<? if($this->orderExc && in_array('szall_city',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																		</div>
 																		<div class="row">
 																			<div class="col-sm-6">
-																				<input type="text" class="form-control" name="szall_kozterulet_nev" value="<?=($this->orderExc)?$_POST[szall_kozterulet_nev]:(($this->storedString[1])?$this->storedString[1][szall_kozterulet_nev]:$this->user[szallitasi_adat][kozterulet_nev])?>" placeholder="* Közterület neve" />
-																				<? if($this->orderExc && in_array('szall_kozterulet_nev',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_kozterulet_nev" value="<?=($this->orderExc)?$_POST['szall_kozterulet_nev']:(($this->storedString['1'])?$this->storedString['1']['szall_kozterulet_nev']:$this->user['szallitasi_adat']['kozterulet_nev'])?>" placeholder="* Közterület neve" />
+																				<? if($this->orderExc && in_array('szall_kozterulet_nev',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																			<div class="col-sm-3">
 																				<select name="szall_kozterulet_jelleg" class="form-control" id="szall_kozterulet_jelleg">
 																						<option value="">* Közterület jellege</option>
 																						<option value="" disabled="disabled"></option>
 																						<? foreach( $this->kozterulet_jellege as $s ): ?>
-																						<option value="<?=$s?>" <?=( ( $this->storedString[1][szall_kozterulet_jelleg] == $s ) || ( $this->orderExc && $_POST['szall_kozterulet_jelleg'] == $s) || ($this->user && $this->user['szallitasi_adat']['kozterulet_jelleg'] == $s) ) ? 'selected="selected"' : ''?>><?=$s?></option>
+																						<option value="<?=$s?>" <?=( ( $this->storedString['1']['szall_kozterulet_jelleg'] == $s ) || ( $this->orderExc && $_POST['szall_kozterulet_jelleg'] == $s) || ($this->user && $this->user['szallitasi_adat']['kozterulet_jelleg'] == $s) ) ? 'selected="selected"' : ''?>><?=$s?></option>
 																						<? endforeach; ?>
 																					</select>
 																			</div>
 																			<div class="col-sm-3">
-																				<input type="text" class="form-control" name="szall_hazszam" value="<?=($this->orderExc)?$_POST[szall_hazszam]:(($this->storedString[1])?$this->storedString[1][szall_hazszam]:$this->user[szallitasi_adat][hazszam])?>" placeholder="* Házszám" />
-																				<? if($this->orderExc && in_array('szall_hazszam',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_hazszam" value="<?=($this->orderExc)?$_POST['szall_hazszam']:(($this->storedString['1'])?$this->storedString['1']['szall_hazszam']:$this->user['szallitasi_adat']['hazszam'])?>" placeholder="* Házszám" />
+																				<? if($this->orderExc && in_array('szall_hazszam',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																		</div>
 																		<div class="row">
 																			<div class="col-sm-3">
-																				<input type="text" class="form-control" name="szall_epulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szall_epulet]:(($this->storedString[1])?$this->storedString[1][szall_epulet]:$this->user[szallitasi_adat][epulet])?>" placeholder="Épület" />
-																				<? if($this->orderExc && in_array('szall_epulet',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_epulet" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szall_epulet']:(($this->storedString['1'])?$this->storedString['1']['szall_epulet']:$this->user['szallitasi_adat']['epulet'])?>" placeholder="Épület" />
+																				<? if($this->orderExc && in_array('szall_epulet',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																			<div class="col-sm-3">
-																				<input type="text" class="form-control" name="szall_lepcsohaz" autocomplete="new-password" value="<?=($this->orderExc)?$_POST[szall_lepcsohaz]:(($this->storedString[1])?$this->storedString[1][szall_lepcsohaz]:$this->user[szallitasi_adat][lepcsohaz])?>" placeholder="Lépcsőház" />
-																				<? if($this->orderExc && in_array('szall_lepcsohaz',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_lepcsohaz" autocomplete="new-password" value="<?=($this->orderExc)?$_POST['szall_lepcsohaz']:(($this->storedString['1'])?$this->storedString['1']['szall_lepcsohaz']:$this->user['szallitasi_adat']['lepcsohaz'])?>" placeholder="Lépcsőház" />
+																				<? if($this->orderExc && in_array('szall_lepcsohaz',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																			<div class="col-sm-3">
-																				<input type="text" class="form-control" name="szall_szint" value="<?=($this->orderExc)?$_POST[szall_szint]:(($this->storedString[1])?$this->storedString[1][szall_szint]:$this->user[szallitasi_adat][szint])?>" placeholder="Szint" />
-																				<? if($this->orderExc && in_array('szall_szint',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_szint" value="<?=($this->orderExc)?$_POST['szall_szint']:(($this->storedString['1'])?$this->storedString['1']['szall_szint']:$this->user['szallitasi_adat']['szint'])?>" placeholder="Szint" />
+																				<? if($this->orderExc && in_array('szall_szint',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																			<div class="col-sm-3">
-																				<input type="text" class="form-control" name="szall_ajto" value="<?=($this->orderExc)?$_POST[szall_ajto]:(($this->storedString[1])?$this->storedString[1][szall_ajto]:$this->user[szallitasi_adat][ajto])?>" placeholder="Ajtó" />
-																				<? if($this->orderExc && in_array('szam_ajto',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_ajto" value="<?=($this->orderExc)?$_POST['szall_ajto']:(($this->storedString['1'])?$this->storedString['1']['szall_ajto']:$this->user['szallitasi_adat']['ajto'])?>" placeholder="Ajtó" />
+																				<? if($this->orderExc && in_array('szam_ajto',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																		</div>
 																		<div class="row">
 																			<div class="col-md-6">
-																				<input type="text" class="form-control" name="szall_phone" value="<?=($this->orderExc)?$_POST[szall_phone]:(($this->storedString[1])?$this->storedString[1][szall_phone]:$this->user[szallitasi_adat][phone])?>" placeholder="* Telefonszám" />
-																				<? if($this->orderExc && in_array('szall_phone',$this->orderExc[input])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
+																				<input type="text" class="form-control" name="szall_phone" value="<?=($this->orderExc)?$_POST['szall_phone']:(($this->storedString['1'])?$this->storedString['1']['szall_phone']:$this->user['szallitasi_adat']['phone'])?>" placeholder="* Telefonszám" />
+																				<? if($this->orderExc && in_array('szall_phone',$this->orderExc['input'])): ?><span class="errMsg">Kérjük, töltse ki ezt a mezőt!</span><? endif; ?>
 																			</div>
 																		</div>
 			                            </div>
@@ -573,18 +573,18 @@
 	                </div>
 	                <!--/ORDER STEP 1.-->
 	                <!--ORDER STEP 2.-->
-	                <div class="steps step2 <?=($this->gets[1] == '2')?'on':''?>" style="padding:0;">
+	                <div class="steps step2 <?=($this->gets['1'] == '2')?'on':''?>" style="padding:0;">
 	                	<div class="row np">
 	                    	<div class="col-sm-12">
 	                        	<ul class="atvetel">
 	                            	<? foreach($this->szallitas as $d): ?>
-	                        		<li><input <?=($this->storedString[2][atvetel] == $d[ID])?'checked':''?> id="atvet_<?=$d[ID]?>" type="radio" name="atvetel" value="<?=$d[ID]?>" <?=($d[ID] == 2 && $no_ppp_itemNum != 0)?'disabled':''?>/><label for="atvet_<?=$d[ID]?>"><?=$d[nev]?> <em><?=Product::transTime($d[ID])?></em><? if($d[ID] == 2 && $no_ppp_itemNum != 0): ?><br /><span class="subtitle"><?=$no_ppp_itemNum?> db termék nem szállítható Pick Pack Pontra</span><? endif; ?></label>
+	                        		<li><input <?=($this->storedString['2']['atvetel'] == $d['ID'])?'checked':''?> id="atvet_<?=$d['ID']?>" type="radio" name="atvetel" value="<?=$d['ID']?>" <?=($d['ID'] == 2 && $no_ppp_itemNum != 0)?'disabled':''?>/><label for="atvet_<?=$d['ID']?>"><?=$d['nev']?> <em><?=Product::transTime($d['ID'])?></em><? if($d['ID'] == 2 && $no_ppp_itemNum != 0): ?><br /><span class="subtitle"><?=$no_ppp_itemNum?> db termék nem szállítható Pick Pack Pontra</span><? endif; ?></label>
 	                                <?
 	                                // PICK PACK PONT ÁTVÉTEL FORM
 	                                if( $d['ID'] == $this->settings['flagkey_pickpacktransfer_id'] ): ?>
 	                                <div class="pickpackpont" style="display:none;">
-	                                	<input type="hidden" id="ppp_uzlet" name="ppp_uzlet" value="<?=$this->storedString[2][ppp_uzlet]?>">
-	                                	<input type="hidden" id="ppp_uzlet_str" name="ppp_uzlet_n" value="<?=$this->storedString[2][ppp_uzlet_n]?>">
+	                                	<input type="hidden" id="ppp_uzlet" name="ppp_uzlet" value="<?=$this->storedString['2']['ppp_uzlet']?>">
+	                                	<input type="hidden" id="ppp_uzlet_str" name="ppp_uzlet_n" value="<?=$this->storedString['2']['ppp_uzlet_n']?>">
 	                                	<iframe width="100%" height="504px" src="http://online.sprinter.hu/terkep/#/"></iframe>
 	                                </div>
 	                                <? endif;?>
@@ -592,7 +592,7 @@
 	                                // PostaPont átvétel FORM
 	                                if( $d['ID'] == '5' ):?>
 	                                <div class="postapont" style="display:none;">
-	                                	<input type="hidden" id="ugyfelform_iranyitoszam" value="<?=($this->orderExc)?$_POST[szall_irsz]:(($this->storedString[1])?$this->storedString[1][szall_irsz]:$this->user[szallitasi_adat][irsz])?>">
+	                                	<input type="hidden" id="ugyfelform_iranyitoszam" value="<?=($this->orderExc)?$_POST['szall_irsz']:(($this->storedString['1'])?$this->storedString['1']['szall_irsz']:$this->user['szallitasi_adat']['irsz'])?>">
 	                                	<input type="hidden" id="valasztott_postapont" name="pp_selected" value="">
 	                                	<!-- Postapont választó (Ügyfél oldalra beépítendő rész) -->
 										<div id="postapontvalasztoapi"></div>
@@ -621,17 +621,17 @@
 	                </div>
 	                <!--/ORDER STEP 2.-->
 	                <!--ORDER STEP 3.-->
-	                <div class="steps step3 <?=($this->gets[1] == '3')?'on':''?>" style="padding:0;">
+	                <div class="steps step3 <?=($this->gets['1'] == '3')?'on':''?>" style="padding:0;">
 	                	<div class="row np">
 	                    	<div class="col-sm-12">
 	                        	<ul class="atvetel">
 	                            <? foreach($this->fizetes as $d): ?>
 	                            	<? if( $d['ID'] == $this->settings['flagkey_pay_cetelem'] && ($calc_final_total < $this->settings['cetelem_min_product_price'] || $calc_final_total > $this->settings['cetelem_max_product_price']) ) {continue;} ?>
 																<?php if ( $d['ID'] == $this->settings['flagkey_pay_cetelem'] && $k['excludes_from_cetelem']['total'] !== 0): continue; endif; ?>
-	                            	<? if(in_array($this->storedString[2][atvetel],$d[in_szallitas_mod])): ?>
+	                            	<? if(in_array($this->storedString['2']['atvetel'],$d['in_szallitas_mod'])): ?>
 	                        		<li>
-	                        			<input <?=($this->storedString[3][fizetes] == $d[ID])?'checked':''?> id="fizetes_<?=$d[ID]?>" type="radio" name="fizetes" value="<?=$d[ID]?>"/>
-	                        			<label for="fizetes_<?=$d[ID]?>"><?=$d[nev]?> <? if($d['ID'] == $this->settings['flagkey_pay_payu']): ?> <a href="http://simplepartner.hu/PaymentService/Fizetesi_tajekoztato.pdf" target="_blank">
+	                        			<input <?=($this->storedString['3']['fizetes'] == $d['ID'])?'checked':''?> id="fizetes_<?=$d['ID']?>" type="radio" name="fizetes" value="<?=$d['ID']?>"/>
+	                        			<label for="fizetes_<?=$d['ID']?>"><?=$d['nev']?> <? if($d['ID'] == $this->settings['flagkey_pay_payu']): ?> <a href="http://simplepartner.hu/PaymentService/Fizetesi_tajekoztato.pdf" target="_blank">
 										<img style="height: 20px;" src="<?=IMG?>bankcard_logo_with_simple_logo_482x40.png" title="Simple - Online bankkártyás fizetés" alt="Simple vásárlói tájékoztató"></a> <? endif; ?></label>
 	                        		</li>
 	                                <? endif; ?>
@@ -643,18 +643,18 @@
 	                </div>
 	                <!--/ORDER STEP 3.-->
 	                <!--ORDER STEP 4.-->
-	                <div class="steps step4 <?=($this->gets[1] == '4')?'on':''?>">
+	                <div class="steps step4 <?=($this->gets['1'] == '4')?'on':''?>">
 	                	<?
-	                		$szallias_informacio = $this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString[2][atvetel])];
+	                		$szallias_informacio = $this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString['2']['atvetel'])];
 
-	                		$szallitasiKoltseg 	= (int)$szallias_informacio[koltseg];
+	                		$szallitasiKoltseg 	= (int)$szallias_informacio['koltseg'];
 
 	                		// Ingyenes szállítás, ha túlhalad az összeghatáron, amikortól már ingyenes a szállítás
-	                		if( $szallias_informacio[osszeghatar] != '0' && ($k[totalPrice]-$szuperakcios_termekek_ara) > (int) $szallias_informacio[osszeghatar] ){
+	                		if( $szallias_informacio['osszeghatar'] != '0' && ($k['totalPrice']-$szuperakcios_termekek_ara) > (int) $szallias_informacio['osszeghatar'] ){
 	                			$szallitasiKoltseg = 0;
 	                		}
 
-											$kedvezmeny 		= ($this->user && $this->user[kedvezmeny] > 0) ? (($k[totalPrice] - $szuperakcios_termekek_ara) * (($this->user[kedvezmeny]/100))) : 0;
+											$kedvezmeny 		= ($this->user && $this->user['kedvezmeny'] > 0) ? (($k['totalPrice'] - $szuperakcios_termekek_ara) * (($this->user['kedvezmeny']/100))) : 0;
 											$vegosszeg 			= $calc_final_total;
 
 										?>
@@ -670,26 +670,26 @@
 																			<strong>Név</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_nev]?>
+																			<?=$this->storedString['1']['szam_nev']?>
 																		</div>
 																</div>
-																<?php if ( $this->storedString[1][szam_adoszam] != '' ): ?>
+																<?php if ( $this->storedString['1']['szam_adoszam'] != '' ): ?>
 																<div class="row np">
 																		<div class="col-sm-5">
 																				<strong>Adószám</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szam_adoszam]?>
+																				<?=$this->storedString['1']['szam_adoszam']?>
 																			</div>
 																	</div>
 																<?php endif; ?>
-																<?php if ( $this->storedString[1][szam_kerulet] != '' ): ?>
+																<?php if ( $this->storedString['1']['szam_kerulet'] != '' ): ?>
 																<div class="row np">
 																	<div class="col-sm-5">
 																			<strong>Kerület</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_kerulet]?>
+																			<?=$this->storedString['1']['szam_kerulet']?>
 																		</div>
 																</div>
 																<?php endif; ?>
@@ -698,7 +698,7 @@
 																			<strong>Település</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_irsz]?> <?=$this->storedString[1][szam_city]?>
+																			<?=$this->storedString['1']['szam_irsz']?> <?=$this->storedString['1']['szam_city']?>
 																		</div>
 																</div>
 																<div class="row np">
@@ -707,36 +707,36 @@
 																		<em>(közterület neve, közterület jellege, házszám)</em>
 																	</div>
 																	<div class="col-sm-5 right">
-																		<?=$this->storedString[1][szam_kozterulet_nev]?> <?=$this->storedString[1][szam_kozterulet_jelleg]?> <?=$this->storedString[1][szam_hazszam]?>
+																		<?=$this->storedString['1']['szam_kozterulet_nev']?> <?=$this->storedString['1']['szam_kozterulet_jelleg']?> <?=$this->storedString['1']['szam_hazszam']?>
 																	</div>
 																</div>
-																<?php if ( $this->storedString[1][szam_epulet] != '' ): ?>
+																<?php if ( $this->storedString['1']['szam_epulet'] != '' ): ?>
 																<div class="row np">
 																	<div class="col-sm-5">
 																			<strong>Épület</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_epulet]?>
+																			<?=$this->storedString['1']['szam_epulet']?>
 																		</div>
 																</div>
 																<?php endif; ?>
-																<?php if ( $this->storedString[1][szam_emelet] != '' ): ?>
+																<?php if ( $this->storedString['1']['szam_emelet'] != '' ): ?>
 																<div class="row np">
 																	<div class="col-sm-5">
 																			<strong>Emelet</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_emelet]?>
+																			<?=$this->storedString['1']['szam_emelet']?>
 																		</div>
 																</div>
 																<?php endif; ?>
-																<?php if ( $this->storedString[1][szam_ajto] != '' ): ?>
+																<?php if ( $this->storedString['1']['szam_ajto'] != '' ): ?>
 																<div class="row np">
 																	<div class="col-sm-5">
 																			<strong>Ajtó</strong>
 																		</div>
 																		<div class="col-sm-7 right">
-																			<?=$this->storedString[1][szam_ajto]?>
+																			<?=$this->storedString['1']['szam_ajto']?>
 																		</div>
 																</div>
 																<?php endif; ?>
@@ -754,26 +754,26 @@
 																				<strong>Név</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_nev]?>
+																				<?=$this->storedString['1']['szall_nev']?>
 																			</div>
 																	</div>
-																	<?php if ( $this->storedString[1][szall_adoszam] != '' ): ?>
+																	<?php if ( $this->storedString['1']['szall_adoszam'] != '' ): ?>
 																	<div class="row np">
 																			<div class="col-sm-5">
 																					<strong>Adószám</strong>
 																				</div>
 																				<div class="col-sm-7 right">
-																					<?=$this->storedString[1][szall_adoszam]?>
+																					<?=$this->storedString['1']['szall_adoszam']?>
 																				</div>
 																		</div>
 																	<?php endif; ?>
-																	<?php if ( $this->storedString[1][szall_kerulet] != '' ): ?>
+																	<?php if ( $this->storedString['1']['szall_kerulet'] != '' ): ?>
 																	<div class="row np">
 																		<div class="col-sm-5">
 																				<strong>Kerület</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_kerulet]?>
+																				<?=$this->storedString['1']['szall_kerulet']?>
 																			</div>
 																	</div>
 																	<?php endif; ?>
@@ -782,7 +782,7 @@
 																				<strong>Település</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_irsz]?> <?=$this->storedString[1][szall_city]?>
+																				<?=$this->storedString['1']['szall_irsz']?> <?=$this->storedString['1']['szall_city']?>
 																			</div>
 																	</div>
 																	<div class="row np">
@@ -791,36 +791,36 @@
 																			<em>(közterület neve, közterület jellege, házszám)</em>
 																		</div>
 																		<div class="col-sm-5 right">
-																			<?=$this->storedString[1][szall_kozterulet_nev]?> <?=$this->storedString[1][szall_kozterulet_jelleg]?> <?=$this->storedString[1][szall_hazszam]?>
+																			<?=$this->storedString['1']['szall_kozterulet_nev']?> <?=$this->storedString['1']['szall_kozterulet_jelleg']?> <?=$this->storedString['1']['szall_hazszam']?>
 																		</div>
 																	</div>
-																	<?php if ( $this->storedString[1][szall_epulet] != '' ): ?>
+																	<?php if ( $this->storedString['1']['szall_epulet'] != '' ): ?>
 																	<div class="row np">
 																		<div class="col-sm-5">
 																				<strong>Épület</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_epulet]?>
+																				<?=$this->storedString['1']['szall_epulet']?>
 																			</div>
 																	</div>
 																	<?php endif; ?>
-																	<?php if ( $this->storedString[1][szall_emelet] != '' ): ?>
+																	<?php if ( $this->storedString['1']['szall_emelet'] != '' ): ?>
 																	<div class="row np">
 																		<div class="col-sm-5">
 																				<strong>Emelet</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_emelet]?>
+																				<?=$this->storedString['1']['szall_emelet']?>
 																			</div>
 																	</div>
 																	<?php endif; ?>
-																	<?php if ( $this->storedString[1][szall_ajto] != '' ): ?>
+																	<?php if ( $this->storedString['1']['szall_ajto'] != '' ): ?>
 																	<div class="row np">
 																		<div class="col-sm-5">
 																				<strong>Ajtó</strong>
 																			</div>
 																			<div class="col-sm-7 right">
-																				<?=$this->storedString[1][szall_ajto]?>
+																				<?=$this->storedString['1']['szall_ajto']?>
 																			</div>
 																	</div>
 																	<?php endif; ?>
@@ -837,30 +837,30 @@
 	                                    <span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányzik az <strong>átvételi mód</strong>. Kérjük, hogy válassza ki az Önnek megfelelőt!</span>
 	                                    <? endif; ?>
 
-	                                    <?=$this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString[2][atvetel])][nev]; ?>  <em><?=Product::transTime($this->storedString[2][atvetel])?></em>
+	                                    <?=$this->szallitas[Helper::getFromArrByAssocVal($this->szallitas,'ID',$this->storedString['2']['atvetel'])]['nev']; ?>  <em><?=Product::transTime($this->storedString['2']['atvetel'])?></em>
 	                                    <? // PostaPont info
-	                                    if($this->storedString[2][atvetel] == '5'): ?>
+	                                    if($this->storedString['2']['atvetel'] == '5'): ?>
 	                                    <a href="/p/postapont" title="Részletek" target="_blank"><i class="fa fa-info-circle "></i></a>
 	                                	<? endif; ?>
 	                                	 <? // PickPackPont info
-	                                    if($this->storedString[2][atvetel] == '2'): ?>
+	                                    if($this->storedString['2']['atvetel'] == '2'): ?>
 	                                    <a href="/p/pick_pack_pont" title="Részletek" target="_blank"><i class="fa fa-info-circle "></i></a>
 	                                	<? endif; ?>
 	                                	 <? // Házhoz szállítás info
-	                                    if($this->storedString[2][atvetel] == '1'): ?>
+	                                    if($this->storedString['2']['atvetel'] == '1'): ?>
 	                                    <a href="/p/szallitasi_feltetelek"  title="Részletek" target="_blank"><i class="fa fa-info-circle "></i></a>
 	                                	<? endif; ?>
 
 	                                    <?
 	                                    // PickPackPont átvétel
-	                                    if($this->storedString[2][atvetel] == $this->settings['flagkey_pickpacktransfer_id']): ?>
+	                                    if($this->storedString['2']['atvetel'] == $this->settings['flagkey_pickpacktransfer_id']): ?>
 
-	                                        <? if($this->storedString[2][ppp_uzlet_n] != ''): ?>
-	                                        <input type="hidden" name="ppp_uzlet_done" value="<?=$this->storedString[2][ppp_uzlet_n]?>" />
-	                                        <input type="hidden" name="ppp_uzlet_str" value="<?=$this->storedString[2][ppp_uzlet_n]?>" />
+	                                        <? if($this->storedString['2']['ppp_uzlet_n'] != ''): ?>
+	                                        <input type="hidden" name="ppp_uzlet_done" value="<?=$this->storedString['2']['ppp_uzlet_n']?>" />
+	                                        <input type="hidden" name="ppp_uzlet_str" value="<?=$this->storedString['2']['ppp_uzlet_n']?>" />
 	                                    	<div class="showSelectedPickPackPont">
 	                                        	<div class="head">Kiválasztott <strong>Pick Pack</strong> átvételi pont:</div>
-	                                           	<div class="">Kiválasztott átvételi pont: <strong><?=$this->storedString[2][ppp_uzlet_n]?></strong></div>
+	                                           	<div class="">Kiválasztott átvételi pont: <strong><?=$this->storedString['2']['ppp_uzlet_n']?></strong></div>
 	                                        </div>
 	                                        <? else: ?>
 	                                        	<div class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Nincs kiválasztva a <string>Pick Pack átvételi Pont</string>. <a href="/kosar/2">Kérjük, hogy válassza ki!</a></div>
@@ -869,19 +869,19 @@
 
 	                                    <?
 	                                    // PostaPont átvétel
-	                                    if($this->storedString[2][atvetel] == '5'): ?>
+	                                    if($this->storedString['2']['atvetel'] == '5'): ?>
 	                                    	<br>
 	                                    	<img src="<?=IMG?>/icons/postapont_logos_big.png" alt="PostaPont" width="150">
 	                                    	<br /><br />
-	                                        <? if($this->storedString[2][pp_selected] != ''): ?>
-	                                        <input type="hidden" name="pp_selected_point" value="<?=$this->storedString[2][pp_selected]?>" />
+	                                        <? if($this->storedString['2']['pp_selected'] != ''): ?>
+	                                        <input type="hidden" name="pp_selected_point" value="<?=$this->storedString['2']['pp_selected']?>" />
 
 	                                    	<div class="showSelectedPostaPont">
 	                                        	<div class="head">Kiválasztott <strong>PostaPont</strong>:</div>
 	                                            <div class="p5">
 	                                            	<div class="row np">
 	                                                    <div class="col-sm-12 left">
-	                                                    	<?=$this->storedString[2][pp_selected]?>
+	                                                    	<?=$this->storedString['2']['pp_selected']?>
 	                                                    </div>
 	                                                </div>
 	                                            </div>
@@ -902,14 +902,14 @@
 	                                	<? if($this->orderExc && in_array(3,$this->orderMustFillStep)): ?>
 	                                    <span class="mustSelect"><i class="fa fa-warning"></i> Figyelem! Hiányzik a <strong>fizetési mód</strong>. Kérjük, hogy válassza ki az Önnek megfelelőt!</span>
 	                                    <? endif; ?>
-	                                	 <?=$this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->storedString[3][fizetes])][nev]; ?>
+	                                	 <?=$this->fizetes[Helper::getFromArrByAssocVal($this->fizetes,'ID',$this->storedString['3']['fizetes'])]['nev']; ?>
 	                                </div>
 	                            </div>
 	                        </div>
 	                    </div>
 	                    <?
                         // Cash - egyenleg
-                        if($this->storedString[0][virtual_cash] != 0):
+                        if($this->storedString['0']['virtual_cash'] != 0):
                         ?>
 
 						<div class="row np topDiv">
@@ -917,7 +917,7 @@
 	                        	<div class="p10">
 	                            	<h4>Felhasznált virtuális egyenleg</h4>
 	                                <div>
-	                                	<strong><?=$this->storedString[0][virtual_cash]?> Ft</strong>-ot felhasznál virtuális egyenlegéből ennél a vásárlásnál kedvezményként levonva!
+	                                	<strong><?=$this->storedString['0']['virtual_cash']?> Ft</strong>-ot felhasznál virtuális egyenlegéből ennél a vásárlásnál kedvezményként levonva!
 	                                </div>
 	                            </div>
 	                        </div>
@@ -964,7 +964,7 @@
 	                        </div>
 	                    </div>
 
-	                    <? if( $k[has_request_price] > 0 ): ?>
+	                    <? if( $k['has_request_price'] > 0 ): ?>
 	                    <div class="has-requested-price">
 				        	<i class="fa fa-exclamation-triangle"></i>
 				        	<h4>FIGYELEM!</h4>
@@ -999,18 +999,18 @@
 	                       		<div class="p10 price">
 	                            	<div class="p inf">
 	                                	<span class="n">Termékek ára:</span>
-	                                    <span class="a"><span class="ar"><?=($this->kosar[kedvezmeny] > 0 && ($k[discount][partner] || $k[discount][coupon])) ? Helper::cashFormat($k[totalPrice_before_discount]) : Helper::cashFormat($k[totalPrice])?></span> Ft</span>
+	                                    <span class="a"><span class="ar"><?=($this->kosar['kedvezmeny'] > 0 && ($k['discount']['partner'] || $k['discount']['coupon'])) ? Helper::cashFormat($k['totalPrice_before_discount']) : Helper::cashFormat($k['totalPrice'])?></span> Ft</span>
 	                                </div>
 	                                <? if( true ): ?>
 	                                <div class="p inf">
 	                                	<span class="n">Kedvezmény:</span>
-	                                    <span class="a"><span class="ar"><?=($this->kosar[kedvezmeny]> 0)? '<span class="kedv">'.Helper::cashFormat($this->kosar[kedvezmeny]).' Ft</span>':'</span>&mdash;'?></span>
+	                                    <span class="a"><span class="ar"><?=($this->kosar['kedvezmeny']> 0)? '<span class="kedv">'.Helper::cashFormat($this->kosar['kedvezmeny']).' Ft</span>':'</span>&mdash;'?></span>
 	                                </div>
 	                           		<? endif; ?>
 	                           		<? if( $this->user['data']['user_group'] == \PortalManager\Users::USERGROUP_RESELLER && false): ?>
 	                                <div class="p inf">
 	                                	<span class="n">Kedvezmény:</span>
-	                                    <span class="a"><span class="ar"><?=($this->user[kedvezmeny]> 0)? '<span class="kedv">'.$this->user[kedvezmeny].'%</span>':'</span>&mdash;'?></span>
+	                                    <span class="a"><span class="ar"><?=($this->user['kedvezmeny']> 0)? '<span class="kedv">'.$this->user['kedvezmeny'].'%</span>':'</span>&mdash;'?></span>
 	                                </div>
 	                           		<? endif; ?>
 																<?php if (false): ?>
@@ -1026,7 +1026,7 @@
 										?>
 	                                	<span class="n">Végösszeg:</span>
 	                                    <span class="a"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?'nettó':(($this->settings['price_show_brutto'] == 0)?'nettó':'bruttó')?> <span class="ar"><?=Helper::cashFormat($vegosszeg)?></span> Ft</span>
-	                                    <input type="hidden" name="kedvezmeny" value="<?=($this->kosar[kedvezmeny] > 0)?1:0?>" />
+	                                    <input type="hidden" name="kedvezmeny" value="<?=($this->kosar['kedvezmeny'] > 0)?1:0?>" />
 	                                    <input type="hidden" name="szallitasi_koltseg" value="<?=$szallitasiKoltseg?>" />
 	                               	</div>
 	                            </div>
@@ -1043,14 +1043,14 @@
 	                </div>
 	                <!--/ORDER STEP 4.-->
 	                <div class="orderFooter">
-	                	<? if($this->gets[1] != '' && $this->gets[1] != '0'): ?>
-	                    <? if($this->gets[1] < 4): ?>
-	                	<a href="/kosar/<?=((int)$this->gets[1] - 1)?>" class="btn-back"><i class="fa fa-arrow-circle-left"></i> Vissza</a>
+	                	<? if($this->gets['1'] != '' && $this->gets['1'] != '0'): ?>
+	                    <? if($this->gets['1'] < 4): ?>
+	                	<a href="/kosar/<?=((int)$this->gets['1'] - 1)?>" class="btn-back"><i class="fa fa-arrow-circle-left"></i> Vissza</a>
 	                	<button name="orderState" value="next" class="btn-next">Tovább <i class="fa fa-arrow-circle-right"></i></button>
 	                    <? else: ?>
-	                    	<a href="/kosar/<?=((int)$this->gets[1] - 1)?>" class="btn-back"><i class="fa fa-arrow-circle-left"></i> Vissza</a>
+	                    	<a href="/kosar/<?=((int)$this->gets['1'] - 1)?>" class="btn-back"><i class="fa fa-arrow-circle-left"></i> Vissza</a>
 	                        <? if($this->canOrder): ?>
-	                        <input type="hidden" name="orderUserID" value="<?=$this->user[data][ID]?>" />
+	                        <input type="hidden" name="orderUserID" value="<?=$this->user['data']['ID']?>" />
 	                    		<button name="orderState" ng-show="order_accepted" value="end" class="btn-order">MEGRENDELÉS LEADÁSA <i class="fa fa-arrow-circle-right"></i></button>
 	                        <? endif; ?>
 	                    <? endif;?>
@@ -1060,7 +1060,7 @@
 	            <div class="clr"></div>
 	        </div>
 
-	        <?php if ($this->gets[1] == '3' && false ): ?>
+	        <?php if ($this->gets['1'] == '3' && false ): ?>
 	        <div class="cetelemcalc" style="">
             	<div class="head">
             		Nincs meg a teljes vételár?<br>
@@ -1105,8 +1105,8 @@
 										<?php else: ?>
 											<script type="text/javascript">
                           var calc = new Cetelem.Ecommerce.Calculator({
-                          'shopCode': '<?=$this->settings[cetelem_shopcode]?>',
-                          'barem': '<?=$this->settings[cetelem_barem]?>',
+                          'shopCode': '<?=$this->settings['cetelem_shopcode']?>',
+                          'barem': '<?=$this->settings['cetelem_barem']?>',
                           'purchaseAmount': '<?=$calc_final_total?>',
                           'url': 'https://<?=(CETELEM_SANDBOX_MODE === true)?'ecomdemo':'ecom'?>.cetelem.hu/ecommerce/Calc.action',
                           'duration': '10'
@@ -1138,7 +1138,7 @@
 </div>
 </div>
 <script type="text/javascript">
-	var selectedAtvetel = '<?=$this->storedString[2][atvetel]?>';
+	var selectedAtvetel = '<?=$this->storedString['2']['atvetel']?>';
 
 	$(function(){
 		if(selectedAtvetel == "<?=$this->settings['flagkey_pickpacktransfer_id']?>"){

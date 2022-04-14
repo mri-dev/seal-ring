@@ -638,8 +638,8 @@ abstract class BaseFacebook
    */
   public function api(/* polymorphic */) {
     $args = func_get_args();
-    if (is_array($args[0])) {
-      return $this->_restserver($args[0]);
+    if (is_array($args['0'])) {
+      return $this->_restserver($args['0']);
     } else {
       return call_user_func_array(array($this, '_graph'), $args);
     }
@@ -917,20 +917,20 @@ abstract class BaseFacebook
 
     $opts = self::$CURL_OPTS;
     if ($this->getFileUploadSupport()) {
-      $opts[CURLOPT_POSTFIELDS] = $params;
+      $opts['CURLOPT_POSTFIELDS'] = $params;
     } else {
-      $opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+      $opts['CURLOPT_POSTFIELDS'] = http_build_query($params, null, '&');
     }
-    $opts[CURLOPT_URL] = $url;
+    $opts['CURLOPT_URL'] = $url;
 
     // disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
     // for 2 seconds if the server does not support this header.
-    if (isset($opts[CURLOPT_HTTPHEADER])) {
-      $existing_headers = $opts[CURLOPT_HTTPHEADER];
+    if (isset($opts['CURLOPT_HTTPHEADER'])) {
+      $existing_headers = $opts['CURLOPT_HTTPHEADER'];
       $existing_headers[] = 'Expect:';
-      $opts[CURLOPT_HTTPHEADER] = $existing_headers;
+      $opts['CURLOPT_HTTPHEADER'] = $existing_headers;
     } else {
-      $opts[CURLOPT_HTTPHEADER] = array('Expect:');
+      $opts['CURLOPT_HTTPHEADER'] = array('Expect:');
     }
 
     curl_setopt_array($ch, $opts);
@@ -949,14 +949,14 @@ abstract class BaseFacebook
     // the case, curl will try IPv4 first and if that fails, then it will
     // fall back to IPv6 and the error EHOSTUNREACH is returned by the
     // operating system.
-    if ($result === false && empty($opts[CURLOPT_IPRESOLVE])) {
+    if ($result === false && empty($opts['CURLOPT_IPRESOLVE'])) {
         $matches = array();
         $regex = '/Failed to connect to ([^:].*): Network is unreachable/';
         if (preg_match($regex, curl_error($ch), $matches)) {
-          if (strlen(@inet_pton($matches[1])) === 16) {
+          if (strlen(@inet_pton($matches['1'])) === 16) {
             self::errorLog('Invalid IPv6 configuration on server, '.
                            'Please disable or get native IPv6 on your server.');
-            self::$CURL_OPTS[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
+            self::$CURL_OPTS['CURLOPT_IPRESOLVE'] = CURL_IPRESOLVE_V4;
             curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
             $result = curl_exec($ch);
           }
@@ -1117,7 +1117,7 @@ abstract class BaseFacebook
   protected function getUrl($name, $path='', $params=array()) {
     $url = self::$DOMAIN_MAP[$name];
     if ($path) {
-      if ($path[0] === '/') {
+      if ($path['0'] === '/') {
         $path = substr($path, 1);
       }
       $url .= $path;
@@ -1353,9 +1353,9 @@ abstract class BaseFacebook
     $metadata = array();
     foreach ($parts as $part) {
       $pair = explode('=', $part, 2);
-      if (!empty($pair[0])) {
-        $metadata[urldecode($pair[0])] =
-          (count($pair) > 1) ? urldecode($pair[1]) : '';
+      if (!empty($pair['0'])) {
+        $metadata[urldecode($pair['0'])] =
+          (count($pair) > 1) ? urldecode($pair['1']) : '';
       }
     }
 

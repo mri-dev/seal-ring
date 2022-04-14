@@ -20,7 +20,7 @@ class home extends Controller{
 			$this->view->adm = $this->AdminUser;
 			$this->view->adm->logged = $this->AdminUser->isLogged();
 
-			if($this->gets[1] == 'exit'){
+			if($this->gets['1'] == 'exit'){
 				$this->AdminUser->logout();
 			}
 
@@ -37,7 +37,7 @@ class home extends Controller{
 			$this->view->tafficInfo = $this->traffic->calcTrafficInfo();
 
 			$arg 		= array();
-			$arg[limit] = 10;
+			$arg['limit'] = 10;
 			$filters = Helper::getCookieFilter('filter',array('filtered'));
 			$filters['user_group'] 	= array('sales','reseller');
 
@@ -47,7 +47,7 @@ class home extends Controller{
 			$arg['referertime'] = array(
 				'from' 	=> date('Y-m-d', strtotime('-30 days'))
 			);
-			$arg[filters] = $filters;
+			$arg['filters'] = $filters;
 
 			$this->view->refusers = $this->User->getUserList($arg);
 

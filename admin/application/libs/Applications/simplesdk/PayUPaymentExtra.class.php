@@ -91,11 +91,11 @@ class PayUIdn extends PayUTransaction
     protected function nameData($data = array())
     {
         return array(
-            "ORDER_REF" => (isset($data[0]))?$data[0]:'N/A',
-            "RESPONSE_CODE" => (isset($data[1]))?$data[1]:'N/A',
-            "RESPONSE_MSG" => (isset($data[2]))?$data[2]:'N/A',
-            "IDN_DATE" => (isset($data[3]))?$data[3]:'N/A',
-            "ORDER_HASH" => (isset($data[4]))?$data[4]:'N/A',
+            "ORDER_REF" => (isset($data['0']))?$data['0']:'N/A',
+            "RESPONSE_CODE" => (isset($data['1']))?$data['1']:'N/A',
+            "RESPONSE_MSG" => (isset($data['2']))?$data['2']:'N/A',
+            "IDN_DATE" => (isset($data['3']))?$data['3']:'N/A',
+            "ORDER_HASH" => (isset($data['4']))?$data['4']:'N/A',
         );
     }
     
@@ -191,11 +191,11 @@ class PayUIrn extends PayUTransaction
     protected function nameData($data = array())
     {
         return array(
-            "ORDER_REF" => (isset($data[0])) ? $data[0] : 'N/A',
-            "RESPONSE_CODE" => (isset($data[1])) ? $data[1] : 'N/A',
-            "RESPONSE_MSG" => (isset($data[2])) ? $data[2] : 'N/A',
-            "IRN_DATE" => (isset($data[3])) ? $data[3] : 'N/A',
-            "ORDER_HASH" => (isset($data[4])) ? $data[4] : 'N/A',
+            "ORDER_REF" => (isset($data['0'])) ? $data['0'] : 'N/A',
+            "RESPONSE_CODE" => (isset($data['1'])) ? $data['1'] : 'N/A',
+            "RESPONSE_MSG" => (isset($data['2'])) ? $data['2'] : 'N/A',
+            "IRN_DATE" => (isset($data['3'])) ? $data['3'] : 'N/A',
+            "ORDER_HASH" => (isset($data['4'])) ? $data['4'] : 'N/A',
         );
     }
     

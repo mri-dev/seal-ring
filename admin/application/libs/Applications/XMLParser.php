@@ -9,7 +9,7 @@ class XMLParser
 	{
 		$header = @get_headers( $xml_file, 1 );
 
-		if ( substr( $header[0], 9, 3 ) != '200' ) {
+		if ( substr( $header['0'], 9, 3 ) != '200' ) {
 			return false;
 		}
 

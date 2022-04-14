@@ -25,7 +25,7 @@ class ajanloszoveg extends Controller{
 				// Admin szerkesztése
 				if (Post::on('saveHighlight')) {
 					try {
-						$portal->saveHighlight( $this->view->gets[2], $_POST );
+						$portal->saveHighlight( $this->view->gets['2'], $_POST );
 						Helper::reload( '/ajanloszoveg/?msgkey=msg&msg=Változások sikeresen mentve!' );
 					} catch ( Exception $e ) {
 						$this->view->err = true;
@@ -46,13 +46,13 @@ class ajanloszoveg extends Controller{
 
 		 	$arg = array(
 		 		'limit' => 999,
-		 		'page' => ( $this->view->gets[1] == 'torles' ? 1 : false),
+		 		'page' => ( $this->view->gets['1'] == 'torles' ? 1 : false),
 		 		'admin' => 1
 		 	);
 			$this->out( 'ajanlok', $portal->getHighlightItems( $arg ) );
 
-			if ( $this->view->gets[1] == 'szerkeszt' ) {
-				$this->out( 'ajanlo', $portal->getHighlightItem( $this->view->gets[2] ) );
+			if ( $this->view->gets['1'] == 'szerkeszt' ) {
+				$this->out( 'ajanlo', $portal->getHighlightItem( $this->view->gets['2'] ) );
 			}
 		
 			// SEO Információk

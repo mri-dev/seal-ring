@@ -50,7 +50,7 @@
       // No children?
       if(sizeof($this->children) == 0) return null;
       // First child not a control word?
-      $child = $this->children[0];
+      $child = $this->children['0'];
       if(!$child instanceof RtfControlWord) return null;
       return $child->word;
     }
@@ -60,7 +60,7 @@
       // No children?
       if(sizeof($this->children) == 0) return null;
       // First child not a control symbol?
-      $child = $this->children[0];
+      $child = $this->children['0'];
       if(!$child instanceof RtfControlSymbol) return null;
       return $child->symbol == '*';
     }
@@ -659,8 +659,8 @@
   }
 
   if (__FILE__ === realpath($_SERVER['SCRIPT_NAME']) && php_sapi_name() === 'cli') {
-    if (isset($_SERVER['argv'][1]) && ($_SERVER['argv'][1] !== '-')) {
-      $file = $_SERVER['argv'][1];
+    if (isset($_SERVER['argv']['1']) && ($_SERVER['argv']['1'] !== '-')) {
+      $file = $_SERVER['argv']['1'];
     } else {
       $file = 'php://stdin';
     }

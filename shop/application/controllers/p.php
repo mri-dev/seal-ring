@@ -9,8 +9,8 @@ class p extends Controller{
 
 			$page = new Pages( false, array( 'db' => $this->db ) );
 
-			if ( $this->view->gets[1] != '' ) {
-				$this->out( 'page', $page->get($this->view->gets[1]) );
+			if ( $this->view->gets['1'] != '' ) {
+				$this->out( 'page', $page->get($this->view->gets['1']) );
 				$parent = new Pages( false, array( 'db' => $this->db ) );
 				$top_id = $page->getTopParentId( $this->view->page->getId() );
 				$this->out( 'parent', $parent->get( $top_id ) );

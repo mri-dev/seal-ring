@@ -14,7 +14,7 @@
 		</select>
 	</div>
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'general')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'general');">Ablak stílus</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'general')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'general');">Ablak stílus</a></li>
 <li class="form-view" id="view-general">
 	<label>Háttér</label>	
 	<color-picker ng-model="screen.background_color" color-picker-format="'rgb'"></color-picker>
@@ -86,7 +86,7 @@
 	<em>Pl.: <strong>text-transform: uppercase;</strong> (nagybetű), <strong>font-weight: bold;</strong> (kiemelt)</em>
 	<br><br>
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'font')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'font');">Szöveg stílus</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'font')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'font');">Szöveg stílus</a></li>
 <li class="form-view" id="view-font">
 	<label>Szín</label>	
 	<color-picker ng-model="screen.text_color" color-picker-format="'rgb'"></color-picker>
@@ -103,7 +103,7 @@
 		<span class="input-group-addon">em</span>
 	</div>
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'headers')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'headers');">Fejrész</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'headers')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'headers');">Fejrész</a></li>
 <li class="form-view" id="view-headers">
 	<h4>Főcím</h4>
 	<label>Felirat</label>	
@@ -141,7 +141,7 @@
 		<span class="input-group-addon">em</span>
 	</div>	
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'content')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'content');">Tartalom</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'content')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'content');">Tartalom</a></li>
 <li class="form-view" id="view-content">	
 	<label>Tartalom szövege</label>	
 	<div style="border: 1px dashed #aaa; padding: 5px;" ui-tinymce="tinymcesettings" ng-model="content.fill.text" ></div>
@@ -160,7 +160,7 @@
 		<span class="input-group-addon">em</span>
 	</div>
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'interactions')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'interactions');">Interakció</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'interactions')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'interactions');">Interakció</a></li>
 <li class="form-view" id="view-interactions">	
 	<h4>Fő gomb</h4>
 	<label>Háttér szín</label>	
@@ -249,7 +249,7 @@
 	</div>
 	
 </li>
-<li class="form <?=($_GET[v] == 'screen' && $_GET[vs] == 'links')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'links');">Hivatkozások</a></li>
+<li class="form <?=($_GET['v'] == 'screen' && $_GET['vs'] == 'links')?'on':''?>"><a href="javascript:void(0);" onclick="screenMenuToggler(this, 'links');">Hivatkozások</a></li>
 <li class="form-view" id="view-links">	
 	<label>Átirányítási URL</label>	
 	<input type="text" class="form-control" ng-model="links.to_url">

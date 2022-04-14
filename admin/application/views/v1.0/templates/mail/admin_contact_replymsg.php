@@ -14,11 +14,11 @@
 	break;
 } ?></u></strong>
 <br><br>
-<?php if ($msgData[uzenet] != ''): ?>
+<?php if ($msgData['uzenet'] != ''): ?>
 <strong style="color: black;">Ön a következő üzenetet írta:</strong><br><br>
 <div style="padding: 0 0 0 15px; border-left: 3px solid #ffa99b;">
 	<em>
-		<?=$msgData[uzenet]?>
+		<?=$msgData['uzenet']?>
 	</em>
 </div>
 <br><br>

@@ -44,51 +44,51 @@
 		</thead>
 		<tbody>
 			<? foreach( $this->data as $d ): ?>
-			<tr class="<? if(!$d[old_netto_ar]): ?>not-in-product<? endif; ?>">
+			<tr class="<? if(!$d['old_netto_ar']): ?>not-in-product<? endif; ?>">
 				<td>
-					<?=$d[termek_nev]?>
-					<div><strong><? if($d[old_netto_ar]): ?><?=$d[nagyker_kod]?><? else: ?><strike><?=$d[nagyker_kod]?></strike><? endif; ?></strong></div>
+					<?=$d['termek_nev']?>
+					<div><strong><? if($d['old_netto_ar']): ?><?=$d['nagyker_kod']?><? else: ?><strike><?=$d['nagyker_kod']?></strike><? endif; ?></strong></div>
 				</td>
-				<td class="center"><?=$d[old_netto_ar]?></td>
+				<td class="center"><?=$d['old_netto_ar']?></td>
 				<td class="center">
-					<? if($d[old_netto_ar] && $d[old_netto_ar] != $d[netto_ar]): ?>
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][netto_old]" value="<?=$d[old_netto_ar]?>">
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][netto]" value="<?=$d[netto_ar]?>">
+					<? if($d['old_netto_ar'] && $d['old_netto_ar'] != $d['netto_ar']): ?>
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['netto_old']" value="<?=$d['old_netto_ar']?>">
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['netto']" value="<?=$d['netto_ar']?>">
 					<? endif; ?>
-					<strong style="color:green;"><?=$d[netto_ar]?></strong>
+					<strong style="color:green;"><?=$d['netto_ar']?></strong>
 				</td>
-				<td class="center" style="border-left:2px dotted #999;"><?=$d[old_brutto_ar]?></td>
+				<td class="center" style="border-left:2px dotted #999;"><?=$d['old_brutto_ar']?></td>
 				<td class="center">
-					<? if($d[old_netto_ar] && $d[old_brutto_ar] != $d[brutto_ar]): ?>
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][brutto_old]" value="<?=$d[old_brutto_ar]?>">
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][brutto]" value="<?=$d[brutto_ar]?>">
+					<? if($d['old_netto_ar'] && $d['old_brutto_ar'] != $d['brutto_ar']): ?>
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['brutto_old']" value="<?=$d['old_brutto_ar']?>">
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['brutto']" value="<?=$d['brutto_ar']?>">
 					<? endif; ?>
-					<strong style="color:green;"><?=$d[brutto_ar]?></strong>
+					<strong style="color:green;"><?=$d['brutto_ar']?></strong>
 				</td>
 
 
-				<td class="center" style="border-left:2px solid #555;"><?=$d[old_akcios_netto_ar]?></td>
+				<td class="center" style="border-left:2px solid #555;"><?=$d['old_akcios_netto_ar']?></td>
 				<td class="center">
-					<? if($d[termek_id] != ''): ?>
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][akcios_netto_old]" value="<?=$d[old_akcios_netto_ar]?>">
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][akcios_netto]" value="<?=($d[akcios_netto_ar] == '') ? 0 : $d[akcios_netto_ar]?>">
+					<? if($d['termek_id'] != ''): ?>
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['akcios_netto_old']" value="<?=$d['old_akcios_netto_ar']?>">
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['akcios_netto']" value="<?=($d['akcios_netto_ar'] == '') ? 0 : $d['akcios_netto_ar']?>">
 					<? endif; ?>
-					<strong style="color:#b84545;"><?=$d[akcios_netto_ar]?></strong>
+					<strong style="color:#b84545;"><?=$d['akcios_netto_ar']?></strong>
 				</td>
-				<td class="center" style="border-left:2px dotted #999;"><?=$d[old_akcios_brutto_ar]?></td>
+				<td class="center" style="border-left:2px dotted #999;"><?=$d['old_akcios_brutto_ar']?></td>
 				<td class="center">
-					<? if($d[termek_id] != ''): ?>
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][akcios_brutto_old]" value="<?=$d[old_akcios_brutto_ar]?>">
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][akcios_brutto]" value="<?=($d[akcios_brutto_ar] == '') ? 0 : $d[akcios_brutto_ar]?>">
+					<? if($d['termek_id'] != ''): ?>
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['akcios_brutto_old']" value="<?=$d['old_akcios_brutto_ar']?>">
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['akcios_brutto']" value="<?=($d['akcios_brutto_ar'] == '') ? 0 : $d['akcios_brutto_ar']?>">
 					<? endif; ?>
-					<strong style="color:#b84545;"><?=$d[akcios_brutto_ar]?></strong>
+					<strong style="color:#b84545;"><?=$d['akcios_brutto_ar']?></strong>
 					
 				</td>
 				<td class="center" style="border-left:2px solid #555;">
-					<?=$d[egyedi_ar]?>
-					<? if($d[termek_id] != ''): ?>
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][egyedi_ar_old]" value="<?=(is_null($d[egyedi_ar_old]))?0:$d[egyedi_ar_old]?>">
-					<input type="hidden" name="priceUpdate[<?=$d[termek_id]?>][egyedi_ar]" value="<?=($d[egyedi_ar] == '')?0:$d[egyedi_ar]?>">
+					<?=$d['egyedi_ar']?>
+					<? if($d['termek_id'] != ''): ?>
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['egyedi_ar_old']" value="<?=(is_null($d['egyedi_ar_old']))?0:$d['egyedi_ar_old']?>">
+					<input type="hidden" name="priceUpdate[<?=$d['termek_id']?>]['egyedi_ar']" value="<?=($d['egyedi_ar'] == '')?0:$d['egyedi_ar']?>">
 					<? endif; ?>
 				</td>
 			</tr>

@@ -15,13 +15,13 @@ class String{
 	
 		preg_match_all("/\[issuu\](.+?)\[\/issuu\]/i",$defStr,$m);
 				
-		$vURL = $m[1];
+		$vURL = $m['1'];
 		
 		$vid = array();
 		
 		foreach($vURL as $link){
 			$string = str_replace(
-			"[issuu]".$link."[/issuu]",
+			"['issuu']".$link."[/issuu]",
 			'<div style="padding:10px; text-align:center;"><div data-configid="'.self::getIssuuId($link).'" style="width: '.$vw.'px; height: '.$vh.'px; text-align:center;" class="issuuembed"></div>
 			</div>',
 			$string);

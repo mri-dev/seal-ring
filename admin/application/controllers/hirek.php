@@ -11,7 +11,7 @@ class hirek extends Controller{
 			$this->view->adm = $this->AdminUser;
 			$this->view->adm->logged = $this->AdminUser->isLogged();
 
-			$news = new News( $this->view->gets[2],  array( 'db' => $this->db )  );
+			$news = new News( $this->view->gets['2'],  array( 'db' => $this->db )  );
 			
 			if(Post::on('add')){
 				try{
@@ -22,7 +22,7 @@ class hirek extends Controller{
 				}
 			}
 			
-			switch($this->view->gets[1]){
+			switch($this->view->gets['1']){
 				case 'szerkeszt':
 					if(Post::on('save')){
 						try{
@@ -33,19 +33,19 @@ class hirek extends Controller{
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'news', $news->get( $this->view->gets[2]) );
+					$this->out( 'news', $news->get( $this->view->gets['2']) );
 				break;
 				case 'torles':
 					if(Post::on('delId')){
 						try{
-							$news->delete($this->view->gets[2]);	
+							$news->delete($this->view->gets['2']);	
 							Helper::reload('/hirek');
 						}catch(Exception $e){
 							$this->view->err 	= true;
 							$this->view->msg 	= Helper::makeAlertMsg('pError', $e->getMessage());
 						}
 					}
-					$this->out( 'news', $news->get( $this->view->gets[2]) );
+					$this->out( 'news', $news->get( $this->view->gets['2']) );
 				break;
 			}
 

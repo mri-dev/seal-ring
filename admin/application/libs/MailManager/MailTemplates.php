@@ -112,15 +112,15 @@ class MailTemplates
 		*/
 
 		if ($matches) {
-			foreach ( $matches[0] as $key => $var ) 
+			foreach ( $matches['0'] as $key => $var ) 
 			{
-				$param = $matches[1][$key][0];
+				$param = $matches['1'][$key]['0'];
 
 				if (!isset($params[$param])) {
 					continue;
 				}
 
-				$content = preg_replace( "/".$var[0]."/", $params[$param], $content );
+				$content = preg_replace( "/".$var['0']."/", $params[$param], $content );
 			}
 			
 		}

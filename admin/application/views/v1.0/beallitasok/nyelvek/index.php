@@ -39,23 +39,23 @@
     <div class="row">
       <div class="col-md-5">
         <label for="">Nyelv</label>
-        <input type="text" name="lang[title]" class="form-control" value="<?=$this->editor['lang']['title']?>">
+        <input type="text" name="lang['title']" class="form-control" value="<?=$this->editor['lang']['title']?>">
       </div>
       <div class="col-md-2">
         <label for="">Nyelvi kulcs (<a href="https://www.science.co.il/language/Codes.php" target="_blank">Code 2 kulcsok</a>)</label>
-        <input type="text" readonly name="lang[langkey]" class="form-control" value="<?=$this->editor['lang']['langkey']?>">
+        <input type="text" readonly name="lang['langkey']" class="form-control" value="<?=$this->editor['lang']['langkey']?>">
       </div>
       <div class="col-md-2">
         <label for="">Pénznem / Valuta</label>
-        <input type="text" name="lang[valuta]" class="form-control" value="<?=$this->editor['lang']['valuta']?>">
+        <input type="text" name="lang['valuta']" class="form-control" value="<?=$this->editor['lang']['valuta']?>">
       </div>      
       <div class="col-md-2">
         <label for="">Egység valuta ára (Ft)</label>
-        <input type="text" name="lang[changes]" class="form-control" value="<?=$this->editor['lang']['changes']?>">
+        <input type="text" name="lang['changes']" class="form-control" value="<?=$this->editor['lang']['changes']?>">
       </div>     
       <div class="col-md-1">
         <label for="">Aktív</label>
-        <input type="checkbox" name="lang[active]" class="form-control" <?=($this->editor['lang']['active'] != '1')?'':'checked="checked"'?> value="1">
+        <input type="checkbox" name="lang['active']" class="form-control" <?=($this->editor['lang']['active'] != '1')?'':'checked="checked"'?> value="1">
       </div>   
     </div>
   </div>

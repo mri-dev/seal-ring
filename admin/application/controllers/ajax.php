@@ -301,7 +301,7 @@ class ajax extends Controller{
 					switch($mode){
 						case 'putInKategoria';
 							$param = array();
-							$param[autoRemove] = true;
+							$param['autoRemove'] = true;
 							$this->AdminUser->putTermekInListingKategoria($tid, $mid, $gyid, $param);
 						break;
 						case 'cikkszam':
@@ -507,19 +507,19 @@ class ajax extends Controller{
 
 					// Feldolgozásra váró megrendelések száma
 					$order = $this->db->query("SELECT ID FROM orders WHERE allapot = 1");
-					$re[data][new_order] = $order->rowCount();
+					$re['data']['new_order'] = $order->rowCount();
 
 					// Elfogadásra váró casadapont
 					$cp = $this->db->query("SELECT ID FROM ".\PortalManager\CasadaShop::DB_TABLE." WHERE aktiv = 0 and creator_user IS NOT NULL;");
-					$re[data][inactive_casadapont] = $cp->rowCount();
+					$re['data']['inactive_casadapont'] = $cp->rowCount();
 
 					// Feldolgozásra váró üzenetek száma
 					$msg = $this->db->query("SELECT ID FROM uzenetek WHERE archivalva = 0 and valaszolva IS NULL");
-					$re[data][new_msg] = $msg->rowCount();
+					$re['data']['new_msg'] = $msg->rowCount();
 
 					// Feldolgozásra váró Arena Water Card
 					$msg = $this->db->query("SELECT ID FROM arena_water_card WHERE aktivalva IS NULL;");
-					$re[data][new_awc] = $msg->rowCount();
+					$re['data']['new_awc'] = $msg->rowCount();
 
 					echo json_encode( $re );
 				break;
@@ -536,12 +536,12 @@ class ajax extends Controller{
 					$modszer = array();
 
 					foreach($this->view->kat as $k){
-						if(!is_null($k[modszerID]) && !is_null($k[gyujtoID])){
-							$modszer_gyujtok[] = $k[modszerID].'_'.$k[gyujtoID];
+						if(!is_null($k['modszerID']) && !is_null($k['gyujtoID'])){
+							$modszer_gyujtok[] = $k['modszerID'].'_'.$k['gyujtoID'];
 						}
 
-						if(!is_null($k[modszerID]) && is_null($k[gyujtoID])){
-							$modszer[] = $k[modszerID];
+						if(!is_null($k['modszerID']) && is_null($k['gyujtoID'])){
+							$modszer[] = $k['modszerID'];
 						}
 					}
 
@@ -587,7 +587,7 @@ class ajax extends Controller{
 							ORDER BY t.netto_ar DESC
 							";
 
-							$arg[multi] = 1;
+							$arg['multi'] = 1;
 
 							extract( $this->db->q( $q, $arg ));
 
@@ -606,11 +606,11 @@ class ajax extends Controller{
 							WHERE x.ID = $id
 							";
 
-							//$arg[multi] = 1;
+							//$arg['multi'] = 1;
 
 							extract( $this->db->q( $q, $arg ));
 
-							$csv = CSVParser::GET( $data[file_path] );
+							$csv = CSVParser::GET( $data['file_path'] );
 
 							$this->view->data = $data;
 
@@ -628,7 +628,7 @@ class ajax extends Controller{
 
 							parse_str($data, $sdata);
 
-							$change = $sdata[priceUpdate];
+							$change = $sdata['priceUpdate'];
 
 							$update_key = $this->db->query("SELECT update_key FROM nagyker_updated_termekek GROUP BY update_key ORDER BY update_key DESC LIMIT 0,1")->fetch(PDO::FETCH_COLUMN);
 							$update_key = (int)$update_key + 1;
@@ -645,30 +645,30 @@ class ajax extends Controller{
 								$updated_num++;
 
 								// Update product
-								if( $c[akcios_netto] == 0 || $c[akcios_brutto] == 0 ){
+								if( $c['akcios_netto'] == 0 || $c['akcios_brutto'] == 0 ){
 									$akcio = ', akcios_netto_ar = 0, akcios_brutto_ar = 0, akcios = 0';
 								}else{
-									$akcio = ', akcios_netto_ar = '.$c[akcios_netto].', akcios_brutto_ar = '.$c[akcios_brutto].', akcios = 1';
+									$akcio = ', akcios_netto_ar = '.$c['akcios_netto'].', akcios_brutto_ar = '.$c['akcios_brutto'].', akcios = 1';
 								}
 
-								if( $c[netto] != '' ) $netto = $c[netto]; else $netto = 'netto_ar';
-								if( $c[brutto] != '' ) $brutto = $c[brutto]; else $brutto = 'brutto_ar';
+								if( $c['netto'] != '' ) $netto = $c['netto']; else $netto = 'netto_ar';
+								if( $c['brutto'] != '' ) $brutto = $c['brutto']; else $brutto = 'brutto_ar';
 
-								$egyedi_ar = ( $c[egyedi_ar] != 0 ) ? $c[egyedi_ar]  : 'NULL';
+								$egyedi_ar = ( $c['egyedi_ar'] != 0 ) ? $c['egyedi_ar']  : 'NULL';
 
 								$update = "UPDATE shop_termekek SET netto_ar = $netto, brutto_ar = $brutto, egyedi_ar = $egyedi_ar $akcio WHERE ID = $uid;";
 
 								// Log change
-								$netto_old = ( is_null($c[netto_old])) ? 0 : $c[netto_old];
-								$brutto_old = ( is_null($c[brutto_old])) ? 0 : $c[brutto_old];
-								$netto 	= ( is_null($c[netto])) ? 0 : $c[netto];
-								$brutto = ( is_null($c[brutto])) ? 0 : $c[brutto];
+								$netto_old = ( is_null($c['netto_old'])) ? 0 : $c['netto_old'];
+								$brutto_old = ( is_null($c['brutto_old'])) ? 0 : $c['brutto_old'];
+								$netto 	= ( is_null($c['netto'])) ? 0 : $c['netto'];
+								$brutto = ( is_null($c['brutto'])) ? 0 : $c['brutto'];
 
 								$this->db->insert(
 									'nagyker_updated_termekek',
 									array_combine(
 									array('termek_id', 'update_key', 'netto_old', 'netto', 'brutto_old', 'brutto','akcios_netto_old', 'akcios_netto', 'akcios_brutto_old', 'akcios_brutto', 'egyedi_ar_old', 'egyedi_ar'),
-									array($uid, $update_key, $netto_old, $netto, $brutto_old, $brutto, $c[akcios_netto_old], $c[akcios_netto], $c[akcios_brutto_old], $c[akcios_brutto], $c[egyedi_ar_old], $c[egyedi_ar])
+									array($uid, $update_key, $netto_old, $netto, $brutto_old, $brutto, $c['akcios_netto_old'], $c['akcios_netto'], $c['akcios_brutto_old'], $c['akcios_brutto'], $c['egyedi_ar_old'], $c['egyedi_ar'])
 									));
 
 								//echo $update . '<br>';
@@ -697,12 +697,12 @@ class ajax extends Controller{
 							WHERE ID = $id
 							";
 
-							//$arg[multi] = 1;
+							//$arg['multi'] = 1;
 
 							extract( $this->db->q( $q, $arg ));
 
 							// Remove file
-							unlink('../src/'.$data[file_path]);
+							unlink('../src/'.$data['file_path']);
 
 							// Delete registered list record
 							$this->db->query("DELETE FROM nagyker_uploaded_xls WHERE ID = $id");
@@ -719,7 +719,7 @@ class ajax extends Controller{
 							WHERE ID = $id
 							";
 
-							//$arg[multi] = 1;
+							//$arg['multi'] = 1;
 
 							extract( $this->db->q( $q, $arg ));
 
@@ -727,7 +727,7 @@ class ajax extends Controller{
 								$this->db->query( "DELETE FROM nagyker_xls_termekek WHERE nagyker_id = {$data['nagyker_id']} and list_id = {$id}" );
 
 							// Import to database from csv
-								$csv = CSVParser::GET( $data[file_path] );
+								$csv = CSVParser::GET( $data['file_path'] );
 
 								$insert_data = array();
 
@@ -740,10 +740,10 @@ class ajax extends Controller{
 
 									if($netto !== 0 && $d['kod'] != ''){
 										$insert_data[] = array(
-											'nagyker_id'	=> $data[nagyker_id],
+											'nagyker_id'	=> $data['nagyker_id'],
 											'list_id' 		=> $id,
 											'nagyker_kod'	=> $d['kod'],
-											'termek_nev'	=> addslashes($d[nev]),
+											'termek_nev'	=> addslashes($d['nev']),
 											'netto_ar' 		=> $netto,
 											'brutto_ar' 	=> $brutto,
 											'akcios_netto_ar' 	=> $netto_akcios,

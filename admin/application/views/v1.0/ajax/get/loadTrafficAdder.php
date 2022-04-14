@@ -86,7 +86,7 @@
 		<br />
 		<div class="row">
 			<div class="col-md-2 input-txt"><strong>Megjegyzés:</strong></div>
-			<div class="col-md-5"><input type="text" id="megjegyzes" class="form-control" value="<?=$data[comment]?>" /></div>
+			<div class="col-md-5"><input type="text" id="megjegyzes" class="form-control" value="<?=$data['comment']?>" /></div>
 		</div>
 		<br />
 		<div class="row">

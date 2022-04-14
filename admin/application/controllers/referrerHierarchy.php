@@ -9,7 +9,7 @@ class referrerHierarchy extends Controller
 			$this->view->adm->logged = $this->AdminUser->isLogged();
 
 			$arg 		= array();
-			$arg[limit] = 99999;
+			$arg['limit'] = 99999;
 						
 			$filters = Helper::getCookieFilter('filter',array('filtered'));
 			$ug = array();	
@@ -33,7 +33,7 @@ class referrerHierarchy extends Controller
 			}
 			
 
-			$arg[filters] = $filters;
+			$arg['filters'] = $filters;
 
 			$this->view->users = $this->User->getUserList($arg);			
 			$this->out('user_groupes', $this->User->getUserGroupes());

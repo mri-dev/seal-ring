@@ -12,9 +12,9 @@
     </div>
   </div>
   <ul>
-      <li class="<?=($this->gets[1] == '')?'active':''?>"><a href="/user/"><?=__('Megrendeléseim')?></a></li>
-      <li class="<?=($this->gets[1] == 'beallitasok')?'active':''?>"><a href="/user/beallitasok"><?=__('Beállítások')?></a></li>
-      <li class="<?=($this->gets[1] == 'jelszocsere')?'active':''?>"><a href="/user/jelszocsere"><?=__('Jelszócsere')?></a></li>
+      <li class="<?=($this->gets['1'] == '')?'active':''?>"><a href="/user/"><?=__('Megrendeléseim')?></a></li>
+      <li class="<?=($this->gets['1'] == 'beallitasok')?'active':''?>"><a href="/user/beallitasok"><?=__('Beállítások')?></a></li>
+      <li class="<?=($this->gets['1'] == 'jelszocsere')?'active':''?>"><a href="/user/jelszocsere"><?=__('Jelszócsere')?></a></li>
       <li class="logout"><a href="/user/logout?safe=1"><?=__('Kijelentkezés')?> <i class="fa fa-sign-out"></i> </a></li>
   </ul>
 </div>

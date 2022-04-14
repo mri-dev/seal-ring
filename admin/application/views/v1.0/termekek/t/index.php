@@ -1,6 +1,6 @@
-<? if($this->gets[2] == 'del'): ?>
+<? if($this->gets['2'] == 'del'): ?>
 <form action="" method="post">
-	<input type="hidden" name="delTermId" value="<?=$this->gets[3]?>" />
+	<input type="hidden" name="delTermId" value="<?=$this->gets['3']?>" />
 	<div class="row">
 		<div class="col-md-12">
 	    	<div class="panel panel-danger">
@@ -18,9 +18,9 @@
 	    </div>
 	</div>
 </form>
-<? elseif($this->gets[2] == 'delListingFromKat'):?>
+<? elseif($this->gets['2'] == 'delListingFromKat'):?>
 <form action="" method="post">
-	<input type="hidden" name="delKatItemID" value="<?=$this->gets[3]?>" />
+	<input type="hidden" name="delKatItemID" value="<?=$this->gets['3']?>" />
 	<div class="row">
 		<div class="col-md-12">
 	    	<div class="panel panel-danger">
@@ -29,7 +29,7 @@
 	            </div>
 	        	<div class="panel-body">
 	            	<div style="float:right;">
-	                	<a href="/termekek/t/edit/<?=$this->gets[4]?>" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+	                	<a href="/termekek/t/edit/<?=$this->gets['4']?>" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
 	                    <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
 	                </div>
 	            	<strong>Biztos, hogy törli a termék kategória listázását?</strong>
@@ -39,7 +39,7 @@
 	</div>
 </form>
 
-<? elseif($this->gets[2] == 'edit'): ?>
+<? elseif($this->gets['2'] == 'edit'): ?>
 <div style="float:right;">
 	<a href="/termekek/-/1" class="btn btn-default btn-2x"><i class="fa fa-arrow-left"></i> mégse</a>
 	<a href="/termekek/uj" style="display: none;" class="btn btn-info"><i class="fa fa-plus"></i> új termék</a>
@@ -63,7 +63,7 @@
 		</div>
 
 		<div class="col-md-8" style="padding-left:0;">
-				<input type="hidden" name="tid" value="<?=$this->termek[ID]?>">
+				<input type="hidden" name="tid" value="<?=$this->termek['ID']?>">
 				<div class="con">
 					<div class="checkins">
 						<div class="">
@@ -102,11 +102,11 @@
 					<div class="row">
 						<div class="col-md-6">
 							<label for="raktar_articleid">Típus azonosító törzskód</label>
-							<input type="text" name="raktar_articleid" id="raktar_articleid" value="<?=$this->termek[raktar_articleid]?>" class="form-control">
+							<input type="text" name="raktar_articleid" id="raktar_articleid" value="<?=$this->termek['raktar_articleid']?>" class="form-control">
 						</div>
 						<div class="col-md-6">
 							<label for="raktar_variantid">Variáció azonosító</label>
-							<input type="text" name="raktar_variantid" id="raktar_variantid" value="<?=$this->termek[raktar_variantid]?>" class="form-control">
+							<input type="text" name="raktar_variantid" id="raktar_variantid" value="<?=$this->termek['raktar_variantid']?>" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -116,13 +116,13 @@
 				<div class="con">
 					<div class="row">
 						<h3>Termék ár beállítások</h3>
-						<input type="hidden" name="crm[prod_id]" value="<?=$this->termek[crm][prod_id]?>">
+						<input type="hidden" name="crm['prod_id']" value="<?=$this->termek['crm']['prod_id']?>">
 						<div class="row">
 								<div class="col-md-12">
 									<div class="row">
 										<div class="col-md-12">
 											<label for="crm_beszerzes_netto">Nettó beszerzés</label>
-											<input type="number" min="0" disabled="disabled" id="crm_beszerzes_netto" value="<?=$this->termek[crm][beszerzes_netto]?>" class="form-control">
+											<input type="number" min="0" disabled="disabled" id="crm_beszerzes_netto" value="<?=$this->termek['crm']['beszerzes_netto']?>" class="form-control">
 										</div>
 									</div>
 									<br>
@@ -132,9 +132,9 @@
 											<label for="crm_ar<?=$ap?>">Ár #<?=$ap?> nettó <? if(array_key_exists('ar'.$ap, $this->price_groups)): ?>- <strong style="color:green;"><?=$this->price_groups['ar'.$ap]['title']?></strong><? endif; ?></label>
 
 											<div class="input-group">
-												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm[ar][<?=$ap?>]" id="crm_ar<?=$ap?>" value="<?=$this->termek[crm]['ar'.$ap]?>" class="form-control">
+												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm['ar'][<?=$ap?>]" id="crm_ar<?=$ap?>" value="<?=$this->termek['crm']['ar'.$ap]?>" class="form-control">
 												<div class="input-group-addon">
-													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek[crm]['ar'.$ap] * 1.27))).' Ft'?>
+													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek['crm']['ar'.$ap] * 1.27))).' Ft'?>
 												</div>
 											</div>
 											<small><?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'Nincs árcsoporthoz kapcsolva. <a href="/arcsoportok">Beállítás</a>' : ''?></small>
@@ -142,9 +142,9 @@
 										<div class="col-md-6">
 											<label for="crm_ar<?=$ap?>">Ár #<?=$ap?> akciós nettó</label>
 											<div class="input-group">
-												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm[ar_akcios][<?=$ap?>]" id="crm_ar<?=$ap?>_akcios" value="<?=$this->termek[crm]['ar'.$ap.'_akcios']?>" class="form-control">
+												<input <?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? 'disabled="disabled"' : ''?> type="number" step="0.01" min="0" name="crm['ar_akcios'][<?=$ap?>]" id="crm_ar<?=$ap?>_akcios" value="<?=$this->termek['crm']['ar'.$ap.'_akcios']?>" class="form-control">
 												<div class="input-group-addon">
-													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek[crm]['ar'.$ap.'_akcios'] * 1.27))).' Ft'?>
+													<?=(!array_key_exists('ar'.$ap, $this->price_groups)) ? '' : 'bruttó '.Helper::cashFormat((round($this->termek['crm']['ar'.$ap.'_akcios'] * 1.27))).' Ft'?>
 												</div>
 											</div>
 										</div>
@@ -171,16 +171,16 @@
 								</select>
 								<br />
 								<div class="input-group col-md-12">
-									<input type="text" name="netto_ar" value="<?=$this->termek[netto_ar]?>" class="form-control">
+									<input type="text" name="netto_ar" value="<?=$this->termek['netto_ar']?>" class="form-control">
 									<span class="input-group-addon">nettó ár</span>
 								</div>
 								<br />
 								<div class="input-group col-md-12">
-									<input type="text" name="brutto_ar" value="<?=$this->termek[brutto_ar]?>" class="form-control">
+									<input type="text" name="brutto_ar" value="<?=$this->termek['brutto_ar']?>" class="form-control">
 									<span class="input-group-addon">bruttó ár</span>
 									<span class="input-group-addon">
-									= <strong title="Fogyasztói ár"><?=Helper::cashFormat($this->termek[ar])?> Ft</strong>
-									(<?=number_format(($this->termek[ar] - $this->termek[brutto_ar]) / ($this->termek[ar] / 100),2,"."," ")?>%)
+									= <strong title="Fogyasztói ár"><?=Helper::cashFormat($this->termek['ar'])?> Ft</strong>
+									(<?=number_format(($this->termek['ar'] - $this->termek['brutto_ar']) / ($this->termek['ar'] / 100),2,"."," ")?>%)
 									</span>
 								</div>
 							</div>
@@ -195,16 +195,16 @@
 								</select>
 								<br />
 								<div class="input-group col-md-12">
-									<input type="text" name="akcios_netto_ar" value="<?=$this->termek[akcios_netto_ar]?>" class="form-control">
+									<input type="text" name="akcios_netto_ar" value="<?=$this->termek['akcios_netto_ar']?>" class="form-control">
 									<span class="input-group-addon">nettó ár</span>
 								</div>
 								<br />
 								<div class="input-group col-md-12">
-									<input type="text" name="akcios_brutto_ar" value="<?=$this->termek[akcios_brutto_ar]?>" class="form-control">
+									<input type="text" name="akcios_brutto_ar" value="<?=$this->termek['akcios_brutto_ar']?>" class="form-control">
 									<span class="input-group-addon">bruttó ár</span>
 									<span class="input-group-addon">
-									= <strong title="Fogyasztói ár"><?=Helper::cashFormat($this->termek[akcios_ar])?> Ft</strong>
-									(<?=number_format(($this->termek[akcios_ar] - $this->termek[akcios_brutto_ar]) / ($this->termek[akcios_ar] / 100),2,"."," ")?>%)
+									= <strong title="Fogyasztói ár"><?=Helper::cashFormat($this->termek['akcios_ar'])?> Ft</strong>
+									(<?=number_format(($this->termek['akcios_ar'] - $this->termek['akcios_brutto_ar']) / ($this->termek['akcios_ar'] / 100),2,"."," ")?>%)
 									</span>
 								</div>
 							</div>
@@ -222,11 +222,11 @@
 						</div>
 						<div class="form-group col-md-4">
 							<label for="nev">Termék neve*</label>
-							<input type="text" class="form-control" name="nev" id="nev" value="<?=$this->termek[nev]?>">
+							<input type="text" class="form-control" name="nev" id="nev" value="<?=$this->termek['nev']?>">
 						</div>
 						<div class="form-group col-md-3">
 							<label for="csoport_kategoria">Termék alcíme</label>
-							<input type="text" class="form-control" name="csoport_kategoria" id="csoport_kategoria" value="<?=$this->termek[csoport_kategoria]?>">
+							<input type="text" class="form-control" name="csoport_kategoria" id="csoport_kategoria" value="<?=$this->termek['csoport_kategoria']?>">
 						</div>
 						<div class="form-group col-md-3">
 							<label for="nev">Termék márka*</label>
@@ -234,7 +234,7 @@
 								<option value="">-- termék márka kiválasztása --</option>
 								<option value="" disabled></option>
 								<? foreach($this->markak as $d): ?>
-								<option value="<?=$d[ID]?>" <?=($this->termek[marka] == $d[ID])?'selected':''?> nb="<?=$d[brutto]?>"><?=$d[neve]?> (<?=($d[brutto] == '1')?'Bruttó':'Nettó'?>)</option>
+								<option value="<?=$d['ID']?>" <?=($this->termek['marka'] == $d['ID'])?'selected':''?> nb="<?=$d['brutto']?>"><?=$d['neve']?> (<?=($d['brutto'] == '1')?'Bruttó':'Nettó'?>)</option>
 								<? endforeach; ?>
 							</select>
 						</div>
@@ -314,7 +314,7 @@
 									<option value="">-- válasszon --</option>
 									<option value="" disabled="disabled"></option>
 									<? foreach($this->szallitas as $sz): ?>
-									<option value="<?=$sz[ID]?>" <?=($this->termek['szallitasID'] == $sz[ID])?'selected':''?>><?=$sz['elnevezes']?></option>
+									<option value="<?=$sz['ID']?>" <?=($this->termek['szallitasID'] == $sz['ID'])?'selected':''?>><?=$sz['elnevezes']?></option>
 									<? endforeach; ?>
 								</select>
 							</div>
@@ -324,7 +324,7 @@
 									<option value="">-- válasszon --</option>
 									<option value="" disabled="disabled"></option>
 									<? foreach($this->keszlet as $k): ?>
-									<option value="<?=$k['ID']?>" <?=($this->termek['keszletID'] == $k[ID])?'selected':''?>><?=$k['elnevezes']?></option>
+									<option value="<?=$k['ID']?>" <?=($this->termek['keszletID'] == $k['ID'])?'selected':''?>><?=$k['elnevezes']?></option>
 									<? endforeach; ?>
 								</select>
 							</div>
@@ -452,17 +452,17 @@
                 <div style="">
                 <? if(count($this->parameterek) == 0): ?> <span class="subt"><i class="fa fa-info-circle"></i> nincsennek paraméterek meghatározva</span><? endif; ?>
                 <form action="" method="post">
-                	<input type="hidden" name="tid" value="<?=$this->termek[ID]?>">
-                 	<input type="hidden" name="kid" value="<?=$this->termek[alapertelmezett_kategoria]?>">
+                	<input type="hidden" name="tid" value="<?=$this->termek['ID']?>">
+                 	<input type="hidden" name="kid" value="<?=$this->termek['alapertelmezett_kategoria']?>">
                 <? foreach($this->parameterek as $d): ?>
                 <div class="row">
-                	<div class="col-sm-12"><strong><?=$d[parameter]?></strong></div>
+                	<div class="col-sm-12"><strong><?=$d['parameter']?></strong></div>
                	</div>
 				<div class="row">
 					<div class="col-sm-12">
 				    	<div class="input-group">
-				    	<input type="text" name="param[<?=$d[ID]?>]" value="<?=$this->termek['parameters'][$d[ID]][ertek]?>" class="form-control">
-				        <span class="input-group-addon"><?=$d[mertekegyseg]?></span>
+				    	<input type="text" name="param[<?=$d['ID']?>]" value="<?=$this->termek['parameters'][$d['ID']]['ertek']?>" class="form-control">
+				        <span class="input-group-addon"><?=$d['mertekegyseg']?></span>
 				        </div>
 				    </div>
 				</div>
@@ -487,7 +487,7 @@
             <div class="con con-extra">
 				<h3>
 					<i class="fa fa-upload hbtn" title="új kép feltöltése" key="upImg"></i>
-					Képek (<?=count($this->termek[images])?>)
+					Képek (<?=count($this->termek['images'])?>)
 					<em class="info">A képre kattintva beállíthatja az alapértelmezett profilképet.</em>
 				</h3>
                 <div class="row">
@@ -530,7 +530,7 @@
 					<div class="col-md-12">
 						<?=$this->copyMsg?>
 						<form action="" method="post" role="form">
-							<input type="hidden" name="tid" value="<?=$this->termek[ID]?>" />
+							<input type="hidden" name="tid" value="<?=$this->termek['ID']?>" />
 							<div class="input-group">
 								<input type="number" class="form-control" min="0" value="0" name="copyNum" />
 								<span class="input-group-addon">darab</span>
@@ -713,7 +713,7 @@
 			$.post('<?=AJAX_POST?>',{
 				type : 'termekChangeActions',
 				mode : 'delTermekImg',
-				tid  : '<?=$this->termek[ID]?>',
+				tid  : '<?=$this->termek['ID']?>',
 				i : e.find('img').attr('isrc')
 			},function(d){
 				console.log(d);
@@ -740,7 +740,7 @@
 		$.post("<?=AJAX_POST?>",{
 			type 	: 'termekChangeActions',
 			mode 	: 'changeTermekKep',
-			id 		: '<?=$this->termek[ID]?>',
+			id 		: '<?=$this->termek['ID']?>',
 			i 		: img
 		},function(d){
 			e.removeClass('prog').addClass('main');

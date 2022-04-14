@@ -2,7 +2,7 @@
     <div class="responsive-view category-listing">
         <div class="category-title head">
              <div class="filters">
-                <form action="/<?=$this->gets[0]?>/<?=$this->gets[1]?>/-/1<?=( $this->cget != '' ) ? '?'.$this->cget : ''?>" method="get">
+                <form action="/<?=$this->gets['0']?>/<?=$this->gets['1']?>/-/1<?=( $this->cget != '' ) ? '?'.$this->cget : ''?>" method="get">
                 <ul>     
                     <li><button class="btn btn-default btn-sm">szűrés <i class="fa fa-refresh"></i></button></li><li>                    
                         <select name="order" class="form-control">
@@ -19,7 +19,7 @@
            
             <div class="subtitles">
                <div class="search-hashs">
-                    <? if($this->search_hashs[0] != "") foreach( $this->search_hashs as $hash ): ?>
+                    <? if($this->search_hashs['0'] != "") foreach( $this->search_hashs as $hash ): ?>
                     <span>#<?=$hash?></span>
                     <? endforeach; ?>
                 </div> 

@@ -9,12 +9,12 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<label for="watch">Indító URL<sup>1</sup></label>
-				<input type="text" class="form-control" name="watch" id="watch" value="<?=$this->redirect[watch]?>">
+				<input type="text" class="form-control" name="watch" id="watch" value="<?=$this->redirect['watch']?>">
 				pl.:regi/url
 			</div>
 			<div class="col-sm-4">
 				<label for="redirect_to">Átirányítási cél URL<sup>2</sup></label>
-				<input type="text" class="form-control" name="redirect_to" id="redirect_to" value="<?=$this->redirect[redirect_to]?>">
+				<input type="text" class="form-control" name="redirect_to" id="redirect_to" value="<?=$this->redirect['redirect_to']?>">
 				pl.: uj/url
 			</div>
 			<div class="col-sm-2 right">

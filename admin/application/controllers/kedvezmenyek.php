@@ -18,7 +18,7 @@
 				}
 			}
 		
-			switch($this->view->gets[1]){
+			switch($this->view->gets['1']){
 				case 'szerkeszt':
 					if(Post::on('saveKedvezmeny')){
 						try{
@@ -30,11 +30,11 @@
 						}
 					}
 					
-					$this->view->sm = $this->AdminUser->getKedvezmeny($this->view->gets[2]);
+					$this->view->sm = $this->AdminUser->getKedvezmeny($this->view->gets['2']);
 				break;
 				case 'torles':
 					if(Post::on('delId')){
-						$this->AdminUser->delKedvezmeny($this->view->gets[2]);
+						$this->AdminUser->delKedvezmeny($this->view->gets['2']);
 						Helper::reload('/'.__CLASS__);
 					}
 				break;

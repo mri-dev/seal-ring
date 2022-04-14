@@ -71,7 +71,7 @@
 				<div class="row np deep<?=$item['deep']?> <?=($this->PriceGroup && $this->PriceGroup->getId() == $item['ID'] ? 'on-edit' : ( $this->PriceGroup_d && $this->PriceGroup_d->getId() == $item['ID'] ? 'on-del':'') )?>">
 					<div class="col-md-9">
 						<a href="/arcsoportok/szerkeszt/<?=$item['ID']?>" title="Szerkesztés"><strong><?=$item['title']?></strong></a>
-						 <? if( $item['oldal_hashkeys'] ): ?> | <span style="color: black;">Csatolt oldalak: <?=count(explode(",",$item[oldal_hashkeys]))?> db</span><? endif; ?>
+						 <? if( $item['oldal_hashkeys'] ): ?> | <span style="color: black;">Csatolt oldalak: <?=count(explode(",",$item['oldal_hashkeys']))?> db</span><? endif; ?>
 						<div><? if($item['hashkey']): ?> <span class="hashkey">#<?=$item['hashkey']?></span> <? endif; ?></div>
 					</div>
           <div class="col-md-2 center">

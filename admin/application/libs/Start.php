@@ -12,7 +12,7 @@
 
 			}else if(count($url) != 0){
 
-				$openControl = $url[0];
+				$openControl = $url['0'];
 
 			}
 
@@ -24,9 +24,9 @@
 
 			$control = new $openControl();
 			if(count($url) > 1){
-				if(method_exists($control,$url[1])){
-					$ctrl = $url[1];
-					$control->fnTemp = $url[1];
+				if(method_exists($control,$url['1'])){
+					$ctrl = $url['1'];
+					$control->fnTemp = $url['1'];
 					$control->{$ctrl}();
 				}
 			}

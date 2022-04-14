@@ -23,13 +23,13 @@
 	</form>
 	</div>
 </div>
-<h1>Feliratkozók <span><strong><?=$this->feliratkozok['info']['total_num']?> db</strong> feliratkozó  <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt listázás <a href="/feliratkozok/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
+<h1>Feliratkozók <span><strong><?=$this->feliratkozok['info']['total_num']?> db</strong> feliratkozó  <? if($_COOKIE['filtered'] == '1'): ?><span class="filtered">Szűrt listázás <a href="/feliratkozok/clearfilters/" title="szűrés eltávolítása" class="actions"><i class="fa fa-times-circle"></i></a></span><? endif; ?></span></h1>
 <div class="divider"></div>
 <br><br>
 <?=$this->msg?>
-<? if( $this->gets[1] == 'del'): ?>
+<? if( $this->gets['1'] == 'del'): ?>
 <form action="" method="post">
-	<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+	<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 	<div class="row np">
 		<div class="col-md-12">
 	    	<div class="con con-del">
@@ -37,7 +37,7 @@
 	            Biztos, hogy törli a kiválasztott feliratkozót? A művelet nem visszavonható!
 	            <div class="row np">
 	                <div class="col-md-12 right">
-	                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+	                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
 	                    <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
 	                </div>
 	            </div>
@@ -80,7 +80,7 @@
 	            </td>
 	    	</tr>
 	    	<? if( count( $this->feliratkozok['data']) > 0 ): foreach( $this->feliratkozok['data'] as $d ): ?>
-	    	<tr class="<?=($this->gets[2] == $d['ID'] && $this->gets[1] == 'del')?'dellitem':''?>">
+	    	<tr class="<?=($this->gets['2'] == $d['ID'] && $this->gets['1'] == 'del')?'dellitem':''?>">
 		    	<td align="center">
 					<?=$d['ID']?>
 				</td>

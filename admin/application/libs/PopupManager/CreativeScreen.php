@@ -11,7 +11,7 @@ class CreativeScreen
 
 	function __construct( $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 
 		return $this;
 	}
@@ -77,44 +77,44 @@ class CreativeScreen
 
 	public function getFailConversionNum()
 	{
-		$num = $this->data[click_close] + ($this->getViewNum() - ($this->data[click_close] + $this->data[click_success]));
+		$num = $this->data['click_close'] + ($this->getViewNum() - ($this->data['click_close'] + $this->data['click_success']));
 
 		return $num;
 	}
 
 	public function getSuccessConversionNum()
 	{
-		return (int)$this->data[click_success];
+		return (int)$this->data['click_success'];
 	}
 
 	public function getID()
 	{
-		return $this->data[ID];
+		return $this->data['ID'];
 	}
 
 	public function getName()
 	{
-		return $this->data[name];
+		return $this->data['name'];
 	}
 
 	public function getViewNum()
 	{
-		return $this->data[view];
+		return $this->data['view'];
 	}
 
 	public function isActive()
 	{
-		return ($this->data[active] == '1') ? true : false;
+		return ($this->data['active'] == '1') ? true : false;
 	}
 
 	public function getShowWeight()
 	{
-		return (float)$this->data[use_weight];
+		return (float)$this->data['use_weight'];
 	}
 
 	public function getCreativeID()
 	{
-		return $this->data[creative_id];
+		return $this->data['creative_id'];
 	}
 
 	public function getSettings( $groupkey )

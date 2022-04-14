@@ -98,7 +98,7 @@ class popup extends Controller
 						try
 						{
 							unset($_POST['saveCreative']);
-							$id = $creative->save($_GET[c], $_POST);
+							$id = $creative->save($_GET['c'], $_POST);
 							Helper::reload();
 						}
 						catch ( Exception $e )
@@ -111,7 +111,7 @@ class popup extends Controller
 
 				case 'screen':
 					// Screen adatok
-					$screen = (new CreativeScreen(array('db' => $this->db)))->load($_GET[s]);
+					$screen = (new CreativeScreen(array('db' => $this->db)))->load($_GET['s']);
 					$this->out('screen',$screen);
 
 					// Kreatív adatok

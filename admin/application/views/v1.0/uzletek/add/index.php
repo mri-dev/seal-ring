@@ -11,7 +11,7 @@
 				<h4>Általános adatok</h4>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-dot-circle-o"></i> Casada Pont elnevezés:</span>
-					<input type="text" class="form-control" name="place[name]" value="<?=$this->shop->getName()?>" required>
+					<input type="text" class="form-control" name="place['name']" value="<?=$this->shop->getName()?>" required>
 					<span></span>
 				</div>
 			</div>				
@@ -21,15 +21,15 @@
 			<? $addr = $this->shop->getAddressObj(); ?>
 			<div class="col-sm-2" style="line-height: 26px;"><i class="fa fa-map-marker"></i> Üzlet címe:</div>
 			<div class="col-sm-2">
-				<input type="text" class="form-control" name="place[irsz]" placeholder="irányítószám" value="<?=$addr->irsz?>" required>
+				<input type="text" class="form-control" name="place['irsz']" placeholder="irányítószám" value="<?=$addr->irsz?>" required>
 				<span></span>
 			</div>	
 			<div class="col-sm-6">
-				<input type="text" class="form-control" name="place[city_address]" placeholder="város, utca/közterület neve" value="<?=$addr->address?>" required>
+				<input type="text" class="form-control" name="place['city_address']" placeholder="város, utca/közterület neve" value="<?=$addr->address?>" required>
 				<span></span>
 			</div>	
 			<div class="col-sm-2">
-				<input type="text" class="form-control" name="place[address_number]" placeholder="házszám" value="<?=$addr->hsz?>" required>
+				<input type="text" class="form-control" name="place['address_number']" placeholder="házszám" value="<?=$addr->hsz?>" required>
 				<span></span>
 			</div>					
 		</div>	
@@ -38,11 +38,11 @@
 			<? $gps = $this->shop->getGPS(); ?>
 			<div class="col-sm-4" style="line-height: 26px;"><i class="fa fa-globe"></i> Üzlet GPS koordináták:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" name="place[gps][lat]" value="<?=$gps[lat]?>" placeholder="szélesség" required>
+				<input type="text" class="form-control" name="place['gps']['lat']" value="<?=$gps['lat']?>" placeholder="szélesség" required>
 				<span></span>
 			</div>	
 			<div class="col-sm-4">
-				<input type="text" class="form-control" name="place[gps][lng]" value="<?=$gps[lng]?>" placeholder="hosszúság" required>
+				<input type="text" class="form-control" name="place['gps']['lng']" value="<?=$gps['lng']?>" placeholder="hosszúság" required>
 				<span></span>
 			</div>				
 		</div>
@@ -60,7 +60,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Hétfő</div></div>
 					<div class="from">
-						<select name="opens[hetfo][from]">
+						<select name="opens['hetfo']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['hetfo']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -68,7 +68,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[hetfo][to]">
+						<select name="opens['hetfo']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['hetfo']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -78,7 +78,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Kedd</div></div>
 					<div class="from">
-						<select name="opens[kedd][from]">
+						<select name="opens['kedd']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['kedd']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -86,7 +86,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[kedd][to]">
+						<select name="opens['kedd']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['kedd']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -96,7 +96,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Szerda</div></div>
 					<div class="from">
-						<select name="opens[szerda][from]">
+						<select name="opens['szerda']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['szerda']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -104,7 +104,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[szerda][to]">
+						<select name="opens['szerda']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['szerda']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -114,7 +114,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Csütörtök</div></div>
 					<div class="from">
-						<select name="opens[csutortok][from]">
+						<select name="opens['csutortok']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['csutortok']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -122,7 +122,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[csutortok][to]">
+						<select name="opens['csutortok']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['csutortok']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -134,7 +134,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Péntek</div></div>
 					<div class="from">
-						<select name="opens[pentek][from]">
+						<select name="opens['pentek']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['pentek']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -142,7 +142,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[pentek][to]">
+						<select name="opens['pentek']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['pentek']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -153,7 +153,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Szombat</div></div>
 					<div class="from">
-						<select name="opens[szombat][from]">
+						<select name="opens['szombat']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['szombat']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -161,7 +161,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[szombat][to]">
+						<select name="opens['szombat']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['szombat']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -172,7 +172,7 @@
 				<div class="opens">
 					<div class="when"><div class="text">Vasárnap</div></div>
 					<div class="from">
-						<select name="opens[vasarnap][from]">
+						<select name="opens['vasarnap']['from']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['vasarnap']['from'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -180,7 +180,7 @@
 					</div>
 					<div class="sep">&mdash;</div>
 					<div class="to">
-						<select name="opens[vasarnap][to]">
+						<select name="opens['vasarnap']['to']">
 							<? foreach( $this->times as $time ): ?>
 							<option value="<?=$time?>" <?=($time == $opens['vasarnap']['to'])?'selected="selected"':''?>><?=$time?></option>
 							<? endforeach; ?>
@@ -199,7 +199,7 @@
 				Sorrend
 			</div>
 			<div class="col-sm-2">
-				<input type="text" class="form-control" name="place[sorrend]" value="<?=($_POST[place][sorrend])?$_POST[place][sorrend]:0?>">
+				<input type="text" class="form-control" name="place['sorrend']" value="<?=($_POST['place']['sorrend'])?$_POST['place']['sorrend']:0?>">
 			</div>
 		</div>
 		<br>
@@ -208,7 +208,7 @@
 				Típus
 			</div>
 			<div class="col-sm-6">
-				<select name="place[tipus]" id="" class="form-control">
+				<select name="place['tipus']" id="" class="form-control">
 					<option value="shop" <?=($this->shop->getTypeData() == 'shop')?'selected="selected"':''?>>Hivatalos üzlet</option>
 					<option value="casadapont" <?=($this->shop->getTypeData() == 'casadapont')?'selected="selected"':''?>>Casada Pont</option>
 				</select>

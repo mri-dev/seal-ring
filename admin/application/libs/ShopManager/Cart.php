@@ -16,8 +16,8 @@ class Cart
 
 	function __construct( $machine_id, $arg = array() )
 	{
-		$this->db = $arg[db];
-		$this->user = $arg[user];
+		$this->db = $arg['db'];
+		$this->user = $arg['user'];
 		$this->machine_id = $machine_id;
 
 		$this->lang = $this->db->getLanguages( \Lang::getLang() );
@@ -36,7 +36,7 @@ class Cart
 		$re 		= array();
 		$itemNum 	= 0;
 		$totalPrice = 0;
-		$uid = (int)$this->user[data][ID];
+		$uid = (int)$this->user['data']['ID'];
 
 		// Clear cart if item num 0
 		$this->db->query("DELETE FROM shop_kosar WHERE me <= 0 and gepID = {$this->machine_id};");
@@ -77,15 +77,15 @@ class Cart
 		$data = $qry->fetchAll(\PDO::FETCH_ASSOC);
 
 		$kedvezmenyes = false;
-		if( $this->user && $this->user[kedvezmeny] > 0 ) {
+		if( $this->user && $this->user['kedvezmeny'] > 0 ) {
 			$kedvezmenyes = true;
 		}
 
 		foreach($data as $d)
 		{
 			if( $kedvezmenyes ) {
-				\PortalManager\Formater::discountPrice( $d[ar], $this->user[kedvezmeny], true );
-				\PortalManager\Formater::discountPrice( $d[sum_ar], $this->user[kedvezmeny], true );
+				\PortalManager\Formater::discountPrice( $d['ar'], $this->user['kedvezmeny'], true );
+				\PortalManager\Formater::discountPrice( $d['sum_ar'], $this->user['kedvezmeny'], true );
 			}
 
 			if( $this->lang && $this->lang['changes'] > 1 )
@@ -99,12 +99,12 @@ class Cart
 				$d['ar'] = round($d['ar'] / 5) * 5;
 			}
 
-			$itemNum 	+= $d[me];
-			$totalPrice += $d[me] * $d[ar];
+			$itemNum 	+= $d['me'];
+			$totalPrice += $d['me'] * $d['ar'];
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
 			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
-			$d['ar'] = number_format($d[ar],2,"."," ");
+			$d['ar'] = number_format($d['ar'],2,"."," ");
 
 			if( $uid == 0 )
 			{

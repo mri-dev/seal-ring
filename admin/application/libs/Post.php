@@ -14,19 +14,19 @@ final class Post{
             foreach($data as $dk => $dv){
                 $back[trim(str_replace($prefix,'',$dk))] = (is_array($dv))?$dv:trim($dv);
             }
-            unset($back[submit]);
+            unset($back['submit']);
 
         return $back;
     }
 
     public static function cutToKeyVal($data_arry){
         $ret = array();
-            $ret[keys] = array();
-            $ret[vals] = array();
+            $ret['keys'] = array();
+            $ret['vals'] = array();
 
             foreach($data_arry as $dk => $dv){
-                $ret[keys][] = $dk;
-                $ret[vals][] = $dv;
+                $ret['keys'][] = $dk;
+                $ret['vals'][] = $dv;
             }
 
         return $ret;
@@ -40,7 +40,7 @@ final class Post{
         foreach($data_arry as $dk => $dv){
             if($step >1){ continue; }
                 $key = explode("_",$dk);
-                $key = $key[0]."_";
+                $key = $key['0']."_";
 
             $step++;
         }

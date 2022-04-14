@@ -178,15 +178,15 @@ function recaptcha_check_answer ($privkey, $remoteip, $challenge, $response, $ex
                                                  ) + $extra_params
                                           );
 
-        $answers = explode ("\n", $response [1]);
+        $answers = explode ("\n", $response ['1']);
         $recaptcha_response = new ReCaptchaResponse();
 
-        if (trim ($answers [0]) == 'true') {
+        if (trim ($answers ['0']) == 'true') {
                 $recaptcha_response->is_valid = true;
         }
         else {
                 $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = $answers [1];
+                $recaptcha_response->error = $answers ['1'];
         }
         return $recaptcha_response;
 
@@ -248,12 +248,12 @@ function recaptcha_mailhide_url($pubkey, $privkey, $email) {
 function _recaptcha_mailhide_email_parts ($email) {
 	$arr = preg_split("/@/", $email );
 
-	if (strlen ($arr[0]) <= 4) {
-		$arr[0] = substr ($arr[0], 0, 1);
-	} else if (strlen ($arr[0]) <= 6) {
-		$arr[0] = substr ($arr[0], 0, 3);
+	if (strlen ($arr['0']) <= 4) {
+		$arr['0'] = substr ($arr['0'], 0, 1);
+	} else if (strlen ($arr['0']) <= 6) {
+		$arr['0'] = substr ($arr['0'], 0, 3);
 	} else {
-		$arr[0] = substr ($arr[0], 0, 4);
+		$arr['0'] = substr ($arr['0'], 0, 4);
 	}
 	return $arr;
 }
@@ -268,8 +268,8 @@ function recaptcha_mailhide_html($pubkey, $privkey, $email) {
 	$emailparts = _recaptcha_mailhide_email_parts ($email);
 	$url = recaptcha_mailhide_url ($pubkey, $privkey, $email);
 	
-	return htmlentities($emailparts[0]) . "<a href='" . htmlentities ($url) .
-		"' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ($emailparts [1]);
+	return htmlentities($emailparts['0']) . "<a href='" . htmlentities ($url) .
+		"' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ($emailparts ['1']);
 
 }
 

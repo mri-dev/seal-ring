@@ -8,7 +8,7 @@ class kereses extends Controller{
 			parent::__construct();
 			$title = 'Keresés';
 
-			$srckey = $this->view->gets[1];
+			$srckey = $this->view->gets['1'];
 			$srchashs = explode(" ", $srckey);
 			$this->out( 'search_hashs', $srchashs );
 			
@@ -22,8 +22,8 @@ class kereses extends Controller{
 			
 			if( $_GET['order']) {
 				$xord = explode("_",$_GET['order']);
-				$order['by'] 	= $xord[0];
-				$order['how'] 	= $xord[1];
+				$order['by'] 	= $xord['0'];
+				$order['how'] 	= $xord['1'];
 			}
 			
 			$arg = array(
@@ -49,7 +49,7 @@ class kereses extends Controller{
 				'class' => 'pagination pagination-sm center',
 				'current' => $products->getCurrentPage(),
 				'max' => $products->getMaxPage(),
-				'root' => '/'.__CLASS__.'/'.$this->view->gets[1].($this->view->gets[2] ? '/'.$this->view->gets[2] : '/-'),
+				'root' => '/'.__CLASS__.'/'.$this->view->gets['1'].($this->view->gets['2'] ? '/'.$this->view->gets['2'] : '/-'),
 				'after' => ( $get ) ? '?'.$get : '',
 				'item_limit' => 12
 			)))->render() );

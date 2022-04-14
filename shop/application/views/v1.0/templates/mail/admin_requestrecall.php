@@ -1,6 +1,6 @@
 <? require "head.php"; ?>
 <h1>Ingyenes visszahívás kérés érkezett!</h1>
-<strong>Tájékoztatjuk, hogy a(z) <?=$settings[page_title]?> rendszerén keresztül <u><?=$targy?></u> kértek.</strong>
+<strong>Tájékoztatjuk, hogy a(z) <?=$settings['page_title']?> rendszerén keresztül <u><?=$targy?></u> kértek.</strong>
 
 <h3>Az igénylő által beírt adatok:</h3>
 <table class="if">

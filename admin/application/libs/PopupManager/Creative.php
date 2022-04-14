@@ -14,7 +14,7 @@ class Creative
 
 	function __construct( $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 
 
 		return $this;
@@ -38,7 +38,7 @@ class Creative
 		$q .= " WHERE ID = ".$creative_id;
 
 		$this->data = $this->db->query($q)->fetch(\PDO::FETCH_ASSOC);
-		$this->settings = $this->loadSettings($this->data[ID]);
+		$this->settings = $this->loadSettings($this->data['ID']);
 
 		return $this;
 	}
@@ -139,7 +139,7 @@ class Creative
 		$q .= " and c.check_url = '".$uri."'";
 
 		$this->data = $this->db->query($q)->fetch(\PDO::FETCH_ASSOC);
-		$this->settings = $this->loadSettings($this->data[ID]);
+		$this->settings = $this->loadSettings($this->data['ID']);
 
 		return $this;
 	}
@@ -195,10 +195,10 @@ class Creative
 	public function getType( $textformat = false )
 	{
 		if (!$textformat) {
-			return $this->data[type];
+			return $this->data['type'];
 		}
 
-		switch ($this->data[type]) {
+		switch ($this->data['type']) {
 			case 'timed':
 				return 'Időzített';
 			break;
@@ -213,19 +213,19 @@ class Creative
 
 	public function getViewNum()
 	{
-		return (int)$this->data[view];
+		return (int)$this->data['view'];
 	}
 
 	public function getFailConversionNum()
 	{
-		$num = $this->data[click_close] + ($this->getViewNum() - ($this->data[click_close] + $this->data[click_success]));
+		$num = $this->data['click_close'] + ($this->getViewNum() - ($this->data['click_close'] + $this->data['click_success']));
 
 		return $num;
 	}
 
 	public function getSuccessConversionNum()
 	{
-		return (int)$this->data[click_success];
+		return (int)$this->data['click_success'];
 	}
 
 	public function getDate( $what = 'from' )
@@ -245,27 +245,27 @@ class Creative
 
 	public function getID()
 	{
-		return $this->data[ID];
+		return $this->data['ID'];
 	}
 
 	public function getName()
 	{
-		return $this->data[name];
+		return $this->data['name'];
 	}
 
 	public function getActivityURI()
 	{
-		return $this->data[check_url];
+		return $this->data['check_url'];
 	}
 
 	public function isActive()
 	{
-		return ($this->data[active] == '0') ? false : true;
+		return ($this->data['active'] == '0') ? false : true;
 	}
 
 	public function getURL()
 	{
-		return $this->data[check_url];
+		return $this->data['check_url'];
 	}
 
 	function __destruct()

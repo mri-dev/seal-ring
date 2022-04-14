@@ -5,17 +5,17 @@
 		<form method="post" action="">
 			<input type="hidden" name="id" value="<?=$this->file['ID']?>">
 			<label for="cim">Megjelenő név</label>
-			<input type="text" id="cim" class="form-control" name="data[cim]" placeholder="A feltöltött fájl megjelenő neve..." value="<?=$this->file['cim']?>">
+			<input type="text" id="cim" class="form-control" name="data['cim']" placeholder="A feltöltött fájl megjelenő neve..." value="<?=$this->file['cim']?>">
 			<br>
 			<label for="keywords">Kulcsszavak</label>
-			<input type="text" id="keywords" class="form-control" name="data[keywords]" placeholder="kulcsszavak megadása..." value="<?=$this->file['keywords']?>">
+			<input type="text" id="keywords" class="form-control" name="data['keywords']" placeholder="kulcsszavak megadása..." value="<?=$this->file['keywords']?>">
 			<small>Vesszővel válassza el a kulcsszavakat.</small>
 			<br><br>
 			<label for="filepath">Tárolási mód</label>
-			<div><?=($this->file[tipus] == 'local')?'Lokális fájl (szerveren tárolt)':'Külső hivatkozás (linkelt tartalom)'?></div>
+			<div><?=($this->file['tipus'] == 'local')?'Lokális fájl (szerveren tárolt)':'Külső hivatkozás (linkelt tartalom)'?></div>
 			<br>
 			<label for="filepath">Elérési út</label>
-			<input type="text" id="filepath" <?=($this->file[tipus] == 'local')?'readonly="readonly"':''?> class="form-control" name="data[filepath]" value="<?=$this->file['filepath']?>">
+			<input type="text" id="filepath" <?=($this->file['tipus'] == 'local')?'readonly="readonly"':''?> class="form-control" name="data['filepath']" value="<?=$this->file['filepath']?>">
 			<br>
 			<div class="right">
 				<a href="/dokumentumok" class="btn btn-danger"><i class="fa fa-times"></i> mégse</a>

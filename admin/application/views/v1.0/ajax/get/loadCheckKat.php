@@ -29,10 +29,10 @@
 <div class="ctLoadAjxModszer">
 	<? foreach($this->modszerek as $d): ?>
     <div class="m">
-    	<label><input type="checkbox" mod="modszer" mid="<?=$d[ID]?>" <?=(in_array($d[ID],$this->modsz))?'checked':''?>> <?=Product::clear($d[neve])?></label>
-        <? if(count($this->gyujtok[$d[neve]]) > 0): foreach($this->gyujtok[$d[neve]] as $gy): ?>
+    	<label><input type="checkbox" mod="modszer" mid="<?=$d['ID']?>" <?=(in_array($d['ID'],$this->modsz))?'checked':''?>> <?=Product::clear($d['neve'])?></label>
+        <? if(count($this->gyujtok[$d['neve']]) > 0): foreach($this->gyujtok[$d['neve']] as $gy): ?>
         <div class="gy">
-        	<label><input type="checkbox" mod="gyujto" mid="<?=$d[ID]?>" gyid="<?=$gy[ID]?>" <?=(in_array($d[ID].'_'.$gy[ID],$this->mod_gyujt))?'checked':''?>> <?=Product::clear($gy[neve])?></label>
+        	<label><input type="checkbox" mod="gyujto" mid="<?=$d['ID']?>" gyid="<?=$gy['ID']?>" <?=(in_array($d['ID'].'_'.$gy['ID'],$this->mod_gyujt))?'checked':''?>> <?=Product::clear($gy['neve'])?></label>
         </div>
         <? endforeach; endif;?>
     </div>

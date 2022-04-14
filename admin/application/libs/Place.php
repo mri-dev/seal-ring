@@ -12,7 +12,7 @@
 			if($place_data_arry[$contact_type] == '' || is_null($contact_type)) return false;
 			echo '<table cellspacing="0" cellpadding="0" height="15">
 				<tr>
-					<td><img width="15" height="15" src="'.self::$img_root.self::$sub_img_root.$phone_icon.'" alt="'.$place_data_arry[name].'" title="'.__('Telefonszám').'"> '.$place_data_arry[$contact_type].'</td>
+					<td><img width="15" height="15" src="'.self::$img_root.self::$sub_img_root.$phone_icon.'" alt="'.$place_data_arry['name'].'" title="'.__('Telefonszám').'"> '.$place_data_arry[$contact_type].'</td>
 					<td></td>
 				</tr>
 			</table>';
@@ -38,22 +38,22 @@
         final public static function getAddress($place_data_arry){
             $addr = '';
 
-            if($place_data_arry[loc_irsz] != 0) $addr .= $place_data_arry[loc_irsz].' ';
-            $addr .= $place_data_arry[loc_city];
-            if($place_data_arry[loc_addr] != '') $addr .= ', '.$place_data_arry[loc_addr];
+            if($place_data_arry['loc_irsz'] != 0) $addr .= $place_data_arry['loc_irsz'].' ';
+            $addr .= $place_data_arry['loc_city'];
+            if($place_data_arry['loc_addr'] != '') $addr .= ', '.$place_data_arry['loc_addr'];
 
             return $addr;
         }
 
         final public static function getIdByUrl($str){
             $xs = explode('_-',$str);
-            return (int)$xs[1];
+            return (int)$xs['1'];
         }
 
         final public static function getUrl($place_data_arry, $arg = array()){
             $back = '';
-            $subpage = ($arg[sub]) ? '/'.$arg[sub] : '';
-            $back = DOMAIN.'hely/'.Helper::makeSafeUrl($place_data_arry[loc_city].'-'.$place_data_arry[type_name].'-'.$place_data_arry[name],'_-'.$place_data_arry[place_id]).$subpage;
+            $subpage = ($arg['sub']) ? '/'.$arg['sub'] : '';
+            $back = DOMAIN.'hely/'.Helper::makeSafeUrl($place_data_arry['loc_city'].'-'.$place_data_arry['type_name'].'-'.$place_data_arry['name'],'_-'.$place_data_arry['place_id']).$subpage;
             return $back;
         }
 
@@ -74,9 +74,9 @@
                 }
 
                 $ret = self::changeStrToVars($ret,array(
-                    "PLACE_NAME" => $place_data_arry[name],
-                    "PLACE_CITY" => $place_data_arry[loc_city],
-                    "PLACE_TYPE" => $place_data_arry[type_name]
+                    "PLACE_NAME" => $place_data_arry['name'],
+                    "PLACE_CITY" => $place_data_arry['loc_city'],
+                    "PLACE_TYPE" => $place_data_arry['type_name']
                 ));
 				$ret = self::changeStrToVars($ret);
 			return $ret;
@@ -92,10 +92,10 @@
          */
         final public static function getIttettunkUrl($place_data_arry, $arg0 = array()){
             $ret = "";
-                if($arg0[id] != ''){
-                    $place_data_arry[id] = $arg0[id];
+                if($arg0['id'] != ''){
+                    $place_data_arry['id'] = $arg0['id'];
                 }
-                $ret = ITTETTUNK_PLACE_URL.$place_data_arry[id].'/'.Helper::makeSafeUrl($place_data_arry[name],'');
+                $ret = ITTETTUNK_PLACE_URL.$place_data_arry['id'].'/'.Helper::makeSafeUrl($place_data_arry['name'],'');
             return $ret;
         }
 
@@ -103,11 +103,11 @@
             $url = '';
             $img_id = '';
 
-            if($img_data_arry[id] != ''){
-                $img_id = $img_data_arry[id].'/';
+            if($img_data_arry['id'] != ''){
+                $img_id = $img_data_arry['id'].'/';
             }
 
-            $url = DOMAIN_ITTETTUNK.'place/'.$place_data_arry[place_id].'/photos/'.$img_id.Helper::makeSafeUrl($place_data_arry[name],'');
+            $url = DOMAIN_ITTETTUNK.'place/'.$place_data_arry['place_id'].'/photos/'.$img_id.Helper::makeSafeUrl($place_data_arry['name'],'');
 
             return $url;
         }

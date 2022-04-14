@@ -305,7 +305,7 @@
                 <div class="docs">
                   <?php foreach ( (array)$this->product['documents'] as $doc ): ?>
                   <div class="doc">
-                    <a target="_blank" title="Kiterjesztés: <?=strtoupper($doc['ext'])?>" href="/app/dcl/<?=$doc['hashname']?>"><img src="<?=IMG?>icons/<?=$doc['icon']?>.svg" alt=""><?=$doc['cim']?><?=($doc[filesize])?' <span class="size">&bull; '.strtoupper($doc['ext']).' &bull; '.$doc[filesize].'</span>':''?></a>
+                    <a target="_blank" title="Kiterjesztés: <?=strtoupper($doc['ext'])?>" href="/app/dcl/<?=$doc['hashname']?>"><img src="<?=IMG?>icons/<?=$doc['icon']?>.svg" alt=""><?=$doc['cim']?><?=($doc['filesize'])?' <span class="size">&bull; '.strtoupper($doc['ext']).' &bull; '.$doc['filesize'].'</span>':''?></a>
                   </div>
                   <?php endforeach; ?>
                 </div>
@@ -348,11 +348,11 @@
         $('#addtocart').trigger('click');
         setTimeout( function(){ document.location.href='/kosar' }, 1000);
         <? endif; ?>
-        $('.number-select > div[num]').click( function (){
+        $('.number-select > div['num']').click( function (){
             $('#add_cart_num').val($(this).attr('num'));
             $('#item-count-num').text($(this).attr('num')+' db');
         });
-        $('.size-selector > .number-select > div[link]').click( function (){
+        $('.size-selector > .number-select > div['link']').click( function (){
             document.location.href = $(this).attr('link');
         });
 

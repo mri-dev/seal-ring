@@ -729,7 +729,7 @@ class SMTP
          * process all lines before a blank line as headers.
          */
 
-        $field = substr($lines[0], 0, strpos($lines[0], ':'));
+        $field = substr($lines['0'], 0, strpos($lines['0'], ':'));
         $in_headers = false;
         if (!empty($field) && strpos($field, ' ') === false) {
             $in_headers = true;
@@ -769,7 +769,7 @@ class SMTP
             foreach ($lines_out as $line_out) {
                 //Dot-stuffing as per RFC5321 section 4.5.2
                 //https://tools.ietf.org/html/rfc5321#section-4.5.2
-                if (!empty($line_out) && $line_out[0] === '.') {
+                if (!empty($line_out) && $line_out['0'] === '.') {
                     $line_out = '.' . $line_out;
                 }
                 $this->client_send($line_out . static::LE, 'DATA');
@@ -859,12 +859,12 @@ class SMTP
             if (!empty($fields)) {
                 if (!$n) {
                     $name = $type;
-                    $fields = $fields[0];
+                    $fields = $fields['0'];
                 } else {
                     $name = array_shift($fields);
                     switch ($name) {
                         case 'SIZE':
-                            $fields = ($fields ? $fields[0] : 0);
+                            $fields = ($fields ? $fields['0'] : 0);
                             break;
                         case 'AUTH':
                             if (!is_array($fields)) {
@@ -1004,8 +1004,8 @@ class SMTP
         //Fetch SMTP code and possible error code explanation
         $matches = [];
         if (preg_match('/^([\d]{3})[ -](?:([\d]\\.[\d]\\.[\d]{1,2}) )?/', $this->last_reply, $matches)) {
-            $code = (int) $matches[1];
-            $code_ex = (count($matches) > 2 ? $matches[2] : null);
+            $code = (int) $matches['1'];
+            $code_ex = (count($matches) > 2 ? $matches['2'] : null);
             //Cut off error code from each response line
             $detail = preg_replace(
                 "/{$code}[ -]" .
@@ -1265,7 +1265,7 @@ class SMTP
             //If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),
             //or 4th character is a space or a line break char, we are done reading, break the loop.
             //String array access is a significant micro-optimisation over strlen
-            if (!isset($str[3]) || $str[3] === ' ' || $str[3] === "\r" || $str[3] === "\n") {
+            if (!isset($str['3']) || $str['3'] === ' ' || $str['3'] === "\r" || $str['3'] === "\n") {
                 break;
             }
             //Timed-out? Log and break
@@ -1431,7 +1431,7 @@ class SMTP
             foreach ($this->smtp_transaction_id_patterns as $smtp_transaction_id_pattern) {
                 $matches = [];
                 if (preg_match($smtp_transaction_id_pattern, $reply, $matches)) {
-                    $this->last_smtp_transaction_id = trim($matches[1]);
+                    $this->last_smtp_transaction_id = trim($matches['1']);
                     break;
                 }
             }

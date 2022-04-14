@@ -19,8 +19,8 @@ class beallitasok extends Controller {
 			
 			// Load Admin
 			$admin_id = false;
-			if ($this->view->gets[1] == 'admin_torles' || $this->view->gets[1] == 'admin_szerkesztes') {
-				$admin_id = $this->view->gets[2];
+			if ($this->view->gets['1'] == 'admin_torles' || $this->view->gets['1'] == 'admin_szerkesztes') {
+				$admin_id = $this->view->gets['2'];
 			}
 
 			$admin = new Admin($admin_id, array( 'db' => $this->db ));

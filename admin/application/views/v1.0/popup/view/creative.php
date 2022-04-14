@@ -121,7 +121,7 @@
 				<div class="col-sm-4">
 					<label>Késleltetés oldalbetöltéstől</label>
 					<div class="input-group">
-						<input type="number" class="form-control" name="settings[type][timed][timed_delay_sec]" value="<?=$settings['timed_delay_sec']?>">
+						<input type="number" class="form-control" name="settings['type']['timed']['timed_delay_sec']" value="<?=$settings['timed_delay_sec']?>">
 						<span class="input-group-addon">másodperc</span>
 					</div>		
 				</div>
@@ -138,7 +138,7 @@
 				<div class="col-sm-4">
 					<label>Mikor jelenjen meg a tartalom?</label>
 					<div class="input-group">
-						<input type="number" class="form-control" name="settings[type][scroll][scroll_percent_point]" value="<?=$settings['scroll_percent_point']?>">
+						<input type="number" class="form-control" name="settings['type']['scroll']['scroll_percent_point']" value="<?=$settings['scroll_percent_point']?>">
 						<span class="input-group-addon">% legörgetés után</span>
 					</div>		
 				</div>
@@ -155,7 +155,7 @@
 				<div class="col-sm-6">
 					<label>Esemény késleltetés</label>
 					<div class="input-group">
-						<input type="number" class="form-control" name="settings[type][exit][exit_pause_delay_sec]" value="<?=$settings['exit_pause_delay_sec']?>">
+						<input type="number" class="form-control" name="settings['type']['exit']['exit_pause_delay_sec']" value="<?=$settings['exit_pause_delay_sec']?>">
 						<span class="input-group-addon">másodperc</span>
 					</div>	
 					<em>Oldalbetöltés után ennyi idő elteltével aktív az esemény.</em>	
@@ -169,7 +169,7 @@
 			<div class="col-sm-3">
 				<label>Időtartam 2 megjelenítés között</label>
 				<div class="input-group">
-					<input type="number" class="form-control" name="settings[view_sec_btw]" value="<?=$settings['view_sec_btw']?>">
+					<input type="number" class="form-control" name="settings['view_sec_btw']" value="<?=$settings['view_sec_btw']?>">
 					<span class="input-group-addon">másodperc</span>
 				</div>
 				<em>60 = 1 perc, 3600 = 1 óra, 86400 = 1 nap</em>
@@ -177,7 +177,7 @@
 			<div class="col-sm-3">
 				<label>Maximális megjelenés</label>
 				<div class="input-group">
-					<input type="number" class="form-control" name="settings[view_max]" value="<?=$settings['view_max']?>">
+					<input type="number" class="form-control" name="settings['view_max']" value="<?=$settings['view_max']?>">
 					<span class="input-group-addon"> / felhasználó</span>
 				</div>
 			</div>		

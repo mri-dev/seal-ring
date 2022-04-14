@@ -54,7 +54,7 @@ class Cetelem
 		$this->shopcode = $shopCode;
 		$this->society 	= $society;
 		$this->barem 	= $barem;
-		$this->db 		= $arg[db];
+		$this->db 		= $arg['db'];
 
 		return $this;
 	}
@@ -205,8 +205,8 @@ class Cetelem
 
 		foreach ($list as $l) 
 		{
-			$l[statusz_text] 	= $l[statusz];
-			$l[statusz] 		= $this->statuses[$this->status_code[$l[statusz]]];
+			$l['statusz_text'] 	= $l['statusz'];
+			$l['statusz'] 		= $this->statuses[$this->status_code[$l['statusz']]];
 
 			$sl[] = $l;
 		}

@@ -60,7 +60,7 @@ class uzletek extends Controller{
 		function distributor()
 		{
 
-			$shopID 	= (int)$this->gets[2];
+			$shopID 	= (int)$this->gets['2'];
 
 			$shop = new CasadaShop( $shopID, array(
 				'db' => $this->db

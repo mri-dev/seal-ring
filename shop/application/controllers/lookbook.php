@@ -13,10 +13,10 @@ class lookbook extends Controller{
 
 
 			$lookbook = $this->lookbooks->getAll( array( 
-				'get_by_key' => $this->view->gets[1] 
+				'get_by_key' => $this->view->gets['1'] 
 			) );
 
-			$lookbook_data = $lookbook['data'][0];
+			$lookbook_data = $lookbook['data']['0'];
 
 			// Ha nincs meg a lookbook vagy rejtett, akkor átirányítás a főoldalra
 			if ( !$lookbook_data || $lookbook_data['lathato'] == '0' ) {

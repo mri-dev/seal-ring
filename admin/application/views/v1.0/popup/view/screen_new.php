@@ -6,14 +6,14 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<label>Elnevezés</label>
-				<input type="text" class="form-control" name="name" value="<?=$_POST[name]?>">
+				<input type="text" class="form-control" name="name" value="<?=$_POST['name']?>">
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
 				<label>Megjelenési arány</label>
-				<input type="number" step="1" class="form-control" name="use_weight" value="<?=(isset($_POST[name]))? $_POST[name] : 1?>">
+				<input type="number" step="1" class="form-control" name="use_weight" value="<?=(isset($_POST['name']))? $_POST['name'] : 1?>">
 				<em>Egymáshoz viszonyított arányok.</em>
 			</div>
 		</div>
@@ -22,8 +22,8 @@
 			<div class="col-sm-2">
 				<label>Állapot</label>	
 				<select class="form-control" name="active">
-					<option value="0" <?=(isset($_POST[active]) && $_POST[active] == 0)?'selected="selected"':'selected="selected"'?>>Inaktív</option>
-					<option value="1" <?=(isset($_POST[active]) && $_POST[active] == 1)?'selected="selected"':''?>>Aktív</option>
+					<option value="0" <?=(isset($_POST['active']) && $_POST['active'] == 0)?'selected="selected"':'selected="selected"'?>>Inaktív</option>
+					<option value="1" <?=(isset($_POST['active']) && $_POST['active'] == 1)?'selected="selected"':''?>>Aktív</option>
 				</select>
 			</div>
 		</div>

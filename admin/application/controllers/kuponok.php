@@ -53,7 +53,7 @@ class kuponok extends Controller{
 		function edit()
 		{
 			// Kupon adatok
-			$coupon = (new Coupon(array('db'=>$this->db)))->get($this->gets[2]);
+			$coupon = (new Coupon(array('db'=>$this->db)))->get($this->gets['2']);
 			$this->out('coupon', $coupon);
 
 			if (Post::on('saveCoupon')) 
@@ -71,7 +71,7 @@ class kuponok extends Controller{
 		function del()
 		{
 			// Kupon adatok
-			$coupon = (new Coupon(array('db'=>$this->db)))->get($this->gets[2]);
+			$coupon = (new Coupon(array('db'=>$this->db)))->get($this->gets['2']);
 			$this->out('coupon', $coupon);
 
 			if (Post::on('delCoupon')) 

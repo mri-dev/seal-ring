@@ -10,7 +10,7 @@ class Creatives
 
 	function __construct( $arg = array() )
 	{
-		$this->db 	= $arg[db];
+		$this->db 	= $arg['db'];
 		$this->arg 	= $arg;
 
 		return $this;
@@ -35,7 +35,7 @@ class Creatives
 
 		foreach ($list->fetchAll(\PDO::FETCH_ASSOC) as $d) 
 		{
-			$a[] = (new Creative($this->arg))->load($d[ID]);
+			$a[] = (new Creative($this->arg))->load($d['ID']);
 		}
 
 		return $a;

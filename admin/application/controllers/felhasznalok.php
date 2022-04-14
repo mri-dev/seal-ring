@@ -8,48 +8,48 @@ class felhasznalok extends Controller{
 			if(Post::on('filterList')){
 				$filtered = false;
 
-				if($_POST[ID] != ''){
-					setcookie('filter_ID',$_POST[ID],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['ID'] != ''){
+					setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[nev] != ''){
-					setcookie('filter_nev',$_POST[nev],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['nev'] != ''){
+					setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[email] != ''){
-					setcookie('filter_email',$_POST[email],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['email'] != ''){
+					setcookie('filter_email',$_POST['email'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_email','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_email','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[engedelyezve] != ''){
-					setcookie('filter_engedelyezve',$_POST[engedelyezve],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['engedelyezve'] != ''){
+					setcookie('filter_engedelyezve',$_POST['engedelyezve'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_engedelyezve','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_engedelyezve','',time()-100,'/'.$this->view->gets['0']);
 				}
-				if($_POST[aktivalva] != ''){
-					setcookie('filter_aktivalva',$_POST[aktivalva],time()+60*24,'/'.$this->view->gets[0]);
+				if($_POST['aktivalva'] != ''){
+					setcookie('filter_aktivalva',$_POST['aktivalva'],time()+60*24,'/'.$this->view->gets['0']);
 					$filtered = true;
 				}else{
-					setcookie('filter_aktivalva','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filter_aktivalva','',time()-100,'/'.$this->view->gets['0']);
 				}
 
 
 				if($filtered){
-					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+					setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 				}else{
-					setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+					setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 				}
 				Helper::reload();
 			}
 
 			$arg = array();
-			$arg[limit] = 50;
+			$arg['limit'] = 50;
 			$filters = Helper::getCookieFilter('filter',array('filtered'));
 
 			if( isset($_GET['ID']) ) {
@@ -58,7 +58,7 @@ class felhasznalok extends Controller{
 
 			//$filters['user_group'] = 'user';
 
-			$arg[filters] = $filters;
+			$arg['filters'] = $filters;
 
 			$this->view->users = $this->User->getUserList($arg);
 
@@ -84,7 +84,7 @@ class felhasznalok extends Controller{
 		function containers()
 		{
 			// Felhasználó törlése a konténerből
-			if( isset($_GET[t])  )
+			if( isset($_GET['t'])  )
 			{
 				try
 				{
@@ -132,7 +132,7 @@ class felhasznalok extends Controller{
 					$this->view->msg = Helper::makeAlertMsg( 'pError', $e->getMessage() );
 				}
 			}
-			$this->out('container', $this->User->getContainer($this->gets[2]));
+			$this->out('container', $this->User->getContainer($this->gets['2']));
 		}
 
 		function container_del()
@@ -152,7 +152,7 @@ class felhasznalok extends Controller{
 					$this->view->msg = Helper::makeAlertMsg( 'pError', $e->getMessage() );
 				}
 			}
-			$this->out('container', $this->User->getContainer($this->gets[2]));
+			$this->out('container', $this->User->getContainer($this->gets['2']));
 		}
 
 		function container_new()
@@ -172,7 +172,7 @@ class felhasznalok extends Controller{
 					$this->view->msg = Helper::makeAlertMsg( 'pError', $e->getMessage() );
 				}
 			}
-			$this->out('container', $this->User->getContainer($this->gets[2]));
+			$this->out('container', $this->User->getContainer($this->gets['2']));
 		}
 
 		public function import()
@@ -260,13 +260,13 @@ class felhasznalok extends Controller{
 		}
 
 		function clearfilters(){
-			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_email','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_engedelyezve','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_aktivalva','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
-			Helper::reload('/'.$this->view->gets[0]);
+			setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_email','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_engedelyezve','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_aktivalva','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
+			Helper::reload('/'.$this->view->gets['0']);
 		}
 
 		function __destruct(){

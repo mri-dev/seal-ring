@@ -25,22 +25,22 @@
 		
 		function termek(){
 			$arg = array();
-			if($_GET[dateFrom] != '' && $_GET[dateTo] != ''){
-				$arg[inDate] = array($_GET[dateFrom],$_GET[dateTo]);
+			if($_GET['dateFrom'] != '' && $_GET['dateTo'] != ''){
+				$arg['inDate'] = array($_GET['dateFrom'],$_GET['dateTo']);
 			}
 			$this->view->stats = $this->AdminUser->getTermekStatistic($arg);
 		}
 		function kategoria(){
 			$arg = array();
-			if($_GET[dateFrom] != '' && $_GET[dateTo] != ''){
-				$arg[inDate] = array($_GET[dateFrom],$_GET[dateTo]);
+			if($_GET['dateFrom'] != '' && $_GET['dateTo'] != ''){
+				$arg['inDate'] = array($_GET['dateFrom'],$_GET['dateTo']);
 			}
 			$this->view->stats = $this->AdminUser->getKategoriaStatistic($arg);
 		}
 		function kereses(){
 			$arg = array();
-			if($_GET[dateFrom] != '' && $_GET[dateTo] != ''){
-				$arg[inDate] = array($_GET[dateFrom],$_GET[dateTo]);
+			if($_GET['dateFrom'] != '' && $_GET['dateTo'] != ''){
+				$arg['inDate'] = array($_GET['dateFrom'],$_GET['dateTo']);
 			}
 			$this->view->stats = $this->AdminUser->getKeresesStatistic($arg);
 		}

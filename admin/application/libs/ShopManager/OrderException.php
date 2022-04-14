@@ -14,7 +14,7 @@ class OrderException extends \Exception
 			$this->errorArr = $errorArray;		
 		}
 		if($message != ''){
-			$this->errorArr[msg] = $message;
+			$this->errorArr['msg'] = $message;
 		}
     }
 	

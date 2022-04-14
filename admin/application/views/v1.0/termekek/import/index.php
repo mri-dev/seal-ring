@@ -1,5 +1,5 @@
 <div style="float:right;">
-	<a href="/<?=$this->gets[0]?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
+	<a href="/<?=$this->gets['0']?>/" class="btn btn-default"><i class="fa fa-arrow-left"></i> vissza</a>
 </div>
 <h1>Termékek importálása</h1>
 <?=$this->msg?>
@@ -21,12 +21,12 @@
 				<div class="url-result-view <?=($this->url_result['header_code'] != 200)?'not-ok':''?>">
 					<div class="title">Link vizsgálatának eredménye:</div>
 					<div class="result">
-						<div>Válaszkód: <strong><?=$this->url_result['header_code']?></strong> (<?=$this->url_result[0]?>)</div>
+						<div>Válaszkód: <strong><?=$this->url_result['header_code']?></strong> (<?=$this->url_result['0']?>)</div>
 						<div>Típus: <strong><?=$this->url_result['Content-Type']?></strong></div>
 						<div>Méret: <strong><?=number_format( $this->url_result['Content-Length'] / 1024 / 1024, 3, "."," ")?> MB</strong></div>
 					</div>
 					<div class="exit">
-						<a href="/termekek/import/">[bezárás]</a>
+						<a href="/termekek/import/">['bezárás']</a>
 					</div>
 				</div>
 				<? endif; ?>
@@ -134,7 +134,7 @@
 				</div>
 			</fieldset>
 			<div class="xml-list-result">
-			<? if( $this->gets[2] == 'preview' ): ?>
+			<? if( $this->gets['2'] == 'preview' ): ?>
 
 				<? if( $_GET['file'] != '' && !$this->xml_import_check ):  ?>
 				<div class="no-result">

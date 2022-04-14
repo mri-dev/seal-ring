@@ -5,6 +5,6 @@
     <option value="0">Mindegyikbe megjelenjen</option>
     <option value="" disabled="disabled">----------------------</option>
     <? foreach($this->gyujtok as $d): ?>
-    <option value="<?=$d[ID]?>">|-----<?=Product::clear($d[neve])?></option>
+    <option value="<?=$d['ID']?>">|-----<?=Product::clear($d['neve'])?></option>
     <? endforeach; ?>
 </select>

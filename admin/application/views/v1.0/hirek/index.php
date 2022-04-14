@@ -1,8 +1,8 @@
 <h1>HÍREK</h1>
 <?=$this->msg?>
-<? if($this->gets[1] == 'torles'): ?>
+<? if($this->gets['1'] == 'torles'): ?>
 <form action="" method="post">
-<input type="hidden" name="delId" value="<?=$this->gets[2]?>" />
+<input type="hidden" name="delId" value="<?=$this->gets['2']?>" />
 <div class="row np">
 	<div class="col-md-12">
     	<div class="con con-del">
@@ -10,7 +10,7 @@
             Biztos, hogy törli a kiválasztott hírt?
             <div class="row np">
                 <div class="col-md-12 right">
-                    <a href="/<?=$this->gets[0]?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
+                    <a href="/<?=$this->gets['0']?>/" class="btn btn-danger"><i class="fa fa-times"></i> NEM</a>
                     <button class="btn btn-success">IGEN <i class="fa fa-check"></i> </button>
                 </div>
             </div>
@@ -20,12 +20,12 @@
 </form>
 <? endif; ?>
 <? if( true ): ?>
-<? if($this->gets[1] != 'torles'): ?>
+<? if($this->gets['1'] != 'torles'): ?>
 <div class="row">
 	<div class="col-md-12">
-    	<div class="con <?=($this->gets[1] == 'szerkeszt')?'con-edit':''?>">
+    	<div class="con <?=($this->gets['1'] == 'szerkeszt')?'con-edit':''?>">
         	<form action="" method="post" enctype="multipart/form-data">
-        	<h2><? if($this->gets[1] == 'szerkeszt'): ?>Hír szerkesztése<? else: ?>Új hír hozzáadása<? endif; ?></h2>
+        	<h2><? if($this->gets['1'] == 'szerkeszt'): ?>Hír szerkesztése<? else: ?>Új hír hozzáadása<? endif; ?></h2>
             <br>
             <div class="row">
                 <div class="col-md-4">
@@ -56,9 +56,9 @@
                 </div>
                 <div class="col-md-3" align="right">
                 <br>
-                	<? if($this->gets[1] == 'szerkeszt'): ?>
-                    <input type="hidden" name="id" value="<?=$this->gets[2]?>" />
-                    <a href="/<?=$this->gets[0]?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
+                	<? if($this->gets['1'] == 'szerkeszt'): ?>
+                    <input type="hidden" name="id" value="<?=$this->gets['2']?>" />
+                    <a href="/<?=$this->gets['0']?>"><button type="button" class="btn btn-danger btn-3x"><i class="fa fa-arrow-circle-left"></i> bezár</button></a>
                     <button name="save" class="btn btn-success">Változások mentése <i class="fa fa-check-square"></i></button>
                     <? else: ?>
                     <button name="add" class="btn btn-primary">Hozzáadás <i class="fa fa-check-square"></i></button>
@@ -113,13 +113,13 @@
             while( $this->news_list->walk() ): 
                 $news = $this->news_list->the_news();
             ?>
-            <div class="row np deep<?=$news['deep']?> markarow  <?=($this->news && $this->gets[1] == 'szerkeszt' && $this->news->getId() == $news['ID'] ? 'on-edit' : '')?> <?=($this->news && $this->gets[1] == 'torles' && $this->news->getId() == $news['ID'] ? 'on-del' : '')?>">
+            <div class="row np deep<?=$news['deep']?> markarow  <?=($this->news && $this->gets['1'] == 'szerkeszt' && $this->news->getId() == $news['ID'] ? 'on-edit' : '')?> <?=($this->news && $this->gets['1'] == 'torles' && $this->news->getId() == $news['ID'] ? 'on-del' : '')?>">
             	<div class="col-md-6">
                     <div class="img-thb">
                         <a href="<?=$news['belyeg_kep']?>" class="zoom"><img src="<?=$news['belyeg_kep']?>" alt=""></a>
                     </div>
-                	<strong><?=$news[cim]?></strong>
-                    <div><a target="_blank" href="<?=HOMEDOMAIN?>hirek/<?=$news['eleres']?>" class="news-url"><?=HOMEDOMAIN?>hirek/<strong><?=$news[eleres]?></strong></a></div>
+                	<strong><?=$news['cim']?></strong>
+                    <div><a target="_blank" href="<?=HOMEDOMAIN?>hirek/<?=$news['eleres']?>" class="news-url"><?=HOMEDOMAIN?>hirek/<strong><?=$news['eleres']?></strong></a></div>
                 </div>
                 <div class="col-md-2 center">
                 	<?=\PortalManager\Formater::dateFormat($news['idopont'], $this->settings['date_format'])?>
@@ -129,11 +129,11 @@
                     <?=\PortalManager\Formater::dateFormat($news['letrehozva'], $this->settings['date_format'])?>
                 </div>
                  <div class="col-md-1 center">
-                	<? if($news[lathato] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
+                	<? if($news['lathato'] == '1'): ?><i style="color:green;" class="fa fa-check"></i><? else: ?><i style="color:red;" class="fa fa-times"></i><? endif; ?>
                 </div>
                 <div class="col-md-1 actions" align="right">
-                    <a href="/<?=$this->gets[0]?>/szerkeszt/<?=$news[ID]?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
-                    <a href="/<?=$this->gets[0]?>/torles/<?=$news[ID]?>" title="Törlés"><i class="fa fa-times"></i></a>
+                    <a href="/<?=$this->gets['0']?>/szerkeszt/<?=$news['ID']?>" title="Szerkesztés"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                    <a href="/<?=$this->gets['0']?>/torles/<?=$news['ID']?>" title="Törlés"><i class="fa fa-times"></i></a>
                 </div>
            	</div>
             <? endwhile; else:?>

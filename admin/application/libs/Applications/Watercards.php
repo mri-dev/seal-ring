@@ -10,8 +10,8 @@ class Watercards
 {	
 	private $db = null;
 	function __construct( $arg = array()) {
-		$this->db = $arg[db];
-		$this->settings = $arg[view]->settings;
+		$this->db = $arg['db'];
+		$this->settings = $arg['view']->settings;
 	}
 
 	public function getAll( $arg = array() )

@@ -11,7 +11,7 @@ class CreativeScreens
 
 	function __construct( $creative_id = false, $arg = array() )
 	{
-		$this->db 	= $arg[db];
+		$this->db 	= $arg['db'];
 		$this->arg 	= $arg;
 
 		$this->creative_id = $creative_id;
@@ -42,7 +42,7 @@ class CreativeScreens
 
 		foreach ($list->fetchAll(\PDO::FETCH_ASSOC) as $d) 
 		{
-			$a[] = (new CreativeScreen($this->arg))->load($d[ID]);
+			$a[] = (new CreativeScreen($this->arg))->load($d['ID']);
 		}
 
 		return $a;
@@ -71,18 +71,18 @@ class CreativeScreens
 
 		foreach ($list->fetchAll(\PDO::FETCH_ASSOC) as $s ) 
 		{
-			$max_weight += $s[use_weight];
+			$max_weight += $s['use_weight'];
 
-			for ($i=1; $i <= $s[use_weight] ; $i++) 
+			for ($i=1; $i <= $s['use_weight'] ; $i++) 
 			{ 
-				$weight_row[] = $s[ID];
+				$weight_row[] = $s['ID'];
 			}
 		}
 
 		$randid 	= rand(0, $max_weight-1);
 		$ret['id'] 	= (int)$weight_row[$randid];
 
-		$screen 	= (new CreativeScreen(array('db' => $this->db)))->load($ret[id]); 
+		$screen 	= (new CreativeScreen(array('db' => $this->db)))->load($ret['id']); 
 		$ret['variables'] = $screen->getSettings('template');
 
 		return $ret;

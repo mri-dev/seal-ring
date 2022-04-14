@@ -15,7 +15,7 @@
 						<div>
 							<div class="col-sm-6">
 								<label for="coupon_code">Kupon kódja</label>
-								<input type="text" id="coupon_code" name="coupon_code" value="<?=(isset($_POST[coupon_code])) ? $_POST[coupon_code] : $this->settings['orderkey_prefix'].'-'.date('Y').'-'.strtoupper(strrev(uniqid()))?>" class="form-control">
+								<input type="text" id="coupon_code" name="coupon_code" value="<?=(isset($_POST['coupon_code'])) ? $_POST['coupon_code'] : $this->settings['orderkey_prefix'].'-'.date('Y').'-'.strtoupper(strrev(uniqid()))?>" class="form-control">
 								<small>Ha nem generált kóddal szeretne kupont létrehozni, akkor írja be a kívánt kuponkódot.</small>
 							</div>
 							<div class="col-sm-6">
@@ -30,29 +30,29 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<label for="name">Kupon elnevezése</label>
-							<input type="text" id="name" name="name" value="<?=$_POST[name]?>" class="form-control">
+							<input type="text" id="name" name="name" value="<?=$_POST['name']?>" class="form-control">
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col-sm-6">
 							<label for="active_from">Aktív &mdash; időponttól</label>
-							<input type="date" id="active_from" name="active_from" value="<?=$_POST[active_from]?>" class="form-control">
+							<input type="date" id="active_from" name="active_from" value="<?=$_POST['active_from']?>" class="form-control">
 						</div>
 						<div class="col-sm-6">
 							<label for="active_to">Aktív &mdash; időpontig</label>
-							<input type="date" id="active_to" name="active_to" value="<?=$_POST[active_to]?>" class="form-control">
+							<input type="date" id="active_to" name="active_to" value="<?=$_POST['active_to']?>" class="form-control">
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col-sm-6">
 							<label for="usage_left">Felhasználási limit (darab)</label>
-							<input type="number" id="usage_left" name="usage_left" value="<?=$_POST[usage_left]?>" class="form-control">
+							<input type="number" id="usage_left" name="usage_left" value="<?=$_POST['usage_left']?>" class="form-control">
 						</div>
 						<div class="col-sm-6">
 							<label for="min_order_value">Megrendelés összeg limit (Ft)</label>
-							<input type="number" id="min_order_value" name="min_order_value" value="<?=$_POST[min_order_value]?>" class="form-control">
+							<input type="number" id="min_order_value" name="min_order_value" value="<?=$_POST['min_order_value']?>" class="form-control">
 						</div>
 					</div>
 					<br>

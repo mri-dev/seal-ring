@@ -162,7 +162,7 @@ class ajax extends Controller{
 					);
 					$cetelem->sandboxMode( CETELEM_SANDBOX_MODE );
 					$data = $cetelem->calc($price, $ownPrice);
-					$ret[data] = $data;
+					$ret['data'] = $data;
 				break;
 
 				case 'logPopupClick':
@@ -200,13 +200,13 @@ class ajax extends Controller{
 					$ret['viewed_numbers'] = $viewed_numbers;
 
 					// Időeltelés vizsgálat
-					if ( $last_view_delay <= $creative_settings[view_sec_btw] )
+					if ( $last_view_delay <= $creative_settings['view_sec_btw'] )
 					{
 						$go = false;
 					}
 
 					// Megjelenés vizsgálat
-					if ( $viewed_numbers >= $creative_settings[view_max] )
+					if ( $viewed_numbers >= $creative_settings['view_max'] )
 					{
 						$go = false;
 					}
@@ -224,7 +224,7 @@ class ajax extends Controller{
 						$screen = (new CreativeScreens($cr['id'], array('db' => $this->db)))->loadForAction($sessionid);
 
 						$data['screen'] 		= $screen;
-						$data['screen_loaded'] 	= $screen[id];
+						$data['screen_loaded'] 	= $screen['id'];
 
 						if (empty($screen)) {
 							$data = array();
@@ -242,7 +242,7 @@ class ajax extends Controller{
 				break;
 
 				case 'logPopupScreenshow':
-					$ret[post] = $_POST;
+					$ret['post'] = $_POST;
 					$creative = (new Creative(array('db'=> $this->db)))->load( $creative );
 					$creative->logShow( $sessionid, $screen );
 				break;
@@ -332,7 +332,7 @@ class ajax extends Controller{
 								$re = $this->User->add($_POST);
 							}catch(Exception $e){
 								$err = $this->escape($e->getMessage(),$ret);
-								$ret[errorCode] = $e->getCode();
+								$ret['errorCode'] = $e->getCode();
 							}
 
 							if(!$err)
@@ -344,11 +344,11 @@ class ajax extends Controller{
 						case 'login':
 							$err = false;
 							try{
-								$re = $this->User->login($_POST[data]);
+								$re = $this->User->login($_POST['data']);
 
-								if( $re && $re[remember]){
-									setcookie('ajx_login_usr', $re[email], time() + 60*60*24*3, '/' );
-									setcookie('ajx_login_pw', $re[pw], time() + 60*60*24*3, '/' );
+								if( $re && $re['remember']){
+									setcookie('ajx_login_usr', $re['email'], time() + 60*60*24*3, '/' );
+									setcookie('ajx_login_pw', $re['pw'], time() + 60*60*24*3, '/' );
 								}else{
 									setcookie('ajx_login_usr', null, time() - 3600, '/' );
 									setcookie('ajx_login_pw', null , time() -3600, '/' );
@@ -356,7 +356,7 @@ class ajax extends Controller{
 
 							}catch(Exception $e){
 								$err = $this->escape($e->getMessage(),$ret);
-								$ret[errorCode] = $e->getCode();
+								$ret['errorCode'] = $e->getCode();
 							}
 
 							if(!$err)
@@ -368,10 +368,10 @@ class ajax extends Controller{
 						case 'resetPassword':
 							$err = false;
 							try{
-								$re = $this->User->resetPassword($_POST[data]);
+								$re = $this->User->resetPassword($_POST['data']);
 							}catch(Exception $e){
 								$err = $this->escape($e->getMessage(),$ret);
-								$ret[errorCode] = $e->getCode();
+								$ret['errorCode'] = $e->getCode();
 							}
 
 							if(!$err)
@@ -509,19 +509,19 @@ class ajax extends Controller{
 		}
 
 		private function setSuccess($msg, &$ret){
-			$ret[msg] 		= $msg;
-			$ret[success] 	= 1;
+			$ret['msg'] 		= $msg;
+			$ret['success'] 	= 1;
 			return true;
 		}
 		private function escape($msg, &$ret){
-			$ret[msg] 		= $msg;
-			$ret[success] 	= 0;
+			$ret['msg'] 		= $msg;
+			$ret['success'] 	= 0;
 			return true;
 		}
 
 		function update () {
 
-			switch ( $this->view->gets[2] ) {
+			switch ( $this->view->gets['2'] ) {
 				// Pick Pack Pontok listájának frissítése
 				// {DOMAIN}/ajax/update/updatePickPackPont
 				/*
@@ -600,16 +600,16 @@ class ajax extends Controller{
 					switch($mode){
 						case 'getCities':
 							$this->pickpack->varosok 	= $this->ppp->getCities($this->pickpack->data);
-							$data = $this->pickpack->varosok[$arg[megye]];
+							$data = $this->pickpack->varosok[$arg['megye']];
 							echo json_encode($data);
 						break;
 						case 'getPoints':
 							$this->pickpack->uzletek 	= $this->ppp->getPoints($this->pickpack->data);
-							$data = $this->pickpack->uzletek[$arg[megye]][$arg[varos]];
+							$data = $this->pickpack->uzletek[$arg['megye']][$arg['varos']];
 							echo json_encode($data);
 						break;
 						case 'getPointData':
-							$data = $this->ppp->getPointData($arg[id]);
+							$data = $this->ppp->getPointData($arg['id']);
 							echo json_encode($data);
 						break;
 					}

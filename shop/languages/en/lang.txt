@@ -1,3 +1,11 @@
+Gyártás::Production;;
+Leírások::Descriptions;;
+bezárás::close;;
+Találatok::Results;;
+Összesen <strong>{{found_items}} darab</strong> bejegyzést találtunk.::We found <strong>{{found_items}}</strong> questions.;;
+Témakörök::Topics;;
+Témakörre szűrve::Filered by topic;;
+Seal Ring Tudástár::Seal Ring's FAQ;;
 Épület::Building;;
 Információ::Informations;;
 Bejelentkezés szükséges a vásárlás folytatásához!::You must logged in your account to order!;;
@@ -304,3 +312,10 @@ Kötelező adat: Számlázási név hiányzik!::You must fill: Billing details >
 Megrendelését fogadtuk::We're received your order;;
 Hiba történt!::An error occurred!;;
 Telefon::Phone number;;
+Kulcsszavak megadása::Searching keywords;;
+Tudástár cikkeinek betöltése folyamatban::FAQ loading in progress;;
+Kiválasztott bejegyzés::Selected question;;
+<strong>{{c.articles.length}} db</strong> bejegyzés::<strong>{{c.articles.length}}</strong> questions;;
+Bejegyzés hivatkozása::Link of question;;
+Tippek, tanácsok::Tips, advices;;
++kulcsszó::+keyword;;

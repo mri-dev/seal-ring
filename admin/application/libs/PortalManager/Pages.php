@@ -24,7 +24,7 @@ class Pages
 
 	function __construct( $page_id = false, $arg = array() )
 	{
-		$this->db = $arg[db];
+		$this->db = $arg['db'];
 
 		if ( $page_id ) {
 			$this->selected_page_id = $page_id;
@@ -93,8 +93,8 @@ class Pages
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$deep = $xparent[1]+1;
-			$parent = $xparent[0];
+			$deep = $xparent['1']+1;
+			$parent = $xparent['0'];
 		} else {
 			$parent = NULL;
 		}
@@ -195,8 +195,8 @@ class Pages
 
 		if ($parent) {
 			$xparent = explode('_',$parent);
-			$deep = $xparent[1]+1;
-			$parent = $xparent[0];
+			$deep = $xparent['1']+1;
+			$parent = $xparent['0'];
 		} else {
 			$parent = NULL;
 		}
@@ -413,14 +413,14 @@ class Pages
 
 		// Includes
 		$text = preg_replace_callback( "/==(.*)==/i", function ( $m ) use ( $template ) {
-			return $template->get( $m[1]);
+			return $template->get( $m['1']);
 		} , $text );
 
 		// Méret táblázat
 		$text = preg_replace_callback("/##table-data:(.*)##/i", function( $m ) use ( $template, $Tabledata ) {
 			$sizedata = array();
-			$sizedata['key'] = $m[1];
-			$sizedata['data'] = $Tabledata->getTable( $m[1] );
+			$sizedata['key'] = $m['1'];
+			$sizedata['data'] = $Tabledata->getTable( $m['1'] );
 
 			return $template->get('size_data', $sizedata);
 		}, $text);

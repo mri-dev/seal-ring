@@ -34,8 +34,8 @@ class CasadaShop {
 	public function setMyPosition($gps_array)
 	{
 		$this->myPosition = array(
-			'lat' => $gps_array[0],
-			'lng' => $gps_array[1]
+			'lat' => $gps_array['0'],
+			'lng' => $gps_array['1']
 		); 
 
 		return $this;
@@ -235,9 +235,9 @@ class CasadaShop {
 
 			if( count($days) < 2 ) 
 			{
-				$daysstring = ucfirst(substr($days[0],0,$this->getOpenDayShortprefixindex($days[0])));
+				$daysstring = ucfirst(substr($days['0'],0,$this->getOpenDayShortprefixindex($days['0'])));
 			} else {
-				$daysstring = ucfirst(substr($days[0],0,$this->getOpenDayShortprefixindex($days[0]))).'-'.ucfirst(substr(end($days),0,$this->getOpenDayShortprefixindex(end($days))));
+				$daysstring = ucfirst(substr($days['0'],0,$this->getOpenDayShortprefixindex($days['0']))).'-'.ucfirst(substr(end($days),0,$this->getOpenDayShortprefixindex(end($days))));
 			}
 
 			$str .= $daysstring.': '.str_replace(':','.',$int).'; ';
@@ -520,8 +520,8 @@ class CasadaShop {
 	{
 		$xgps = explode(",",$this->data['gps']);
 		return array( 
-			'lat' => (float)$xgps[0], 
-			'lng' => (float)$xgps[1]
+			'lat' => (float)$xgps['0'], 
+			'lng' => (float)$xgps['1']
 		);
 	}
 
@@ -531,7 +531,7 @@ class CasadaShop {
 				return false;
 			}
 
-			return "https://www.google.com/maps/dir/".$this->myPosition[lat].",".$this->myPosition[lng]."/".$this->getAddress();
+			return "https://www.google.com/maps/dir/".$this->myPosition['lat'].",".$this->myPosition['lng']."/".$this->getAddress();
 		}
 
 	public function getDistance()

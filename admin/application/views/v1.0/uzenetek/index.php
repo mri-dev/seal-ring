@@ -1,7 +1,7 @@
-<h1>Üzenetek <span><strong><?=Helper::cashFormat($this->uzenetek[info][total_num])?> db</strong> üzenet <? if($_COOKIE[filtered] == '1'): ?><span class="filtered">Szűrt üzenetek listázása <a href="/uzenetek/clearfilters/" class="btn btn-danger">eltávolítás</a></span><? endif; ?></span></h1>
+<h1>Üzenetek <span><strong><?=Helper::cashFormat($this->uzenetek['info']['total_num'])?> db</strong> üzenet <? if($_COOKIE['filtered'] == '1'): ?><span class="filtered">Szűrt üzenetek listázása <a href="/uzenetek/clearfilters/" class="btn btn-danger">eltávolítás</a></span><? endif; ?></span></h1>
 <?=$this->rmsg?>
 <div class="clr"></div>
-<? if($this->gets[1] != 'dell'): ?>
+<? if($this->gets['1'] != 'dell'): ?>
 <form action="" method="post">
 <div class="tbl-container overflowed">
 <table class="table termeklista table-bordered">
@@ -17,42 +17,42 @@
         </tr>
 	</thead>
     <tbody>
-    	<tr class="search <? if($_COOKIE[filtered] == '1'): ?>filtered<? endif;?>">
-    		<td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE[filter_ID]?>" /></td>
-            <td><input type="text" name="contact" placeholder="név vagy email..." class="form-control" value="<?=$_COOKIE[filter_contact]?>" /></td>
+    	<tr class="search <? if($_COOKIE['filtered'] == '1'): ?>filtered<? endif;?>">
+    		<td><input type="text" name="ID" class="form-control" value="<?=$_COOKIE['filter_ID']?>" /></td>
+            <td><input type="text" name="contact" placeholder="név vagy email..." class="form-control" value="<?=$_COOKIE['filter_contact']?>" /></td>
 
-			<td><input type="text" name="uzenet_targy" placeholder="tárgy megnevezése..." class="form-control" value="<?=$_COOKIE[filter_uzenet_targy]?>" /></td>
+			<td><input type="text" name="uzenet_targy" placeholder="tárgy megnevezése..." class="form-control" value="<?=$_COOKIE['filter_uzenet_targy']?>" /></td>
 			<td></td>
 			<td>
 				<select class="form-control"  name="fvalaszolva" style="max-width:200px;">
 					<option value="" selected="selected"># Mind</option>
-                    <option value="1" <?=($_COOKIE[filter_fvalaszolva] == '1')?'selected':''?>>Igen</option>
-					<option value="0" <?=($_COOKIE[filter_fvalaszolva] == '0')?'selected':''?>>Nem</option>
+                    <option value="1" <?=($_COOKIE['filter_fvalaszolva'] == '1')?'selected':''?>>Igen</option>
+					<option value="0" <?=($_COOKIE['filter_fvalaszolva'] == '0')?'selected':''?>>Nem</option>
                 </select>
 			</td>
 			<td>
 				<select class="form-control"  name="farchivalt" style="max-width:200px;">
 					<option value="" selected="selected"># Mind</option>
-                    <option value="1" <?=($_COOKIE[filter_farchivalt] == '1')?'selected':''?>>Igen</option>
-					<option value="0" <?=($_COOKIE[filter_farchivalt] == '0')?'selected':''?>>Nem</option>
+                    <option value="1" <?=($_COOKIE['filter_farchivalt'] == '1')?'selected':''?>>Igen</option>
+					<option value="0" <?=($_COOKIE['filter_farchivalt'] == '0')?'selected':''?>>Nem</option>
                 </select>
 			</td>
     		<td align="center">
             	<button name="filterList" class="btn btn-default"><i class="fa fa-search"></i></button>
             </td>
     	</tr>
-    	<? if(count($this->uzenetek[data]) > 0): foreach($this->uzenetek[data] as $d):  ?>
-    	<tr class="<? if($d[archivalva] == 1): ?>archived<? endif; ?>">
+    	<? if(count($this->uzenetek['data']) > 0): foreach($this->uzenetek['data'] as $d):  ?>
+    	<tr class="<? if($d['archivalva'] == 1): ?>archived<? endif; ?>">
 	    	<td align="center">
-				<?=$d[ID]?><br />
-				<input type="checkbox" name="selectedItem[]" value="<?=$d[ID]?>" />
+				<?=$d['ID']?><br />
+				<input type="checkbox" name="selectedItem[]" value="<?=$d['ID']?>" />
 			</td>
 			<td>
-				<div style="font-size:1.2em;"><strong><?=$d[felado_nev]?></strong></div>
+				<div style="font-size:1.2em;"><strong><?=$d['felado_nev']?></strong></div>
 				<div style="color:#888;">
 					<em>
 					<?php
-					switch ($d[tipus]) {
+					switch ($d['tipus']) {
 						case 'recall':
 							echo $d['felado_telefon'];
 						break;
@@ -66,7 +66,7 @@
 			</td>
 			<td><strong>
 			<?
-				switch($d[tipus]){
+				switch($d['tipus']){
 					case 'recall':
 						echo '<i style="width:15px;" class="fa fa-phone"></i>';
 					break;
@@ -78,27 +78,27 @@
 					break;
 				}
 			?>
-			<?=$d[uzenet_targy]?>
-			<? if($d[felado_email] != '' && !$d[valaszolva]){ echo ' - <span style="color:#FF0000;">E-mail válaszra vár!</span>'; } ?>
+			<?=$d['uzenet_targy']?>
+			<? if($d['felado_email'] != '' && !$d['valaszolva']){ echo ' - <span style="color:#FF0000;">E-mail válaszra vár!</span>'; } ?>
 			</strong></td>
-			<td align="center"><?=\PortalManager\Formater::dateFormat($d[elkuldve], $this->settings['date_format'])?></td>
+			<td align="center"><?=\PortalManager\Formater::dateFormat($d['elkuldve'], $this->settings['date_format'])?></td>
 			<td align="center">
-				<? if($d[valaszolva]): ?>
+				<? if($d['valaszolva']): ?>
 					<i class="fa fa-check" style="font-size:20px; color:green;"></i>
-					<div><?=\PortalManager\Formater::dateFormat($d[valaszolva], $this->settings['date_format'])?></div>
+					<div><?=\PortalManager\Formater::dateFormat($d['valaszolva'], $this->settings['date_format'])?></div>
 				<? else: ?>
-					<?=\PortalManager\Formater::dateFormat($d[valaszolva], $this->settings['date_format'])?>
+					<?=\PortalManager\Formater::dateFormat($d['valaszolva'], $this->settings['date_format'])?>
 				<? endif; ?>
 			</td>
 			<td align="center">
-				<? if($d[archivalva] == '1'): ?>
-					<i class="fa fa-check vtgl" title="Archiválás megszüntetése" tid="<?=$d[ID]?>"></i>
+				<? if($d['archivalva'] == '1'): ?>
+					<i class="fa fa-check vtgl" title="Archiválás megszüntetése" tid="<?=$d['ID']?>"></i>
 				<? else: ?>
-					<i class="fa fa-times vtgl" title="Archiválás" tid="<?=$d[ID]?>"></i>
+					<i class="fa fa-times vtgl" title="Archiválás" tid="<?=$d['ID']?>"></i>
 				<? endif; ?>
 			</td>
 			<td class="center">
-				<a class="btn btn-default btn-sm" href="/<?=$this->gets[0]?>/msg/<?=$d[ID]?>"><i class="fa fa-eye"></i></a>
+				<a class="btn btn-default btn-sm" href="/<?=$this->gets['0']?>/msg/<?=$d['ID']?>"><i class="fa fa-eye"></i></a>
 			</td>
         </tr>
         <? endforeach; else: ?>
@@ -162,11 +162,11 @@
 <? endif; ?>
 </form>
 <ul class="pagination">
-  <li><a href="/<?=$this->gets[0]?>/<?=($this->gets[1] != '')?$this->gets[1].'/':'-/'?>1">&laquo;</a></li>
-  <? for($p = 1; $p <= $this->uzenetek[info][pages][max]; $p++): ?>
-  <li class="<?=(Helper::currentPageNum() == $p)?'active':''?>"><a href="/<?=$this->gets[0]?>/<?=($this->gets[1] != '')?$this->gets[1].'/':'-/'?><?=$p?>"><?=$p?></a></li>
+  <li><a href="/<?=$this->gets['0']?>/<?=($this->gets['1'] != '')?$this->gets['1'].'/':'-/'?>1">&laquo;</a></li>
+  <? for($p = 1; $p <= $this->uzenetek['info']['pages']['max']; $p++): ?>
+  <li class="<?=(Helper::currentPageNum() == $p)?'active':''?>"><a href="/<?=$this->gets['0']?>/<?=($this->gets['1'] != '')?$this->gets['1'].'/':'-/'?><?=$p?>"><?=$p?></a></li>
   <? endfor; ?>
-  <li><a href="/<?=$this->gets[0]?>/<?=($this->gets[1] != '')?$this->gets[1].'/':'-/'?><?=$this->uzenetek[info][pages][max]?>">&raquo;</a></li>
+  <li><a href="/<?=$this->gets['0']?>/<?=($this->gets['1'] != '')?$this->gets['1'].'/':'-/'?><?=$this->uzenetek['info']['pages']['max']?>">&raquo;</a></li>
 </ul>
 <? endif; ?>
 

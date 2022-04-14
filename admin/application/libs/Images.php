@@ -4,31 +4,31 @@ class Images
     public static $lang = null;
     /*
     $arg
-    + src[String]				: A forrása a feltöltött fájloknak ($_FILE[?])
-    + upDir[String]				: A képek mentésének helye.
+    + src['String']				: A forrása a feltöltött fájloknak ($_FILE[?])
+    + upDir['String']				: A képek mentésének helye.
     - required[0|1] 			: Kötelező a kép feltöltése, vagy sem. (1 = kötelező)
-    - text[String]				: A feltöltött mező referencia neve hibaüzenetben.
+    - text['String']				: A feltöltött mező referencia neve hibaüzenetben.
     - noRoot[true|false-] 		: true -> nem sorolja be almappákba
     - makeThumbImg[true|false-] : true -> készítsen bélyegképeket
     - makeWaterMark[true|false-]: true -> készítsen vízjelet a képre
-    - fileName[String]  		: true Str -> A kép neve ez lesz.
-    - maxFileSize[Int] 			: Maximálisan engedélyezett fájlméret képenként.
-    - imgLimit[Int]             : Max. ennyi fájlt tölt fel.
+    - fileName['String']  		: true Str -> A kép neve ez lesz.
+    - maxFileSize['Int'] 			: Maximálisan engedélyezett fájlméret képenként.
+    - imgLimit['Int']             : Max. ennyi fájlt tölt fel.
 
     */
     public static function upload($arg = array())
     {
-        $si    = $arg[src];
+        $si    = $arg['src'];
         $file  = true;
-        $dir   = $arg[upDir];
+        $dir   = $arg['upDir'];
         $src   = $_FILES[$si];
         $noDir = false;
 
 
         self::$lang = $arg['lang'];
 
-        if ($arg[mod] == "add") { // Kiegészítő
-            $dir = $arg[tDir];
+        if ($arg['mod'] == "add") { // Kiegészítő
+            $dir = $arg['tDir'];
         }
 
 
@@ -38,18 +38,18 @@ class Images
         }
 
         if (!file_exists($dir)) {
-            if ($arg[mod] != "add") {
+            if ($arg['mod'] != "add") {
                 throw new \Exception(sprintf(self::$lang['lng_image_root_not_valid'], $dir));
-            } else if ($arg[mod] == "add") {
+            } else if ($arg['mod'] == "add") {
                 $dir   = substr(IMG, 1) . "uploads/";
                 $noDir = true;
             }
         }
 
-        if ($src[size][0] == 0) {
-            if ($arg[mod] != "add") {
-                if ($arg[required] == 1) {
-                    throw new \Exception(sprintf(self::$lang['lng_image_notfile_uploaded'], $arg[text]));
+        if ($src['size']['0'] == 0) {
+            if ($arg['mod'] != "add") {
+                if ($arg['required'] == 1) {
+                    throw new \Exception(sprintf(self::$lang['lng_image_notfile_uploaded'], $arg['text']));
                 } else {
                     $file = false;
                 }
@@ -59,7 +59,7 @@ class Images
             $te        = -1;
             $errOfType = '';
             $fn        = 0;
-            foreach ($src[type] as $ftt) {
+            foreach ($src['type'] as $ftt) {
                 $te++;
                 $fn++;
                 // Fájlformátum ellenőrzés
@@ -68,22 +68,22 @@ class Images
                     'image/png',
                     'image/jpeg'
                 ))) {
-                    $errOfType .= sprintf(self::$lang['lng_image_not_valid_fileformat'], 'jpg, png', $src[name][$te]);
+                    $errOfType .= sprintf(self::$lang['lng_image_not_valid_fileformat'], 'jpg, png', $src['name'][$te]);
                 }
 
                 // Fájlméret ellenőrzés - ADD: 2013/07
-                if ($arg[maxFileSize]) {
-                    $fileKb = ceil($src[size][$te] / 1024);
-                    if ($fileKb > $arg[maxFileSize]) {
-                        $errOfType .= sprintf(self::$lang['lng_image_not_allowed_filesize'], $fileKb, $arg[maxFileSize], $src[name][$te]);
+                if ($arg['maxFileSize']) {
+                    $fileKb = ceil($src['size'][$te] / 1024);
+                    if ($fileKb > $arg['maxFileSize']) {
+                        $errOfType .= sprintf(self::$lang['lng_image_not_allowed_filesize'], $fileKb, $arg['maxFileSize'], $src['name'][$te]);
                     }
                 }
             }
 
             // Darabszám
-            if ($arg[imgLimit] > 0) {
-                if ($fn > $arg[imgLimit]) {
-                    $errOfType .= sprintf(self::$lang['lng_image_not_allowed_filenumber'], $arg[imgLimit]);
+            if ($arg['imgLimit'] > 0) {
+                if ($fn > $arg['imgLimit']) {
+                    $errOfType .= sprintf(self::$lang['lng_image_not_allowed_filenumber'], $arg['imgLimit']);
                 }
             }
 
@@ -92,9 +92,9 @@ class Images
             }
 
             // Minden szükséges adat megvan
-            if ($arg[mod] != "add" || $noDir) {
+            if ($arg['mod'] != "add" || $noDir) {
                 #Random mappa név
-                if (!$arg[noRoot]) {
+                if (!$arg['noRoot']) {
                     $dh = self::sHash(7);
                 }
                 # Feltötendő képek mappája
@@ -113,20 +113,20 @@ class Images
 
             $step = -1;
 
-            foreach ($src[tmp_name] as $tmp) {
+            foreach ($src['tmp_name'] as $tmp) {
                 $step++;
                 usleep(020000); // 0.2 mp várakozás
 
                 $mt       = explode(" ", str_replace(".", "", microtime()));
                 $hash     = self::sHash(7);
                 // Fájlnév kiterjesztés nélkül
-                $fls      = $hash . $mt[0];
+                $fls      = $hash . $mt['0'];
                 // Fájlnév kiterjesztéssel
                 $fileName = $fls . '.jpg';
 
                 if (isset($arg['fileName'])) {
-                    $fls      = $arg[fileName] . '__' . $mt[0];
-                    $fileName = $fls . "." . pathinfo($src[name][$step], PATHINFO_EXTENSION);
+                    $fls      = $arg['fileName'] . '__' . $mt['0'];
+                    $fileName = $fls . "." . pathinfo($src['name'][$step], PATHINFO_EXTENSION);
                 }
 
                 $fln = $fileName;
@@ -138,13 +138,13 @@ class Images
                 move_uploaded_file($tmp, $updir . $fln);
 
                 // Bélyegképek
-                if ($arg[makeThumbImg]) {
+                if ($arg['makeThumbImg']) {
                   self::makeThumbnail($updir . $fln, $updir, $fls, 'thb300_', 300);
                   self::makeThumbnail($updir . $fln, $updir, $fls, 'thb150_', 150);
                 }
 
                 // Vízjelezés
-                if ($arg[makeWaterMark]) {
+                if ($arg['makeWaterMark']) {
                     $kep = $updir . $fln;
                     self::makeWatermarkedImage(WATERMARK_IMG, $kep, 'középen');
                 }
@@ -301,7 +301,7 @@ class Images
 
     public static function thumbImg($img, $arg = array())
     {
-        $square_size = ($arg[s]) ? $arg[s] : 100;
+        $square_size = ($arg['s']) ? $arg['s'] : 100;
         $cacheTime   = 60 * 60 * 24;
 
         if (substr($img, 0, 4) != 'http')
@@ -310,8 +310,8 @@ class Images
             }
         // get width and height of original image
         $imagedata       = getimagesize($img);
-        $original_width  = $imagedata[0];
-        $original_height = $imagedata[1];
+        $original_width  = $imagedata['0'];
+        $original_height = $imagedata['1'];
 
         if ($original_width > $original_height) {
             $new_height = $square_size;

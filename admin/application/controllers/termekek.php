@@ -24,7 +24,7 @@ class termekek extends Controller
 				$this->view->bmsg= Helper::makeAlertMsg('pSuccess', $_GET['msg']);
 			}
 
-			if ($this->gets[1] == '' || is_numeric($this->gets[1]))
+			if ($this->gets['1'] == '' || is_numeric($this->gets['1']))
 			{
 				// Kategóriák
 				$cats = new Categories(  array( 'db' => $this->db )  );
@@ -33,7 +33,7 @@ class termekek extends Controller
 				if(Post::on('actionSaving')){
 					try{
 						$arg = array();
-						$re = $this->AdminUser->doAction($_POST[selectAction], 'action_', $arg);
+						$re = $this->AdminUser->doAction($_POST['selectAction'], 'action_', $arg);
 						/*echo '<pre>';
 						print_r($_POST);
 						echo '</pre>';*/
@@ -48,89 +48,89 @@ class termekek extends Controller
 					$filtered = false;
 
 					if($_POST['ID'] != ''){
-						setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_ID',$_POST['ID'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['cikkszam'] != ''){
-						setcookie('filter_cikkszam',$_POST['cikkszam'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_cikkszam',$_POST['cikkszam'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 
 					if($_POST['szin'] != ''){
-						setcookie('filter_szin',$_POST['szin'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_szin',$_POST['szin'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_szin','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_szin','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 
 					if($_POST['meret'] != ''){
-						setcookie('filter_meret',$_POST['meret'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_meret',$_POST['meret'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_meret','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_meret','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['nev'] != ''){
-						setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_nev',$_POST['nev'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['marka'] != ''){
-						setcookie('filter_marka',$_POST['marka'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_marka',$_POST['marka'],time()+60*24,'/'.$this->view->gets['0']);
 							$filtered = true;
 					}else{
-						setcookie('filter_marka','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_marka','',time()-100,'/'.$this->view->gets['0']);
 					}
 					if($_POST['szallitasID'] != ''){
-						setcookie('filter_szallitasID',$_POST['szallitasID'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_szallitasID',$_POST['szallitasID'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['keszletID'] != ''){
-						setcookie('filter_keszletID',$_POST['keszletID'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_keszletID',$_POST['keszletID'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['lathato'] != ''){
-						setcookie('filter_lathato',$_POST['lathato'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_lathato',$_POST['lathato'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_lathato','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_lathato','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($_POST['xml_import_done'] != ''){
-						setcookie('filter_xml_import_done',$_POST['xml_import_done'],time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_xml_import_done',$_POST['xml_import_done'],time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_xml_import_done','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_xml_import_done','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 
 
 					if($_POST['fotermek'] == 'on'){
-						setcookie('filter_fotermek',1,time()+60*24,'/'.$this->view->gets[0]);
+						setcookie('filter_fotermek',1,time()+60*24,'/'.$this->view->gets['0']);
 						$filtered = true;
 					}else{
-						setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets['0']);
 					}
 
 					if($filtered){
-						setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets[0]);
+						setcookie('filtered','1',time()+60*24*7,'/'.$this->view->gets['0']);
 					}else{
-						setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+						setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 					}
 					Helper::reload('/termekek/1');
 				}
@@ -210,17 +210,17 @@ class termekek extends Controller
 		}
 
 		function clearfilters(){
-			setcookie('filter_ID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_nev','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_szin','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_meret','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_lathato','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_marka','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets[0]);
-			setcookie('filtered','',time()-100,'/'.$this->view->gets[0]);
+			setcookie('filter_ID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_cikkszam','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_nev','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_szin','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_meret','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_lathato','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_fotermek','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_marka','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_szallitasID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filter_keszletID','',time()-100,'/'.$this->view->gets['0']);
+			setcookie('filtered','',time()-100,'/'.$this->view->gets['0']);
 			Helper::reload('/termekek/');
 		}
 
@@ -358,10 +358,10 @@ class termekek extends Controller
 			$products = new Products( array( 'db' => $this->db ) );
 			$products->setCRMHandler( $crm );
 
-			switch($this->view->gets[2]){
+			switch($this->view->gets['2']){
 				case 'del':
 					if(Post::on('delTermId')){
-						$this->AdminUser->delTermek($this->view->gets[3]);
+						$this->AdminUser->delTermek($this->view->gets['3']);
 						Helper::reload('/termekek/-/1');
 					}
 				break;
@@ -371,7 +371,7 @@ class termekek extends Controller
 
 					if(Post::on('copyTermek')){
 						try{
-							$re = $this->AdminUser->copyTermek($_POST[tid],$_POST[copyNum]);
+							$re = $this->AdminUser->copyTermek($_POST['tid'],$_POST['copyNum']);
 							$this->view->copyMsg	= Helper::makeAlertMsg('pSuccess', $re);
 						}catch(Exception $e){
 							$this->view->err 	= true;
@@ -384,7 +384,7 @@ class termekek extends Controller
 						try{
 							// Termék adatok mentése
 							$save = $products->save( (new Product( array( 'db' => $this->db ) ))
-								->setId( $this->view->gets[3] )
+								->setId( $this->view->gets['3'] )
 								->setData( array(
 								'cikkszam' => $_POST['cikkszam'],
 								'nev' => $_POST['nev'],
@@ -439,7 +439,7 @@ class termekek extends Controller
 								'meta_desc' => $_POST['meta_desc'],
 								'crm' => $_POST['crm'],
 							) ) );
-							Helper::reload( '/termekek/t/edit/'.$this->view->gets[3].'/?backmsg=success&msg='.$save);
+							Helper::reload( '/termekek/t/edit/'.$this->view->gets['3'].'/?backmsg=success&msg='.$save);
 						} catch (Exception $e){
 							$this->view->err 	= true;
 							$this->view->bmsg 	= Helper::makeAlertMsg('pError', $e->getMessage());
@@ -448,7 +448,7 @@ class termekek extends Controller
 
 					// Termék adatainak lekérése
 					$this->out( 'products', $products );
-					$this->out( 'termek', $products->get( $this->view->gets[3] ) );
+					$this->out( 'termek', $products->get( $this->view->gets['3'] ) );
 					if ( $this->view->termek['related_products_ids'] ) {
 						$termek_kapcsolatok = new Products( array( 'db' => $this->db ) );
 						$termek_kapcsolatok = $termek_kapcsolatok->prepareList( array(
@@ -476,9 +476,9 @@ class termekek extends Controller
 					if(Post::on('uploadImg')){
 						$folder 	= '';
 						$firstImg 	= false;
-						$tid 		= $_POST[tid];
+						$tid 		= $_POST['tid'];
 
-						$folder 	= ( $_POST['dir'] ) ?: 'src/products/p'.$this->view->gets[3];
+						$folder 	= ( $_POST['dir'] ) ?: 'src/products/p'.$this->view->gets['3'];
 						$firstImg 	= true;
 
 						if(!file_exists($folder)){
@@ -489,7 +489,7 @@ class termekek extends Controller
 
 						try{
 							$mt = explode(" ",str_replace(".","",microtime()));
-							$imgName = Helper::makeSafeUrl($products->getManufacturName($tdata[marka]).'-'.$tdata[nev], '__'.date('YmdHis').$mt[0]);
+							$imgName = Helper::makeSafeUrl($products->getManufacturName($tdata['marka']).'-'.$tdata['nev'], '__'.date('YmdHis').$mt['0']);
 
 							$rei = Images::upload(array(
 								'src' 		=> 'img',
@@ -532,19 +532,19 @@ class termekek extends Controller
 							$v = $pd;
 
 							if(is_null($v) || $v == ''){
-								$this->db->query("DELETE FROM shop_termek_parameter WHERE termekID = {$_POST[tid]} and parameterID = $pid");
+								$this->db->query("DELETE FROM shop_termek_parameter WHERE termekID = {$_POST['tid']} and parameterID = $pid");
 							}else{
-								if($this->db->query("SELECT id FROM shop_termek_parameter WHERE termekID = {$_POST[tid]} and parameterID = $pid")->rowCount() > 0){
+								if($this->db->query("SELECT id FROM shop_termek_parameter WHERE termekID = {$_POST['tid']} and parameterID = $pid")->rowCount() > 0){
 									$this->db->update('shop_termek_parameter',
 									array(
 										'ertek' => $v
 									),
-									"termekID = {$_POST[tid]} and parameterID = $pid and katID = {$_POST[kid]}");
+									"termekID = {$_POST['tid']} and parameterID = $pid and katID = {$_POST['kid']}");
 								}else{
 									$this->db->insert('shop_termek_parameter',
 									array(
-										'termekID' 		=> $_POST[tid],
-										'katID' 		=> $_POST[kid],
+										'termekID' 		=> $_POST['tid'],
+										'katID' 		=> $_POST['kid'],
 										'parameterID' 	=> $pid,
 										'ertek' 		=> addslashes($v)
 									));
@@ -576,8 +576,8 @@ class termekek extends Controller
 				break;
 				case 'delListingFromKat':
 					if(Post::on('delKatItemID')){
-						$this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID = {$_POST[delKatItemID]}");
-						Helper::reload('/termekek/t/edit/'.$this->view->gets[4]);
+						$this->db->query("DELETE FROM shop_termek_in_kategoria WHERE ID = {$_POST['delKatItemID']}");
+						Helper::reload('/termekek/t/edit/'.$this->view->gets['4']);
 					}
 				break;
 			}
@@ -588,7 +588,7 @@ class termekek extends Controller
 
 			$products = new Products( array( 'db' => $this->db ) );
 
-			$ids = explode("|", $this->view->gets[2]);
+			$ids = explode("|", $this->view->gets['2']);
 			$this->out( 'ids', $ids );
 
 
@@ -608,7 +608,7 @@ class termekek extends Controller
 
 				try{
 					$mt = explode(" ",str_replace(".","",microtime()));
-					$imgName = 'productimg__'.date('YmdHis').$mt[0];
+					$imgName = 'productimg__'.date('YmdHis').$mt['0'];
 
 					$rei = Images::upload(array(
 						'src' 		=> 'img',
@@ -666,7 +666,7 @@ class termekek extends Controller
 			}
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delSzallitasMod($this->view->gets[3]);
+					$this->AdminUser->delSzallitasMod($this->view->gets['3']);
 					Helper::reload('/termekek/szallitasi_mod');
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -674,8 +674,8 @@ class termekek extends Controller
 				}
 			}
 
-			if($this->view->gets[2] == 'szerkeszt'){
-				$this->view->sm = $this->AdminUser->getSzallitasModData($this->view->gets[3]);
+			if($this->view->gets['2'] == 'szerkeszt'){
+				$this->view->sm = $this->AdminUser->getSzallitasModData($this->view->gets['3']);
 			}
 
 
@@ -704,7 +704,7 @@ class termekek extends Controller
 			}
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delFizetesiMod($this->view->gets[3]);
+					$this->AdminUser->delFizetesiMod($this->view->gets['3']);
 					Helper::reload('/termekek/fizetesi_mod');
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -712,8 +712,8 @@ class termekek extends Controller
 				}
 			}
 
-			if($this->view->gets[2] == 'szerkeszt'){
-				$this->view->sm = $this->AdminUser->getFizetesiModData($this->view->gets[3]);
+			if($this->view->gets['2'] == 'szerkeszt'){
+				$this->view->sm = $this->AdminUser->getFizetesiModData($this->view->gets['3']);
 			}
 
 
@@ -742,7 +742,7 @@ class termekek extends Controller
 			}
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delTermekAllapot($this->view->gets[3]);
+					$this->AdminUser->delTermekAllapot($this->view->gets['3']);
 					Helper::reload('/termekek/termek_allapotok');
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -750,8 +750,8 @@ class termekek extends Controller
 				}
 			}
 
-			if($this->view->gets[2] == 'szerkeszt'){
-				$this->view->sm = $this->AdminUser->getTermekAllapotData($this->view->gets[3]);
+			if($this->view->gets['2'] == 'szerkeszt'){
+				$this->view->sm = $this->AdminUser->getTermekAllapotData($this->view->gets['3']);
 			}
 
 
@@ -778,7 +778,7 @@ class termekek extends Controller
 			}
 			if(Post::on('delId')){
 				try{
-					$this->AdminUser->delSzallitasIdo($this->view->gets[3]);
+					$this->AdminUser->delSzallitasIdo($this->view->gets['3']);
 					Helper::reload('/termekek/szallitasi_ido');
 				}catch(Exception $e){
 					$this->view->err 	= true;
@@ -786,8 +786,8 @@ class termekek extends Controller
 				}
 			}
 
-			if($this->view->gets[2] == 'szerkeszt'){
-				$this->view->sm = $this->AdminUser->getSzallitasIdoData($this->view->gets[3]);
+			if($this->view->gets['2'] == 'szerkeszt'){
+				$this->view->sm = $this->AdminUser->getSzallitasIdoData($this->view->gets['3']);
 			}
 
 			$this->view->n = $this->AdminUser->getSzallitasIdoList();
@@ -903,12 +903,12 @@ class termekek extends Controller
 
 			if ( $_GET['checkurl']) {
 				$header = @get_headers( $_GET['checkurl'], 1 );
-				$header['header_code'] = substr( $header[0], 9, 3 );
+				$header['header_code'] = substr( $header['0'], 9, 3 );
 
 				$this->out( 'url_result',  $header );
 			}
 
-			if ( $this->view->gets[2] == 'preview' ) {
+			if ( $this->view->gets['2'] == 'preview' ) {
 				// Lista Típusa
 				$ext = pathinfo( $_GET['file'], PATHINFO_EXTENSION );
 
@@ -926,17 +926,17 @@ class termekek extends Controller
 							foreach ( $article->variants as $variant ) {
 								$in = array();
 
-								$in[articleid] = $article->article->articleid;
-								$in[name] = $article->article->name;
-								$in[number] = $article->article->number;
-								$in[supplier_articlenumber] = $article->article->supplier_articlenumber;
-								$in[description] = $article->article->description;
-								$in[variantid] = $variant->variantid;
-								$in[color_number] = $variant->color_number;
-								$in[color_name] = $variant->color_name;
-								$in[size_name] = $variant->size;
-								$in[netprice] = $variant->netprice;
-								$in[grossprice] = $variant->grossprice;
+								$in['articleid'] = $article->article->articleid;
+								$in['name'] = $article->article->name;
+								$in['number'] = $article->article->number;
+								$in['supplier_articlenumber'] = $article->article->supplier_articlenumber;
+								$in['description'] = $article->article->description;
+								$in['variantid'] = $variant->variantid;
+								$in['color_number'] = $variant->color_number;
+								$in['color_name'] = $variant->color_name;
+								$in['size_name'] = $variant->size;
+								$in['netprice'] = $variant->netprice;
+								$in['grossprice'] = $variant->grossprice;
 
 								$cats = array();
 								if( count( $article->categories ) > 0){
@@ -944,7 +944,7 @@ class termekek extends Controller
 										$cats[] = $cat->category;
 									}
 								}
-								$in[categories] = $cats;
+								$in['categories'] = $cats;
 
 								$repaired_articles[] = $in;
 							}
@@ -1012,8 +1012,8 @@ class termekek extends Controller
 			// Nagyker árlista
 			$this->view->arlista = $this->AdminUser->getNagykerArlista();
 
-			if( $_GET[path] != '' )
-			$this->view->csv = CSVParser::GET( $_GET[path] );
+			if( $_GET['path'] != '' )
+			$this->view->csv = CSVParser::GET( $_GET['path'] );
 		}
 
 		public function csoportmodosito()

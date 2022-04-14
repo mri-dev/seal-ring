@@ -13,11 +13,11 @@
 <div class="recall">
 	<h3><i class="fa fa-phone"></i> Visszahívás kérése</h3>
     <div class="cont">
-		<? if($this->t[data]): ?>
+		<? if($this->t['data']): ?>
      	<h4>Kapcsolódó termék</h4>
     	<div class="termek">
             <div>
-				<strong><?=$this->t[data][nev]?></strong> 
+				<strong><?=$this->t['data']['nev']?></strong> 
            	</div>
         </div>
         <br>
@@ -27,19 +27,19 @@
         
         <div class="form">
         	<form action="" method="post">
-            <input type="hidden" name="tid" value="<?=$this->t[data][ID]?>" />
+            <input type="hidden" name="tid" value="<?=$this->t['data']['ID']?>" />
         	<h4>Adatok megadása</h4>
                 <div class="row">
                     <div class="col-md-6">
                     	<div class="input-group">
                         	<span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        	<input type="text" name="nev" class="form-control" placeholder="Az Ön neve..." value="<?=($this->user)?$this->user[data][nev]:''?>">
+                        	<input type="text" name="nev" class="form-control" placeholder="Az Ön neve..." value="<?=($this->user)?$this->user['data']['nev']:''?>">
                         </div>
                     </div>
                     <div class="col-md-6">
                     	<div class="input-group">
                         	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        	<input type="text" name="phone" class="form-control" placeholder="Telefonszáma..." value="<?=($this->user)?$this->user[data][szallitas_phone]:''?>">
+                        	<input type="text" name="phone" class="form-control" placeholder="Telefonszáma..." value="<?=($this->user)?$this->user['data']['szallitas_phone']:''?>">
                         </div>
                     </div>
                 </div>

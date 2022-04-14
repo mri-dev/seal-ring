@@ -17,7 +17,7 @@ class Portal
 	function __construct( $arg = array() )
 	{
 		$this->db = $arg['db'];
-		$this->settings = $arg[view]->settings;
+		$this->settings = $arg['view']->settings;
 	}
 
 	public function logPageVisit()
@@ -236,7 +236,7 @@ class Portal
 
 	public function addHighlight( $post )
 	{
-		unset($post[__FUNCTION__]);
+		unset($post['__FUNCTION__']);
 
 		if ( $post['tartalom'] == '') {
 			throw new \Exception("Ajánló tartalmi szövegét megadni kötelező!");
@@ -255,7 +255,7 @@ class Portal
 
 	public function saveHighlight( $id, $post )
 	{
-		unset($post[__FUNCTION__]);
+		unset($post['__FUNCTION__']);
 
 		if ( $post['tartalom'] == '') {
 			throw new \Exception("Ajánló tartalmi szövegét megadni kötelező!");
@@ -304,8 +304,8 @@ class Portal
 		WHERE 			f.ID IS NOT NULL
 		";
 
-		if(count($arg[filters]) > 0){
-			foreach($arg[filters] as $key => $v){
+		if(count($arg['filters']) > 0){
+			foreach($arg['filters'] as $key => $v){
 				switch($key)
 				{
 					case 'hely':

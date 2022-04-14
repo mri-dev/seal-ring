@@ -7,7 +7,7 @@ class csv extends Controller{
 		}
 		
 		function sprinter_transport(){
-			$orderKeyStr 	= $this->view->gets[2];
+			$orderKeyStr 	= $this->view->gets['2'];
 
 			$multi_order = array();
 			$multi_order = explode( ',', $orderKeyStr );
@@ -54,21 +54,21 @@ class csv extends Controller{
 			foreach ($multi_order as $orderKey) {
 				$order 		= $this->AdminUser->getOrderData($orderKey);
 			
-				if(!$order[azonosito]){ continue; }
+				if(!$order['azonosito']){ continue; }
 							
-				$szall = json_decode($order[szallitasi_keys],true);
+				$szall = json_decode($order['szallitasi_keys'],true);
 				
 				$utanvetel = $order['utanvatel_osszeg'];
 				
 				// Adat
 				$fields[] = array(
-					$szall[nev],
-					$szall[nev],
-					$szall[irsz],	
-					$szall[city],	
-					$szall[uhsz],	
-					$szall[phone],	
-					$order[email],	
+					$szall['nev'],
+					$szall['nev'],
+					$szall['irsz'],	
+					$szall['city'],	
+					$szall['uhsz'],	
+					$szall['phone'],	
+					$order['email'],	
 					'',	
 					'',	
 					'',	
@@ -88,20 +88,20 @@ class csv extends Controller{
 					'',	
 					'',	
 					'',	
-					$order[comment], //Instrukció, megjegyzés
+					$order['comment'], //Instrukció, megjegyzés
 					'',	
 					'',	
 					'AEN'
 				);
 
 				/*$fields[] = array(
-					$order[azonosito],
-					$szall[nev], 
-					$order[email], 
-					$szall[phone], 
-					$szall[irsz],
-					$szall[city],
-					$szall[uhsz]
+					$order['azonosito'],
+					$szall['nev'], 
+					$order['email'], 
+					$szall['phone'], 
+					$szall['irsz'],
+					$szall['city'],
+					$szall['uhsz']
 				);*/
 			}
 
@@ -117,19 +117,19 @@ class csv extends Controller{
 
 		public function postapont()
 		{
-			$orderKey 	= $this->view->gets[2];
+			$orderKey 	= $this->view->gets['2'];
 			$order 		= $this->AdminUser->getOrderData($orderKey);
 
-			if(!$order[azonosito]){
+			if(!$order['azonosito']){
 				return false;
 			}
 			
-			$file_name = 'postapont'.'__'.Helper::makeSafeUrl($order[nev], '_-'.$order[azonosito].'-_-'.$order[email].'-__'.time());
+			$file_name = 'postapont'.'__'.Helper::makeSafeUrl($order['nev'], '_-'.$order['azonosito'].'-_-'.$order['email'].'-__'.time());
 						
-			$szall = json_decode($order[szallitasi_keys],true);
+			$szall = json_decode($order['szallitasi_keys'],true);
 
 			$pp = explode('(', $order['postapont']);
-			$postapont_nev = trim($pp[0]);
+			$postapont_nev = trim($pp['0']);
 
 			//sorszam
 			//nev

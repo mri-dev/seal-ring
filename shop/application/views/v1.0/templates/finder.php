@@ -16,7 +16,7 @@
   </div>
   <div class="contents">
     <div class="cont-simple" ng-show="(findernavpos=='simple')">
-      <form class="" action="/termekek/<?=($this->gets[1] != '')?$this->gets[1]:''?>" method="get">
+      <form class="" action="/termekek/<?=($this->gets['1'] != '')?$this->gets['1']:''?>" method="get">
       <div class="wrapper">
           <div class="left-side">
             <div class="src">

@@ -5,10 +5,10 @@ $url 	= 'http://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 // Ne jelenjen meg
 /////////////////////
 // Kosár
-if( $this->gets[0] == 'kosar') $show = false;
-if( $this->gets[0] == 'user' && $this->gets[1] != 'referring') $show = false;
+if( $this->gets['0'] == 'kosar') $show = false;
+if( $this->gets['0'] == 'user' && $this->gets['1'] != 'referring') $show = false;
 
-if ($this->gets[0] == 'user' && $this->gets[1] == 'referring') {
+if ($this->gets['0'] == 'user' && $this->gets['1'] == 'referring') {
 	$url 	= $this->settings['domain'] . '/casada_termek_0ft';
 	if ($this->user) {
 		$url .= '?partner='.$this->user['data']['refererID'];
