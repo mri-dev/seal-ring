@@ -33,6 +33,8 @@ class app extends Controller{
 			$arg['archivalt'] = 0;
 			$arg['filters']['csv_export_generated'] = 1;
 			$arg['exc_orderstatus'] = array(13); // 13 = törölve
+			$arg['langkey_in'] = ['hu']; 
+
 			$orders = $this->AdminUser->getMegrendelesek($arg);
 			$fiz_mods = array(
 				'Készpénz' => 1,

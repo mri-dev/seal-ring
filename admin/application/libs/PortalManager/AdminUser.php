@@ -292,6 +292,11 @@ class AdminUser
 			$q .= " and o.archivalt ='".$arg['archivalt']."'";
 		}
 
+		if ( isset($arg['langkey_in']) && is_array($arg['langkey_in']) && !empty($arg['langkey_in']) )
+		{
+			$q .= " and o.langkey IN ('".implode("','", $arg['langkey_in'])."')";
+		}
+
 		if (isset($arg['onlyreferer']))
 		{
 			$q .= " and o.referer_code IS NOT NULL ";

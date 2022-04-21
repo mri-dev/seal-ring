@@ -478,7 +478,7 @@
 				              <form class="" action="/termekek/<?=($this->gets['0'] == 'termekek' && $this->gets['1'] != '')?$this->gets['1']:''?>" method="get">
 				                <div class="wrapper">
 				                  <div class="input">
-				                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="TERMÉK NÉV / CIKKSZÁM">
+				                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="<?=__('TERMÉK NÉV / CIKKSZÁM')?>">
 				                  </div>
 				                  <div class="button">
 				                    <button type="submit"><i class="fa fa-search"></i></button>
