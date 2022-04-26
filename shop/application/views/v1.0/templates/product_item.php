@@ -36,7 +36,7 @@
       </div>
 		</div>
     <div class="title">
-      <h3><a title="<?=$product_nev?>" href="<?=$link?>"><?=$product_nev?></a></h3>
+      <h3><a title="<?=__($product_nev)?>" href="<?=$link?>"><?=__($product_nev)?></a></h3>
       <div class="subtitle"><?=__($csoport_kategoria)?></div>
     </div>
     <?php if ($show_variation): ?>

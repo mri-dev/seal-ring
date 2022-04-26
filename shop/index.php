@@ -32,15 +32,16 @@
     }
     */
 
-	global $langs;
+	global $langs, $langfilters;
 	$langs = @file_get_contents( LANG_FOLDER . \Lang::getLang().'/lang.txt' );
+	$langfilters = \Lang::getFilters( $langs );
 
 	$start = new Start();
 
 	function __( $text, $root = '')
 	{
-		global $langs;
-		return \Lang::content( $text, $langs );
+		global $langs, $langfilters;
+		return \Lang::content( $text, $langs, $langfilters );
 	}
 
 	/** URL rewrite */

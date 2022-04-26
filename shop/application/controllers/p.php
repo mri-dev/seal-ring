@@ -16,7 +16,6 @@ class p extends Controller{
 				$this->out( 'parent', $parent->get( $top_id ) );
 				//$this->out( 'menu', $page->getTree( $this->view->page->getParentId() ) );
 				$this->out( 'menu', $page->getTree( $top_id ) );
-
 			} else {
 				Helper::reload('/');
 			}

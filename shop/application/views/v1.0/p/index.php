@@ -44,12 +44,11 @@
     $(function(){
         var url_anchor = window.location.hash.substring( 1 );
 
-        if( url_anchor != '' && typeof url_anchor !== 'undefined' ) {
+        if( url_anchor != '' && typeof url_anchor !== 'undefined' ) 
+        {
             $('.product-feature-table .feature').addClass( 'bind-overlay' );
-
             $('.product-feature-table .feature.'+url_anchor).removeClass( 'bind-overlay' );
         }
-
     })
 </script>
 <? else: ?>

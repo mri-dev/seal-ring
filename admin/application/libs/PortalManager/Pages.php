@@ -308,8 +308,18 @@ class Pages
 
 		if( $top_page_qry->rowCount() == 0 ) return $this;
 
-		foreach ( $top_page_data as $top_page ) {
-			$this->tree_items++;
+		foreach ( $top_page_data as $top_page ) 
+		{
+			$this->tree_items++;			
+			if( \Lang::getLang() !== constant('DLANG') )
+			{
+				$translates = $this->db->getTranslateContents( 'oldalak', $top_page['ID'], \Lang::getLang());
+				if( !empty($translates['cim']) )
+				{
+					$top_page['cim'] = $translates['cim']['content'];
+				}
+			}
+
 			$this->tree_steped_item[] = $top_page;
 
 			// Aloldalak betöltése
