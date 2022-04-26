@@ -1039,6 +1039,7 @@ class Users
 			unset($data['data']['felhasznalok']['jelszo']);
 		}
 
+		$data['data']['felhasznalok']['nev'] = addslashes($data['data']['felhasznalok']['nev']);
 
 		$this->db->update(
 			self::TABLE_NAME,
@@ -1047,6 +1048,7 @@ class Users
 		);
 
 		foreach ($data['data']['felhasznalo_adatok'] as $key => $value ) {
+			$value = addslashes($value);
 			$this->editAccountDetail($uid, $key, $value);
 		}
 
