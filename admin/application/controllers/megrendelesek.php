@@ -1,6 +1,5 @@
 <?
 use PortalManager\Admin;
-use ProductManager\Products;
 use Applications\Cetelem;
 
 class megrendelesek extends Controller

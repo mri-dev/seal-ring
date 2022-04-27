@@ -1,5 +1,26 @@
 <?php
-  class Lang{
+  class Lang
+	{
+		private $builder; 
+		private $builder_filters;
+
+		public function builder( $targetlang = 'hu' )
+		{
+			$this->builder = @file_get_contents( constant('LANG_FOLDER') . $targetlang.'/lang.txt' );
+			$this->builder_filters = self::getFilters( $this->builder );
+
+			return $this;
+		}
+
+		public function get( $text = '' )
+		{
+			if( $this->builder )
+			{
+				return self::content( $text, $this->builder, $this->builder_filters );
+			} else {
+				return $text;
+			}
+		}
 	
 		public static function content( $string, $ctx, $filters = [] )
 		{

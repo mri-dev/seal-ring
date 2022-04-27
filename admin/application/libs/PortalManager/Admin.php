@@ -818,12 +818,16 @@ class Admin
 			"ID = ".$orderID
 		);
 
+
 		// E-mail Értesítő kiküldése
 		// User alert
 		if( isset( $post['alert_email_out'][$orderID] ) )
 		{
 			$orderData = $this->getOrderData($accessKey);
 			extract($orderData);
+			
+			$translator = (new \Lang)->builder( $langkey );
+			// $translator->get('')
 
 			$is_pickpackpont = ( $szallitasiModID == $this->settings['flagkey_pickpacktransfer_id'] ) ? true : false;
 			$is_eloreutalas = ( $fizetesiModID == $this->settings['flagkey_pay_banktransfer'] ) ? true : false;
@@ -840,7 +844,7 @@ class Admin
 
 			$arg = array(
 				'settings' 		=> $this->settings,
-				'infoMsg' 		=> 'Ezt az üzenetet a rendszer küldte. Kérjük, hogy ne válaszoljon rá!',
+				'infoMsg' 		=> $translator->get('Ezt az üzenetet a rendszer küldte. Kérjük, hogy ne válaszoljon rá!'),
 				'nev' 			=> $nev,
 				'email' 		=> $email,
 				'orderData' 	=> $orderData,
@@ -864,10 +868,18 @@ class Admin
 				'allapot' => $allapot,
 				'strKey' => $strKey,
 				'ppp_uzlet_str' => $pickpackpont_uzlet_kod,
+				'langkey' => $langkey,
 			);
 
-			$mail->setSubject( 'Megrendelése megváltozott: '.$orderData['azonosito'] );
-			$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'user_order_changes', $arg ) );
+			$mail->setSubject( $translator->get('Megrendelése megváltozott').': '.$orderData['azonosito'] );
+
+			if( constant('DLANG') != $langkey && file_exists( VIEW . 'templates/mail/user_order_changes_'.$langkey.'.php' ) )
+			{
+				$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'user_order_changes_'.$langkey, $arg ) );
+			} else {
+				$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'user_order_changes', $arg ) );
+			}
+
 			$re = $mail->sendMail();
 		}
 

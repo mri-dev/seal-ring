@@ -277,7 +277,7 @@ Megrendelések
                         <div class="row">
                         	<div class="col-md-9 selectCol"><strong>Szállítási költség (<?=$d["valuta"]?>):</strong></div>
                             <div class="col-md-3">
-                            <input type="number" class="form-control" name="szallitasi_koltseg[<?=$d['ID']?>]" min="0" value="<?=$d['szallitasi_koltseg']?>" />
+                            <input type="number" class="form-control" name="szallitasi_koltseg[<?=$d['ID']?>]" min="0" step="0.1" value="<?=$d['szallitasi_koltseg']?>" />
                             <input type="hidden" value="<?=$d['szallitasi_koltseg']?>" name="prev_szallitasi_koltseg[<?=$d['ID']?>]" />
                             </div>
                         </div>

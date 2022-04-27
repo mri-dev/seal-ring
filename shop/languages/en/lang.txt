@@ -1,3 +1,11 @@
+Összekészítés alatt::Packing in progress;;
+Tételre vár::Waiting for piece;;
+Fizetésre vár::Waiting for paying;;
+Kiszállítás alatt::On delivery;;
+Átvehető::You can pickup;;
+Teljesítve::Finished;;
+Törölve::Deleted;;
+Megrendelése megváltozott::Your order changed;;
 filter:%%-ZÁROSAPKA::%%-CLOSEHAT;;
 filter:%%-ZÁRÓSAPKA::%%-CLOSEHAT;;
 +kulcsszó::+keyword;;
@@ -323,3 +331,5 @@ Leírások::Descriptions;;
 Gyártás::Production;;
 Z 150 X 15 NBR-ZÁRÓSAPKA::Z 150 X 15 NBR-CLOSEHAT;;
 filter:%% ZÁRÓSAPKA::%% CLOSEHAT;;
+Beszerzés alatt::Manufacturing;;
+Szállítási költsége::Shipping costs;;
