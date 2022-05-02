@@ -1,7 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/html4"
-      xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="http://www.facebook.com/2008/fbml" lang="hu-HU" <?=(defined('PILOT_ANGULAR_CALL'))?'ng-app="pilot"':''?>>
+<!DOCTYPE html>
+<html lang="hu-HU" <?=(defined('PILOT_ANGULAR_CALL'))?'ng-app="pilot"':''?>>
 <head>
 	<title><?=$this->title?></title>
     <?=$this->addMeta('robots','index,folow')?>
@@ -104,10 +102,10 @@
 <div id="top" class="container-fluid">
 	<div class="row">
 		<? if(!$this->adm->logged): ?>
-		<div class="col-md-12 center"><img height="34" src="<?=IMG?>logo_white.svg" alt="<?=TITLE?>"></div>
+		<div class="col-md-12 center"><img height="34" src="<?=IMG?>logo_white.svg" alt="<?=constant('TITLE')?>"></div>
 		<? else: ?>
     	<div class="col-md-7 left">
-    		<img height="34" class="top-logo" src="<?=IMG?>logo_white.svg" alt="<?=TITLE?>">
+    		<img height="34" class="top-logo" src="<?=IMG?>logo_white.svg" alt="<?=constant('TITLE')?>">
     		<div class="link">
     			<a href="<?=HOMEDOMAIN?>" target="_blank">www.<?=str_replace(array('https://','www.'), '', $this->settings['page_url'])?></a>
     		</div>

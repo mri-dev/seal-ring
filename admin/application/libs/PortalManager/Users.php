@@ -1372,7 +1372,7 @@ class Users
 		$mail = new Mailer( $this->settings['page_title'], SMTP_USER, $this->settings['mail_sender_mode'] );
 		$mail->add( $this->settings['alert_email'] );
 
-		if( DEVMODE === false ){
+		if( constant('DEVMODE') === false ){
 			$mail->addBCC('peter.szelecz@sealring.hu', 'Szelecz Péter');
 			$mail->addBCC('zoltan.dujmov@sealring.hu', 'Dujmov Zoltán');
 			$mail->addBCC('norbert.szikszai@sealring.hu', 'Szikszai Norbert');

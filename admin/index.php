@@ -15,9 +15,8 @@
 	}else require 'autoload.php';
 
 	$start = new Start();
-
-	function __( $text, $root = '')
-	{
+	
+	function __($text){
 		return $text;
 	}
 ?>
