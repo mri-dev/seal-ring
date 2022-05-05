@@ -953,7 +953,7 @@ class Users
 		}
 
 		if(!$this->isEnabled($data['email'])){
-			throw new \Exception(__('A fiók felfüggesztésre került!'),1001);
+			throw new \Exception(__('A fiók nincs jelenleg engedélyezve! Próbálja meg később!'),1001);
 		}
 
 		// Refresh
@@ -1203,7 +1203,8 @@ class Users
 					'email' => trim($data['email']),
 					'nev' => trim($data['nev']),
 					'jelszo' => \Hash::jelszo($data['pw2']),
-					'user_group' => $user_group
+					'user_group' => $user_group,
+					//'aktivalva' => date('Y-m-d H:i:s')
 				)
 			);
 
@@ -1418,7 +1419,7 @@ class Users
 		$re = $mail->sendMail();
 	}
 
-	public function sendActivationEmail( $email, $origin_pw )
+	public function sendActivationEmail( $email, $origin_pw = '******' )
 	{
 		$data = $this->db->query( sprintf(" SELECT * FROM ".self::TABLE_NAME." WHERE email = '%s';", $email) )->fetch(\PDO::FETCH_ASSOC);
 
@@ -1439,7 +1440,7 @@ class Users
 
 		$mail->setSubject( __('Sikeres regisztráció. Aktiválja fiókját!') );
 		$mail->setMsg( (new Template( VIEW . 'templates/mail/' ))->get( 'register', $arg ) );
-		//$re = $mail->sendMail();
+		$re = $mail->sendMail();
 
     return $mail;
 	}
