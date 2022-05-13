@@ -14,6 +14,125 @@ class ajax extends Controller{
 			header("Access-Control-Allow-Origin: *");
 			parent::__construct();
 		}
+				
+		/**
+		 * Cart sync for angularjs
+		 * @since 2022-05-09
+		 *
+		 */
+		public function cart()
+		{
+			extract($_POST);
+			$ret = array(
+				'success' => 0,
+				'msg' => false,
+				'request' => $_SERVER['REQUEST_METHOD'],
+				'passed' => $_POST
+			);
+
+			switch( $_SERVER['REQUEST_METHOD'] )
+			{
+				case 'GET':
+					$mid = Helper::getMachineID();
+					$cart = new Cart($mid, array(
+						'db' => $this->db,
+						'user' => $this->User->get(),
+						'settings' => $this->view->settings
+					));
+					$ret['data'] = $cart->get();
+					$ret['success'] = 1;
+					//sleep(2);
+				break;
+				case 'POST':					
+					$mid = Helper::getMachineID();
+					$check = $this->db->squery("SELECT c.ID, c.me FROM shop_kosar as c WHERE c.gepID = :mid && c.termekID = :tid", [
+						'mid' => $mid,
+						'tid' => (int)$termekid
+					]);
+
+					$id = false;
+					$current_me = false;
+
+					if( $check )
+					{
+						$check = $check->fetch(\PDO::FETCH_ASSOC);
+						$id = $check['ID'];
+						$current_me = (float)$check['me'];
+					}
+
+					switch($action)
+					{
+						case 'modify':
+							if( !$id && ($current_me == 0 || !$current_me) ) 
+							{
+								$this->db->insert(
+									'shop_kosar',
+									[
+										'termekID' => $termekid,
+										'me' => (float)$amount,
+										'gepID' => $mid
+									]
+								);
+							} 
+
+							if( $id )
+							{
+								$ret['datas']['item'] = $check;
+								$newme = $current_me + (float)$amount;
+
+								if( $newme > 0 )
+								{
+									$this->db->update(
+										'shop_kosar',
+										[
+											'me' => $newme
+										],
+										sprintf("ID = %d", $id)
+									);
+								} else {
+									// Del
+									$this->db->squery("DELETE FROM shop_kosar WHERE ID = :id", ['id' => $id]);
+								}							
+							}
+						break;
+						case 'set':
+							if( $id )
+							{
+								$ret['datas']['item'] = $check;
+								$newme = (float)$amount;
+
+								if( $newme > 0 )
+								{
+									$this->db->update(
+										'shop_kosar',
+										[
+											'me' => $newme
+										],
+										sprintf("ID = %d", $id)
+									);
+								} else {
+									// Del
+									$this->db->squery("DELETE FROM shop_kosar WHERE ID = :id", ['id' => $id]);
+								}
+							}
+						break;
+					}
+
+					if( !$error )
+					{
+						$ret['msg'] = '<div class="success">'.__('Sikeresen hozzáadta a tételeket a kosárhoz.').' <a href="/kosar"><span class="t">'.__('Tovább a kosárhoz').'</span> <img src="'.constant('IMG').'shopcart-ico.svg" alt="Kosárba"></a></div>';
+						$ret['success'] = 1;
+					} else {
+						$ret['msg'] = '<div class="success">'.$error.'</div>';
+						$ret['success'] = 0;
+					}
+
+					
+				break;
+			}
+
+			echo json_encode($ret);
+		}
 
 		function post(){
 			extract($_POST);

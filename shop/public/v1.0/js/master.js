@@ -10,7 +10,9 @@ var translates = {
 		'db': 'db',
 		'more': 'Több',
 		'less': 'Kevesebb',
-		'adding_to_cart_progress': 'kosárba helyezés folyamatban...',
+		'adding_to_cart_progress': 'Kosárba helyezés folyamatban...',
+		'adding': 'Hozzáadás...',
+		'incart': 'Kosárba',
 	},
 	'en': {
 		'loadings': 'Loading...',
@@ -23,6 +25,8 @@ var translates = {
 		'more': 'More',
 		'less': 'Less',
 		'adding_to_cart_progress': 'Adding products to your cart...',
+		'adding': 'Process...',
+		'incart': 'Add to cart',
 	}
 };
 
@@ -30,7 +34,6 @@ $(function()
 {
 	searchFilters();
 	getLocation();
-
 
 	$.cookieAccepter('https://www.sealring.hu/p/aszf/');
 
@@ -751,10 +754,12 @@ function searchFilters(){
 		} );
 	});
 
+	/*
 	getCartInfo(function(e){
 		refreshCart(e);
 		buildCartItems(e);
 	});
+	*/
 }
 function buildCartItems(c){
 	var i = c.items;
@@ -911,6 +916,8 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 		$scope.syncFavs(function(err, n){
 			$scope.fav_num = n;
 		});
+
+		$scope.syncCart();
 
 		if (typeof ordernow !== 'undefined' && ordernow === true ) {
 			$scope.loadSettings( ['tuzvedo_order_pretext','tuzvedo_order_pretext_wanted','tuzvedo_order_pretext_title'], function(settings){
@@ -1162,6 +1169,114 @@ tc.controller('App', ['$scope', '$sce', '$http', '$mdToast', '$mdDialog', '$loca
 	$scope.fillCityHint = function( tinput, city ) {
 		$('input#'+tinput).val( city.varos );
 		$scope.findedCity[tinput] = [];
+	}
+
+	/********************************************************
+	 * SYNC CART
+	 * @since 2022-05-09
+	 *******************************************************/
+	$scope.cart = false;
+	$scope.cartsync = false;
+	$scope.cartloaded = false;
+	$scope.syncCart = ( callback ) => 
+	{
+		if( !$scope.cartsync )
+		{
+			$scope.cartsync = true;
+			$http({
+				method: 'GET',
+				url: '/ajax/cart',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				data: $.param({
+				})
+			}).success(function( result )
+			{
+				$scope.cartsync = false;
+				console.log(result);
+				$scope.cartloaded = true;
+				if( result.success == '1' )
+				{
+					if( result.data )
+					{
+						$scope.cart = result.data;
+					}
+				}
+
+				if (typeof callback !== 'undefined') {
+					callback( result );
+				}
+			});
+		}
+
+		if (typeof callback !== 'undefined') {
+			callback(false);
+		}
+	}
+
+	$scope.changeCart = ( itemid, amount, mode, callback ) => 
+	{
+		if( typeof amount == 'object')
+		{
+			amount = parseFloat(amount.target.value);
+		} else {
+			amount = parseFloat(amount);
+		}
+		
+		if( !$scope.cartsync )
+		{
+			$scope.cartsync = true;
+			$http({
+				method: 'POST',
+				url: '/ajax/cart',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				data: $.param({
+					action: mode,
+					termekid: itemid,
+					amount: amount
+				})
+			}).success(function( result ){
+				$scope.cartsync = false;
+				console.log('Change cart');
+				console.log(result);
+
+				if( result.success == '1' )
+				{
+					$scope.syncCart(() => 
+					{
+						if (typeof callback !== 'undefined') {
+							callback( result );
+						}
+					});
+				}			
+			});
+		}
+		
+		
+		if (typeof callback !== 'undefined') {
+			callback(false);
+		}
+	}
+
+	$scope.cartModify = ( itemid, e ) =>
+	{
+		var t = e.currentTarget;
+		var respmsg = $(t).attr('cart-remsg');
+		var label = $(t).find('span.t');
+		var me = parseFloat($(t).attr('cart-me'));
+
+		$scope.changeCart( itemid, me, 'modify', (r) => 
+		{			
+			label.text(_('incart'));
+
+			$('#'+respmsg).html('<div class="in-progress">'+_('adding_to_cart_progress')+'</div>');
+
+			if( r.success == '1' )
+			{
+				$('#'+respmsg).html(r.msg);
+			} else {
+				$('#'+respmsg).html(r.msg);
+			}
+		});
 	}
 
 	/******************************

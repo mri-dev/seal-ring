@@ -121,11 +121,31 @@ $(function(){
                     <div class="ico">
                       <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
                     </div>
-                    <div class="cash"><span class="amount" id="cart-item-prices">0</span> <span class="badge" id="cart-item-num-v">0</span></div>
+                    <div class="cash"><span class="no-amount">??? <?=$this->valuta?></span><span class="amount" id="cart-item-prices" ng-bind-html="cart.totalPriceTxt|unsafe">??? Ft</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
                     <div class="cbtn"><a href="/kosar"><?=__('kosár')?></a></div>
                     <div class="floating">
                       <div id="cartContent" class="cartContent overflowed">
-                        <div class="noItem"><div class="inf"><?=__('A kosár üres')?></div></div>
+                        <div class="noItem" ng-hide="cart.itemNum>0"><div class="inf"><?=__('A kosár üres')?></div></div>
+                        <div ng-if="cart.itemNum>0">
+                          <div class="item" ng-repeat="t in cart.items">
+                            <div class="img">
+                              <div class="img-thb">
+                                <span class="helper"></span>
+                                <img ng-src="{{t.profil_kep}}" alt="{{t.termekNev}}">
+                              </div>
+                            </div>
+                            <div class="info">
+                              <div class="name"><a href="{{t.url}}">{{t.termekNev}}</a></div>
+                              <div class="sub">
+                                <div class="inp"><input type="text" class="form-control" ng-blur="changeCart(t.termekID, $event, 'set')" ng-model="t.me"></div>
+                                <div class="sep">x</div>
+                                <div class="ar"><strong>{{t.ar}}</strong> {{cart.valuta}} / <?=__('db')?></div>
+                                <div class="sep">=</div>
+                                <div class="subar">{{t.sum_ar}} {{cart.valuta}}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="whattodo">
                         <div class="flex">
@@ -204,10 +224,30 @@ $(function(){
             <div class="ico">
               <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
             </div>
-            <div class="cash"><span class="amount cart-item-prices">0</span> <?=$valuta?> <span class="badge" id="cart-item-num-v">0</span></div>
+            <div class="cash"><span class="amount cart-item-prices">{{cart.totalPriceTxt}}</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
             <div class="floating">
               <div id="cartContent" class="cartContent overflowed">
-                <div class="noItem"><div class="inf"><?=__('A kosár üres')?></div></div>
+              <div class="noItem" ng-hide="cart.itemNum>0"><div class="inf"><?=__('A kosár üres')?></div></div>
+                <div ng-if="cart.itemNum>0">
+                  <div class="item" ng-repeat="t in cart.items">
+                    <div class="img">
+                      <div class="img-thb">
+                        <span class="helper"></span>
+                        <img ng-src="{{t.profil_kep}}" alt="{{t.termekNev}}">
+                      </div>
+                    </div>
+                    <div class="info">
+                      <div class="name"><a href="{{t.url}}">{{t.termekNev}}</a></div>
+                      <div class="sub">
+                        <div class="inp"><input type="text" class="form-control" ng-blur="changeCart(t.termekID, $event, 'set')" ng-model="t.me"></div>
+                        <div class="sep">x</div>
+                        <div class="ar"><strong>{{t.ar}}</strong> {{cart.valuta}} / <?=__('db')?></div>
+                        <div class="sep">=</div>
+                        <div class="subar">{{t.sum_ar}} {{cart.valuta}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="whattodo">
                 <div class="flex">

@@ -152,13 +152,13 @@
               <div class="men">
                 <div class="wrapper">
                   <label for="add_cart_num"><?=__('Darab')?>:</label>
-                  <input type="number" name="" id="add_cart_num" cart-count="<?=$this->product['ID']?>" value="1" min="1">
+                  <input type="number" onchange="$('#cartbtn').attr('cart-me', $(this).val())" step="1" max="<?=($this->product['raktar_keszlet']>0)?$this->product['raktar_keszlet']:''?>" min="1" value="1">
                 </div>
               </div>
               <?php endif; ?>
               <?php if ( !$this->product['without_price'] && $kisker_brutto != 0 ): ?>
                 <div class="buttonorder">
-                  <button id="addtocart" cart-data="<?=$this->product['ID']?>" cart-remsg="cart-msg" title="Kosárba rakom" class="tocart cart-btn"> <img src="<?=IMG?>icons/cart-button.svg" alt="kosárba rakom"> <?=__('kosárba rakom')?></i></button>
+                  <button id="cartbtn" ng-click="cartModify(<?=$this->product['ID']?>, $event)" cart-me="1" cart-remsg="cart-msg" title="Kosárba rakom" class="tocart"> <img src="<?=IMG?>icons/cart-button.svg" alt="kosárba rakom"> <?=__('kosárba rakom')?></i></button>
                 </div>
               <?php else: ?>
                 <div class="requestbutton">
@@ -347,6 +347,7 @@
         $('#add_cart_num').val(1);
         $('#addtocart').trigger('click');
         setTimeout( function(){ document.location.href='/kosar' }, 1000);
+
         <? endif; ?>
         $('.number-select > div[num]').click( function (){
             $('#add_cart_num').val($(this).attr('num'));

@@ -227,6 +227,7 @@ header {
 			flex: 1;
 
 			.badge{
+				display: none;
 				font-size: 0.6em;
 				position: absolute;
 				pointer-events: none;
@@ -242,6 +243,11 @@ header {
 		    border-radius: 30px;
 				-webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+			}
+
+			.cash{				
+				min-width: 80px;
+
 			}
 
 			.flex {
@@ -791,5 +797,19 @@ header {
 				padding-left: 8px;
 			}
 		}
+	}
+}
+
+header .top .navs .cash .amount{
+	display: none;
+}
+
+body.ng-scope{
+	header .top .navs .cash .no-amount{
+		display: none;
+	}
+	header .top .navs .cash .amount,
+	header .top .navs .badge{
+		display: block !important;
 	}
 }

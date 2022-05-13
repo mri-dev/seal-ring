@@ -2202,8 +2202,8 @@ class Shop
 						'$mid',
 						'$atvetel',
 						'$fizetes',
-						'$kedvezmeny_ft',
-						'$szallitasi_koltseg',
+						0,
+						0,
 						'" . json_encode($szamlazasi_keys, JSON_UNESCAPED_UNICODE) . "',
 						'" . json_encode($szallitasi_keys, JSON_UNESCAPED_UNICODE) . "',
 						$pppkod,
@@ -2213,6 +2213,8 @@ class Shop
 						$coupon_code,
 						$used_cash
 						);";
+
+						//echo $iq; exit;
 
 						$this->db->query($iq);
 

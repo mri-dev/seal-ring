@@ -49,6 +49,7 @@ class Cart
 			t.pickpackszallitas,
 			t.nev as termekNev,
 			t.meret,
+			t.raktar_keszlet,
 			t.szin,
 			ta.elnevezes as allapot,
 			t.profil_kep,
@@ -104,12 +105,15 @@ class Cart
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
 			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
-			$d['ar'] = number_format($d['ar'],2,"."," ");
+			$d['ar'] = number_format((float)$d['ar'],2,"."," ");
+			$d['sum_ar'] = number_format((float)$d['sum_ar'],2,"."," ");
 
 			if( $uid == 0 )
 			{
 				$d['ar'] = '<span title="Az Ár megjelenítéséhez jelentkezzen be!">???</span>';	
 			}
+
+			$d['me'] = (float)$d['me'];
 
 			$dt[] = $d;
 		}
