@@ -73,12 +73,12 @@
 <div class="" style="font-size: 10px;">
 	<p><u><span style="font-family: Arial, Helvetica, sans-serif; font-size: 18px;">SHIPPING INFORMATIONS:</span></u></p>
 	<p><strong>Your transport partner: GLS!</strong></p>
-	- Gross transport price under 30 EUR:
+	- Transport price under net. 30 EUR:
 	<div style="margin-left: 20px;">
-    + 5.9 EUR + VAT cash on delivery.<br>
-		For contract partners: 3.58 EUR + VAT.
+    + Net. 5.9 EUR cash on delivery.<br>
+		For contract partners: net. 3.58 EUR.
 	</div>
-	- Above 30 EUR total: Free shipping.
+	- Above net. 30 EUR total: Free shipping.
 </div>
 <div><h3>Billing details</h3></div>
 <table class="if" width="100%" border="1" style="border-collapse:collapse;" cellpadding="10" cellspacing="0">

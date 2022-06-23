@@ -73,12 +73,12 @@
 <div class="" style="font-size: 10px;">
 	<p><u><span style="font-family: Arial, Helvetica, sans-serif; font-size: 18px;">SZÁLLÍTÁSI INFORMÁCIÓK:</span></u></p>
 	<p><strong>Rendelését a GLS szállítja ki.</strong></p>
-	- Bruttó 10.000 Ft végösszeg alatt:
+	- Nettó 15.000 Ft végösszeg alatt:
 	<div style="margin-left: 20px;">
-		+2.000 Ft+áfa utánvét költséggel.<br>
-		Szerződött partnerek esetén: 1.200 Ft+áfa.
+		+nettó: 2.000 Ft utánvét költséggel.<br>
+		Szerződött partnerek esetén: nettó 1.200 Ft.
 	</div>
-	- Bruttó 10.000 Ft végösszeg felett: nincs szállítási költség.
+	- Nettó 15.000 Ft végösszeg felett: nincs szállítási költség.
 </div>
 <div><h3>Számlázási adatok</h3></div>
 <table class="if" width="100%" border="1" style="border-collapse:collapse;" cellpadding="10" cellspacing="0">
