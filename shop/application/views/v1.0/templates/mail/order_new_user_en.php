@@ -30,8 +30,8 @@
 				</div>
 			<?php endif; ?>
 		</td>
-		<td align="center"><?=number_format($d['ar'], 2, ".", " ")?> <?=$valuta?> <?=($nettoar == '1')?'+ VAT':''?></td>
-		<td align="center"><?=number_format(($d['ar']*$d['me']), 2, ".", " ")?> <?=$valuta?> <?=($nettoar == '1')?'+ VAT':''?></td>
+		<td align="center"><?=number_format($d['ar'], 4, ".", " ")?> <?=$valuta?> <?=($nettoar == '1')?'+ VAT':''?></td>
+		<td align="center"><?=number_format(($d['ar']*$d['me']), 4, ".", " ")?> <?=$valuta?> <?=($nettoar == '1')?'+ VAT':''?></td>
 		<td align="center">
 			<?php if ((float)$d['keszleten'] == 0): ?>
 				<strong style="color:red;">Ordered for production!</strong>
@@ -49,7 +49,7 @@
 ?>
 <tr>
 	<td colspan="4" align="right">Total:</td>
-	<td align="center"><?=number_format($total, 2, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
+	<td align="center"><?=number_format($total, 4, ".", " ")?> Ft <?=($nettoar == '1')?'+ ÁFA':''?></td>
 </tr>
 
 	<tr>
@@ -65,7 +65,7 @@
 	?>
 	<tr>
 		<td colspan="4" align="right"><strong>Total price:</strong></td>
-		<td align="center"><strong><?=number_format($total-$kedvezmeny, 2, ".", " ")?> <?=$valuta?></strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
+		<td align="center"><strong><?=number_format($total-$kedvezmeny, 4, ".", " ")?> <?=$valuta?></strong> <?=($nettoar == '1')?'+ ÁFA':''?></td>
 	</tr>
 </tbody>
 </table>

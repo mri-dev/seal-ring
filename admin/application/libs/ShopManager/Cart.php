@@ -37,6 +37,12 @@ class Cart
 		$itemNum 	= 0;
 		$totalPrice = 0;
 		$uid = (int)$this->user['data']['ID'];
+		$digits = 2;
+		
+		if( \Lang::getLang() !== 'hu' )
+		{
+			$digits = 4;
+		}
 
 		// Clear cart if item num 0
 		$this->db->query("DELETE FROM shop_kosar WHERE me <= 0 and gepID = {$this->machine_id};");
@@ -105,8 +111,8 @@ class Cart
 			$d['url'] 	= '/termek/'.\PortalManager\Formater::makeSafeUrl($d['termekNev'],'_-'.$d['termekID']);
 			$d['profil_kep'] = \PortalManager\Formater::productImage($d['profil_kep'], false, \ProductManager\Products::TAG_IMG_NOPRODUCT );
 
-			$d['ar'] = number_format((float)$d['ar'],2,"."," ");
-			$d['sum_ar'] = number_format((float)$d['sum_ar'],2,"."," ");
+			$d['ar'] = number_format((float)$d['ar'], $digits,"."," ");
+			$d['sum_ar'] = number_format((float)$d['sum_ar'], $digits,"."," ");
 
 			if( $uid == 0 )
 			{
@@ -121,7 +127,7 @@ class Cart
 		$re['valuta'] = $this->settings['valuta'];
 		$re['itemNum']= $itemNum;
 		$re['totalPrice'] = $totalPrice;
-		$re['totalPriceTxt']= number_format($totalPrice,2,"."," ")." ".$this->settings['valuta'];
+		$re['totalPriceTxt']= number_format($totalPrice, $digits,"."," ")." ".$this->settings['valuta'];
 		$re['items'] = $dt;
 
 		if( $uid == 0 )

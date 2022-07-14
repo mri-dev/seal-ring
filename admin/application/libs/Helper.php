@@ -138,7 +138,12 @@
 
 		static function cashFormat($cash){
 			if ( strpos($cash, ".") !== false ) {
-				$cash = number_format($cash, 2,"."," ");
+				if( \Lang::getLang() !== 'hu' )
+				{
+					$cash = number_format($cash, 4,"."," ");
+				} else {
+					$cash = number_format($cash, 2,"."," ");
+				}
 			} else {
 				$cash = number_format($cash, 0, "", " ");
 			}
