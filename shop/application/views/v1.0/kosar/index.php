@@ -2,6 +2,7 @@
 <div class="cart">
 	<div class="page-width">
 		<div class="responsive-view full-width">
+
 			<? if( count($k['items']) > 0 ): ?>
 			<form class="" action="" method="post">
 			<? else: ?>
@@ -346,7 +347,7 @@
 								<th class="center" width="10"></th>
 							</tr>
 						</thead>
-						<?php if (false): ?>
+						<?php if (count($k['items']) > 0): ?>
 						<tbody>
 							<?php $calc_final_total = 0; ?>
 							<? foreach($k['items'] as $d):
@@ -464,7 +465,7 @@
 							<?php endif; ?>
 							</div>
 						</tbody>
-						<?php elseif( false ): ?>
+						<?php else: ?>
 						<tbody>
 							<tr>
 								<td colspan="5" class="center">
@@ -490,114 +491,6 @@
 							</tr>
 						</tbody>
 						<?php endif; ?>
-
-						<!-- new cart -->
-						<tbody ng-if="cart.itemNum <= 0 && cartloaded && !cartsync">
-							<tr>
-								<td colspan="5" class="center">
-									<div class="empty-cart">
-										<i class="fa fa-shopping-cart ico"></i>
-										<br>
-										<strong><?=__('Az Ön kosarában nincsenek temékek!')?></strong>
-										<div><?=__('Böngésszen termékeink közül')?>.</div>
-										<div class="searchform">
-				              <form class="" action="/termekek/<?=($this->gets['0'] == 'termekek' && $this->gets['1'] != '')?$this->gets['1']:''?>" method="get">
-				                <div class="wrapper">
-				                  <div class="input">
-				                    <input type="text" name="src" value="<?=$_GET['src']?>" placeholder="<?=__('TERMÉK NÉV / CIKKSZÁM')?>">
-				                  </div>
-				                  <div class="button">
-				                    <button type="submit"><i class="fa fa-search"></i></button>
-				                  </div>
-				                </div>
-				              </form>
-				            </div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-						<tbody ng-if="!cartloaded">
-							<tr>
-								<td colspan="5" class="center">
-									<div class="empty-cart">
-										<i class="fa fa-spinner fa-spin"></i>
-										<br>
-										<strong><?=__('Kosár betöltése')?></strong>
-										<div><?=__('Tételek betöltése folyamatban...')?>.</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr class="item" ng-repeat="p in cart.items" ng-if="cartloaded">
-								<td>
-									<div class="main">
-										<div class="img">
-											<a href="{{p.url}}"><img src="<?=IMG?>/no-product-img.png" ng-src="{{p.profil_kep}}" alt="{{p.termekNev}}" /></a>
-										</div>
-										<div class="tinfo">
-											<div class="nev"><a href="{{p.url}}">{{p.termekNev}}</a></div>
-											<div class="sel-types">
-												<? if($d['szin']): ?><em><?=__('Variáció')?>:</em> <strong><?=$d['szin']?></strong><? endif;?>
-												<? if($d['meret']): ?><em><?=__('Kiszerelés')?>:</em> <strong><?=$d['meret']?></strong><? endif;?>
-											</div>
-											<div class="subLine">
-												<span title="Termék elérhetősége"><i class="fa fa-truck"></i> {{p.allapot}}</span> &nbsp;&nbsp;
-												<span title="Kiszállítási idő"><i class="fa fa-clock-o"></i> {{p.szallitasIdo}}</span>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td class="center">
-									<div class="input-group">
-										<input type="text" class="form-control" ng-blur="changeCart(p.termekID, $event, 'set')" ng-model="p.me">
-										<span class="input-group-addon"><?=__('db')?></span>
-									</div>
-									<div ng-if="p.me>p.raktar_keszlet" class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?__('Nincs raktáron: Rendelhető.'):$d['raktar_keszlet'].' '.__('db raktáron').'.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).''.__('rendelhető').'.</span>'?></div>
-									<?php if ($d['me'] > $d['raktar_keszlet']): ?>
-										<div class="raktar_keszlet" style="<?=($d['raktar_keszlet']<=0)?'color:#ff9167;':'color:#15a98c;'?>"><?=($d['raktar_keszlet']<=0)?__('Nincs raktáron: Rendelhető.'):$d['raktar_keszlet'].' '.__('db raktáron').'.<br><span style="color:#ff9167;">'.($d['me']-$d['raktar_keszlet']).''.__('rendelhető').'.</span>'?></div>
-									<?php endif; ?>
-								</td>
-								<td class="center">
-								<?php if( $this->user ): ?>
-									<span>{{p.ar}} {{cart.valuta}}</span>
-								<?php else: ?> 
-									<div class="login-for-price"><?=__('Az Ár bejelentkezés után látható!')?></div>
-								<?php endif; ?>
-								</td>
-								<td class="center">
-								<?php if( $this->user ): ?>
-									<strong>{{p.sum_ar}} {{cart.valuta}}</strong>								
-								<?php else: ?> 
-									<div class="login-for-price"><?=__('Az Ár bejelentkezés után látható!')?></div>
-								<?php endif; ?>
-								</td>
-								<td class="center action">
-									<span>
-										<i class="fa fa-angle-up cart-adder asc" ng-click="changeCart(p.termekID, 1, 'modify')" title="<?=__("Több")?>"></i>
-										<i class="fa fa-angle-down cart-adder desc" ng-click="changeCart(p.termekID, -1, 'modify')" title="<?=__("Kevesebb")?>"></i>
-									</span>
-								</td>
-							</tr>
-							<?php if( $this->user ): ?>
-							<tr class="price-overview" ng-if="cart.itemNum > 0">
-								<td class="nocell"></td>
-								<td colspan="2" class="right"><?=__('Termékek ára')?></td>
-								<td colspan="2" class="center">
-									<strong><span class="ar">{{cart.totalPriceTxt}}</span></strong>
-								</td>
-							</tr>
-							<tr class="price-overview final" ng-if="cart.itemNum > 0">
-								<td class="nocell"></td>
-								<td colspan="2" class="right"><?=__('Végösszeg')?></td>
-								<td colspan="2" class="center finalpricetd">
-									<strong><span class="a"><span style="font-size: 0.9rem !important;"><?=($this->user['data']['price_group_data']['groupkey'] == 'beszerzes_netto')?__('nettó'):(($this->settings['price_show_brutto'] == 0)?__('nettó'):__('bruttó'))?></span> <span class="ar">{{cart.totalPriceTxt}}</span></span></strong>
-								</td>
-							</tr>
-							<?php endif; ?>
-							</div>
-						</tbody>
-						<!-- E:new cart -->
 					</table>
 					</div>
 	        <?php
@@ -622,12 +515,12 @@
 										<div class="group">
 											<div class="g">
 												<div class="gline">
-													<div class="h"><?=__('Bruttó 10.000 Ft végösszeg alatt')?>:</div>
-													<div class=""><u><?=__('Vásárlóknak')?>:</u> <strong><?=__('+ 2 000 Ft + ÁFA')?></strong> <?=__('utánvét költséggel')?>.</div>
-													<div class=""><u><?=__('Szerződött partnerek esetében')?>:</u> <strong><?=__('+ 1 200 Ft + ÁFA')?></strong>.</div>
+													<div class="h"><?=__('Nettó 15.000 Ft végösszeg alatt')?>:</div>
+													<div class=""><u><?=__('Vásárlóknak')?>:</u> <strong><?=__('+ nettó 2 000 Ft')?></strong> <?=__('utánvét költséggel')?>.</div>
+													<div class=""><u><?=__('Szerződött partnerek esetében')?>:</u> <strong><?=__('+ nettó 1 200 Ft')?></strong>.</div>
 												</div>
 												<div class="gline">
-													<div class="h"><?=__('Bruttó 10.000 Ft végösszeg felett')?>:</div>
+													<div class="h"><?=__('Nettó 15.000 Ft végösszeg felett')?>:</div>
 													<div class=""><?=__('A szállítási díj')?> <strong><?=__('INGYENES')?>!</strong></div>
 												</div>
 												<div class="gls"><strong><?=__('Rendelését a GLS szállítja ki!')?></strong></div>
@@ -678,7 +571,7 @@
 										<div class="sep"><?=__('vagy')?></div>
 										<div class="register"><a href="/user/regisztracio?return=/<?=$this->gets['0']?>"><?=__('Fiók regisztráció')?></a></div>
 									</div>
-									<div class="nextbutton" >
+									<div class="nextbutton">
 										<button type="submit" name="orderState" disabled="disabled" value="start"><?=__('Tovább a megrendeléshez')?></button>
 									</div>
 								</div>
@@ -708,7 +601,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="nextbutton" ng-if="cart.itemNum > 0 && cartloaded">
+											<div class="nextbutton">
 												<button type="submit" name="orderState" value="start"><?=__('Tovább a megrendeléshez')?></button>
 											</div>
 										</div>
