@@ -1,6 +1,8 @@
-@media all and (max-width: 1550px)
+@media all and (max-width: 1610px)
 {
-
+	header .left-sep{
+		flex-basis: 210px;
+	}
 }
 
 @media all and (min-width: 1600px)
@@ -26,6 +28,9 @@
 /* 1024 - 1050 px - MEDIUM */
 @media all and (max-width: 1050px)
 {
+	.szechenyi-terv-plus{
+		display: none !important;
+	}
 	.cat-menu ul li .toggler{
 		width: 45px;
 	}

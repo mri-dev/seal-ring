@@ -695,16 +695,6 @@ body.singlepage{
 								background: $color-green;
 								color: white;
 							}
-
-							&:disabled{
-								background-color: #e8e8e8 !important;
-    						color: #d1cece !important;
-								cursor:no-drop !important;
-
-								img{
-									opacity: 0.3 !important;
-								}
-							}
 						}
 						&:before{
 							content:"";
@@ -3007,54 +2997,29 @@ body.singlepage{
 
 #cart-msg {
 	margin: 5px 0 15px 0;
-	font-size: 0.95rem;
-	position: relative;
 
 	a{
-		color: black;
-		text-decoration: none;
-		font-size: 0.85rem;
-		display: block;
-		padding: 8px 3px;
-		border-radius: 5px;
-    white-space: nowrap;
-    width: 161px;
-		text-align: center;
-		position: absolute;
-    right: 5px;
-    top: 0;
-    background-color: white;
-    top: 50%;
-    transform: translateY(-50%);
-
-		.t{
-			font-weight: bold;
-			text-transform: uppercase;
-		}
-
-		background-color: white;
-
-		img {
-			max-height: 12px;
-		}
+		color: white;
+		text-decoration: underline;
+		font-size: 0.85em;
 	}
 
 	.success {
 		background: #2dc51a;
 		color: white;
-		padding: 12px;
+		padding: 8px;
 		border: 1px solid #32ad22;
 	}
 	.error {
 		background: #ff9900;
     color: white;
-    padding: 12px;
+    padding: 8px;
     border: 1px solid #e28c0b;
 	}
 	.in-progress {
 		background: $color-blue;
 		color: white;
-		padding: 12px;
+		padding: 8px;
 		border: 1px solid darken($color-blue, 10%);
 	}
 }
@@ -3261,10 +3226,9 @@ md-toast{
 		position: relative;
 		padding: 12px;
 		border-bottom: 1px solid #eceff2;
-		display: flex;
-		flex-wrap: nowrap;
 
 		.img {
+			float: left;
 			margin: 0 8px 0 0;
 			width: 55px;
 			height: 55px;
@@ -3278,7 +3242,7 @@ md-toast{
 			position: relative;
 			text-align: left;
 			line-height: 24px;
-			font-size: 1rem;
+			font-size: 0.8em;
 		}
 		.adder {
 			position: absolute;
@@ -3299,16 +3263,29 @@ md-toast{
 		.info .remove {
 			cursor: pointer;
 		}
+		.info .name a {
+			font-size: 1.5em;
+			color: $color-orange;
+			line-height: 18px;
+			font-weight: bold;
+		}
 
 		.info .name a {
-			font-size: 1.1rem;
-			color: $color-green;
+			font-size: 1.3em;
+			color: black;
 			line-height: 18px;
 			font-weight: bold;
 			display: block;
 			margin: 0 0 10px 0;
 		}
-
+		.info .sub .tipus{
+			font-size: 1.1em;
+			color: #acacac;
+		}
+		.info .sub .tipus .val {
+			font-weight: bold;
+			color: #3cb741;
+		}
 		.remove {
 			position: absolute;
 			top: -5px;
@@ -3318,44 +3295,10 @@ md-toast{
 			font-size: 20px;
 			z-index: 100;
 		}
-
-		.sub{
-			display: flex;
-			flex-wrap: nowrap;
-			align-items: center;
-			font-size: 1rem;
-
-			.inp{
-				input{
-					width: 40px;
-					font-size: 0.9rem;
-					padding: 0 5px;
-					line-height: 24px;
-					height: auto;
-					max-height: initial;
-					text-align: center;
-				}
-			}
-
-			.sep{
-				padding: 0 5px;
-				text-align: center;
-			}
-
-			.inp + .sep {
-				padding: 0 0 0 5px;
-			}
-
-			.ar{
-				color: black;
-				padding: 0 5px;
-			}
-
-			.subar{
-				color: $color-orange;
-				font-weight: bold;
-				padding: 0 5px;
-			}
+		.sub .ar {
+			color: $color-pr;
+			font-size: 1.3em;
+			font-weight: bold;
 		}
 		.info .remove :hover {
 			cursor: pointer;
@@ -4015,7 +3958,6 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 	table.table{
 		border-radius: 5px;
 		overflow: hidden;
-		display: none;
 
 		.item-header{
 			background: $color-green;
@@ -4110,11 +4052,6 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused{
 	}
  }
 
- body.ng-scope{
-	.cart-items table.table{
-		display: table;
-	}
- }
  .order-stepper
  {
 	.head{
@@ -8244,6 +8181,21 @@ body.orderpage{
 	img{
 		max-height: 100%;
 		height: 100%;
+		width: auto;
+		max-width: initial;
+	}
+}
+
+.szechenyi-terv-plus
+{
+	position: fixed;
+	z-index: 1001;
+	top: 5px;
+	left: 0;
+	max-height: 64px;
+
+	img{
+		max-height: 64px;
 		width: auto;
 		max-width: initial;
 	}

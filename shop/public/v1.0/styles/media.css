@@ -664,31 +664,6 @@ header .top .flex {
   align-items: center;
 }
 
-header .top .social {
-  padding: 0 0 0 12px;
-}
-
-header .top .social .flex {
-  align-items: center;
-  justify-content: flex-start;
-}
-
-header .top .social .flex > div {
-  padding: 0 2px;
-}
-
-header .top .social .flex a {
-  padding: 0;
-  width: 24px;
-  line-height: 24px;
-  display: block;
-  text-align: center;
-  background-color: #15a98c;
-  color: white;
-  font-size: 14px;
-  border-radius: 24px;
-}
-
 header .top .contacts {
   padding: 0 0 0 25px;
   font-size: 1.2em;
@@ -715,7 +690,6 @@ header .top .navs {
 }
 
 header .top .navs .badge {
-  display: none;
   font-size: 0.6em;
   position: absolute;
   pointer-events: none;
@@ -732,19 +706,41 @@ header .top .navs .badge {
   transform: translateY(-50%);
 }
 
-header .top .navs .cash {
-  min-width: 80px;
+header .top .navs .social {
+  padding: 0 0 0 12px;
+  height: auto !important;
 }
 
-header .top .navs .flex {
+header .top .navs .social .flex {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header .top .navs .social .flex > div {
+  padding: 0 5px;
+}
+
+header .top .navs .social .flex a {
+  padding: 0;
+  width: 24px;
+  line-height: 24px;
+  display: block;
+  text-align: center;
+  background-color: #15a98c;
+  color: white;
+  font-size: 14px;
+  border-radius: 24px;
+}
+
+header .top .navs > .flex {
   justify-content: flex-end;
 }
 
-header .top .navs .flex > div {
+header .top .navs > .flex > div {
   height: 40px;
 }
 
-header .top .navs .flex > div > a {
+header .top .navs > .flex > div > a {
   display: block;
   font-size: 1em;
   line-height: 40px;
@@ -755,24 +751,24 @@ header .top .navs .flex > div > a {
   color: #333333;
 }
 
-header .top .navs .flex > div > a img {
+header .top .navs > .flex > div > a img {
   margin: 0 5px 0 0;
   height: 12px;
   vertical-align: text-top;
 }
 
-header .top .navs .flex > div > a i {
+header .top .navs > .flex > div > a i {
   margin: 0 5px 0 0;
 }
 
-header .top .navs .flex > div.div {
+header .top .navs > .flex > div.div {
   position: relative;
   height: 40px;
   width: 10px;
   display: block;
 }
 
-header .top .navs .flex > div.div:before {
+header .top .navs > .flex > div.div:before {
   content: "";
   height: 80%;
   width: 0.5px;
@@ -783,7 +779,7 @@ header .top .navs .flex > div.div:before {
   transform: translate(-50%, -50%);
 }
 
-header .top .navs .flex > div.partner a {
+header .top .navs > .flex > div.partner a {
   background: #15a98c;
   text-transform: uppercase;
   font-size: 0.9em;
@@ -791,30 +787,30 @@ header .top .navs .flex > div.partner a {
   padding: 0 15px;
 }
 
-header .top .navs .flex > div.partner a i {
+header .top .navs > .flex > div.partner a i {
   margin-right: 8px;
   font-size: 15px;
   vertical-align: text-bottom;
 }
 
-header .top .navs .flex > div.kedvencek {
+header .top .navs > .flex > div.kedvencek {
   margin-right: 25px;
 }
 
-header .top .navs .flex > div.kedvencek a {
+header .top .navs > .flex > div.kedvencek a {
   padding: 0 35px 0 15px;
 }
 
-header .top .navs .flex > div.kedvencek .badge {
+header .top .navs > .flex > div.kedvencek .badge {
   background: #15a98c;
 }
 
-header .top .navs .flex > div.info-text {
+header .top .navs > .flex > div.info-text {
   position: relative;
   flex: 1;
 }
 
-header .top .navs .flex > div.info-text:before {
+header .top .navs > .flex > div.info-text:before {
   content: "";
   z-index: 1;
   pointer-events: none;
@@ -832,7 +828,7 @@ header .top .navs .flex > div.info-text:before {
   /* IE6-9 */
 }
 
-header .top .navs .flex > div.info-text:after {
+header .top .navs > .flex > div.info-text:after {
   content: "";
   z-index: 1;
   pointer-events: none;
@@ -850,7 +846,7 @@ header .top .navs .flex > div.info-text:after {
   /* IE6-9 */
 }
 
-header .top .navs .flex > div.info-text .marquee {
+header .top .navs > .flex > div.info-text .marquee {
   width: 100%;
   max-width: 100%;
   position: relative;
@@ -861,6 +857,10 @@ header .top .navs .flex > div.info-text .marquee {
   line-height: 40px;
   font-size: 1.2rem;
   color: black;
+}
+
+header .left-sep {
+  flex-basis: 150px;
 }
 
 header .main {
@@ -960,7 +960,8 @@ header .logo {
 }
 
 header .logo img {
-  max-height: 100px;
+  max-height: 40px;
+  height: 40px;
   max-width: 100%;
 }
 
@@ -1285,19 +1286,6 @@ header .langs > .wrap .lang.current a {
   vertical-align: middle;
   line-height: 1;
   padding-left: 8px;
-}
-
-header .top .navs .cash .amount {
-  display: none;
-}
-
-body.ng-scope header .top .navs .cash .no-amount {
-  display: none;
-}
-
-body.ng-scope header .top .navs .cash .amount,
-body.ng-scope header .top .navs .badge {
-  display: block !important;
 }
 
 .site-container {
@@ -2031,18 +2019,6 @@ body.singlepage .website .page.covered-page .side-menu {
 .related-products .list-container > .items > .item > .wrapper .buttons .add button.in-progress {
   background: #15a98c;
   color: white;
-}
-
-.webshop-product-top .list-container > .items > .item > .wrapper .buttons .add button:disabled,
-.related-products .list-container > .items > .item > .wrapper .buttons .add button:disabled {
-  background-color: #e8e8e8 !important;
-  color: #d1cece !important;
-  cursor: no-drop !important;
-}
-
-.webshop-product-top .list-container > .items > .item > .wrapper .buttons .add button:disabled img,
-.related-products .list-container > .items > .item > .wrapper .buttons .add button:disabled img {
-  opacity: 0.3 !important;
 }
 
 .webshop-product-top .list-container > .items > .item > .wrapper .buttons .add:before,
@@ -4295,7 +4271,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 
 .menu-widget .slick-next {
-  background: url("//www.cp.seal-ring.web-pro.hu/src/images/src/images/arrow-right-sm.png") no-repeat center;
+  background: url("//www.cp.sealring.web-pro.hu/src/images/src/images/arrow-right-sm.png") no-repeat center;
   width: 12px;
   height: 12px;
   border: none;
@@ -4308,7 +4284,7 @@ body.singlepage .website .page.covered-page .side-menu {
 }
 
 .menu-widget .slick-prev {
-  background: url("//www.cp.seal-ring.web-pro.hu/src/images/src/images/arrow-left-sm.png") no-repeat center;
+  background: url("//www.cp.sealring.web-pro.hu/src/images/src/images/arrow-left-sm.png") no-repeat center;
   width: 12px;
   height: 12px;
   border: none;
@@ -4448,56 +4424,32 @@ body.singlepage .website .page.covered-page .side-menu {
 
 #cart-msg {
   margin: 5px 0 15px 0;
-  font-size: 0.95rem;
-  position: relative;
 }
 
 #cart-msg a {
-  color: black;
-  text-decoration: none;
-  font-size: 0.85rem;
-  display: block;
-  padding: 8px 3px;
-  border-radius: 5px;
-  white-space: nowrap;
-  width: 161px;
-  text-align: center;
-  position: absolute;
-  right: 5px;
-  top: 0;
-  background-color: white;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: white;
-}
-
-#cart-msg a .t {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-#cart-msg a img {
-  max-height: 12px;
+  color: white;
+  text-decoration: underline;
+  font-size: 0.85em;
 }
 
 #cart-msg .success {
   background: #2dc51a;
   color: white;
-  padding: 12px;
+  padding: 8px;
   border: 1px solid #32ad22;
 }
 
 #cart-msg .error {
   background: #ff9900;
   color: white;
-  padding: 12px;
+  padding: 8px;
   border: 1px solid #e28c0b;
 }
 
 #cart-msg .in-progress {
   background: #88c9f6;
   color: white;
-  padding: 12px;
+  padding: 8px;
   border: 1px solid #59b3f2;
 }
 
@@ -4705,11 +4657,10 @@ md-toast {
   position: relative;
   padding: 12px;
   border-bottom: 1px solid #eceff2;
-  display: flex;
-  flex-wrap: nowrap;
 }
 
 #cartContent .item .img {
+  float: left;
   margin: 0 8px 0 0;
   width: 55px;
   height: 55px;
@@ -4725,7 +4676,7 @@ md-toast {
   position: relative;
   text-align: left;
   line-height: 24px;
-  font-size: 1rem;
+  font-size: 0.8em;
 }
 
 #cartContent .item .adder {
@@ -4752,12 +4703,29 @@ md-toast {
 }
 
 #cartContent .item .info .name a {
-  font-size: 1.1rem;
-  color: #15a98c;
+  font-size: 1.5em;
+  color: #f09f0f;
+  line-height: 18px;
+  font-weight: bold;
+}
+
+#cartContent .item .info .name a {
+  font-size: 1.3em;
+  color: black;
   line-height: 18px;
   font-weight: bold;
   display: block;
   margin: 0 0 10px 0;
+}
+
+#cartContent .item .info .sub .tipus {
+  font-size: 1.1em;
+  color: #acacac;
+}
+
+#cartContent .item .info .sub .tipus .val {
+  font-weight: bold;
+  color: #3cb741;
 }
 
 #cartContent .item .remove {
@@ -4770,41 +4738,10 @@ md-toast {
   z-index: 100;
 }
 
-#cartContent .item .sub {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  font-size: 1rem;
-}
-
-#cartContent .item .sub .inp input {
-  width: 40px;
-  font-size: 0.9rem;
-  padding: 0 5px;
-  line-height: 24px;
-  height: auto;
-  max-height: initial;
-  text-align: center;
-}
-
-#cartContent .item .sub .sep {
-  padding: 0 5px;
-  text-align: center;
-}
-
-#cartContent .item .sub .inp + .sep {
-  padding: 0 0 0 5px;
-}
-
 #cartContent .item .sub .ar {
-  color: black;
-  padding: 0 5px;
-}
-
-#cartContent .item .sub .subar {
-  color: #f09f0f;
+  color: #15a98c;
+  font-size: 1.3em;
   font-weight: bold;
-  padding: 0 5px;
 }
 
 #cartContent .item .info .remove :hover {
@@ -5471,7 +5408,6 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused {
 .cart-items table.table {
   border-radius: 5px;
   overflow: hidden;
-  display: none;
 }
 
 .cart-items table.table .item-header {
@@ -5568,10 +5504,6 @@ md-chips.md-default-theme .md-chips.md-focused, md-chips .md-chips.md-focused {
 .cart-items table.table tr.item .main .tinfo .subLine {
   margin-top: 12px;
   color: black;
-}
-
-body.ng-scope .cart-items table.table {
-  display: table;
 }
 
 .order-stepper .head {
@@ -8381,7 +8313,7 @@ input[type=email][required].ng-touched.ng-valid + span:before {
 }
 
 #PayUForm button {
-  background: url(//www.cp.seal-ring.web-pro.hu/src/images/src/images/pay_btn.png);
+  background: url(//www.cp.sealring.web-pro.hu/src/images/src/images/pay_btn.png);
   width: 196px;
   height: 46px;
   border: none;
@@ -9182,7 +9114,7 @@ a.cetelem-startrans {
 
 .cetelem-calc #results:after {
   content: "";
-  background: url("//www.cp.seal-ring.web-pro.hu/src/images/src/images/cetelem_babu.png") no-repeat center;
+  background: url("//www.cp.sealring.web-pro.hu/src/images/src/images/cetelem_babu.png") no-repeat center;
   width: 45px;
   height: 65px;
   position: absolute;
@@ -9250,7 +9182,7 @@ body.galleries .news-page .news-content {
 }
 
 .galleries .folder-list > .folder > .wrapper .folder {
-  background-image: url("//www.cp.seal-ring.web-pro.hu/src/images//folder.svg");
+  background-image: url("//www.cp.sealring.web-pro.hu/src/images//folder.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -9745,6 +9677,20 @@ body.orderpage .nav.nav-fix {
   max-width: initial;
 }
 
+.szechenyi-terv-plus {
+  position: fixed;
+  z-index: 1001;
+  top: 5px;
+  left: 0;
+  max-height: 64px;
+}
+
+.szechenyi-terv-plus img {
+  max-height: 64px;
+  width: auto;
+  max-width: initial;
+}
+
 footer {
   color: #333333;
   border-top: 3px solid #d1d6d8;
@@ -10017,6 +9963,12 @@ footer .menu li a {
   font-weight: 300;
 }
 
+@media all and (max-width: 1610px) {
+  header .left-sep {
+    flex-basis: 210px;
+  }
+}
+
 @media all and (min-width: 1600px) {
   .pw, .page-width {
     width: 1500px;
@@ -10037,6 +9989,9 @@ footer .menu li a {
 
 /* 1024 - 1050 px - MEDIUM */
 @media all and (max-width: 1050px) {
+  .szechenyi-terv-plus {
+    display: none !important;
+  }
   .cat-menu ul li .toggler {
     width: 45px;
   }
