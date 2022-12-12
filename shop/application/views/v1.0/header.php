@@ -126,7 +126,7 @@ $(function(){
                     <div class="ico">
                       <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
                     </div>
-                    <div class="cash"><span class="no-amount">??? <?=$this->valuta?></span><span class="amount" id="cart-item-prices" ng-bind-html="cart.totalPriceTxt|unsafe">??? Ft</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
+                    <div class="cash"><span class="no-amount" style="display: none;">??? <?=$this->valuta?></span><span class="amount" id="cart-item-prices" ng-bind-html="cart.totalPriceTxt|unsafe">??? Ft</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
                     <div class="cbtn"><a href="/kosar"><?=__('kosár')?></a></div>
                     <div class="floating">
                       <div id="cartContent" class="cartContent overflowed">
@@ -144,9 +144,11 @@ $(function(){
                               <div class="sub">
                                 <div class="inp"><input type="text" class="form-control" ng-blur="changeCart(t.termekID, $event, 'set')" ng-model="t.me"></div>
                                 <div class="sep">x</div>
-                                <div class="ar"><strong>{{t.ar}}</strong> {{cart.valuta}} / <?=__('db')?></div>
+                                <div class="ar"><strong ng-bind-html="t.ar|unsafe"></strong> {{cart.valuta}} / <?=__('db')?></div>
+                                <?php if( isset($this->user) && $this->user): ?>
                                 <div class="sep">=</div>
                                 <div class="subar">{{t.sum_ar}} {{cart.valuta}}</div>
+                                <?php endif; ?>
                               </div>
                             </div>
                           </div>

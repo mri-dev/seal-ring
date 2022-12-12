@@ -2999,9 +2999,22 @@ body.singlepage{
 	margin: 5px 0 15px 0;
 
 	a{
-		color: white;
-		text-decoration: underline;
 		font-size: 0.85em;
+    display: flex;
+    background: white;
+		justify-content: center;
+		align-items: center;
+    color: black;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 10px;
+    white-space: nowrap;
+    text-decoration: none;
+
+		img {
+			height: 20px;
+			margin: 0 0 0 5px;
+		}
 	}
 
 	.success {
@@ -3009,18 +3022,39 @@ body.singlepage{
 		color: white;
 		padding: 8px;
 		border: 1px solid #32ad22;
+		font-size: 1.1rem;
+
+		&:after{
+			clear: both;
+			display: block;
+			content: "";
+		}
 	}
 	.error {
 		background: #ff9900;
     color: white;
     padding: 8px;
     border: 1px solid #e28c0b;
+		
+
+		&:after{
+			clear: both;
+			display: block;
+			content: "";
+		}
 	}
 	.in-progress {
 		background: $color-blue;
 		color: white;
 		padding: 8px;
 		border: 1px solid darken($color-blue, 10%);
+		
+
+		&:after{
+			clear: both;
+			display: block;
+			content: "";
+		}
 	}
 }
 
@@ -3271,12 +3305,25 @@ md-toast{
 		}
 
 		.info .name a {
-			font-size: 1.3em;
+			font-size: 1.1rem;
 			color: black;
 			line-height: 18px;
 			font-weight: bold;
 			display: block;
 			margin: 0 0 10px 0;
+		}
+		.info .sub{
+			display: flex;
+			align-items: center;
+			font-size: 0.94rem;
+
+			.inp{
+				flex-basis: 50px;
+			}
+
+			.sep{
+				padding: 0 12px;
+			}
 		}
 		.info .sub .tipus{
 			font-size: 1.1em;
