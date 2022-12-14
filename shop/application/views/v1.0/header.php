@@ -40,16 +40,40 @@ $(function(){
   <a href="/p/szechenyi-2020"><img src="<?=UPLOADS?>szechenyi2020/szechenyi2020-logo.png" alt="Széchenyi 2020"></a>
 </div>
 <? endif; ?>
+<div class="szechenyi-terv-plus">
+  <a href="/p/szechenyi-terv-plusz-2022"><img src="<?=UPLOADS?>szechenyi2020/szechenyi-terv-plusz-2022.jpg" alt="Széchenyi Terv Plusz"></a>
+</div>
 <header>
   <div class="pw">
     <div class="flex">
-      <div class="logo">
-        <a href="<?=$this->settings['page_url']?>"><img src="<?=IMG?>sealringlogo.svg" alt="<?=$this->settings['page_title']?>"></a>
-      </div>
+      <div class="left-sep"></div>
       <div class="main hide-on-mobile">
         <div class="top">
-          <div class="flex">
-            <div class="social">
+          <div class="flex">            
+            <div class="logo">
+              <a href="<?=$this->settings['page_url']?>"><img src="<?=IMG?>sealringlogo-hor.svg" alt="<?=$this->settings['page_title']?>"></a>
+            </div>
+            
+            <?php if (false): ?>
+              <div class="contacts">
+                <div class="flex">
+                  <div class="phone">
+                    <i class="fa fa-phone"></i> <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
+                  </div>
+                  <div class="email">
+                    <i class="fa fa-envelope"></i> <a href="mailto:<?=$this->settings['office_email']?>"><?=$this->settings['office_email']?></a>
+                  </div>
+                </div>
+              </div>
+            <?php endif; ?>
+            <div class="navs">
+              <div class="flex">
+                <div class="info-text">
+                  <?php if( !empty($this->settings['header_futo_szoveg']) ): ?>
+                  <div class="marquee" data-duration="<?=(!empty($this->settings['header_futo_szoveg_speed'])?$this->settings['header_futo_szoveg_speed']:12000)?>" data-duplicated="true" data-gap="80" data-pauseOnHover="true"><?php echo $this->settings['header_futo_szoveg']; ?></div>
+                  <?php endif; ?>
+                </div>
+                <div class="social">
               <div class="flex flexmob-exc-resp">
                 <?php if ( !empty($this->settings['social_facebook_link'])) : ?>
                 <div class="facebook">
@@ -73,25 +97,6 @@ $(function(){
                 <?php endif; ?>
               </div>
             </div>
-            <?php if (false): ?>
-              <div class="contacts">
-                <div class="flex">
-                  <div class="phone">
-                    <i class="fa fa-phone"></i> <a href="tel:<?=$this->settings['page_author_phone']?>"><?=$this->settings['page_author_phone']?></a>
-                  </div>
-                  <div class="email">
-                    <i class="fa fa-envelope"></i> <a href="mailto:<?=$this->settings['office_email']?>"><?=$this->settings['office_email']?></a>
-                  </div>
-                </div>
-              </div>
-            <?php endif; ?>
-            <div class="navs">
-              <div class="flex">
-                <div class="info-text">
-                  <?php if( !empty($this->settings['header_futo_szoveg']) ): ?>
-                  <div class="marquee" data-duration="<?=(!empty($this->settings['header_futo_szoveg_speed'])?$this->settings['header_futo_szoveg_speed']:12000)?>" data-duplicated="true" data-gap="80" data-pauseOnHover="true"><?php echo $this->settings['header_futo_szoveg']; ?></div>
-                  <?php endif; ?>
-                </div>
                 <div class="langs">
                   <div class="wrap">
                     <?php foreach((array)$this->languages as $lakey => $la): if($la['active'] == 0) continue; ?>
@@ -121,7 +126,7 @@ $(function(){
                     <div class="ico">
                       <img src="<?=IMG?>icons/cart.svg" alt="Kosár" />
                     </div>
-                    <div class="cash"><span class="no-amount">??? <?=$this->valuta?></span><span class="amount" id="cart-item-prices" ng-bind-html="cart.totalPriceTxt|unsafe">??? Ft</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
+                    <div class="cash"><span class="no-amount" style="display: none;">??? <?=$this->valuta?></span><span class="amount" id="cart-item-prices" ng-bind-html="cart.totalPriceTxt|unsafe">??? Ft</span> <span class="badge" id="cart-item-num-v">{{cart.itemNum}}</span></div>
                     <div class="cbtn"><a href="/kosar"><?=__('kosár')?></a></div>
                     <div class="floating">
                       <div id="cartContent" class="cartContent overflowed">
@@ -139,9 +144,11 @@ $(function(){
                               <div class="sub">
                                 <div class="inp"><input type="text" class="form-control" ng-blur="changeCart(t.termekID, $event, 'set')" ng-model="t.me"></div>
                                 <div class="sep">x</div>
-                                <div class="ar"><strong>{{t.ar}}</strong> {{cart.valuta}} / <?=__('db')?></div>
+                                <div class="ar"><strong ng-bind-html="t.ar|unsafe"></strong> {{cart.valuta}} / <?=__('db')?></div>
+                                <?php if( isset($this->user) && $this->user): ?>
                                 <div class="sep">=</div>
                                 <div class="subar">{{t.sum_ar}} {{cart.valuta}}</div>
+                                <?php endif; ?>
                               </div>
                             </div>
                           </div>

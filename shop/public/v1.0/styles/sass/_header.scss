@@ -180,29 +180,7 @@ header {
 		.flex {
 			align-items: center;
 		}
-		.social {
-			padding: 0 0 0 12px;
-			.flex {
-				align-items: center;
-				justify-content: flex-start;
-
-				& > div {
-					padding: 0 2px;
-				}
-
-				a {
-					padding: 0;
-					width: 24px;
-					line-height: 24px;
-					display: block;
-					text-align: center;
-					background-color: $color-green;
-					color: white;
-					font-size: 14px;
-					@include border-radius(24px);
-				}
-			}
-		}
+		
 		.contacts{
 			padding: 0 0 0 25px;
 			font-size: 1.2em;
@@ -227,7 +205,6 @@ header {
 			flex: 1;
 
 			.badge{
-				display: none;
 				font-size: 0.6em;
 				position: absolute;
 				pointer-events: none;
@@ -245,12 +222,32 @@ header {
           transform: translateY(-50%);
 			}
 
-			.cash{				
-				min-width: 80px;
-
+			.social {
+				padding: 0 0 0 12px;
+				height: auto !important;
+				.flex {
+					align-items: center;
+					justify-content: flex-start;
+	
+					& > div {
+						padding: 0 5px;
+					}
+	
+					a {
+						padding: 0;
+						width: 24px;
+						line-height: 24px;
+						display: block;
+						text-align: center;
+						background-color: $color-green;
+						color: white;
+						font-size: 14px;
+						@include border-radius(24px);
+					}
+				}
 			}
 
-			.flex {
+			> .flex {
 				justify-content: flex-end;
 				& > div {
 					height: 40px;
@@ -370,6 +367,10 @@ header {
 		}
 	}
 
+	.left-sep{
+		flex-basis: 150px;
+	}
+
 	.main {
 		flex: 1;
 		& > .flex {
@@ -464,7 +465,8 @@ header {
 
 	.logo {
 		img {
-			max-height: 100px;
+			max-height: 40px;
+			height: 40px;
 			max-width: 100%;
 		}
 		position: relative;
@@ -797,19 +799,5 @@ header {
 				padding-left: 8px;
 			}
 		}
-	}
-}
-
-header .top .navs .cash .amount{
-	display: none;
-}
-
-body.ng-scope{
-	header .top .navs .cash .no-amount{
-		display: none;
-	}
-	header .top .navs .cash .amount,
-	header .top .navs .badge{
-		display: block !important;
 	}
 }
