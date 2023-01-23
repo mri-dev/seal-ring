@@ -2023,7 +2023,7 @@ body.singlepage{
 
 			&:hover, &.active{
 				a{
-					background: $color-green;
+					background: $color-green !important;
 					color: white;
 				}
 
